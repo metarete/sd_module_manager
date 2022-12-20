@@ -315,6 +315,8 @@ class SchedaPAIController extends AbstractController
     #[Route('/pdf/{id}', name: 'app_scheda_pai_pdf', methods: ['GET'])]
     public function generatePdf(SchedaPAI $schedaPAI)
     {
+        $em = $this->entityManager;
+        $assistitiRepository = $em->getRepository(Paziente::class);
         $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
         $valutazioniFiguraProfessionale = $schedaPAI->getIdValutazioneFiguraProfessionale();
         $parereMMG = $schedaPAI->getIdParereMmg();
@@ -325,6 +327,8 @@ class SchedaPAIController extends AbstractController
         $vas = $schedaPAI->getIdVas();
         $lesioni = $schedaPAI->getIdLesioni();
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
+        $idAssistito = $schedaPAI->getIdAssistito();
+        $assistito = $assistitiRepository->findOneById($idAssistito);
         $variabileTest = 1;
 
         // Configure Dompdf according to your needs
@@ -348,7 +352,8 @@ class SchedaPAIController extends AbstractController
             'vass' => $vas,
             'lesionis' => $lesioni,
             'chiusura_servizio' => $chiusuraServizio,
-            'variabileTest' => $variabileTest
+            'variabileTest' => $variabileTest,
+            'assistito' => $assistito
         ]);
         //$html .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
         // Load HTML to Dompdf
