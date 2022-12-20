@@ -4,6 +4,7 @@ namespace App\Controller\ControllerPAI;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Entity\User;
 use App\Entity\Paziente;
 use App\Entity\EntityPAI\Vas;
 use App\Entity\EntityPAI\SPMSQ;
@@ -15,13 +16,13 @@ use App\Entity\EntityPAI\SchedaPAI;
 use App\Form\FormPAI\SchedaPAIType;
 use App\Repository\SchedaPAIRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
+use App\Service\SDManagerClientApiService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\SDManagerClientApiService;
 
 #[Route('/scheda_pai')]
 class SchedaPAIController extends AbstractController
@@ -46,6 +47,7 @@ class SchedaPAIController extends AbstractController
         //assistiti
         $em = $this->entityManager;
         $assistitiRepository = $em->getRepository(Paziente::class);
+        $userRepository = $em->getRepository(User::class);
         $assistiti = $assistitiRepository->findAll();
         //controllo login
         $user = $this->getUser();
@@ -57,10 +59,14 @@ class SchedaPAIController extends AbstractController
         $idUser = $user->getId();
         //filtri
         $stato = $request->request->get('filtro_stato');
-        $ordinamentoId = $request->request->get('filtro_id');
+        $operatore = $request->request->get('filtro_operatore');
+        $lista = $userRepository->findAllUsername();
         $numeroSchedeVisibiliPerPagina = $request->request->get('filtro_numero_schede');
-
-
+        $listaUsername = [];
+        for( $i = 0; $i<count($lista); $i++){
+            $listaUsername[$i] = $lista[$i]['username'];
+        }
+        
         //calcolo tabella
         $schedaPais = null;
 
@@ -73,22 +79,31 @@ class SchedaPAIController extends AbstractController
 
 
         if ($ruoloUser[0] == "ROLE_ADMIN") {
-            if ($stato != null) {
-                $schedaPais = $schedaPAIRepository->selectStatoSchedePai($stato, $ordinamentoId, $page, $schedePerPagina);
-            } else {
-                if ($ordinamentoId == null || $ordinamentoId == "" || $ordinamentoId == 'Crescente') {
+            if ($stato == null || $stato == "") {
+                if($operatore == '' || $operatore == null || $operatore == 'tutti')
                     $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'ASC'), $schedePerPagina, $offset);
-                } else if ($ordinamentoId == 'Decrescente') {
-                    $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
-                }
+                else
+                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, null,$schedePerPagina, $page);
+            } else {
+                if($operatore == '' || $operatore == null || $operatore == 'tutti')
+                    $schedaPais = $schedaPAIRepository->selectStatoSchedePai($stato, $page, $schedePerPagina);
+                else
+                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, $stato,$schedePerPagina, $page);
             }
-        } else if ($ruoloUser[0] == "ROLE_USER") {
+        } 
+        
+        
+        
+        
+        /*else if ($ruoloUser[0] == "ROLE_USER") {
             if ($stato == null || $stato == "") {
                 $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $ordinamentoId, $schedePerPagina, $page);
             } else {
                 $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, $stato, $ordinamentoId, $schedePerPagina, $page);
             }
-        }
+        }*/
+
+
         //calcolo pagine per paginatore
         $totaleSchede = $schedaPAIRepository->contaSchedePai($ruoloUser[0], $idUser, $stato);
         $pagineTotali = ceil($totaleSchede / $schedePerPagina);
@@ -101,10 +116,11 @@ class SchedaPAIController extends AbstractController
             'pagina' => $page,
             'pagine_totali' => $pagineTotali,
             'schede_per_pagina' => $schedePerPagina,
-            'ordinamento' => $ordinamentoId,
+            'operatore' => $operatore,
             'stato' => $stato,
             'user' => $user,
             'assistiti' => $assistiti,
+            'listaUsername' => $listaUsername
         ]);
     }
 

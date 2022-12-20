@@ -39,7 +39,6 @@ class ScadenzarioController extends AbstractController
         $ruoloUser = $user->getRoles();
         $idUser = $user->getId();
         //filtri
-        $ordinamentoId = "Crescente";
         $numeroSchedeVisibiliPerPagina = 200;
 
 
@@ -57,7 +56,7 @@ class ScadenzarioController extends AbstractController
                 
         }
         else if ($ruoloUser[0] == "ROLE_USER") {
-            $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $ordinamentoId, $schedePerPagina, $page); 
+            $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page); 
         }
         
         return $this->render('scadenzario/index.html.twig', [

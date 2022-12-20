@@ -20,11 +20,12 @@
         </select>
         </div>
         <div class="col-md-2">
-        <p class="h6">Ordina</p>
-        <select class="d-inline form-select" name='filtro_id' onchange="this.form.submit()">
-                <option {% if ordinamento == '' %}selected{% endif %} value>Ordina</option>
-                <option {% if ordinamento == 'Crescente' %}selected{% endif %} value="Crescente">Crescente</option>
-                <option {% if ordinamento == 'Decrescente' %}selected{% endif %} value="Decrescente">Decrescente</option>
+        <p class="h6">Filtro Operatore</p>
+        <select class="d-inline form-select" name='filtro_operatore' onchange="this.form.submit()">
+                <option {% if operatore == '' %}selected{% endif %} value="">Tutti</option>
+                {% for userInLista in listaUsername %}
+                    <option {% if operatore == userInLista %}selected{% endif %} >{{userInLista}}</option>
+                {% endfor %}
         </select>
         </div>
         <div class="col-md-2">

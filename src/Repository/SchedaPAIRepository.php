@@ -74,7 +74,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
 
 
     //funzioni per utenti User
-    public function findUserSchedePai(int $idUser, string $stato = null, string $ordinamentoId = null, int $schedePerPagina = null, int $page = null): array
+    public function findUserSchedePai(int $idUser, string $stato = null, int $schedePerPagina = null, int $page = null): array
     {
         $qb = $this->createQueryBuilder('s')
 
@@ -98,14 +98,6 @@ class SchedaPAIRepository extends ServiceEntityRepository
             ->setParameter('stato', $stato);  
         }
         
-        if($ordinamentoId == null || $ordinamentoId == "Crescente"){
-            $qb 
-            ->orderBy('s.id', 'ASC');
-        }
-        else{
-            $qb 
-            ->orderBy('s.id', 'DESC');
-        }
         $qb->setFirstResult(($page - 1) * $schedePerPagina)->setMaxResults($schedePerPagina);
         return $qb ->getQuery()
                 ->getResult();
@@ -115,26 +107,49 @@ class SchedaPAIRepository extends ServiceEntityRepository
 
 
     //funzioni per utenti admin
-    public function selectStatoSchedePai(string $stato, string $ordinamentoId = null, int $page = null, int $schedePerPagina = null): array
+    public function selectStatoSchedePai(string $stato, int $page = null, int $schedePerPagina = null): array
     {
         
         $qb = $this->createQueryBuilder('s')
 
         ->Where('s.currentPlace = :stato')
-        ->setParameter('stato', $stato);
-        
-        if($ordinamentoId == null || $ordinamentoId == "Crescente"){
-            $qb
-            ->orderBy('s.id', 'ASC');
-        }
-        else{
-            $qb 
-            ->orderBy('s.id', 'DESC');
-        }
+        ->setParameter('stato', $stato)
+        ->orderBy('s.id', 'ASC');
+      
         $qb->setFirstResult(($page - 1) * $schedePerPagina)->setMaxResults($schedePerPagina);
         return $qb 
                 ->getQuery()
                 ->getResult();
+        
+    }
+    public function findStatoUsernameSchedePai(string $username, string $stato = null, int $schedePerPagina = null, int $page = null): array
+    {
+        $qb = $this->createQueryBuilder('s')
+
+        ->leftJoin('s.idOperatoreSecondarioInf', 's1')
+        ->leftJoin('s.idOperatoreSecondarioTdr', 's2')
+        ->leftJoin('s.idOperatoreSecondarioLog', 's3')
+        ->leftJoin('s.idOperatoreSecondarioAsa', 's4')
+        ->leftJoin('s.idOperatoreSecondarioOss', 's5')
+        ->Where('s.idOperatorePrincipale = :username')
+        ->orWhere('s1.username = :username')
+        ->orWhere('s2.username = :username')
+        ->orWhere('s3.username = :username')
+        ->orWhere('s4.username = :username')
+        ->orWhere('s5.username = :username')
+        ->setParameter('username', $username);
+
+
+        if($stato != null){
+            $qb 
+            ->andWhere('s.currentPlace = :stato')
+            ->setParameter('stato', $stato);  
+        }
+        
+        $qb->setFirstResult(($page - 1) * $schedePerPagina)->setMaxResults($schedePerPagina);
+        return $qb ->getQuery()
+                ->getResult();
+        
         
     }
 

@@ -35,6 +35,7 @@ class CreaOperatoreCommand extends Command
             ->addArgument('nome', InputArgument::REQUIRED, 'nome')
             ->addArgument('cognome', InputArgument::REQUIRED, 'cognome')
             ->addArgument('role',InputArgument::REQUIRED,'ruolo = scegli tra ROLE_USER e ROLE_ADMIN' )
+            ->addArgument('username',InputArgument::REQUIRED, 'username = scegli un username unico' )
         ;
     }
 
@@ -50,6 +51,7 @@ class CreaOperatoreCommand extends Command
         $role[0] = $input->getArgument('role');
         $isVerified = true;
         $email = $nome . '.' . $cognome . '@live.it';
+        $username = $input->getArgument('username');
 
         $hashedPassword = $this->userPasswordHasher->hashPassword(
             $user,
@@ -62,6 +64,7 @@ class CreaOperatoreCommand extends Command
         $user -> setRoles($role);
         $user -> setIsVerified($isVerified);
         $user -> setEmail($email);
+        $user -> setUsername($username);
         $userRepository->add($user, true);
         
 

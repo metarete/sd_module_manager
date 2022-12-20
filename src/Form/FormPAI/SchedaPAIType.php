@@ -25,16 +25,18 @@ class SchedaPAIType extends AbstractType
             ])
             ->add('idOperatorePrincipale', EntityType::class,[
                 'class'=> User::class,
+                'choice_label' => function (User $user) {
+                    return $user->getName() . ' ' . $user->getSurname();},
+                'label' => 'Operatore Principale',
                 //'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
             ])
             ->add('idOperatoreSecondarioInf', EntityType::class,[
                 'class'=> User::class,
-                'query_builder' => function (UserRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.id', 'ASC');
-                },
+                'choice_label' => function (User $user) {
+                    return $user->getName() . ' ' . $user->getSurname();},
+                'label' => 'Operatori Secondari Inf',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
@@ -42,24 +44,39 @@ class SchedaPAIType extends AbstractType
                
             ->add('idOperatoreSecondarioTdr', EntityType::class,[
                 'class'=> User::class,
+                'choice_label' => function (User $user) {
+                    return $user->getName() . ' ' . $user->getSurname();},
+                'label' => 'Operatori Secondari Tdr',    
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
             ])
             ->add('idOperatoreSecondarioLog', EntityType::class,[
                 'class'=> User::class,
+                'choice_label' => function (User $user) {
+                    return $user->getName() . ' ' . $user->getSurname();
+                },
+                'label' => 'Operatori Secondari Log',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
             ])
             ->add('idOperatoreSecondarioAsa', EntityType::class,[
                 'class'=> User::class,
+                'choice_label' => function (User $user) {
+                    return $user->getName() . ' ' . $user->getSurname();
+                },
+                'label' => 'Operatori Secondari Asa',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
             ])
             ->add('idOperatoreSecondarioOss', EntityType::class,[
                 'class'=> User::class,
+                'choice_label' => function (User $user) {
+                    return $user->getName() . ' ' . $user->getSurname();
+                },
+                'label' => 'Operatori Secondari Oss',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
