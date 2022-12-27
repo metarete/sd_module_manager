@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,6 +21,7 @@ class CreaOperatoreCommand extends Command
 {
     private $entityManager;
     private $userPasswordHasher;
+    protected static $defaultDescription = 'Creates a new user.';
 
     public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
@@ -32,9 +34,12 @@ class CreaOperatoreCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setHelp('Questo comando serve a creare un utente admin o user. Inserire in questo ordine i parametri: nome cognome ruolo(scegliere tra ROLE_USER e ROLE_ADMIN) email password e username.')
             ->addArgument('nome', InputArgument::REQUIRED, 'nome')
             ->addArgument('cognome', InputArgument::REQUIRED, 'cognome')
             ->addArgument('role',InputArgument::REQUIRED,'ruolo = scegli tra ROLE_USER e ROLE_ADMIN' )
+            ->addArgument('email', InputArgument::REQUIRED, 'email')
+            ->addArgument('password', InputArgument::REQUIRED, 'password')
             ->addArgument('username',InputArgument::REQUIRED, 'username = scegli un username unico' )
         ;
     }
@@ -47,10 +52,10 @@ class CreaOperatoreCommand extends Command
         $user = new User();
         $nome = $input->getArgument('nome');
         $cognome = $input->getArgument('cognome');
-        $password = 'prova1';
+        $password = $input->getArgument('password');
         $role[0] = $input->getArgument('role');
         $isVerified = true;
-        $email = $nome . '.' . $cognome . '@live.it';
+        $email = $input->getArgument('email');
         $username = $input->getArgument('username');
 
         $hashedPassword = $this->userPasswordHasher->hashPassword(
@@ -67,8 +72,12 @@ class CreaOperatoreCommand extends Command
         $user -> setUsername($username);
         $userRepository->add($user, true);
         
-
-        $io->success('Evviva funziona. Operatore creato. La password è prova1.');
+        $output->writeln('Nome: '.$input->getArgument('nome'));
+        $output->writeln('Cognome: '.$input->getArgument('cognome'));
+        $output->writeln('Ruolo: '.$input->getArgument('role'));
+        $output->writeln('Email: '.$input->getArgument('email'));
+        $output->writeln('Username: '.$input->getArgument('username'));
+        $io->success('Operatore creato con successo');
 
         return Command::SUCCESS;
     }
