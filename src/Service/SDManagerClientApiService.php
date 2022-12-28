@@ -151,6 +151,7 @@ class SDManagerClientApiService
                 $assistito->setComune($comune);
                 $assistito->setProvincia($provincia);
                 $assistito->setCap($cap);
+                $assistito->setIdSdManager($assistiti[$i]['id_utente']);
                 $assistitiRepository->add($assistito, true);
             }
             else{

@@ -58,7 +58,7 @@ class ScadenzarioController extends AbstractController
         else if ($ruoloUser[0] == "ROLE_USER") {
             $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page); 
         }
-        
+        dump($schedaPais);
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,

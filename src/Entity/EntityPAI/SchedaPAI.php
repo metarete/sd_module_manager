@@ -109,23 +109,23 @@ class SchedaPAI
     #[Assert\Type(DateTime::class)]
     private $dataFine;
 
-    #[ORM\Column(type: 'boolean')]
-    private $abilitaBarthel;
+    #[ORM\Column(type: 'boolean',)]
+    private $abilitaBarthel = true;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaBraden;
+    private $abilitaBraden = true;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaSpmsq;
+    private $abilitaSpmsq = true;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaTinetti;
+    private $abilitaTinetti = true;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaVas;
+    private $abilitaVas = true;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaLesioni;
+    private $abilitaLesioni = true;
 
     #[ORM\Column(type: 'integer')]
     private $numeroBarthelCorretto = 0;
@@ -146,22 +146,22 @@ class SchedaPAI
     private $numeroLesioniCorretto = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $frequenzaBarthel;
+    private $frequenzaBarthel = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $frequenzaBraden;
+    private $frequenzaBraden = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $frequenzaSpmsq;
+    private $frequenzaSpmsq = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $frequenzaTinetti;
+    private $frequenzaTinetti = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $frequenzaVas;
+    private $frequenzaVas = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $frequenzaLesioni;
+    private $frequenzaLesioni = 0;
 
     #[ORM\Column(type: 'integer')]
     private $numeroBarthelAdOggi = 0; 

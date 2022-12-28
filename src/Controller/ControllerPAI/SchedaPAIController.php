@@ -440,7 +440,7 @@ class SchedaPAIController extends AbstractController
     public function sincronizza()
     {
         $dataInizio= date("d-m-Y");
-        $dataFine = date('d-m-Y', strtotime('+3 years'));
+        $dataFine = date('d-m-Y', strtotime('+1 years'));
         $this->SdManagerClientApiService->sincAssistiti();
         $this->SdManagerClientApiService->sincOperatori();
         $this->SdManagerClientApiService->sincProgetti($dataInizio, $dataFine);

@@ -81,7 +81,7 @@ class PazienteRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
         ->select('u.nome')
-        ->where('u.id = :id')
+        ->where('u.idSdManager = :id')
         ->setParameter('id', $value)
         ->getQuery()
         ->getSingleScalarResult();
@@ -91,7 +91,7 @@ class PazienteRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
         ->select('u.cognome')
-        ->where('u.id = :id')
+        ->where('u.idSdManager = :id')
         ->setParameter('id', $value)
         ->getQuery()
         ->getSingleScalarResult();

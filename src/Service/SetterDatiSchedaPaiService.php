@@ -23,7 +23,6 @@ Class SetterDatiSchedaPaiService
         $cognomeAssistito = $assistitiRepository->getSurnameById($schedaPAI->getIdAssistito());
         $schedaPAI->setNomeAssistito($nomeAssistito);
         $schedaPAI->setCognomeAssistito($cognomeAssistito);
-        dump($nomeAssistito);
         $em->flush();
     }
 }

@@ -34,6 +34,9 @@ class Paziente
     #[ORM\Column(length: 255)]
     private ?int $cap;
 
+    #[ORM\Column]
+    private ?int $idSdManager;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,17 @@ class Paziente
     public function setCap(int $cap): self
     {
         $this->cap = $cap;
+
+        return $this;
+    }   
+    public function getIdSdManager(): ?int
+    {
+        return $this->idSdManager;
+    }
+
+    public function setIdSdManager(int $idSdManager): self
+    {
+        $this->idSdManager = $idSdManager;
 
         return $this;
     }   
