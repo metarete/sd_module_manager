@@ -41,7 +41,6 @@
 						<th></th>
 						<th></th>
 						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,7 +54,7 @@
 								</td>
 								<td data-title='Assistito'>
 									{% for i in assistiti %}
-										{% if i.id == scheda_pai.idAssistito %}
+										{% if i.idSdManager == scheda_pai.idAssistito %}
 											{{ i.nome }}
 											{{ i.cognome }}
 											<br>
@@ -82,7 +81,15 @@
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id}) }}">Visualizza scheda Pai</a>
 											</li>
 											<li>
-												<a class="dropdown-item {% if user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id}) }}">Modifica scheda Pai</a>
+												<a class="dropdown-item 
+												{% if user.roles[0] == 'ROLE_ADMIN' %}
+
+												{% else %}
+													{% if user.username != scheda_pai.idOperatorePrincipale.username %}
+														disabled
+													{% endif %}
+												{% endif %}" 
+												href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id}) }}">Modifica scheda Pai</a>
 											</li>
 											<li>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'id': scheda_pai.id, '_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')">Elimina scheda Pai</a>
@@ -102,7 +109,15 @@
 												<a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' or user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id})}}">Parere MMG</a>
 											</li>
 											<li>
-												<a class="dropdown-item {% if user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id})}}">Chiusura servizio</a>
+												<a class="dropdown-item 
+												{% if user.roles[0] == 'ROLE_ADMIN' %}
+
+												{% else %}
+													{% if user.username != scheda_pai.idOperatorePrincipale.username %}
+														disabled
+													{% endif %}
+												{% endif %}" 
+												href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id})}}">Chiusura servizio</a>
 											</li>
 											<li>
 												<a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBarthel == false %}disabled{% endif %}" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id})}}">Barthel</a>
@@ -147,7 +162,7 @@
 											<tbody>
 												<td data-title='Codice Fiscale Assistito'>
 													{% for i in assistiti %}
-														{% if i.id == scheda_pai.idAssistito %}
+														{% if i.idSdManager == scheda_pai.idAssistito %}
 															{% if i.codiceFiscale is empty %}
                                                             Nessuno
                                                             {% else %}

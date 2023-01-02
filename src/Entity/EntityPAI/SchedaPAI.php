@@ -110,22 +110,22 @@ class SchedaPAI
     private $dataFine;
 
     #[ORM\Column(type: 'boolean',)]
-    private $abilitaBarthel = true;
+    private $abilitaBarthel = false;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaBraden = true;
+    private $abilitaBraden = false;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaSpmsq = true;
+    private $abilitaSpmsq = false;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaTinetti = true;
+    private $abilitaTinetti = false;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaVas = true;
+    private $abilitaVas = false;
 
     #[ORM\Column(type: 'boolean')]
-    private $abilitaLesioni = true;
+    private $abilitaLesioni = false;
 
     #[ORM\Column(type: 'integer')]
     private $numeroBarthelCorretto = 0;

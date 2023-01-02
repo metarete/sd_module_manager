@@ -397,17 +397,17 @@ class SchedaPAIController extends AbstractController
         $vasRepository = $em->getRepository(Vas::class);
         $lesioniRepository = $em->getRepository(Lesioni::class);
         $numeroBarthelPresenti = $barthelRepository->findByBarthelPerScheda($idScheda);
-        $numeroBarthelCorretto = $schedaPAI->getNumeroBarthel();
+        $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto();
         $numeroBradenPresenti = $bradenRepository->findByBradenPerScheda($idScheda);
-        $numeroBradenCorretto = $schedaPAI->getNumeroBraden();
+        $numeroBradenCorretto = $schedaPAI->getNumeroBradenCorretto();
         $numeroSpmsqPresenti = $spmsqRepository->findBySpmsqPerScheda($idScheda);
-        $numeroSpmsqCorretto = $schedaPAI->getNumeroSpmsq();
+        $numeroSpmsqCorretto = $schedaPAI->getNumeroSpmsqCorretto();
         $numeroTinettiPresenti = $tinettiRepository->findByTinettiPerScheda($idScheda);
-        $numeroTinettiCorretto = $schedaPAI->getNumeroTinetti();
+        $numeroTinettiCorretto = $schedaPAI->getNumeroTinettiCorretto();
         $numeroVasPresenti = $vasRepository->findByVasPerScheda($idScheda);
-        $numeroVasCorretto = $schedaPAI->getNumeroVas();
+        $numeroVasCorretto = $schedaPAI->getNumeroVasCorretto();
         $numeroLesioniPresenti = $lesioniRepository->findByLesioniPerScheda($idScheda);
-        $numeroLesioniCorretto = $schedaPAI->getNumeroLesioni();
+        $numeroLesioniCorretto = $schedaPAI->getNumeroLesioniCorretto();
         $numeroOperatoriInf = count($schedaPAI->getidOperatoreSecondarioInf());
         $numeroOperatoriTdr = count($schedaPAI->getidOperatoreSecondarioTdr());
         $numeroOperatoriLog = count($schedaPAI->getidOperatoreSecondarioLog());
@@ -416,8 +416,6 @@ class SchedaPAIController extends AbstractController
         $numeroValutazioneProfessionaliMinime = $numeroOperatoriInf + $numeroOperatoriTdr + $numeroOperatoriLog + $numeroOperatoriAsa + $numeroOperatoriOss;
         $numeroValutazioniProfessionali = count($schedaPAI->getIdValutazioneFiguraProfessionale());
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
-        dump($numeroValutazioneProfessionaliMinime);
-        dump($numeroValutazioniProfessionali);
         
         if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $chiusuraServizio!=null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime)
         {
@@ -431,7 +429,7 @@ class SchedaPAIController extends AbstractController
             }
         }   
         else{
-            //stampa errore
+            //messaggio di errore. non posso chiudere la scheda.
         }
 
         return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);

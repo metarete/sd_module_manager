@@ -87,7 +87,7 @@
                 <td data-title='Data Fine'>{{ scheda_pai.dataFine|date('Y-m-d')}} </td>
                 <td data-title='Assistito'>
                 {% for i in assistiti %}
-                 {% if i.id == scheda_pai.idAssistito %}
+                 {% if i.idSdManager == scheda_pai.idAssistito %}
                     {{ i.nome }}
                     {{ i.cognome }}
                     <br>
@@ -109,14 +109,14 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_scheda_pai_anagrafica_assistito', {'id': scheda_pai.id}) }}">Visualizza Dati Assistito</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id}) }}">Visualizza scheda Pai</a></li>
-                        <li><a class="dropdown-item {% if user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}"href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id}) }}">Modifica scheda Pai</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id}) }}">Modifica scheda Pai</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'id': scheda_pai.id, '_token':  csrf_token('delete' ~ scheda_pai.id) }) }}"onclick="return confirm('Sei sicuro di voler eliminare la scheda?')">Elimina scheda Pai</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id}) }}">Chiudi Scheda</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace != 'approvata' or user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id})}}">Valutazione Generale</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' %}disabled{% endif %}" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id})}}">Valutazione Figura Professionale</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' or user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id})}}">Parere MMG</a></li>
-                        <li><a class="dropdown-item {% if user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id})}}">Chiusura servizio</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id})}}">Chiusura servizio</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBarthel == false %}disabled{% endif %}" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id})}}">Barthel</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBraden == false %}disabled{% endif %}" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id})}}">Braden</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaSpmsq == false %}disabled{% endif %}" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id})}}">SPMSQ</a></li>
@@ -148,7 +148,7 @@
                         <tbody>
                         <td data-title='Codice Fiscale Assistito'>
 						{% for i in assistiti %}
-						    {% if i.id == scheda_pai.idAssistito %}
+						    {% if i.idSdManager == scheda_pai.idAssistito %}
 								{% if i.codiceFiscale is empty %}
                                     Nessuno
                                 {% else %}
@@ -249,6 +249,6 @@
       <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':pagine_totali}) }}'; document.getElementById('my_form').submit();">>></a></li>
   </ul>
 </nav>
-</div>
+
 {% endblock %}
 

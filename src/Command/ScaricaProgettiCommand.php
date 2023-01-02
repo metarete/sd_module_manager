@@ -17,6 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ScaricaProgettiCommand extends Command
 {
     private $sdManagerClientApiService;
+    protected static $defaultDescription = 'Scarica progetti';
 
     public function __construct(SDManagerClientApiService $sDManagerClientApiService)
     {
@@ -27,8 +28,9 @@ class ScaricaProgettiCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('data_inizio', InputArgument::OPTIONAL, 'data inizio')
-            ->addArgument('data_fine', InputArgument::OPTIONAL, 'data fine')
+            ->setHelp('Questo comando serve a scaricare tutti i progetti compresi tra le due date inserite in input. ')
+            ->addArgument('data_inizio', InputArgument::REQUIRED, 'data inizio = data nel formato GG-MM-AAAA')
+            ->addArgument('data_fine', InputArgument::REQUIRED, 'data fine = data nel formato GG-MM-AAAA')
         ;
     }
     

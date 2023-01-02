@@ -115,7 +115,7 @@ class PazienteRepository extends ServiceEntityRepository
     public function findOneById($value): ?Paziente
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.id = :id')
+            ->andWhere('p.idSdManager = :id')
             ->setParameter('id', $value)
             ->getQuery()
             ->getOneOrNullResult()
