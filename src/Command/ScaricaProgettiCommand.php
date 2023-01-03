@@ -42,7 +42,8 @@ class ScaricaProgettiCommand extends Command
         $this->sdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
        
         
-        $io->success('Evviva funziona.');
+        $io->success('Progetti aggiornati con successo: '.$this->sdManagerClientApiService->getNumeroProgettiAggiornati());
+        $io->success('Progetti nuovi scaricati con successo: ' .$this->sdManagerClientApiService->getNumeroProgettiScaricati());
         return Command::SUCCESS;
     }
 

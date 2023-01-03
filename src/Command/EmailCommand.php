@@ -17,6 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class EmailCommand extends Command
 {
     private $mailer;
+    protected static $defaultDescription = 'Comando di invio mail agli operatori e agli admin.';
 
     public function __construct(MailerGenerator $mailer)
     {
@@ -25,12 +26,19 @@ class EmailCommand extends Command
 
     }
 
+    protected function configure(): void
+    {
+        $this
+            ->setHelp('Questo comando serve a inviare una volta al giorno le mail a tutti gli operatori con i relativi compiti da svolgere.');
+        ;
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $this->mailer->EmailAdmin();
         $this->mailer->EmailOperatore();
-        $io->success('Evviva funziona. Email mandate');
+        $io->success('Email mandate con successo a tutti gli operatori.');
 
         return Command::SUCCESS;
 

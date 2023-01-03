@@ -15,11 +15,24 @@ class SDManagerClientApiService
     private $entityManager;
     private $userPasswordHasher;
 
+    private $numeroProgettiScaricati = 0;
+    private $numeroProgettiAggiornati = 0;
+
     public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->client = $client;
         $this->entityManager = $entityManager;
         $this->userPasswordHasher = $userPasswordHasher;
+    }
+
+    public function getNumeroProgettiScaricati(): int
+    {
+        return $this->numeroProgettiScaricati;
+    }
+
+    public function getNumeroProgettiAggiornati(): int
+    {
+        return $this->numeroProgettiAggiornati;
     }
 
     public function getProgetti(string $dataInizio, string $dataFine ): array
@@ -124,9 +137,11 @@ class SDManagerClientApiService
                 $schedaPai->setCurrentPlace('nuova');
                 $schedaPai->setIdConsole('demo');
                 $schedaPAIRepository->add($schedaPai, true);
+                $this->numeroProgettiScaricati++;
             }
             else{
                 $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine);
+                $this->numeroProgettiAggiornati++;
             }
 
         }

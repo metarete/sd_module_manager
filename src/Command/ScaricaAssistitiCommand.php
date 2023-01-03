@@ -33,7 +33,7 @@ class ScaricaAssistitiCommand extends Command
         
         $this->sdManagerClientApiService->sincAssistiti();
 
-        $io->success('Evviva funziona.');
+        $io->success('Assistiti aggiornati con successo.');
 
         return Command::SUCCESS;
     }

@@ -19,6 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ApprovaSchedaPaiCommand extends Command
 {
     private $entityManager;
+    protected static $defaultDescription = 'Approva scheda pai';
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -30,6 +31,7 @@ class ApprovaSchedaPaiCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setHelp('Questo comando serve ad approvare una scheda pai e a renderla compilabile dagli operatore coinvolti.')
             ->addArgument('id_scheda', InputArgument::REQUIRED, 'id scheda')
             
         ;
@@ -42,12 +44,13 @@ class ApprovaSchedaPaiCommand extends Command
         $em = $this->entityManager;
         $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
         $schedaPai = $schedaPAIRepository->findOneBySomeField($idScheda);
-        $schedaPai->setCurrentPlace('approvata');
-        $em->flush();
-
-
-
-        $io->success('Evviva funziona. Approvata scheda pai');
+        if($schedaPai->getIdOperatorePrincipale()== null)
+            $io->error('Operatore principale mancante. Impossibile approvare la scheda pai.');
+        else{
+            $schedaPai->setCurrentPlace('approvata');
+            $em->flush();
+            $io->success('Approvata scheda pai ' .$idScheda);
+        }
 
         return Command::SUCCESS;
     }

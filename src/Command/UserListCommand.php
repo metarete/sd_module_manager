@@ -18,6 +18,7 @@ class UserListCommand extends Command
 {
 
     private $em;
+    protected static $defaultDescription = 'Elenca gli utenti.';
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -29,20 +30,24 @@ class UserListCommand extends Command
 
     protected function configure(): void
     {
+        $this
+            ->setHelp('Questo comando serve a elencare tutti gli utenti')
+        ;
+            
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
         $table = new Table($output);
-        $table->setHeaders(['Id', 'Email', 'First NAme', 'Last Name', 'Roles', 'Enabled']);
+        $table->setHeaders(['Id', 'Email', 'First NAme', 'Last Name', 'Roles','Username', 'Enabled', 'SD Manager Operator']);
 
         // recupera utenti
         $userRepo = $this->em->getRepository(User::class);
         $users = $userRepo->findAll();
         $arrayRows = [];
         foreach ($users as $user) {
-            $arrayRows[] = [$user->getId(), $user->getEmail(), $user->getName(), $user->getSurname(), implode(",", $user->GetRoles()), ($user->isVerified()) ? 'Y' : 'N'];
+            $arrayRows[] = [$user->getId(), $user->getEmail(), $user->getName(), $user->getSurname(), implode(",", $user->GetRoles()), $user->getUsername() , ($user->isVerified()) ? 'Y' : 'N', ($user->isSdManagerOperatore()) ? 'Y' : 'N'];
         }
         $table->setRows($arrayRows);
         $table->render();

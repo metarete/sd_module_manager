@@ -38,7 +38,7 @@ class SchedaPaiCommand extends Command
         $userRepository = $em ->getRepository(User::class);
 
         $oggi = new DateTime('now');
-        $fine = new DateTime('2022-10-24');
+        $fine = new DateTime('2023-10-24');
         $schedaPai->setDataInizio($oggi);
         $schedaPai->setDataFine($fine);
 
@@ -75,7 +75,7 @@ class SchedaPaiCommand extends Command
 
        
 
-        $io->success('Evviva funziona. Nuova scheda creata');
+        $io->success('Simulazione completata. Nuova scheda creata');
 
         return Command::SUCCESS;
     }
