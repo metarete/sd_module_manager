@@ -16,13 +16,13 @@ use App\Entity\EntityPAI\SchedaPAI;
 use App\Form\FormPAI\SchedaPAIType;
 use App\Repository\SchedaPAIRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
 use App\Service\SDManagerClientApiService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 #[Route('/scheda_pai')]
 class SchedaPAIController extends AbstractController
@@ -37,6 +37,7 @@ class SchedaPAIController extends AbstractController
         $this->workflow = $schedePaiCreatingStateMachine;
         $this->entityManager = $entityManager;
         $this->SdManagerClientApiService = $SdManagerClientApiService;
+        
     }
 
 
@@ -240,6 +241,7 @@ class SchedaPAIController extends AbstractController
     {
         $form = $this->createForm(SchedaPAIType::class, $schedaPAI);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $frequenzaBarthel = $schedaPAI->getFrequenzaBarthel();
@@ -290,9 +292,10 @@ class SchedaPAIController extends AbstractController
             $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
 
             $schedaPAIRepository->add($schedaPAI, true);
-            
 
+            
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+            
         }
 
         return $this->renderForm('scheda_pai/edit.html.twig', [

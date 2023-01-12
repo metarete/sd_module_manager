@@ -63,7 +63,7 @@ class ValutazioneGeneraleController extends AbstractController
                 $this->workflow->apply($schedaPai, 'attiva');
             }
             $this->entityManager->flush();
-            
+
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 

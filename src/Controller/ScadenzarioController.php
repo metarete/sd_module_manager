@@ -22,9 +22,9 @@ class ScadenzarioController extends AbstractController
 
 
     #[Route('/{page}', name: 'app_scadenzario_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
-    public function index( int $page = 1): Response
+    public function index( int $page = 1 ): Response
     {
-
+        
         $em = $this->entityManager;
         $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
         //assistiti
@@ -59,12 +59,15 @@ class ScadenzarioController extends AbstractController
             $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page); 
         }
         
+
+        
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,
             'schede_per_pagina' => $schedePerPagina,
             'user' => $user,
             'assistiti' => $assistiti,
+            
         ]);
     }
 }
