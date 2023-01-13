@@ -3,11 +3,11 @@
 {% block title %}Edit AltraTipologiaAssistenza{% endblock %}
 
 {% block body %}
-    <h1>Edit AltraTipologiaAssistenza</h1>
+    <h1>Modifica Tipologia Assistenza</h1>
 
-    {{ include('controller_pai/altra_tipologia_assistenza/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('controller_pai/altra_tipologia_assistenza/_form.html.twig', {'button_label': 'Modifica'}) }}
 
-    <a href="{{ path('app_controller_pai_altra_tipologia_assistenza_index') }}">back to list</a>
+    <a class="btn btn-danger" href="{{ path('app_controller_pai_altra_tipologia_assistenza_index') }}">Indietro</a>
 
     {{ include('controller_pai/altra_tipologia_assistenza/_delete_form.html.twig') }}
 {% endblock %}

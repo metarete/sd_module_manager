@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit Bisogni</h1>
 
-    {{ include('controller_pai/bisogni/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('controller_pai/bisogni/_form.html.twig', {'button_label': 'Modifica'}) }}
 
-    <a href="{{ path('app_controller_pai_bisogni_index') }}">back to list</a>
+     <a class="btn btn-danger" href="{{ path('app_controller_pai_bisogni_index') }}">Indietro</a>
 
     {{ include('controller_pai/bisogni/_delete_form.html.twig') }}
 {% endblock %}

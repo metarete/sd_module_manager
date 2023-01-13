@@ -3,14 +3,14 @@
 {% block title %}AltraTipologiaAssistenza index{% endblock %}
 
 {% block body %}
-    <h1>AltraTipologiaAssistenza index</h1>
+    <h1>Altra Tipologia Assistenza</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
-                <th>actions</th>
+                <th>Operazioni</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +19,17 @@
                 <td>{{ altra_tipologia_assistenza.id }}</td>
                 <td>{{ altra_tipologia_assistenza.nome }}</td>
                 <td>
-                    <a href="{{ path('app_controller_pai_altra_tipologia_assistenza_show', {'id': altra_tipologia_assistenza.id}) }}">show</a>
-                    <a href="{{ path('app_controller_pai_altra_tipologia_assistenza_edit', {'id': altra_tipologia_assistenza.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_controller_pai_altra_tipologia_assistenza_show', {'id': altra_tipologia_assistenza.id}) }}">Visualizza</a>
+                    <a class="btn btn-primary" href="{{ path('app_controller_pai_altra_tipologia_assistenza_edit', {'id': altra_tipologia_assistenza.id}) }}">Modifica</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Nessuna tipologia disponibile</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_controller_pai_altra_tipologia_assistenza_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_controller_pai_altra_tipologia_assistenza_new') }}">Crea nuova tipologia</a>
 {% endblock %}

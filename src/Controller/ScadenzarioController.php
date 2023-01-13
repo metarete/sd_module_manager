@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 #[Route('/scadenzario')]
 class ScadenzarioController extends AbstractController
 {
@@ -59,7 +60,9 @@ class ScadenzarioController extends AbstractController
             $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page); 
         }
         
-
+        //setto pagina di partenza
+        $pathName = 'app_scadenzario_index';
+        
         
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
@@ -67,6 +70,7 @@ class ScadenzarioController extends AbstractController
             'schede_per_pagina' => $schedePerPagina,
             'user' => $user,
             'assistiti' => $assistiti,
+            'pathName' => $pathName
             
         ]);
     }

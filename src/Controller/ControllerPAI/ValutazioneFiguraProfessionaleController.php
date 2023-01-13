@@ -37,8 +37,8 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_valutazione_figura_professionale_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    #[Route('/{pathName}/new', name: 'app_valutazione_figura_professionale_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, string $pathName): Response
     {
         $valutazioneFiguraProfessionale = new ValutazioneFiguraProfessionale();
         $form = $this->createForm(ValutazioneFiguraProfessionaleFormType::class, $valutazioneFiguraProfessionale);
@@ -55,7 +55,11 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             $valutazioneFiguraProfessionaleRepository->add($valutazioneFiguraProfessionale, true);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_valutazione_figura_professionale_index', [], Response::HTTP_SEE_OTHER);
+            if($pathName == 'app_scadenzario_index'){
+                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else
+                return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('valutazione_figura_professionale/new.html.twig', [

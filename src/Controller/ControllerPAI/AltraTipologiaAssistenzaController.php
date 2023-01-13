@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/controller_pai_altra_tipologia_assistenza')]
+#[Route('/altra_tipologia_assistenza')]
 class AltraTipologiaAssistenzaController extends AbstractController
 {
     #[Route('/', name: 'app_controller_pai_altra_tipologia_assistenza_index', methods: ['GET'])]

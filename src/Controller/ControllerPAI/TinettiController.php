@@ -37,8 +37,8 @@ class TinettiController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_tinetti_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    #[Route('/{pathName}/new', name: 'app_tinetti_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, string $pathName): Response
     {
         $tinetti = new Tinetti();
         $form = $this->createForm(TinettiFormType::class, $tinetti);
@@ -56,7 +56,11 @@ class TinettiController extends AbstractController
             $this->entityManager->flush();
 
 
-            return $this->redirectToRoute('app_tinetti_index', [], Response::HTTP_SEE_OTHER);
+            if($pathName == 'app_scadenzario_index'){
+                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else
+                return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('tinetti/new.html.twig', [

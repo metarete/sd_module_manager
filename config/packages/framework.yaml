@@ -6,8 +6,9 @@ framework:
     http_client:
         default_options:
             headers:
-                'WS-SDMANAGER-APIKEY': '701a60e5d9184777d8689ad6b2a7d3a386e47fc3'
+                'WS-SDMANAGER-APIKEY': '9092f13daa057447ae12f307e072ca0a67e970f1'
                 'WS-SDMANAGER-CONSOLE-ID': 'demo'
+    #'701a60e5d9184777d8689ad6b2a7d3a386e47fc3' key personale
     #9092f13daa057447ae12f307e072ca0a67e970f1 key ip metarete
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.

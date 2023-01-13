@@ -3,9 +3,9 @@
 {% block title %}New AltraTipologiaAssistenza{% endblock %}
 
 {% block body %}
-    <h1>Create new AltraTipologiaAssistenza</h1>
+    <h1>Crea nuova Tipologia Assistenza</h1>
 
     {{ include('controller_pai/altra_tipologia_assistenza/_form.html.twig') }}
 
-    <a href="{{ path('app_controller_pai_altra_tipologia_assistenza_index') }}">back to list</a>
+    <a class="btn btn-danger" href="{{ path('app_controller_pai_altra_tipologia_assistenza_index') }}">Indietro</a>
 {% endblock %}

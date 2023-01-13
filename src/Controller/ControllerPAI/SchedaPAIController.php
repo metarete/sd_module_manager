@@ -112,6 +112,9 @@ class SchedaPAIController extends AbstractController
         if ($pagineTotali == 0)
             $pagineTotali = 1;
         
+        //nome path
+        $pathName = 'app_scheda_pai_index';
+
         return $this->render('scheda_pai/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,
@@ -121,7 +124,8 @@ class SchedaPAIController extends AbstractController
             'stato' => $stato,
             'user' => $user,
             'assistiti' => $assistiti,
-            'listaUsername' => $listaUsername
+            'listaUsername' => $listaUsername,
+            'pathName' => $pathName
         ]);
     }
 
@@ -236,12 +240,12 @@ class SchedaPAIController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_scheda_pai_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository): Response
+    #[Route('/{pathName}/{id}/edit/', name: 'app_scheda_pai_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository, string $pathName): Response
     {
         $form = $this->createForm(SchedaPAIType::class, $schedaPAI);
         $form->handleRequest($request);
-        
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $frequenzaBarthel = $schedaPAI->getFrequenzaBarthel();
@@ -293,8 +297,12 @@ class SchedaPAIController extends AbstractController
 
             $schedaPAIRepository->add($schedaPAI, true);
 
-            
-            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+           
+            if($pathName == 'app_scadenzario_index'){
+                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else
+                return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
             
         }
 
@@ -312,7 +320,8 @@ class SchedaPAIController extends AbstractController
             $schedaPAIRepository->remove($schedaPAI, true);
         }
 
-        return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+       
+            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/pdf/{id}', name: 'app_scheda_pai_pdf', methods: ['GET'])]
@@ -388,8 +397,8 @@ class SchedaPAIController extends AbstractController
             'variabileTest' => $variabileTest
         ]);
     }
-    #[Route('/chiusura_scheda/{id}', name: 'app_scheda_pai_chiusura', methods: ['GET'])]
-    public function chiudiScheda(SchedaPAI $schedaPAI): Response
+    #[Route('/{pathName}/chiusura_scheda/{id}', name: 'app_scheda_pai_chiusura', methods: ['GET'])]
+    public function chiudiScheda(SchedaPAI $schedaPAI, string $pathName): Response
     {
         $idScheda = $schedaPAI->getId();
         $em = $this->entityManager;
@@ -432,10 +441,14 @@ class SchedaPAIController extends AbstractController
             }
         }   
         else{
-            //messaggio di errore. non posso chiudere la scheda.
+            return new Response('Impossibile chiudere la scheda.');
         }
 
-        return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+        if($pathName == 'app_scadenzario_index'){
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+        }
+        else
+            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/sincronizza_progetti', name: 'app_scheda_pai_sincronizza', methods: ['GET'])]
     public function sincronizza()

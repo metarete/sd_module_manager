@@ -37,8 +37,8 @@ class BarthelController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_barthel_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    #[Route('/{pathName}/new', name: 'app_barthel_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, string $pathName): Response
     {
         $barthel = new Barthel();
         $form = $this->createForm(BarthelFormType::class, $barthel);
@@ -55,7 +55,11 @@ class BarthelController extends AbstractController
             $barthelRepository->add($barthel, true);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_barthel_index', [], Response::HTTP_SEE_OTHER);
+            if($pathName == 'app_scadenzario_index'){
+                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else
+                return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('barthel/new.html.twig', [

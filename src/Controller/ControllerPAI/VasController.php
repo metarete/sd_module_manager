@@ -37,8 +37,8 @@ class VasController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_vas_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    #[Route('/{pathName}/new', name: 'app_vas_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, string $pathName): Response
     {
         $vas = new Vas();
         $form = $this->createForm(VasFormType::class, $vas);
@@ -56,7 +56,11 @@ class VasController extends AbstractController
             $this->entityManager->flush();
 
 
-            return $this->redirectToRoute('app_vas_index', [], Response::HTTP_SEE_OTHER);
+            if($pathName == 'app_scadenzario_index'){
+                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else
+                return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('vas/new.html.twig', [

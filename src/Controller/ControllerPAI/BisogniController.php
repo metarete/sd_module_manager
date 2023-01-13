@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/controller_pai_bisogni')]
+#[Route('/bisogni')]
 class BisogniController extends AbstractController
 {
     #[Route('/', name: 'app_controller_pai_bisogni_index', methods: ['GET'])]
