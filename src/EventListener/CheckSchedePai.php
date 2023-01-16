@@ -43,6 +43,7 @@ class CheckSchedePai implements EventSubscriberInterface
         
         $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
         $this->setterDatiSchedePaiService->settaDati($entity);
+        dump($entity);
         
     }
     public function postPersist(LifecycleEventArgs $args): void

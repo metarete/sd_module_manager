@@ -37,4 +37,7 @@ framework:
                 chiudi_e_rinnova:
                     from: in_attesa_di_chiusura
                     to: chiusa_con_rinnovo
+                approva_per_cancellazione:
+                    from: attiva
+                    to: approvata
                 

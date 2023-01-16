@@ -5,19 +5,17 @@ namespace App\Form\FormPAI;
 use App\Doctrine\DBAL\Type\ISS;
 use App\Doctrine\DBAL\Type\FANF;
 use App\Doctrine\DBAL\Type\PANF;
-use App\Entity\EntityPAI\Bisogni;
 use App\Doctrine\DBAL\Type\Disturbi;
 use App\Doctrine\DBAL\Type\Autonomia;
 use App\Doctrine\DBAL\Type\Valutazione;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\EntityPAI\ValutazioneGenerale;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\EntityPAI\AltraTipologiaAssistenza;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 
 class ValutazioneGeneraleFormType extends AbstractType
@@ -61,11 +59,23 @@ class ValutazioneGeneraleFormType extends AbstractType
                 'choices' => $issChoices
             ])
             
-            ->add('altra_tipologia_assistenza', EntityType::class,[
-                'class'=> AltraTipologiaAssistenza::class,
-                'expanded'=> true,
-                'multiple'=> true,
+            ->add('buonoSociale')
+
+            ->add('trasporti')
+
+            ->add('voucherSociale')
+
+            ->add('sad')
+
+            ->add('pasti')
+
+            ->add('assistenzaDomiciliare',CheckboxType::class, [
+                'label'    => 'Assistenza Domiciliare Socio-Educativa',
+                'required' => false,
             ])
+
+            ->add('contributoCaregiver')
+
             ->add('uso_servizi_igenici', ChoiceType::class,[
                 'choices' => $autonomiaChoices
             ])
@@ -96,11 +106,103 @@ class ValutazioneGeneraleFormType extends AbstractType
             ->add('diagnosi', TextType::class, [
                 'attr' => array('style' => 'height:100px')
             ])
-            ->add('bisogni', EntityType::class,[
-                'class'=> Bisogni::class,
-                'expanded'=> true,
-                'multiple'=> true,
+            
+            ->add('broncoaspirazione',CheckboxType::class, [
+                'label'    => 'Broncoaspirazione/Drenaggio posturale',
+                'required' => false,
             ])
+            ->add('ossigenoTerapia')
+            ->add('ventiloTerapia')
+            ->add('tracheotomia')
+            ->add('alimentazioneAssistita')
+            ->add('alimentazioneEnterale')
+            ->add('alimentazioneParenterale')
+            ->add('gestioneStomia',CheckboxType::class, [
+                'label'    => 'Gestione della stomia',
+                'required' => false,
+            ])
+            ->add('eliminazioneUrina',CheckboxType::class, [
+                'label'    => 'Eliminazione urinaria/intestinale',
+                'required' => false,
+            ])
+            ->add('alterazioneSonno',CheckboxType::class, [
+                'label'    => 'Alterazione del ritmo sonno/sveglia',
+                'required' => false,
+            ])
+            ->add('educazioneTerapeutica',CheckboxType::class, [
+                'label'    => 'Educazione terapeutica (addestramento/nursing)',
+                'required' => false,
+            ])
+            ->add('ulcerePrimoSecondoGrado',CheckboxType::class, [
+                'label'    => 'Ulcere da decubito di 1 e 2 grado',
+                'required' => false,
+            ])
+            ->add('ulcereTerzoQuartoGrado',CheckboxType::class, [
+                'label'    => 'Ulcere da decubito di 3 e 4 grado',
+                'required' => false,
+            ])
+            ->add('ulcereCutaneePrimoSecondoGrado',CheckboxType::class, [
+                'label'    => 'Ulcere curanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 1 e 2 grado',
+                'required' => false,
+            ])
+            ->add('ulcereCutaneeTerzoQuartoGrado',CheckboxType::class, [
+                'label'    => 'Ulcere curanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 3 e 4 grado',
+                'required' => false,
+            ])
+            ->add('prelieviVenosiNonOccasionali')
+            ->add('prelieviVenosiOccasionali')
+            ->add('ecg')
+            ->add('telemetria')
+            ->add('proceduraTerapeutica',CheckboxType::class, [
+                'label'    => 'Procedura Terapeutica (accesso venoso sottocute/intramuscolo)',
+                'required' => false,
+            ])
+            ->add('gestioneCatetere',CheckboxType::class, [
+                'label'    => 'Gestione catetere centrale',
+                'required' => false,
+            ])
+            ->add('trasfusioni')
+            ->add('controlloDolore',CheckboxType::class, [
+                'label'    => 'Controllo del dolore',
+                'required' => false,
+            ])
+            ->add('assistenzaOncologica',CheckboxType::class, [
+                'label'    => 'Assistenza stato di terminalità oncologica',
+                'required' => false,
+            ])
+            ->add('assistenzaNonOncologica',CheckboxType::class, [
+                'label'    => 'Assistenza stato di terminalità non oncologica',
+                'required' => false,
+            ])
+            ->add('trattamentoNeurologico',CheckboxType::class, [
+                'label'    => 'Trattamento riabilitativo neurologico in presenza di disabilità',
+                'required' => false,
+            ])
+            ->add('trattamentoOrtopedico',CheckboxType::class, [
+                'label'    => 'Trattamento riabilitativo ortopedico in presenza di disabilità',
+                'required' => false,
+            ])
+            ->add('trattamentoMantenimento',CheckboxType::class, [
+                'label'    => 'Trattamento riabilitativo di mantenimento in presenza di disabilità',
+                'required' => false,
+            ])
+            ->add('supervisioneContinua',CheckboxType::class, [
+                'label'    => 'Supervisione continua di utenti con disabilità',
+                'required' => false,
+            ])
+            ->add('assistenzaIadl',CheckboxType::class, [
+                'label'    => 'Assistenza nelle IADL',
+                'required' => false,
+            ])
+            ->add('assistenzaAdl',CheckboxType::class, [
+                'label'    => 'Assistenza nelle ADL',
+                'required' => false,
+            ])
+            ->add('supportoCaregiver',CheckboxType::class, [
+                'label'    => 'Supporto al care giver',
+                'required' => false,
+            ])
+
         ;
     }
 

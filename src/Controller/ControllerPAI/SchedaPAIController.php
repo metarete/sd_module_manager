@@ -17,6 +17,8 @@ use App\Form\FormPAI\SchedaPAIType;
 use App\Repository\SchedaPAIRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\SDManagerClientApiService;
+use App\Service\BisogniService;
+use App\Service\AltraTipologiaAssistenzaService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,14 +32,17 @@ class SchedaPAIController extends AbstractController
     private $workflow;
     private $entityManager;
     private $SdManagerClientApiService;
+    private $altraTipologiaAssistenzaService;
+    private $bisogniService;
 
 
-    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService)
+    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService)
     {
         $this->workflow = $schedePaiCreatingStateMachine;
         $this->entityManager = $entityManager;
         $this->SdManagerClientApiService = $SdManagerClientApiService;
-        
+        $this->altraTipologiaAssistenzaService = $altraTipologiaAssistenzaService;
+        $this->bisogniService = $bisogniService;
     }
 
 
@@ -222,6 +227,12 @@ class SchedaPAIController extends AbstractController
         $lesioni = $schedaPAI->getIdLesioni();
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
         $variabileTest = 1;
+        $altraTipologiaAssistenza = [];
+        $altraTipologiaAssistenza = $this->altraTipologiaAssistenzaService->getAltreTipologieAssistenza($valutazioneGenerale);
+        $bisogni = [];
+        $bisogni = $this->bisogniService->getBisogni($valutazioneGenerale);
+
+
         return $this->render('scheda_pai_completa.html.twig', [
             'scheda_pai' => $schedaPAI,
             'valutazione_generale' => $valutazioneGenerale,
@@ -237,6 +248,8 @@ class SchedaPAIController extends AbstractController
             'variabileTest' => $variabileTest,
             'assistito' => $assistito,
             'assistiti' => $assistiti,
+            'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
+            'bisogni' => $bisogni
         ]);
     }
 

@@ -74,11 +74,11 @@
                 <th>Altra tipologia assistenza</th>
                 <td>
                 <ul>
-                {% if valutazione_generale.altraTipologiaAssistenza|length-1<=0 %}
+                {% if altra_tipologia_assistenza is empty %}
                 <li> Nessuna altra tipologia di assistenza</li>
                 {% else %}
-                    {% for i in 0..valutazione_generale.altraTipologiaAssistenza|length-1 %}
-                    <li>{{ valutazione_generale.altraTipologiaAssistenza[i] }}</li>
+                    {% for i in 0..altra_tipologia_assistenza|length-1 %}
+                    <li>{{ altra_tipologia_assistenza[i] }}</li>
                     {% endfor %}
                 {% endif %}
                 </ul>
@@ -88,11 +88,11 @@
                 <th>Bisogni</th>
                 <td>
                 <ul>
-                {% if valutazione_generale.bisogni|length-1<=0 %}
+                {% if bisogni is empty %}
                 <li> Nessun bisogno</li>
                 {% else %}
-                    {% for i in 0..valutazione_generale.bisogni|length-1 %}
-                    <li>{{ valutazione_generale.bisogni[i] }}</li>
+                    {% for i in 0..bisogni|length-1 %}
+                    <li>{{ bisogni[i] }}</li>
                     {% endfor %}
                 {% endif %}
                 </ul>
