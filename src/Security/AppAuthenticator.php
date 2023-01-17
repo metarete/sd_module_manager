@@ -2,8 +2,8 @@
 
 namespace App\Security;
 
-use App\Entity\User;
 use DateTime;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
@@ -32,12 +33,14 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     private UrlGeneratorInterface $urlGenerator;
     private EntityManagerInterface $em;
     private $client;
+    private $params;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $em, HttpClientInterface $client)
+    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $em, HttpClientInterface $client, ParameterBagInterface $params)
     {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->client = $client;
+        $this->params = $params;
     }
 
     public function authenticate(Request $request): Passport
@@ -111,6 +114,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         // il token di controllo è dato dall'hash MD5 della concatenzaione di 
         // data odierna (YYYY-MM-DD) e username passato nella form
         $token = md5($todayDate.$username);
+        // recupero l'URL da chiamare
+        $url = $this->params->get('app.ws_sdmanager_api_url');
         // metto tutto nei parametri della POST
         $payload = [
             'username' => $username,
@@ -120,7 +125,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         // faccio la richiesta di verifica
         $response = $this->client->request(
             'POST',
-            'https://sd-manager-console-archive.todell.lan/mmCheckLogin.php',
+            $url,
             [
                 'headers' => [
                     'Content-Type' => 'application/json; charset=utf-8',
