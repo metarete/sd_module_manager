@@ -1,13 +1,14 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
+    default_locale: it
     #csrf_protection: true
     http_method_override: false
     http_client:
         default_options:
             headers:
-                'WS-SDMANAGER-APIKEY': '9092f13daa057447ae12f307e072ca0a67e970f1'
-                'WS-SDMANAGER-CONSOLE-ID': 'demo'
+                'WS-SDMANAGER-APIKEY': '%env(WS_SDMANAGER_APIKEY)%'
+                'WS-SDMANAGER-CONSOLE-ID': '%env(WS_SDMANAGER_CONSOLE_ID)%'
     #'701a60e5d9184777d8689ad6b2a7d3a386e47fc3' key personale
     #9092f13daa057447ae12f307e072ca0a67e970f1 key ip metarete
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
