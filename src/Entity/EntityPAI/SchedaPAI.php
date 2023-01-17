@@ -113,11 +113,7 @@ class SchedaPAI
     #[Assert\Type(DateTime::class)]
     private $dataFine;
 
-<<<<<<< Updated upstream
-    #[ORM\Column(type: 'boolean',)]
-=======
     #[ORM\Column(type: 'boolean')]
->>>>>>> Stashed changes
     private $abilitaBarthel = false;
 
     #[ORM\Column(type: 'boolean')]

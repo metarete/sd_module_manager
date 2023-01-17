@@ -466,13 +466,8 @@ class SchedaPAIController extends AbstractController
     #[Route('/sincronizza_progetti', name: 'app_scheda_pai_sincronizza', methods: ['GET'])]
     public function sincronizza()
     {
-<<<<<<< Updated upstream
-        $dataInizio= date("d-m-Y");
-        $dataFine = date('d-m-Y', strtotime('+1 years'));
-=======
         $dataInizio = date('d-m-Y', strtotime('-3 month'));
         $dataFine = date('d-m-Y', strtotime('+3 month'));
->>>>>>> Stashed changes
         $this->SdManagerClientApiService->sincAssistiti();
         $this->SdManagerClientApiService->sincOperatori();
         $this->SdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
