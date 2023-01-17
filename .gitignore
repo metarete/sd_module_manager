@@ -18,11 +18,15 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-/docker-data-volumes/
-
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
+/node_modules/.*
 /public/build/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+docker-data-volumes/mysql/data/*
+docker-data-volumes/httpd/logs/*
+/nbproject/
+/nbproject/private/
