@@ -50,6 +50,8 @@ class BradenController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $braden->setOperatore($user);
             $schedaPai->addIdBraden($braden);
             $bradenRepository = $this->entityManager->getRepository(Braden::class);
             $bradenRepository->add($braden, true);

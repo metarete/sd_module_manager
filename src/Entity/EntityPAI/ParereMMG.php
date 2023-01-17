@@ -2,9 +2,10 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\User;
 use App\Repository\ParereMMGRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ParereMMGRepository::class)]
 #[ORM\Table(name: 'SCHEDA_PAI_parere_mmg')]
@@ -24,6 +25,9 @@ class ParereMMG
 
     #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idParereMmg',  cascade: ['persist'])]
     private $schedaPAI;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idParereMmg')]
+    private $autoreParereMmg;
 
     public function getId(): ?int
     {
@@ -61,6 +65,17 @@ class ParereMMG
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+    public function getOperatore(): ?User
+    {
+        return $this->autoreParereMmg;
+    }
+
+    public function setOperatore(?User $autoreParereMmg): self
+    {
+        $this->autoreParereMmg = $autoreParereMmg;
 
         return $this;
     }

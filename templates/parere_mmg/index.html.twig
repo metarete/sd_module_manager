@@ -11,6 +11,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Assistito</th>
+                <th>Operatore</th>
                 <th>Parere</th>
                 <th>Operazioni</th>
             </tr>
@@ -19,6 +21,8 @@
         {% for parere_mmg in parere_mmgs %}
             <tr>
                 <td data-title='Id'>{{ parere_mmg.id }}</td>
+                <td data-title='Assistito'>{{parere_mmg.schedaPAI.nomeAssistito}} {{parere_mmg.schedaPAI.cognomeAssistito}}</td>
+                <td data-title= 'Operatore'>{{parere_mmg.operatore.name}} {{parere_mmg.operatore.surname}}<br></td>
                 <td data-title='Parere'>{{ parere_mmg.parere}}</td>
                 <td data-title='Operazioni'>
                     <div class="btn-group" role="group">

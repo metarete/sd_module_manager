@@ -9,6 +9,14 @@
             </tr>
         {% endif %}
             <tr>
+                <th>Assistito</th>
+                <th>{{lesioni.schedaPAI.nomeAssistito}} {{lesioni.schedaPAI.cognomeAssistito}}</td>
+            </tr>
+            <tr>
+				<th>Operatore</th>
+				<td>{{ lesioni.operatore.name }} {{lesioni.operatore.surname}}</td>
+			</tr>
+            <tr>
                 <th>Data Rivalutazioni Settimanali</th>
                 <td>{{ lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('Y-m-d') : '' }}</td>
             </tr>

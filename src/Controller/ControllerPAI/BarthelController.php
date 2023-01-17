@@ -50,6 +50,8 @@ class BarthelController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $barthel->setOperatore($user);
             $schedaPai->addIdBarthel($barthel);
             $barthelRepository = $this->entityManager->getRepository(Barthel::class);
             $barthelRepository->add($barthel, true);

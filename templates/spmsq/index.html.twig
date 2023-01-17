@@ -12,6 +12,8 @@
             <tr>
                 <th>Id</th>
                 <th>Data di valutazione</th>
+                <th>Assistito</th>
+                <th>Operatore</th>
                 <th>Totale</th>
                 <th>Operazioni</th>
             </tr>
@@ -21,6 +23,8 @@
             <tr>
                 <td data-title='Id'>{{ s_p_m_s_q.id }}</td>
                 <td data-title='Data di valutazione'>{{ s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : '' }}</td>
+                <td data-title='Assistito'>{{s_p_m_s_q.schedaPAI.nomeAssistito}} {{s_p_m_s_q.schedaPAI.cognomeAssistito}}</td>
+                <td data-title= 'Operatore'>{{s_p_m_s_q.operatore.name}} {{s_p_m_s_q.operatore.surname}}<br></td>
                 <td data-title='Totale'>{{ s_p_m_s_q.totale }}</td>
                 <td data-title='Operazioni'>
                     <div class="btn-group" role="group">

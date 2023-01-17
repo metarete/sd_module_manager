@@ -50,6 +50,8 @@ class LesioniController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $lesioni->setOperatore($user);
             $schedaPai->addIdLesioni($lesioni);
             $lesioniRepository = $this->entityManager->getRepository(Lesioni::class);
             $lesioniRepository->add($lesioni, true);

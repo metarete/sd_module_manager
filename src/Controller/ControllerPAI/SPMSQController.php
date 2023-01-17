@@ -50,6 +50,8 @@ class SPMSQController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $sPMSQ->setOperatore($user);
             $schedaPai->addIdSpmsq($sPMSQ);
             $spmsqRepository = $this->entityManager->getRepository(SPMSQ::class);
             $spmsqRepository->add($sPMSQ, true);

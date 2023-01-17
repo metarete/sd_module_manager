@@ -12,6 +12,8 @@
             <tr>
                 <th>Id</th>
                 <th>Data di valutazione</th>
+                <th>Assistito</th>
+                <th>Operatore</th>
                 <th>Operazioni</th>
             </tr>
         </thead>
@@ -20,6 +22,8 @@
             <tr>
                 <td date-title='Id'>{{ chiusura_servizio.id }}</td>
                 <td date-title='Data di valutazione'>{{ chiusura_servizio.dataValutazione ? chiusura_servizio.dataValutazione|date('Y-m-d') : '' }}</td>
+                <td data-title='Assistito'>{{chiusura_servizio.schedaPAI.nomeAssistito}} {{chiusura_servizio.schedaPAI.cognomeAssistito}}</td>
+                <td data-title= 'Operatore'>{{chiusura_servizio.operatore.name}} {{chiusura_servizio.operatore.surname}}<br></td>
                 <td date-title='Operazioni'>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

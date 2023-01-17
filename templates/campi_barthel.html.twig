@@ -9,6 +9,10 @@
 			</tr>
 		{% endif %}
 			<tr>
+				<th>Operatore</th>
+				<td>{{ barthel.operatore.name }} {{barthel.operatore.surname}}</td>
+			</tr>
+			<tr>
 				<th>Data di valutazione</th>
 				<td>{{ barthel.dataValutazione ? barthel.dataValutazione|date('Y-m-d') : '' }}</td>
 			</tr>

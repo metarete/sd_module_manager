@@ -50,6 +50,8 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $valutazioneFiguraProfessionale->setOperatore($user);
             $schedaPai->addIdValutazioneFiguraProfessionale($valutazioneFiguraProfessionale);
             $valutazioneFiguraProfessionaleRepository = $this->entityManager->getRepository(ValutazioneFiguraProfessionale::class);
             $valutazioneFiguraProfessionaleRepository->add($valutazioneFiguraProfessionale, true);

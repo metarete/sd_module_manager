@@ -50,6 +50,8 @@ class ChiusuraServizioController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $chiusuraServizio->setOperatore($user);
             $schedaPai->setIdChiusuraServizio($chiusuraServizio);
             $chiusuraServizioRepository = $this->entityManager->getRepository(ChiusuraServizio::class);
             $chiusuraServizioRepository->add($chiusuraServizio, true);

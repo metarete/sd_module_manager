@@ -9,6 +9,14 @@
             </tr>
         {% endif %}
             <tr>
+                <th>Assistito</th>
+                <th>{{va.schedaPAI.nomeAssistito}} {{va.schedaPAI.cognomeAssistito}}</td>
+            </tr>
+            <tr>
+				<th>Operatore</th>
+				<td>{{ va.operatore.name }} {{va.operatore.surname}}</td>
+			</tr>
+            <tr>
                 <th>Data</th>
                 <td>{{ va.data ? va.data|date('Y-m-d') : '' }}</td>
             </tr>

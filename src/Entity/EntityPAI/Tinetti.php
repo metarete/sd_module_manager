@@ -2,6 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\User;
 use App\Repository\TinettiRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -91,6 +92,9 @@ class Tinetti
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idTinetti')]
     private $schedaPAI;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idTinetti')]
+    private $autoreTinetti;
 
     public function getId(): ?int
     {
@@ -394,6 +398,17 @@ class Tinetti
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+    public function getOperatore(): ?User
+    {
+        return $this->autoreTinetti;
+    }
+
+    public function setOperatore(?User $autoreTinetti): self
+    {
+        $this->autoreTinetti = $autoreTinetti;
 
         return $this;
     }

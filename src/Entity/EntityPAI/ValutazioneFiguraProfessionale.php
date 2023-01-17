@@ -2,7 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
-
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Repository\ValutazioneFiguraProfessionaleRepository;
@@ -38,6 +38,9 @@ class ValutazioneFiguraProfessionale
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idValutazioneFiguraProfessionale')]
     private $schedaPAI;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idValutazioneFiguraProfessionale')]
+    private $autoreValutazioneProfessionale;
 
     public function getId(): ?int
     {
@@ -124,6 +127,17 @@ class ValutazioneFiguraProfessionale
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+    public function getOperatore(): ?User
+    {
+        return $this->autoreValutazioneProfessionale;
+    }
+
+    public function setOperatore(?User $autoreValutazioneProfessionale): self
+    {
+        $this->autoreValutazioneProfessionale = $autoreValutazioneProfessionale;
 
         return $this;
     }

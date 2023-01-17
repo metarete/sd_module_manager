@@ -13,6 +13,7 @@
                 <th>Id</th>
                 <th>Data di valutazione</th>
                 <th>Assistito</th>
+                <th>Operatore</th>
                 <th>Totale Valutazione Funzionale</th>
                 <th>Totale</th>
                 <th>Operazioni</th>
@@ -24,6 +25,7 @@
                 <td data-title='Id'>{{ barthel.id }}</td>
                 <td data-title='Data valutazione'>{{ barthel.dataValutazione ? barthel.dataValutazione|date('Y-m-d') : '' }}</td>
                 <td data-title= 'Assistito'>{{barthel.schedaPAI.nomeAssistito}} {{barthel.schedaPAI.cognomeAssistito}}<br></td>
+                <td data-title= 'Operatore'>{{barthel.operatore.name}} {{barthel.operatore.surname}}<br></td>
                 <td data-title='Totale valutazione funzionale'>{{ barthel.totaleValutazioneFunzionale }}</td>
                 <td data-title='Totale'>{{ barthel.totale }}</td>
                 <td data-title='Operazioni'>

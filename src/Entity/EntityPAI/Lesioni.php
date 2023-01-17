@@ -2,6 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\User;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Repository\LesioniRepository;
 use Doctrine\DBAL\Types\Types;
@@ -44,6 +45,9 @@ class Lesioni
 
     #[ORM\ManyToOne(inversedBy: 'idLesioni')]
     private ?SchedaPAI $schedaPAI = null;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idLesioni')]
+    private $autoreLesioni;
 
     public function getId(): ?int
     {
@@ -158,6 +162,16 @@ class Lesioni
 
         return $this;
     }
+    public function getOperatore(): ?User
+    {
+        return $this->autoreLesioni;
+    }
 
+    public function setOperatore(?User $autoreLesioni): self
+    {
+        $this->autoreLesioni = $autoreLesioni;
+
+        return $this;
+    }
 
 }

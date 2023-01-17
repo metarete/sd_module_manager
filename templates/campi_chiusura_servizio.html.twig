@@ -9,6 +9,14 @@
             </tr>
         {% endif %}
             <tr>
+                <th>Assistito</th>
+                <th>{{chiusura_servizio.schedaPAI.nomeAssistito}} {{chiusura_servizio.schedaPAI.cognomeAssistito}}</td>
+            </tr>
+            <tr>
+				<th>Operatore</th>
+				<td>{{ chiusura_servizio.operatore.name }} {{chiusura_servizio.operatore.surname}}</td>
+			</tr>
+            <tr>
                 <th>Conclusioni</th>
                 <td>{{ chiusura_servizio.conclusioni }}</td>
             </tr>

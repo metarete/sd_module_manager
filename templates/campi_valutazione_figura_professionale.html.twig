@@ -11,6 +11,14 @@
             </tr>
         {% endif %}
             <tr>
+                <th>Assistito</th>
+                <th>{{valutazione_figura_professionale.schedaPAI.nomeAssistito}} {{valutazione_figura_professionale.schedaPAI.cognomeAssistito}}</td>
+            </tr>
+            <tr>
+				<th>Operatore</th>
+				<td>{{ valutazione_figura_professionale.operatore.name }} {{valutazione_figura_professionale.operatore.surname}}</td>
+			</tr>
+            <tr>
                 <th>Tipo di operatore</th>
                 <td>{{ valutazione_figura_professionale.tipoOperatore }}</td>
             </tr>

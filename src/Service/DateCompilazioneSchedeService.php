@@ -96,6 +96,7 @@ class DateCompilazioneSchedeService
     }
     public function settaScadenzarioTinetti(SchedaPAI $schedaPAI)
     {
+        
         $em = $this->entityManager;
         $attivazioneTinetti = $schedaPAI->isAbilitaTinetti();
         $frequenzaTinetti = $schedaPAI->getFrequenzaTinetti();

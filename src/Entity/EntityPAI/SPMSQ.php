@@ -2,6 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\User;
 use App\Repository\SPMSQRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -55,6 +56,9 @@ class SPMSQ
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idSpmsq')]
     private $schedaPAI;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idSpmsq')]
+    private $autoreSpmsq;
 
     public function getId(): ?int
     {
@@ -215,6 +219,18 @@ class SPMSQ
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+
+    public function getOperatore(): ?User
+    {
+        return $this->autoreSpmsq;
+    }
+
+    public function setOperatore(?User $autoreSpmsq): self
+    {
+        $this->autoreSpmsq = $autoreSpmsq;
 
         return $this;
     }

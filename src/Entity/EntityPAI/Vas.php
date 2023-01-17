@@ -2,7 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
-
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\VasRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,6 +44,9 @@ class Vas
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idVas')]
     private $schedaPAI;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idVas')]
+    private $autoreVas;
 
     public function getId(): ?int
     {
@@ -154,6 +157,17 @@ class Vas
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+    public function getOperatore(): ?User
+    {
+        return $this->autoreVas;
+    }
+
+    public function setOperatore(?User $autoreVas): self
+    {
+        $this->autoreVas = $autoreVas;
 
         return $this;
     }

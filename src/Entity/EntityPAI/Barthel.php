@@ -2,8 +2,9 @@
 
 namespace App\Entity\EntityPAI;
 
-use App\Repository\BarthelRepository;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BarthelRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BarthelRepository::class)]
@@ -61,6 +62,9 @@ class Barthel
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $totale;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBarthel')]
+    private $autoreBarthel;
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBarthel')]
     private $schedaPAI;
@@ -258,6 +262,17 @@ class Barthel
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+    public function getOperatore(): ?User
+    {
+        return $this->autoreBarthel;
+    }
+
+    public function setOperatore(?User $autoreBarthel): self
+    {
+        $this->autoreBarthel = $autoreBarthel;
 
         return $this;
     }

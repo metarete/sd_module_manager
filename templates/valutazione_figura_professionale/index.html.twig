@@ -11,6 +11,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Assistito</th>
+                <th>Operatore</th>
                 <th>Tipo operatore</th>
                 <th>Data di valutazione</th>
                 <th>Operazioni</th>
@@ -20,6 +22,8 @@
         {% for valutazione_figura_professionale in valutazione_figura_professionales %}
             <tr>
                 <td data-title='Id'>{{ valutazione_figura_professionale.id }}</td>
+                <td data-title='Assistito'>{{valutazione_figura_professionale.schedaPAI.nomeAssistito}} {{valutazione_figura_professionale.schedaPAI.cognomeAssistito}}</td>
+                <td data-title= 'Operatore'>{{valutazione_figura_professionale.operatore.name}} {{valutazione_figura_professionale.operatore.surname}}<br></td>
                 <td data-title='Tipo Operatore'>{{ valutazione_figura_professionale.tipoOperatore }}</td>
                 <td data-title='Data di valutazione'>{{ valutazione_figura_professionale.dataValutazione ? valutazione_figura_professionale.dataValutazione|date('Y-m-d') : '' }}</td>
                 <td data-title='Operazioni'>

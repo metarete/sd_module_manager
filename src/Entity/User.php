@@ -2,9 +2,21 @@
 
 namespace App\Entity;
 
+use App\Entity\EntityPAI\Braden;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\EntityPAI\Barthel;
+use App\Entity\EntityPAI\Lesioni;
 use App\Repository\UserRepository;
+use App\Entity\EntityPAI\ParereMMG;
 use App\Entity\EntityPAI\SchedaPAI;
+use App\Entity\EntityPAI\ChiusuraServizio;
+use App\Entity\EntityPAI\SPMSQ;
+use App\Entity\EntityPAI\Tinetti;
+use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
+use App\Entity\EntityPAI\ValutazioneGenerale;
+use App\Entity\EntityPAI\Vas;
+use Doctrine\Common\Collections\Collection;
+use App\Form\FormPAI\ChiusuraServizioFormType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -60,7 +72,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $sdManagerOperatore = false;
-    
+
+    #[ORM\OnetoMany(mappedBy: 'autoreBarthel', targetEntity: Barthel::class)]
+    private $idBarthel;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreBraden', targetEntity: Braden::class)]
+    private $idBraden;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreChiusuraServizio', targetEntity: ChiusuraServizio::class)]
+    private $idChiusuraServizio;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreLesioni', targetEntity: Lesioni::class)]
+    private $idLesioni;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreParereMmg', targetEntity: ParereMMG::class)]
+    private $idParereMmg;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreSpmsq', targetEntity: SPMSQ::class)]
+    private $idSpmsq;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreTinetti', targetEntity: Tinetti::class)]
+    private $idTinetti;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreValutazioneProfessionale', targetEntity: ValutazioneFiguraProfessionale::class)]
+    private $idValutazioneFiguraProfessionale;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreValutazioneGenerale', targetEntity: ValutazioneGenerale::class)]
+    private $idValutazioneGenerale;
+
+    #[ORM\OnetoMany(mappedBy: 'autoreVas', targetEntity: Vas::class)]
+    private $idVas;
 
     public function __construct()
     {
@@ -367,6 +408,182 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         
         $this->sdManagerOperatore = $sdManagerOperatore;
+
+        return $this;
+    }
+
+     /**
+     * @return Collection<int, Barthel>
+     */
+    public function getIdBarthel(): Collection
+    {
+        return $this->idBarthel;
+    }
+
+    public function addIdBarthel(Barthel $idBarthel): self
+    {
+        if (!$this->idBarthel->contains($idBarthel)) {
+            $this->idBarthel[] = $idBarthel;
+            
+        }
+
+        return $this;
+    }
+
+     /**
+     * @return Collection<int, Braden>
+     */
+    public function getIdBraden(): Collection
+    {
+        return $this->idBraden;
+    }
+
+    public function addIdBraden(Braden $idBraden): self
+    {
+        if (!$this->idBraden->contains($idBraden)) {
+            $this->idBraden[] = $idBraden;
+            
+        }
+
+        return $this;
+    }
+
+      /**
+     * @return Collection<int, ChiusuraServizio>
+     */
+    public function getIdChiusuraServizio(): Collection
+    {
+        return $this->idChiusuraServizio;
+    }
+
+    public function addIdChiusuraServizio(ChiusuraServizio $idChiusuraServizio): self
+    {
+        if (!$this->idChiusuraServizio->contains($idChiusuraServizio)) {
+            $this->idChiusuraServizio[] = $idChiusuraServizio;
+            
+        }
+
+        return $this;
+    }
+
+      /**
+     * @return Collection<int, Lesioni>
+     */
+    public function getIdLesioni(): Collection
+    {
+        return $this->idLesioni;
+    }
+
+    public function addIdLesioni(Lesioni $idLesioni): self
+    {
+        if (!$this->idLesioni->contains($idLesioni)) {
+            $this->idLesioni[] = $idLesioni;
+            
+        }
+
+        return $this;
+    }
+      /**
+     * @return Collection<int, ParereMmg>
+     */
+    public function getIdParereMmg(): Collection
+    {
+        return $this->idParereMmg;
+    }
+
+    public function addIdParereMmg(ParereMMG $idParereMmg): self
+    {
+        if (!$this->idParereMmg->contains($idParereMmg)) {
+            $this->idParereMmg[] = $idParereMmg;
+            
+        }
+
+        return $this;
+    }
+      /**
+     * @return Collection<int, Spmsq>
+     */
+    public function getIdSpmsq(): Collection
+    {
+        return $this->idSpmsq;
+    }
+
+    public function addIdSpmsq(SPMSQ $idSpmsq): self
+    {
+        if (!$this->idSpmsq->contains($idSpmsq)) {
+            $this->idSpmsq[] = $idSpmsq;
+            
+        }
+
+        return $this;
+    }
+
+      /**
+     * @return Collection<int, Tinetti>
+     */
+    public function getIdTinetti(): Collection
+    {
+        return $this->idTinetti;
+    }
+
+    public function addIdTinetti(Tinetti $idTinetti): self
+    {
+        if (!$this->idTinetti->contains($idTinetti)) {
+            $this->idTinetti[] = $idTinetti;
+            
+        }
+
+        return $this;
+    }
+      /**
+     * @return Collection<int, ValutazioneFiguraProfessionale>
+     */
+    public function getIdValutazioneFiguraProfessionale(): Collection
+    {
+        return $this->idValutazioneFiguraProfessionale;
+    }
+
+    public function addIdValutazioneFiguraProfessionale(ValutazioneFiguraProfessionale $idValutazioneFiguraProfessionale): self
+    {
+        if (!$this->idValutazioneFiguraProfessionale->contains($idValutazioneFiguraProfessionale)) {
+            $this->idValutazioneFiguraProfessionale[] = $idValutazioneFiguraProfessionale;
+            
+        }
+
+        return $this;
+    }
+      /**
+     * @return Collection<int, ValutazioneGenerale>
+     */
+    public function getIdValutazioneGenerale(): Collection
+    {
+        return $this->idValutazioneGenerale;
+    }
+
+    public function addIdValutazioneGenerale(ValutazioneGenerale $idValutazioneGenerale): self
+    {
+        if (!$this->idValutazioneGenerale->contains($idValutazioneGenerale)) {
+            $this->idValutazioneGenerale[] = $idValutazioneGenerale;
+            
+        }
+
+        return $this;
+    }
+
+       /**
+     * @return Collection<int, Vas>
+     */
+    public function getIdVas(): Collection
+    {
+        return $this->idVas;
+    }
+
+    public function addIdVas(Vas $idVas): self
+    {
+        if (!$this->idVas->contains($idVas)) {
+            $this->idVas[] = $idVas;
+            
+        }
 
         return $this;
     }

@@ -9,6 +9,14 @@
             </tr>
         {% endif %}
             <tr>
+                <th>Assistito</th>
+                <th>{{s_p_m_s_q.schedaPAI.nomeAssistito}} {{s_p_m_s_q.schedaPAI.cognomeAssistito}}</td>
+            </tr>
+            <tr>
+				<th>Operatore</th>
+				<td>{{ s_p_m_s_q.operatore.name }} {{s_p_m_s_q.operatore.surname}}</td>
+			</tr>
+            <tr>
                 <th>Data di Valutazione</th>
                 <td>{{ s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : '' }}</td>
             </tr>

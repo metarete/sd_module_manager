@@ -50,6 +50,8 @@ class VasController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $vas->setOperatore($user);
             $schedaPai->addIdVas($vas);
             $vasRepository = $this->entityManager->getRepository(Vas::class);
             $vasRepository->add($vas, true);

@@ -2,6 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\User;
 use App\Repository\BradenRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -43,6 +44,9 @@ class Braden
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBraden')]
     private $schedaPAI;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBraden')]
+    private $autoreBraden;
 
     public function getId(): ?int
     {
@@ -154,6 +158,17 @@ class Braden
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+    public function getOperatore(): ?User
+    {
+        return $this->autoreBraden;
+    }
+
+    public function setOperatore(?User $autoreBraden): self
+    {
+        $this->autoreBraden = $autoreBraden;
 
         return $this;
     }

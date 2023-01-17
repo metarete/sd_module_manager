@@ -63,7 +63,8 @@ class ValutazioneGeneraleController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $user = $this->getUser();
+            $valutazioneGenerale->setOperatore($user);
             $schedaPai->setIdValutazioneGenerale($valutazioneGenerale);
             $valutazioneGeneraleRepository = $this->entityManager->getRepository(ValutazioneGenerale::class);
             $valutazioneGeneraleRepository->add($valutazioneGenerale, true);

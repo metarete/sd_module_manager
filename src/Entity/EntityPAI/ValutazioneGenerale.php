@@ -2,7 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
-
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ValutazioneGeneraleRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -196,6 +196,8 @@ class ValutazioneGenerale
     #[ORM\Column(type: 'boolean')]
     private $supportoCaregiver;
     
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idValutazioneGenerale')]
+    private $autoreValutazioneGenerale;
 
     public function __construct()
     {
@@ -868,5 +870,16 @@ class ValutazioneGenerale
         return $this;
     }
 
+    public function getOperatore(): ?User
+    {
+        return $this->autoreValutazioneGenerale;
+    }
+
+    public function setOperatore(?User $autoreValutazioneGenerale): self
+    {
+        $this->autoreValutazioneGenerale = $autoreValutazioneGenerale;
+
+        return $this;
+    }
    
 }

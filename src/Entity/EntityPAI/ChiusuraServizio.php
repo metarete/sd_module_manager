@@ -2,6 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\User;
 use App\Repository\ChiusuraServizioRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,6 +29,10 @@ class ChiusuraServizio
 
     #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idChiusuraServizio',  cascade: ['persist', 'remove'])]
     private $schedaPAI;
+
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idChiusuraServizio')]
+    private $autoreChiusuraServizio;
+
 
     public function getId(): ?int
     {
@@ -77,6 +82,18 @@ class ChiusuraServizio
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
         $this->schedaPAI = $schedaPAI;
+
+        return $this;
+    }
+
+    public function getOperatore(): ?User
+    {
+        return $this->autoreChiusuraServizio;
+    }
+
+    public function setOperatore(?User $autoreChiusuraServizio): self
+    {
+        $this->autoreChiusuraServizio = $autoreChiusuraServizio;
 
         return $this;
     }

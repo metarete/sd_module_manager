@@ -9,6 +9,14 @@
             </tr>
         {% endif %}
             <tr>
+                <th>Assistito</th>
+                <th>{{parere_mmg.schedaPAI.nomeAssistito}} {{parere_mmg.schedaPAI.cognomeAssistito}}</td>
+            </tr>
+            <tr>
+				<th>Operatore</th>
+				<td>{{ parere_mmg.operatore.name }} {{parere_mmg.operatore.surname}}</td>
+			</tr>
+            <tr>
                 <th>Parere</th>
                 <td>{{ parere_mmg.parere}}</td>
             </tr>

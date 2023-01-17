@@ -9,6 +9,14 @@
             </tr>
         {% endif %}
             <tr>
+                <th>Assistito</th>
+                <th>{{tinetti.schedaPAI.nomeAssistito}} {{tinetti.schedaPAI.cognomeAssistito}}</td>
+            </tr>
+            <tr>
+				<th>Operatore</th>
+				<td>{{ tinetti.operatore.name }} {{tinetti.operatore.surname}}</td>
+			</tr>
+            <tr>
                 <th>Data di valutazione</th>
                 <td>{{ tinetti.dataValutazione ? tinetti.dataValutazione|date('Y-m-d') : '' }}</td>
             </tr>

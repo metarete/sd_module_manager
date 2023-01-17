@@ -50,6 +50,8 @@ class TinettiController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $tinetti->setOperatore($user);
             $schedaPai->addIdTinetti($tinetti);
             $tinettiRepository = $this->entityManager->getRepository(Tinetti::class);
             $tinettiRepository->add($tinetti, true);

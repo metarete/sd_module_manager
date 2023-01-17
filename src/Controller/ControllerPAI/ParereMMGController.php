@@ -52,6 +52,8 @@ class ParereMMGController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $parereMMG->setOperatore($user);
             $schedaPai->setIdParereMmg($parereMMG);
             $parereMMGRepository = $this->entityManager->getRepository(ParereMMG::class);
             $parereMMGRepository->add($parereMMG, true);
