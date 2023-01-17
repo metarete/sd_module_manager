@@ -1,18 +1,66 @@
 version: '3'
 
 services:
-
-  db:
-    image: mysql:8
-    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
-    # (this is just an example, not intended to be a production configuration)
-    command: --default-authentication-plugin=mysql_native_password
-    restart: 'unless-stopped'
-    environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: MetaPass123
-      MYSQL_USER: mm_symfony
-      MYSQL_PASSWORD: mm_pass
-      MYSQL_DATABASE: mm_db
+  httpd-sd_module_manager:
+    build:
+      context: ./docker/httpd
+      dockerfile: Dockerfile
+      args:
+        HTTP_APACHE_VERSION: '${HTTP_APACHE_VERSION}'
+        HOST_USER: '${HOST_USER}'
+        HOST_GROUP: '${HOST_GROUP}'
+        HOST_USERNAME: '${HOST_USERNAME}'
+    image: '${PROJECT_NAME}/httpd:${HTTP_APACHE_VERSION}'
+    container_name: '${PROJECT_NAME}_httpd'
+    ports:
+      - "54001:8080"
     volumes:
+      - './:/app'
+      - './docker/httpd/my_vhost.conf:/opt/bitnami/apache/conf/vhosts/my_vhost.conf'
+      - './docker/httpd/httpd.conf:/opt/bitnami/apache/conf/httpd.conf'
+      - './docker-data-volumes/httpd/logs:/var/log/app'
+    depends_on:
+      - php-fpm-sd_module_manager
+    restart: 'unless-stopped'
+  
+  php-fpm-sd_module_manager:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: '${PHP_VERSION}'
+        HOST_USER: '${HOST_USER}'
+        HOST_GROUP: '${HOST_GROUP}'
+        HOST_USERNAME: '${HOST_USERNAME}'
+    image: '${PROJECT_NAME}/php-fpm:${PHP_VERSION}'
+    container_name: '${PROJECT_NAME}_php-fpm'
+    tty: true
+    volumes:
+      - './:/app'
+      #- './docker/php-fpm/etc/php-fpm.d/www.conf:/opt/bitnami/php/etc/php-fpm.d/www.conf'
+      - './docker/php-fpm/php_memory.ini:/usr/local/etc/php/conf.d/90_php_memory.ini'
+      - './docker/php-fpm/php_opcache.ini:/usr/local/etc/php/conf.d/90_php_opcache.ini'
+      - './docker/php-fpm/php_custom.ini:/usr/local/etc/php/conf.d/90_php_custom.ini'
+    restart: 'unless-stopped'
+    user: '${HOST_USER}:${HOST_GROUP}'
+    
+  mysql:
+    build:
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+      args:
+        MYSQL_VERSION: '${MYSQL_VERSION}'
+    image: '${PROJECT_NAME}/mysql:${MYSQL_VERSION}'
+    container_name: '${PROJECT_NAME}_mysql'
+    volumes:
+      - './docker/mysql/my_custom.cnf:/etc/mysql/conf.d/my_custom.cnf:ro'
+      - './docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
       - './docker-data-volumes/mysql/data:/var/lib/mysql'
+      - './docker-data-volumes/mysql/mnt:/mnt'
+    environment:
+      MYSQL_ROOT_USER: '${MYSQL_DB_ROOT_USER}'
+      MYSQL_ROOT_PASSWORD: '${MYSQL_DB_ROOT_PASSWORD}'
+      MYSQL_USER: '${MYSQL_DB_USERNAME}'
+      MYSQL_PASSWORD: '${MYSQL_DB_PASSWORD}'
+      MYSQL_DATABASE: '${MYSQL_DB_NAME}'
+    restart: 'unless-stopped'

@@ -1,0 +1,1 @@
+When the container is executed for the first time, it will execute the files with extensions .sh, .sql and .sql.gz located at /docker-entrypoint-initdb.d.

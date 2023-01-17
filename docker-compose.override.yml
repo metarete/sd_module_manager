@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  db:
+  mysql:
     ports:
       - "54000:3306"
 
