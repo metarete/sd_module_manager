@@ -68,6 +68,7 @@ class VasController extends AbstractController
         return $this->renderForm('vas/new.html.twig', [
             'va' => $vas,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

@@ -67,6 +67,7 @@ class LesioniController extends AbstractController
         return $this->renderForm('lesioni/new.html.twig', [
             'lesioni' => $lesioni,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

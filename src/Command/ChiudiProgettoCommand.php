@@ -38,15 +38,14 @@ class ChiudiProgettoCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $em = $this->entityManager;
         $dataOggi = new DateTime('now');
-        $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataOggi, 'currentPlace' => 'attiva']);
 
         for($i =0; $i<count($schedaPais); $i++)
         $schedaPais[$i]->setCurrentPlace('in_attesa_di_chiusura');
         
-        $em->flush();
+        $this->entityManager->flush();
 
 
 

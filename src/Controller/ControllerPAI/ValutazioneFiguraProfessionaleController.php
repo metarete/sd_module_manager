@@ -67,6 +67,7 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
         return $this->renderForm('valutazione_figura_professionale/new.html.twig', [
             'valutazione_figura_professionale' => $valutazioneFiguraProfessionale,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

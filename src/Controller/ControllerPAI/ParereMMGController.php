@@ -69,6 +69,7 @@ class ParereMMGController extends AbstractController
         return $this->renderForm('parere_mmg/new.html.twig', [
             'parere_mmg' => $parereMMG,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

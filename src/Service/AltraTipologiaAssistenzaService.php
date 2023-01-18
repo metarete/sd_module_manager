@@ -17,7 +17,6 @@ class AltraTipologiaAssistenzaService
 
     public function getAltreTipologieAssistenza(ValutazioneGenerale $valutazioneGenerale = null): array
     {
-        $em = $this->entityManager;
         $altreTipologiaAssistenza = [];
         if ($valutazioneGenerale == null)
             return $altreTipologiaAssistenza;
@@ -37,7 +36,7 @@ class AltraTipologiaAssistenzaService
             if ($valutazioneGenerale->isContributoCaregiver() == true)
                 array_push($altreTipologiaAssistenza, 'Contributo Caregiver');
         }
-        $em->flush();
+        $this->entityManager->flush();
         return $altreTipologiaAssistenza;
     }
 }

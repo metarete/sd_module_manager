@@ -17,12 +17,11 @@ Class SetterDatiSchedaPaiService
 
     public function settaDati(SchedaPAI $schedaPAI)
     {
-        $em = $this->entityManager;
-        $assistitiRepository = $em->getRepository(Paziente::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $nomeAssistito = $assistitiRepository->getNameById($schedaPAI->getIdAssistito());
         $cognomeAssistito = $assistitiRepository->getSurnameById($schedaPAI->getIdAssistito());
         $schedaPAI->setNomeAssistito($nomeAssistito);
         $schedaPAI->setCognomeAssistito($cognomeAssistito);
-        $em->flush();
+        $this->entityManager->flush();
     }
 }

@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SchedaPAIType extends AbstractType
 {
@@ -18,10 +19,12 @@ class SchedaPAIType extends AbstractType
     {
         $builder
             ->add('dataInizio', DateType::class,[
-                'widget' => 'single_text',  
+                'widget' => 'single_text', 
+                'disabled' => true, 
             ])
             ->add('dataFine', DateType::class,[
                 'widget' => 'single_text',  
+                'disabled' => true,
             ])
             ->add('idOperatorePrincipale', EntityType::class,[
                 'class'=> User::class,
@@ -105,15 +108,10 @@ class SchedaPAIType extends AbstractType
             ->add('frequenzaLesioni',null,[
                 'empty_data' => 0,
             ])
-            ->add('idAssistito',TextType::class, array(
-                //'disabled' => true,
-            ))
-            ->add('idConsole',TextType::class, array(
-                //'disabled' => true,
-            ))
-            ->add('idProgetto',TextType::class, array(
-                //'disabled' => true,
-            ))
+            ->add('salva', SubmitType::class, ['label' => 'Salva'])
+            ->add('salvaEApprova', SubmitType::class, [
+                'label' => 'Salva e approva',
+            ])
         ;
     }
 

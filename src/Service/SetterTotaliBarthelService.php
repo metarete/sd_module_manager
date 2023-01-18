@@ -16,7 +16,6 @@ Class SetterTotaliBarthelService
 
     public function settaTotali(Barthel $barthel)
     {
-        $em = $this->entityManager;
         $alimentazione = $barthel->getAlimentazione();
         $bagnoDoccia = $barthel->getBagnoDoccia();
         $igienePersonale = $barthel->getIgienePersonale();
@@ -39,6 +38,6 @@ Class SetterTotaliBarthelService
         }
         $barthel->setTotaleValutazioneFunzionale($totaleValutazioneFunzionale);
         $barthel->setTotale($totale);
-        $em->flush();
+        $this->entityManager->flush();
     }
 }

@@ -52,7 +52,7 @@ class Tinetti
     private $sedersi;
 
     #[ORM\Column(type: 'integer')]
-    private $totaleEquilibrio;
+    private $totaleEquilibrio = 0;
 
     #[ORM\Column(type: 'integer')]
     private $inizioDeambulazione;
@@ -85,10 +85,10 @@ class Tinetti
     private $cammino;
 
     #[ORM\Column(type: 'integer')]
-    private $totaleAndatura;
+    private $totaleAndatura = 0;
 
     #[ORM\Column(type: 'integer')]
-    private $totale;
+    private $totale = 0;
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idTinetti')]
     private $schedaPAI;

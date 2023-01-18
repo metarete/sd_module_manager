@@ -47,8 +47,7 @@ class CreaOperatoreCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $em = $this->entityManager;
-        $userRepository = $em ->getRepository(User::class);
+        $userRepository = $this->entityManager->getRepository(User::class);
         $user = new User();
         $nome = $input->getArgument('nome');
         $cognome = $input->getArgument('cognome');

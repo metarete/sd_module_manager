@@ -19,6 +19,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Service\SDManagerClientApiService;
 use App\Service\BisogniService;
 use App\Service\AltraTipologiaAssistenzaService;
+use App\Service\ApprovaSchedaService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,15 +35,17 @@ class SchedaPAIController extends AbstractController
     private $SdManagerClientApiService;
     private $altraTipologiaAssistenzaService;
     private $bisogniService;
+    private $approvaSchedaService;
 
 
-    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService)
+    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService)
     {
         $this->workflow = $schedePaiCreatingStateMachine;
         $this->entityManager = $entityManager;
         $this->SdManagerClientApiService = $SdManagerClientApiService;
         $this->altraTipologiaAssistenzaService = $altraTipologiaAssistenzaService;
         $this->bisogniService = $bisogniService;
+        $this->approvaSchedaService = $approvaSchedaService;
     }
 
 
@@ -51,9 +54,8 @@ class SchedaPAIController extends AbstractController
     {
 
         //assistiti
-        $em = $this->entityManager;
-        $assistitiRepository = $em->getRepository(Paziente::class);
-        $userRepository = $em->getRepository(User::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
+        $userRepository = $this->entityManager->getRepository(User::class);
         $assistiti = $assistitiRepository->findAll();
         //controllo login
         $user = $this->getUser();
@@ -206,12 +208,11 @@ class SchedaPAIController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_scheda_pai_show', methods: ['GET'])]
-    public function show(SchedaPAI $schedaPAI): Response
+    #[Route('/{pathName}/show/{id}', name: 'app_scheda_pai_show', methods: ['GET'])]
+    public function show(SchedaPAI $schedaPAI, string $pathName): Response
     {
         //assistiti
-        $em = $this->entityManager;
-        $assistitiRepository = $em->getRepository(Paziente::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $assistiti = $assistitiRepository->findAll();
         $idAssistito = $schedaPAI->getIdAssistito();
         $assistito = $assistitiRepository->findOneById($idAssistito);
@@ -249,7 +250,8 @@ class SchedaPAIController extends AbstractController
             'assistito' => $assistito,
             'assistiti' => $assistiti,
             'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
-            'bisogni' => $bisogni
+            'bisogni' => $bisogni,
+            'pathName' => $pathName
         ]);
     }
 
@@ -307,9 +309,14 @@ class SchedaPAIController extends AbstractController
             $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
             $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
             $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
-
+            
+            if ($form->getClickedButton() && 'salvaEApprova' === $form->getClickedButton()->getName()) {
+                $schedaPAI->setCurrentPlace('approvata');
+            }
+                
             $schedaPAIRepository->add($schedaPAI, true);
-
+            
+            
            
             if($pathName == 'app_scadenzario_index'){
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
@@ -322,11 +329,12 @@ class SchedaPAIController extends AbstractController
         return $this->renderForm('scheda_pai/edit.html.twig', [
             'scheda_pai' => $schedaPAI,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_scheda_pai_delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository): Response
+    #[Route('/{pathName}/delete/{id}', name: 'app_scheda_pai_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository, string $pathName): Response
     {
 
         if ($this->isCsrfTokenValid('delete' . $schedaPAI->getId(), $request->get('_token'))) {
@@ -334,14 +342,13 @@ class SchedaPAIController extends AbstractController
         }
 
        
-            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/pdf/{id}', name: 'app_scheda_pai_pdf', methods: ['GET'])]
     public function generatePdf(SchedaPAI $schedaPAI)
     {
-        $em = $this->entityManager;
-        $assistitiRepository = $em->getRepository(Paziente::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
         $valutazioniFiguraProfessionale = $schedaPAI->getIdValutazioneFiguraProfessionale();
         $parereMMG = $schedaPAI->getIdParereMmg();
@@ -395,11 +402,10 @@ class SchedaPAIController extends AbstractController
             "Attachment" => true
         ]);
     }
-    #[Route('/anagrafica_assistito/{id}', name: 'app_scheda_pai_anagrafica_assistito', methods: ['GET'])]
-    public function datiAssistito(SchedaPAI $schedaPAI)
+    #[Route('/{pathName}/anagrafica_assistito/{id}', name: 'app_scheda_pai_anagrafica_assistito', methods: ['GET'])]
+    public function datiAssistito(SchedaPAI $schedaPAI, string $pathName)
     {
-        $em = $this->entityManager;
-        $assistitiRepository = $em->getRepository(Paziente::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $idAssistito = $schedaPAI->getIdAssistito();
         $assistito = $assistitiRepository->findOneById($idAssistito);
         $variabileTest = 1;
@@ -407,20 +413,20 @@ class SchedaPAIController extends AbstractController
         return $this->render('scheda_pai/show_assistito.html.twig', [
             'scheda_pai' => $schedaPAI,
             'assistito' => $assistito,
-            'variabileTest' => $variabileTest
+            'variabileTest' => $variabileTest,
+            'pathName' => $pathName,
         ]);
     }
     #[Route('/{pathName}/chiusura_scheda/{id}', name: 'app_scheda_pai_chiusura', methods: ['GET'])]
     public function chiudiScheda(SchedaPAI $schedaPAI, string $pathName): Response
     {
         $idScheda = $schedaPAI->getId();
-        $em = $this->entityManager;
-        $barthelRepository = $em->getRepository(Barthel::class);
-        $bradenRepository = $em->getRepository(Braden::class);
-        $spmsqRepository = $em->getRepository(SPMSQ::class);
-        $tinettiRepository = $em->getRepository(Tinetti::class);
-        $vasRepository = $em->getRepository(Vas::class);
-        $lesioniRepository = $em->getRepository(Lesioni::class);
+        $barthelRepository = $this->entityManager->getRepository(Barthel::class);
+        $bradenRepository = $this->entityManager->getRepository(Braden::class);
+        $spmsqRepository = $this->entityManager->getRepository(SPMSQ::class);
+        $tinettiRepository = $this->entityManager->getRepository(Tinetti::class);
+        $vasRepository = $this->entityManager->getRepository(Vas::class);
+        $lesioniRepository = $this->entityManager->getRepository(Lesioni::class);
         $numeroBarthelPresenti = $barthelRepository->findByBarthelPerScheda($idScheda);
         $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto();
         $numeroBradenPresenti = $bradenRepository->findByBradenPerScheda($idScheda);
@@ -472,5 +478,12 @@ class SchedaPAIController extends AbstractController
         $this->SdManagerClientApiService->sincOperatori();
         $this->SdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
         return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{pathName}/approva_scheda_pai/{id}', name: 'app_scheda_pai_approva', methods: ['GET'])]
+    public function approva(SchedaPAI $schedaPAI, string $pathName)
+    {
+        $this->approvaSchedaService->approva($schedaPAI);
+        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
     }
 }

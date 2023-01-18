@@ -29,7 +29,6 @@ class DateCompilazioneSchedeService
     }
     public function settaScadenzarioBarthel(SchedaPAI $schedaPAI)
     {
-        $em = $this->entityManager;
         $attivazioneBarthel = $schedaPAI->isAbilitaBarthel();
         $frequenzaBarthel = $schedaPAI->getFrequenzaBarthel();
         $numeroBarthelPresentiOggi = count($schedaPAI->getIdBarthel());
@@ -48,11 +47,10 @@ class DateCompilazioneSchedeService
         $numeroBarthelAdOggiCorretto = (int)($numeroGiorniAdOggi / $frequenzaBarthel);
         $schedaPAI->setNumeroBarthelAdOggi($numeroBarthelPresentiOggi);
         $schedaPAI->setNumeroBarthelAdOggiCorretto($numeroBarthelAdOggiCorretto);
-        $em->flush();
+        $this->entityManager->flush();
     }
     public function settaScadenzarioBraden(SchedaPAI $schedaPAI)
     {
-        $em = $this->entityManager;
         $attivazioneBraden = $schedaPAI->isAbilitaBraden();
         $frequenzaBraden = $schedaPAI->getFrequenzaBraden();
         $numeroBradenPresentiOggi = count($schedaPAI->getIdBraden());
@@ -70,11 +68,10 @@ class DateCompilazioneSchedeService
         $numeroBradenAdOggiCorretto = (int)($numeroGiorniAdOggi / $frequenzaBraden);
         $schedaPAI->setNumeroBradenAdOggi($numeroBradenPresentiOggi);
         $schedaPAI->setNumeroBradenAdOggiCorretto($numeroBradenAdOggiCorretto);
-        $em->flush();
+        $this->entityManager->flush();
     }
     public function settaScadenzarioSpmsq(SchedaPAI $schedaPAI)
     {
-        $em = $this->entityManager;
         $attivazioneSpmsq = $schedaPAI->isAbilitaSpmsq();
         $frequenzaSpmsq = $schedaPAI->getFrequenzaSpmsq();
         $numeroSpmsqPresentiOggi = count($schedaPAI->getIdSpmsq());
@@ -92,12 +89,10 @@ class DateCompilazioneSchedeService
         $numeroSpmsqAdOggiCorretto = (int)($numeroGiorniAdOggi / $frequenzaSpmsq);
         $schedaPAI->setNumeroSpmsqAdOggi($numeroSpmsqPresentiOggi);
         $schedaPAI->setNumeroSpmsqAdOggiCorretto($numeroSpmsqAdOggiCorretto);
-        $em->flush();
+        $this->entityManager->flush();
     }
     public function settaScadenzarioTinetti(SchedaPAI $schedaPAI)
     {
-        
-        $em = $this->entityManager;
         $attivazioneTinetti = $schedaPAI->isAbilitaTinetti();
         $frequenzaTinetti = $schedaPAI->getFrequenzaTinetti();
         $numeroTinettiPresentiOggi = count($schedaPAI->getIdTinetti());
@@ -116,11 +111,10 @@ class DateCompilazioneSchedeService
         $numeroTinettiAdOggiCorretto = (int)($numeroGiorniAdOggi / $frequenzaTinetti);
         $schedaPAI->setNumeroTinettiAdOggi($numeroTinettiPresentiOggi);
         $schedaPAI->setNumeroTinettiAdOggiCorretto($numeroTinettiAdOggiCorretto);
-        $em->flush();
+        $this->entityManager->flush();
     }
     public function settaScadenzarioVas(SchedaPAI $schedaPAI)
     {
-        $em = $this->entityManager;
         $attivazioneVas = $schedaPAI->isAbilitaVas();
         $frequenzaVas = $schedaPAI->getFrequenzaVas();
         $numeroVasPresentiOggi = count($schedaPAI->getIdVas());
@@ -138,11 +132,10 @@ class DateCompilazioneSchedeService
         $numeroVasAdOggiCorretto = (int)($numeroGiorniAdOggi / $frequenzaVas);
         $schedaPAI->setNumeroVasAdOggi($numeroVasPresentiOggi);
         $schedaPAI->setNumeroVasAdOggiCorretto($numeroVasAdOggiCorretto);
-        $em->flush();
+        $this->entityManager->flush();
     }
     public function settaScadenzarioLesioni(SchedaPAI $schedaPAI)
     {
-        $em = $this->entityManager;
         $attivazioneLesioni = $schedaPAI->isAbilitaLesioni();
         $frequenzaLesioni = $schedaPAI->getFrequenzaLesioni();
         $numeroLesioniPresentiOggi = count($schedaPAI->getIdLesioni());
@@ -160,7 +153,7 @@ class DateCompilazioneSchedeService
         $numeroLesioniAdOggiCorretto = (int)($numeroGiorniAdOggi / $frequenzaLesioni);
         $schedaPAI->setNumeroLesioniAdOggi($numeroLesioniPresentiOggi);
         $schedaPAI->setNumeroLesioniAdOggiCorretto($numeroLesioniAdOggiCorretto);
-        $em->flush();
+        $this->entityManager->flush();
     }
     
 }

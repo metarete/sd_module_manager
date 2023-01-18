@@ -82,6 +82,7 @@ class ValutazioneGeneraleController extends AbstractController
         return $this->renderForm('valutazione_generale/new.html.twig', [
             'valutazione_generale' => $valutazioneGenerale,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

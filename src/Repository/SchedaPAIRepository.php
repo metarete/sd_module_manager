@@ -126,12 +126,13 @@ class SchedaPAIRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('s')
 
+        ->leftJoin('s.idOperatorePrincipale', 's0')
         ->leftJoin('s.idOperatoreSecondarioInf', 's1')
         ->leftJoin('s.idOperatoreSecondarioTdr', 's2')
         ->leftJoin('s.idOperatoreSecondarioLog', 's3')
         ->leftJoin('s.idOperatoreSecondarioAsa', 's4')
         ->leftJoin('s.idOperatoreSecondarioOss', 's5')
-        ->Where('s.idOperatorePrincipale = :username')
+        ->Where('s0.username = :username')
         ->orWhere('s1.username = :username')
         ->orWhere('s2.username = :username')
         ->orWhere('s3.username = :username')

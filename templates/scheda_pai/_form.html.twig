@@ -1,4 +1,115 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+<div class="row">
+	<div class="col">
+		{{ form_row(form.dataInizio) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.dataFine) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.idOperatorePrincipale) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.idOperatoreSecondarioInf) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.idOperatoreSecondarioTdr) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.idOperatoreSecondarioLog) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.idOperatoreSecondarioAsa) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.idOperatoreSecondarioOss) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.abilitaBarthel) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.frequenzaBarthel) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.abilitaBraden) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.frequenzaBraden) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.abilitaSpmsq) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.frequenzaSpmsq) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.abilitaTinetti) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.frequenzaTinetti) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.abilitaVas) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.frequenzaVas) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.abilitaLesioni) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.frequenzaLesioni) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.salva) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+        {% if scheda_pai.idOperatorePrincipale == null or scheda_pai.currentPlace != "nuova"%}
+		    {{ form_row(form.salvaEApprova, { 'attr':{'disabled':'disabled'}}) }}
+        {% endif %}
+	</div>
+</div>
+
 {{ form_end(form) }}

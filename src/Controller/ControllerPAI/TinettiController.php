@@ -56,7 +56,7 @@ class TinettiController extends AbstractController
             $tinettiRepository = $this->entityManager->getRepository(Tinetti::class);
             $tinettiRepository->add($tinetti, true);
             $this->entityManager->flush();
-
+          
 
             if($pathName == 'app_scadenzario_index'){
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
@@ -68,6 +68,7 @@ class TinettiController extends AbstractController
         return $this->renderForm('tinetti/new.html.twig', [
             'tinetti' => $tinetti,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

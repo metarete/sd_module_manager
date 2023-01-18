@@ -17,7 +17,6 @@ Class SetterTotaleBradenService
 
     public function settaTotale(Braden $braden)
     {
-        $em = $this->entityManager;
         $percezioneSensoriale = $braden->getPercezioneSensoriale();
         $umidita = $braden->getUmidita();
         $attivita = $braden->getAttivita();
@@ -26,6 +25,6 @@ Class SetterTotaleBradenService
         $frizioneScivolamento = $braden->getFrizioneScivolamento();
         $totale = $percezioneSensoriale+$umidita+$attivita+$mobilita+$nutrizione+$frizioneScivolamento;
         $braden->setTotale($totale);
-        $em->flush();
+        $this->entityManager->flush();
     }
 }

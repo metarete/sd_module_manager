@@ -67,6 +67,7 @@ class BradenController extends AbstractController
         return $this->renderForm('braden/new.html.twig', [
             'braden' => $braden,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

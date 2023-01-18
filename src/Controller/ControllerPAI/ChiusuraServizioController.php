@@ -67,6 +67,7 @@ class ChiusuraServizioController extends AbstractController
         return $this->renderForm('chiusura_servizio/new.html.twig', [
             'chiusura_servizio' => $chiusuraServizio,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

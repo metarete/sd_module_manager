@@ -81,9 +81,8 @@ class SDManagerClientApiService
 
     public function sincOperatori()
     {
-        $em = $this->entityManager;
         $utenti = $this->getOperatori();
-        $userRepository = $em->getRepository(User::class);
+        $userRepository = $this->entityManager->getRepository(User::class);
         for( $i = 0; $i< count($utenti); $i++){
             $userUtente=$utenti[$i]['username'];
             if($userRepository->findOneByUsername($userUtente) == null){
@@ -120,9 +119,8 @@ class SDManagerClientApiService
 
     public function sincProgetti(string $dataInizio, string $dataFine)
     {
-        $em = $this->entityManager;
         $progetti = $this->getProgetti($dataInizio, $dataFine);
-        $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         for( $i = 0; $i< count($progetti); $i++){
             $idProgetto=$progetti[$i]['id_progetto'];
             $dataInizio = DateTime::createfromformat('d-m-Y',$progetti[$i]['data_inizio']);
@@ -148,9 +146,8 @@ class SDManagerClientApiService
     }
     public function sincAssistiti()
     {
-        $em = $this->entityManager;
         $assistiti = $this->getAssistiti();
-        $assistitiRepository = $em->getRepository(Paziente::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         for( $i = 0; $i< count($assistiti); $i++){
             $cf=$assistiti[$i]['cf'];
             $indirizzo = $assistiti[$i]['indirizzi'][0]['indirizzo'];

@@ -68,6 +68,7 @@ class SPMSQController extends AbstractController
         return $this->renderForm('spmsq/new.html.twig', [
             's_p_m_s_q' => $sPMSQ,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 

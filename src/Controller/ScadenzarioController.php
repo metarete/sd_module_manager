@@ -26,10 +26,9 @@ class ScadenzarioController extends AbstractController
     public function index( int $page = 1 ): Response
     {
         
-        $em = $this->entityManager;
-        $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         //assistiti
-        $assistitiRepository = $em->getRepository(Paziente::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $assistiti = $assistitiRepository->findAll();
         //controllo login
         $user = $this->getUser();

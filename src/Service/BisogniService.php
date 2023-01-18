@@ -17,7 +17,6 @@ class BisogniService
 
     public function getBisogni(ValutazioneGenerale $valutazioneGenerale = null): array
     {
-        $em = $this->entityManager;
         $bisogni = [];
         if ($valutazioneGenerale == null)
             return $bisogni;
@@ -87,7 +86,7 @@ class BisogniService
             if ($valutazioneGenerale->isSupportoCaregiver() == true)
                 array_push($bisogni, 'Supporto al care giver');
         }
-        $em->flush();
+        $this->entityManager->flush();
         return $bisogni;
     }
 }

@@ -22,9 +22,8 @@ class MailerGenerator
 
     public function EmailAdmin()
     {
-        $em = $this->entityManager;
-        $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
-        $userRepository = $em->getRepository(User::class);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $userRepository = $this->entityManager->getRepository(User::class);
         $numeroSchedeNuove = $schedaPAIRepository->findOneByState('nuova');
         $numeroSchedeChiuse = $schedaPAIRepository->findOneByState('chiusa');
         $numeroSchedeChiuseConRinnovo = $schedaPAIRepository->findOneByState('chiusa_con_rinnovo');
@@ -113,9 +112,8 @@ class MailerGenerator
 
     public function EmailOperatore()
     {
-        $em = $this->entityManager;
-        $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
-        $userRepository = $em->getRepository(User::class);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $userRepository = $this->entityManager->getRepository(User::class);
         $arraySchedeApprovate = $schedaPAIRepository->findByState('approvata');
         $arraySchedeAttive = $schedaPAIRepository->findByState('attiva');
         $arraySchedeInAttesaDiChiusura = $schedaPAIRepository->findByState('in_attesa_di_chiusura');

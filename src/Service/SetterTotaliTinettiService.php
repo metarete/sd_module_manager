@@ -17,7 +17,6 @@ Class SetterTotaliTinettiService
 
     public function settaTotali(Tinetti $tinetti)
     {
-        $em = $this->entityManager;
         $equilibrioSeduto = $tinetti->getEquilibrioSeduto();
         $sedia = $tinetti->getSedia();
         $alzarsi = $tinetti->getAlzarsi();
@@ -44,6 +43,6 @@ Class SetterTotaliTinettiService
         $tinetti->setTotaleAndatura($totaleAndatura);
         $totale = $totaleEquilibrio+$totaleAndatura;
         $tinetti->setTotale($totale);
-        $em->flush();
+        $this->entityManager->flush();
     }
 }

@@ -33,9 +33,8 @@ class SchedaPaiCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $schedaPai = new SchedaPAI;
-        $em = $this->entityManager;
-        $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
-        $userRepository = $em ->getRepository(User::class);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $userRepository = $this->entityManager->getRepository(User::class);
 
         $oggi = new DateTime('now');
         $fine = new DateTime('2023-10-24');

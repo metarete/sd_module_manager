@@ -41,14 +41,13 @@ class ApprovaSchedaPaiCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $idScheda = $input->getArgument('id_scheda');
-        $em = $this->entityManager;
-        $schedaPAIRepository = $em->getRepository(SchedaPAI::class);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $schedaPAIRepository->findOneBySomeField($idScheda);
         if($schedaPai->getIdOperatorePrincipale()== null)
             $io->error('Operatore principale mancante. Impossibile approvare la scheda pai.');
         else{
             $schedaPai->setCurrentPlace('approvata');
-            $em->flush();
+            $this->entityManager->flush();
             $io->success('Approvata scheda pai ' .$idScheda);
         }
 

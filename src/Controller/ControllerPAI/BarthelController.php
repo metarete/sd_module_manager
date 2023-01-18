@@ -67,6 +67,7 @@ class BarthelController extends AbstractController
         return $this->renderForm('barthel/new.html.twig', [
             'barthel' => $barthel,
             'form' => $form,
+            'pathName' => $pathName
         ]);
     }
 
