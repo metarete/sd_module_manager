@@ -1,5 +1,5 @@
 <div id="visualizza-tables">
-    <table class="col-sm-12  table-striped table-condensed cf">
+    <table class="col-sm-12">
         <thead class="cf">
         <tbody>
         {% if variabileTest != 1%}
@@ -62,7 +62,7 @@
             </tr>
             <tr>
                 <th>Totale Equilibrio</th>
-                <td>{{ tinetti.totaleEquilibrio }}</td>
+                <td id="totale">{{ tinetti.totaleEquilibrio }}</td>
             </tr>
             <tr>
                 <th>Inizio della deambulazione immediatamente dopo il via</th>
@@ -106,11 +106,11 @@
             </tr>
             <tr>
                 <th>Totale Andatura</th>
-                <td>{{ tinetti.totaleAndatura }}</td>
+                <td id="totale">{{ tinetti.totaleAndatura }}</td>
             </tr>
             <tr>
                 <th>Totale</th>
-                <td>{{ tinetti.totale }}</td>
+                <td id="totale">{{ tinetti.totale }}</td>
             </tr>
         </tbody>
     </table>

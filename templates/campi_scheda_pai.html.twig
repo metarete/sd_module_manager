@@ -1,7 +1,17 @@
-
+<style>
+body {
+	margin: 0;
+	
+	
+}
+table{
+	/*background-color: #212529; /* For browsers that do not support gradients */
+  	/*background-image: #212529;*/
+	color: black;
+}
+</style>
 <div id="visualizza-tables">
-	<table class="col-sm-12  table-striped table-condensed cf">
-		<thead class="cf"></thead>
+	<table class="col-sm-12 ">
 		<tbody>
 			{% if variabileTest != 1%}
 				<tr>
@@ -18,13 +28,13 @@
 					{% else %}
 						{{ scheda_pai.idOperatorePrincipale.name}}
 						{{ scheda_pai.idOperatorePrincipale.surname}}
-						
+
 						<br>
 					{% endif %}
 				</td>
 			</tr>
 			<tr>
-				<th>Op Inf</th>
+				<th>Operatore Secondario Inf</th>
 				<td>
 					{% if scheda_pai.idOperatoreSecondarioInf  is empty %}
 						Nessuno
@@ -37,7 +47,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>Op Tdr</th>
+				<th>Operatore Secondario Tdr</th>
 				<td>
 					{% if scheda_pai.idOperatoreSecondarioTdr is empty %}
 						Nessuno
@@ -50,7 +60,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>Op Log</th>
+				<th>Operatore Secondario Log</th>
 				<td>
 					{% if scheda_pai.idOperatoreSecondarioLog  is empty %}
 						Nessuno
@@ -63,7 +73,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>Op Asa</th>
+				<th>Operatore Secondario Asa</th>
 				<td>
 					{% if scheda_pai.idOperatoreSecondarioAsa  is empty %}
 						Nessuno
@@ -76,7 +86,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>Op Oss</th>
+				<th>Operatore Secondario Oss</th>
 				<td>
 					{% if scheda_pai.idOperatoreSecondarioOss  is empty %}
 						Nessuno
@@ -88,16 +98,7 @@
 					{% endfor %}
 				</td>
 			</tr>
-			<tr>
-				<th>Assistito</th>
-				<td> 
-                 {% if assistito.idSdManager == scheda_pai.idAssistito %}
-                    {{ assistito.nome }}
-                    {{ assistito.cognome }}
-                    <br>
-                 {% endif %}
-				</td>
-			</tr>
+
 		</tbody>
 	</tbody>
 </table></div>

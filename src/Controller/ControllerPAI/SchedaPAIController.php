@@ -362,10 +362,15 @@ class SchedaPAIController extends AbstractController
         $idAssistito = $schedaPAI->getIdAssistito();
         $assistito = $assistitiRepository->findOneById($idAssistito);
         $variabileTest = 1;
+        $altraTipologiaAssistenza = [];
+        $altraTipologiaAssistenza = $this->altraTipologiaAssistenzaService->getAltreTipologieAssistenza($valutazioneGenerale);
+        $bisogni = [];
+        $bisogni = $this->bisogniService->getBisogni($valutazioneGenerale);
 
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
+        
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
@@ -385,7 +390,9 @@ class SchedaPAIController extends AbstractController
             'lesionis' => $lesioni,
             'chiusura_servizio' => $chiusuraServizio,
             'variabileTest' => $variabileTest,
-            'assistito' => $assistito
+            'assistito' => $assistito,
+            'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
+            'bisogni' => $bisogni,
         ]);
         //$html .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
         // Load HTML to Dompdf
@@ -399,7 +406,7 @@ class SchedaPAIController extends AbstractController
 
         // Output the generated PDF to Browser (inline view)
         $dompdf->stream("SchedaPai.pdf", [
-            "Attachment" => true
+            "Attachment" => false
         ]);
     }
     #[Route('/{pathName}/anagrafica_assistito/{id}', name: 'app_scheda_pai_anagrafica_assistito', methods: ['GET'])]

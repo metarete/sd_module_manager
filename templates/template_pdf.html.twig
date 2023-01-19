@@ -2,36 +2,61 @@
 	table,
 	th,
 	td {
-		border: 1px solid;
+		border: 0.5px solid;
 		opacity: 1;
-		width: 50%;
-	}
-	table {
 		width: 100%;
 		border-collapse: collapse;
 	}
 	th {
-		text-align: center;
+		text-align: left;
+		width: 30%;
 	}
-	tr:nth-child(even) {background-color: #f2f2f2;}
+	td {
+		text-align: left;
+		width: 70%;
+		
+	}
+	
+	tr:nth-child(even) {background-color: #D3D3D3;}
+	table td#totale{
+		border: 0.5px solid;
+		border-color: black;
+		color:red;
+	}
+
+	h1{
+			text-align: center;
+			color: red;
+			
+	}
+	h3{
+			text-align: left;
+			color: black;
+			border-bottom-style: solid;
+			
+	}
 </style>
 {% block body %}
 	<h1 style="text-align: center; ">
-		Scheda di valutazione completa</h1>
+		Scheda di valutazione PAI</h1>
 
-	<h3 style="text-align: center; ">Scheda PAI</h3>
+	<h3>Anagrafica</h3>
+
+	{{ include('dati_assistito.html.twig') }}
+
+	<h3>Operatori principali e secondari</h3>
 
 	{{ include('campi_scheda_pai.html.twig') }}
 
-
-	<h3 style="text-align: center; ">Valutazione Generale</h3>
+	<div style="page-break-before: always;"></div>
+	<h3>Valutazione Generale</h3>
 	{% if valutazione_generale is empty %}
 		<h4>Nessuna scheda di valutazione generale</h4>
 	{% else %}
 		{{ include('campi_valutazione_generale.html.twig') }}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">Valutazione Figura Professionale</h3>
+	<h3>Valutazione Figura Professionale</h3>
 	{% if valutazioni_figura_professionale is empty %}
 		<h4>Nessuna scheda di valutazione professionale</h4>
 	{% else %}
@@ -41,7 +66,7 @@
 		{% endfor %}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">Barthel</h3>
+	<h3>Barthel</h3>
 	{% if barthels is empty %}
 		<h4>Nessuna scheda di valutazione barthel</h4>
 	{% else %}
@@ -50,7 +75,7 @@
 		{% endfor %}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">Braden</h3>
+	<h3>Braden</h3>
 	{% if bradens is empty %}
 		<h4>Nessuna scheda di valutazione braden</h4>
 	{% else %}
@@ -59,7 +84,7 @@
 		{% endfor %}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">SPMSQ</h3>
+	<h3>SPMSQ</h3>
 	{% if spmsqs is empty %}
 		<h4>Nessuna scheda di valutazione spmsq</h4>
 	{% else %}
@@ -68,7 +93,7 @@
 		{% endfor %}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">Tinetti</h3>
+	<h3>Tinetti</h3>
 	{% if tinettis is empty %}
 		<h4>Nessuna scheda di valutazione tinetti</h4>
 	{% else %}
@@ -77,7 +102,7 @@
 		{% endfor %}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">Vas</h3>
+	<h3>Vas</h3>
 	{% if vass is empty %}
 		<h4>Nessuna scheda di valutazione vas</h4>
 	{% else %}
@@ -86,7 +111,7 @@
 		{% endfor %}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">Lesioni</h3>
+	<h3>Lesioni</h3>
 	{% if lesionis is empty %}
 		<h4>Nessuna scheda di valutazione lesioni</h4>
 	{% else %}
@@ -95,13 +120,13 @@
 		{% endfor %}
 	{% endif %}
 	<div style="page-break-before: always;"></div>
-	<h3 style="text-align: center; ">Parere MMG</h3>
+	<h3>Parere MMG</h3>
 	{% if parere_mmg is empty %}
 		<h4>Nessun parere mmg</h4>
 	{% else %}
 		{{ include('campi_parere_mmg.html.twig') }}
 	{% endif %}
-	<h3 style="text-align: center; ">Chiusura Servizio</h3>
+	<h3>Chiusura Servizio</h3>
 	{% if chiusura_servizio is empty %}
 		<h4>Nessuna chiusura servizio</h4>
 	{% else %}

@@ -1,5 +1,5 @@
 <div id="visualizza-tables">
-	<table class="col-sm-12  table-striped table-condensed cf">
+	<table class="col-sm-12">
 		<thead class="cf"></thead>
 		<tbody>
 		{% if variabileTest != 1%}
@@ -46,7 +46,7 @@
 			</tr>
 			<tr>
 				<th>Totale Valutazione Funzionale</th>
-				<td>{{ barthel.totaleValutazioneFunzionale }}</td>
+				<td id="totale">{{ barthel.totaleValutazioneFunzionale }}</td>
 			</tr>
 			<tr>
 				<th>Trasferimento Letto Sedia</th>
@@ -70,7 +70,7 @@
 			</tr>
 			<tr>
 				<th>Totale</th>
-				<td>{{ barthel.totale }}</td>
+				<td id="totale">{{ barthel.totale }}</td>
 			</tr>
 		</tbody>
 	</table>
