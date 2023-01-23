@@ -1,112 +1,114 @@
- 
-
 <div id="visualizza-tables">
-    <table class="col-sm-12">
-        <thead class="cf">
-        <tbody>
-        {% if variabileTest != 1%}
-            <tr>
-                <th>Id</th>
-                <td>{{ valutazione_generale.id }}</td>
-            </tr>
-        {% endif %}
-            <tr>
-                <th>Assistito</th>
-                <th>{{valutazione_generale.schedaPAI.nomeAssistito}} {{valutazione_generale.schedaPAI.cognomeAssistito}}</td>
-            </tr>
-            <tr>
-				<th>Operatore</th>
-				<td>{{ valutazione_generale.operatore.name }} {{valutazione_generale.operatore.surname}}</td>
-			</tr>
-            <tr>
-                <th>Data valutazione</th>
-                <td>{{ valutazione_generale.dataValutazione ? valutazione_generale.dataValutazione|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>N componenti nucleo abitativo</th>
-                <td>{{ valutazione_generale.nComponentiNucleoAbitativo }}</td>
-            </tr>
-            <tr>
-                <th>Rischio infettivo</th>
-                <td>{{ valutazione_generale.rischioInfettivo ? 'Si' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Diagnosi</th>
-                <td>{{ valutazione_generale.diagnosi }}</td>
-            </tr>
-            <tr>
-                <th>Tipologia valutazione</th>
-                <td>{{ valutazione_generale.tipologiaValutazione }}</td>
-            </tr>
-            <tr>
-                <th>Panf</th>
-                <td>{{ valutazione_generale.panf }}</td>
-            </tr>
-            <tr>
-                <th>Fanf</th>
-                <td>{{ valutazione_generale.fanf }}</td>
-            </tr>
-            <tr>
-                <th>Iss</th>
-                <td>{{ valutazione_generale.iss }}</td>
-            </tr>
-            <tr>
-                <th>Uso servizi igenici</th>
-                <td>{{ valutazione_generale.usoServiziIgenici }}</td>
-            </tr>
-            <tr>
-                <th>Abbigliamento</th>
-                <td>{{ valutazione_generale.abbigliamento }}</td>
-            </tr>
-            <tr>
-                <th>Alimentazione</th>
-                <td>{{ valutazione_generale.alimentazione }}</td>
-            </tr>
-            <tr>
-                <th>Indicatore deambulazione</th>
-                <td>{{ valutazione_generale.indicatoreDeambulazione }}</td>
-            </tr>
-            <tr>
-                <th>Igene personale</th>
-                <td>{{ valutazione_generale.igenePersonale }}</td>
-            </tr>
-            <tr>
-                <th>Cognitività</th>
-                <td>{{ valutazione_generale.cognitivita }}</td>
-            </tr>
-            <tr>
-                <th>Comportamento</th>
-                <td>{{ valutazione_generale.comportamento }}</td>
-            </tr>
-             <tr>
-                <th>Altra tipologia assistenza</th>
-                <td>
-                <ul>
-                {% if altra_tipologia_assistenza is empty %}
-                <li> Nessuna altra tipologia di assistenza</li>
-                {% else %}
-                    {% for i in 0..altra_tipologia_assistenza|length-1 %}
-                    <li>{{ altra_tipologia_assistenza[i] }}</li>
-                    {% endfor %}
-                {% endif %}
-                </ul>
-                </td>
-            </tr>
-             <tr>
-                <th>Bisogni</th>
-                <td>
-                <ul>
-                {% if bisogni is empty %}
-                <li> Nessun bisogno</li>
-                {% else %}
-                    {% for i in 0..bisogni|length-1 %}
-                    <li>{{ bisogni[i] }}</li>
-                    {% endfor %}
-                {% endif %}
-                </ul>
-                </td>
-            </tr>
-            </thead>
-        </tbody>
-    </table>
-</div>
+	<table class="col-sm-12">
+		<thead class="cf"></thead>
+		<tbody>
+			{% if variabileTest != 1%}
+				<tr>
+					<th>Id</th>
+					<td>{{ valutazione_generale.id }}</td>
+				</tr>
+			{% endif %}
+		</tbody>
+	</td>
+</tr>
+<tr>
+	<th>Assistito</th>
+	<td>{{valutazione_generale.schedaPAI.nomeAssistito}}
+		{{valutazione_generale.schedaPAI.cognomeAssistito}}
+	</td>
+</tr>
+<tr>
+	<th>Operatore</th>
+	<td>{{ valutazione_generale.operatore.name }}
+		{{valutazione_generale.operatore.surname}}</td>
+</tr>
+<tr>
+	<th>Data valutazione</th>
+	<td>{{ valutazione_generale.dataValutazione ? valutazione_generale.dataValutazione|date('Y-m-d') : '' }}</td>
+</tr>
+<tr>
+	<th>N componenti nucleo abitativo</th>
+	<td>{{ valutazione_generale.nComponentiNucleoAbitativo }}</td>
+</tr>
+<tr>
+	<th>Rischio infettivo</th>
+	<td>{{ valutazione_generale.rischioInfettivo ? 'Si' : 'No' }}</td>
+</tr>
+<tr>
+	<th>Diagnosi</th>
+	<td>{{ valutazione_generale.diagnosi }}</td>
+</tr>
+<tr>
+	<th>Tipologia valutazione</th>
+	<td>{{ valutazione_generale.tipologiaValutazione }}</td>
+</tr>
+<tr>
+	<th>Panf</th>
+	<td>{{ valutazione_generale.panf }}</td>
+</tr>
+<tr>
+	<th>Fanf</th>
+	<td>{{ valutazione_generale.fanf }}</td>
+</tr>
+<tr>
+	<th>Iss</th>
+	<td>{{ valutazione_generale.iss }}</td>
+</tr>
+<tr>
+	<th>Uso servizi igenici</th>
+	<td>{{ valutazione_generale.usoServiziIgenici }}</td>
+</tr>
+<tr>
+	<th>Abbigliamento</th>
+	<td>{{ valutazione_generale.abbigliamento }}</td>
+</tr>
+<tr>
+	<th>Alimentazione</th>
+	<td>{{ valutazione_generale.alimentazione }}</td>
+</tr>
+<tr>
+	<th>Indicatore deambulazione</th>
+	<td>{{ valutazione_generale.indicatoreDeambulazione }}</td>
+</tr>
+<tr>
+	<th>Igene personale</th>
+	<td>{{ valutazione_generale.igenePersonale }}</td>
+</tr>
+<tr>
+	<th>Cognitività</th>
+	<td>{{ valutazione_generale.cognitivita }}</td>
+</tr>
+<tr>
+	<th>Comportamento</th>
+	<td>{{ valutazione_generale.comportamento }}</td>
+</tr>
+<tr>
+	<th>Altra tipologia assistenza</th>
+	<td>
+
+		{% if altra_tipologia_assistenza is empty %}
+			<li>
+				Nessuna altra tipologia di assistenza</li>
+		{% else %}
+			{% for i in 0..altra_tipologia_assistenza|length-1 %}
+				<li>{{ altra_tipologia_assistenza[i] }}</li>
+			{% endfor %}
+		{% endif %}
+
+	</td>
+</tr>
+<tr>
+	<th>Bisogni</th>
+	<td>
+
+		{% if bisogni is empty %}
+			<li>
+				Nessun bisogno</li>
+		{% else %}
+			{% for i in 0..bisogni|length-1 %}
+				<li>{{ bisogni[i] }}</li>
+			{% endfor %}
+		{% endif %}
+
+	</td>
+</tr></thead></tbody></table></div>

@@ -38,7 +38,6 @@ class CheckSchedePai implements EventSubscriberInterface
         if (!$entity instanceof SchedaPAI) {
             return;
         }
-
         $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
         $this->setterDatiSchedePaiService->settaDati($entity);
         

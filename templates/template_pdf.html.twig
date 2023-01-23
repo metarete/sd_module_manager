@@ -1,136 +1,190 @@
-<style>
-	table,
-	th,
-	td {
-		border: 0.5px solid;
-		opacity: 1;
-		width: 100%;
-		border-collapse: collapse;
-	}
-	th {
-		text-align: left;
-		width: 30%;
-	}
-	td {
-		text-align: left;
-		width: 70%;
-		
-	}
-	
-	tr:nth-child(even) {background-color: #D3D3D3;}
-	table td#totale{
-		border: 0.5px solid;
-		border-color: black;
-		color:red;
-	}
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			table,
+			th,
+			td {
+				border: 0.5px solid;
+				opacity: 1;
+				width: 100%;
+				border-collapse: collapse;
+			}
+			th {
+				text-align: left;
+				width: 30%;
+			}
+			td {
+				text-align: left;
+				width: 70%;
 
-	h1{
-			text-align: center;
-			color: red;
-			
-	}
-	h3{
-			text-align: left;
-			color: black;
-			border-bottom-style: solid;
-			
-	}
-</style>
-{% block body %}
-	<h1 style="text-align: center; ">
-		Scheda di valutazione PAI</h1>
+			}
 
-	<h3>Anagrafica</h3>
+			tr:nth-child(even) {
+				background-color: #D3D3D3;
+			}
+			table td#totale {
+				border: 0.5px solid;
+				border-color: black;
+				color: red;
+			}
 
-	{{ include('dati_assistito.html.twig') }}
+			h1 {
+				text-align: center;
+				color: red;
 
-	<h3>Operatori principali e secondari</h3>
+			}
+			h3 {
+				text-align: left;
+				color: black;
+				border-bottom-style: solid;
 
-	{{ include('campi_scheda_pai.html.twig') }}
+			}
+			@page {
+				margin: 100px 25px;
+			}
 
-	<div style="page-break-before: always;"></div>
-	<h3>Valutazione Generale</h3>
-	{% if valutazione_generale is empty %}
-		<h4>Nessuna scheda di valutazione generale</h4>
-	{% else %}
-		{{ include('campi_valutazione_generale.html.twig') }}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>Valutazione Figura Professionale</h3>
-	{% if valutazioni_figura_professionale is empty %}
-		<h4>Nessuna scheda di valutazione professionale</h4>
-	{% else %}
-		{% for valutazione_figura_professionale in valutazioni_figura_professionale %}
+			header {
+				position: fixed;
+				top: -60px;
+				left: 0;
+				right: 0;
+				height: 70px;
 
-			{{ include('campi_valutazione_figura_professionale.html.twig') }}
-		{% endfor %}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>Barthel</h3>
-	{% if barthels is empty %}
-		<h4>Nessuna scheda di valutazione barthel</h4>
-	{% else %}
-		{% for barthel in barthels %}
-			{{ include('campi_barthel.html.twig') }}
-		{% endfor %}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>Braden</h3>
-	{% if bradens is empty %}
-		<h4>Nessuna scheda di valutazione braden</h4>
-	{% else %}
-		{% for braden in bradens %}
-			{{ include('campi_braden.html.twig') }}
-		{% endfor %}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>SPMSQ</h3>
-	{% if spmsqs is empty %}
-		<h4>Nessuna scheda di valutazione spmsq</h4>
-	{% else %}
-		{% for s_p_m_s_q in spmsqs %}
-			{{ include('campi_spmsq.html.twig') }}
-		{% endfor %}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>Tinetti</h3>
-	{% if tinettis is empty %}
-		<h4>Nessuna scheda di valutazione tinetti</h4>
-	{% else %}
-		{% for tinetti in tinettis %}
-			{{ include('campi_tinetti.html.twig') }}
-		{% endfor %}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>Vas</h3>
-	{% if vass is empty %}
-		<h4>Nessuna scheda di valutazione vas</h4>
-	{% else %}
-		{% for va in vass %}
-			{{ include('campi_vas.html.twig') }}
-		{% endfor %}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>Lesioni</h3>
-	{% if lesionis is empty %}
-		<h4>Nessuna scheda di valutazione lesioni</h4>
-	{% else %}
-		{% for lesioni in lesionis %}
-			{{ include('campi_lesioni.html.twig') }}
-		{% endfor %}
-	{% endif %}
-	<div style="page-break-before: always;"></div>
-	<h3>Parere MMG</h3>
-	{% if parere_mmg is empty %}
-		<h4>Nessun parere mmg</h4>
-	{% else %}
-		{{ include('campi_parere_mmg.html.twig') }}
-	{% endif %}
-	<h3>Chiusura Servizio</h3>
-	{% if chiusura_servizio is empty %}
-		<h4>Nessuna chiusura servizio</h4>
-	{% else %}
-		{{ include('campi_chiusura_servizio.html.twig') }}
-	{% endif %}
+				/** Extra personal styles **/
+				background-color: #212529;
+				color: white;
+				text-align: center;
+				line-height: 35px;
+				border-radius: 10% 30% 50% 70%;
+			}
+			header img {
+				float: right;
+				width: 50px;
+				height: 50px;
+			}
 
-{% endblock %}
+
+			footer {
+				position: fixed;
+				bottom: -60px;
+				left: 0;
+				right: 0;
+				height: 50px;
+
+				/** Extra personal styles **/
+				background-color: #212529;
+				color: white;
+				text-align: center;
+				line-height: 35px;
+			}
+		</style>
+	</head>
+	<body>
+		{% block body %}
+			<header>
+				<figure class="figure">
+					<img src="data:image/png;base64, {{image64}}">
+				</figure>
+				<h2>Scheda Pai completa</h2>
+			</header>
+			<footer>footer on each page</footer>
+
+
+			<h3>Anagrafica</h3>
+
+			{{ include('dati_assistito.html.twig') }}
+
+			<h3>Operatori principali e secondari</h3>
+
+			{{ include('campi_scheda_pai.html.twig') }}
+
+			<div style="page-break-before: always;"></div>
+
+			<h3>Valutazione Generale</h3>
+			{% if valutazione_generale is empty %}
+				<h4>Nessuna scheda di valutazione generale</h4>
+			{% else %}
+				{{ include('campi_valutazione_generale.html.twig') }}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>Valutazione Figura Professionale</h3>
+			{% if valutazioni_figura_professionale is empty %}
+				<h4>Nessuna scheda di valutazione professionale</h4>
+			{% else %}
+				{% for valutazione_figura_professionale in valutazioni_figura_professionale %}
+
+					{{ include('campi_valutazione_figura_professionale.html.twig') }}
+				{% endfor %}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>Barthel</h3>
+			{% if barthels is empty %}
+				<h4>Nessuna scheda di valutazione barthel</h4>
+			{% else %}
+				{% for barthel in barthels %}
+					{{ include('campi_barthel.html.twig') }}
+				{% endfor %}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>Braden</h3>
+			{% if bradens is empty %}
+				<h4>Nessuna scheda di valutazione braden</h4>
+			{% else %}
+				{% for braden in bradens %}
+					{{ include('campi_braden.html.twig') }}
+				{% endfor %}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>SPMSQ</h3>
+			{% if spmsqs is empty %}
+				<h4>Nessuna scheda di valutazione spmsq</h4>
+			{% else %}
+				{% for s_p_m_s_q in spmsqs %}
+					{{ include('campi_spmsq.html.twig') }}
+				{% endfor %}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>Tinetti</h3>
+			{% if tinettis is empty %}
+				<h4>Nessuna scheda di valutazione tinetti</h4>
+			{% else %}
+				{% for tinetti in tinettis %}
+					{{ include('campi_tinetti.html.twig') }}
+				{% endfor %}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>Vas</h3>
+			{% if vass is empty %}
+				<h4>Nessuna scheda di valutazione vas</h4>
+			{% else %}
+				{% for va in vass %}
+					{{ include('campi_vas.html.twig') }}
+				{% endfor %}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>Lesioni</h3>
+			{% if lesionis is empty %}
+				<h4>Nessuna scheda di valutazione lesioni</h4>
+			{% else %}
+				{% for lesioni in lesionis %}
+					{{ include('campi_lesioni.html.twig') }}
+				{% endfor %}
+			{% endif %}
+			<div style="page-break-before: always;"></div>
+			<h3>Parere MMG</h3>
+			{% if parere_mmg is empty %}
+				<h4>Nessun parere mmg</h4>
+			{% else %}
+				{{ include('campi_parere_mmg.html.twig') }}
+			{% endif %}
+			<h3>Chiusura Servizio</h3>
+			{% if chiusura_servizio is empty %}
+				<h4>Nessuna chiusura servizio</h4>
+			{% else %}
+				{{ include('campi_chiusura_servizio.html.twig') }}
+			{% endif %}
+
+		{% endblock %}
+	</body>
+</html>

@@ -375,6 +375,10 @@ class SchedaPAIController extends AbstractController
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
 
+        $img = file_get_contents(
+            "/app/public/image/logo.jpeg");
+        $image64 = base64_encode($img);
+
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('template_pdf.html.twig', [
             'title' => "Scheda Pai completa",
@@ -393,6 +397,7 @@ class SchedaPAIController extends AbstractController
             'assistito' => $assistito,
             'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
             'bisogni' => $bisogni,
+            'image64' => $image64,
         ]);
         //$html .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
         // Load HTML to Dompdf
@@ -403,11 +408,12 @@ class SchedaPAIController extends AbstractController
 
         // Render the HTML as PDF
         $dompdf->render();
-
+        
         // Output the generated PDF to Browser (inline view)
         $dompdf->stream("SchedaPai.pdf", [
             "Attachment" => false
         ]);
+
     }
     #[Route('/{pathName}/anagrafica_assistito/{id}', name: 'app_scheda_pai_anagrafica_assistito', methods: ['GET'])]
     public function datiAssistito(SchedaPAI $schedaPAI, string $pathName)
