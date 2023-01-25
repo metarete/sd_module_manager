@@ -35,9 +35,9 @@ class ValutazioneGeneraleRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
+        //if ($flush) {
             $this->getEntityManager()->flush();
-        }
+        //}
     }
 
     public function contaSchede(): int

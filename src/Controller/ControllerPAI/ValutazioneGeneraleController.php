@@ -14,7 +14,6 @@ use App\Service\AltraTipologiaAssistenzaService;
 use App\Form\FormPAI\ValutazioneGeneraleFormType;
 use App\Repository\ValutazioneGeneraleRepository;
 use Symfony\Component\Workflow\WorkflowInterface;
-use Symfony\Component\Workflow\Exception\LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/valutazione_generale')]
@@ -34,6 +33,24 @@ class ValutazioneGeneraleController extends AbstractController
         $this->workflow = $schedePaiCreatingStateMachine;
         $this->altraTipologiaAssistenzaService = $altraTipologiaAssistenzaService;
         $this->bisogniService = $bisogniService;
+    }
+    #[Route('/delete/{id}', name: 'app_valutazione_generale_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, ValutazioneGenerale $valutazioneGenerale, ValutazioneGeneraleRepository $valutazioneGeneraleRepository): Response
+    {
+        
+        $idSchedaPai = $valutazioneGenerale->getSchedaPAI()->getId();
+        $schedePaiRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedePaiRepository->findOneBySomeField($idSchedaPai);
+
+        if ($this->isCsrfTokenValid('delete' . $valutazioneGenerale->getId(), $request->request->get('_token'))) {
+            if ($this->workflow->can($schedaPai, 'approva_per_cancellazione')) {
+                $schedaPai->setCurrentPlace('approvata');
+                
+            }
+            $valutazioneGeneraleRepository->remove($valutazioneGenerale, true);
+        }
+
+        return $this->redirectToRoute('app_valutazione_generale_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/{page}', name: 'app_valutazione_generale_index', requirements: ['page' => '\d+'], methods: ['GET'])]
     public function index(ValutazioneGeneraleRepository $valutazioneGeneraleRepository, int $page = 1): Response
@@ -120,20 +137,4 @@ class ValutazioneGeneraleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_valutazione_generale_delete', methods: ['POST'])]
-    public function delete(Request $request, ValutazioneGenerale $valutazioneGenerale, ValutazioneGeneraleRepository $valutazioneGeneraleRepository): Response
-    {
-        $idSchedaPai = $valutazioneGenerale->getSchedaPAI()->getId();
-        $schedePaiRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $schedePaiRepository->findOneBySomeField($idSchedaPai);
-
-        if ($this->isCsrfTokenValid('delete' . $valutazioneGenerale->getId(), $request->request->get('_token'))) {
-            if ($this->workflow->can($schedaPai, 'approva_per_cancellazione')) {
-                $valutazioneGenerale->getSchedaPAI()->setCurrentPlace('approvata');
-            }
-            $valutazioneGeneraleRepository->remove($valutazioneGenerale, true);
-        }
-
-        return $this->redirectToRoute('app_valutazione_generale_index', [], Response::HTTP_SEE_OTHER);
-    }
 }
