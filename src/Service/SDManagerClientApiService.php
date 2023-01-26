@@ -123,6 +123,10 @@ class SDManagerClientApiService
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         for( $i = 0; $i< count($progetti); $i++){
             $idProgetto=$progetti[$i]['id_progetto'];
+            dump($progetti[$i]);
+            dump('check nuovo parametro da fare');
+            die();
+            
             $dataInizio = DateTime::createfromformat('d-m-Y',$progetti[$i]['data_inizio']);
             $dataFine = DateTime::createfromformat('d-m-Y',$progetti[$i]['data_fine']);
             $idAssistito = $progetti[$i]['id_utente'];

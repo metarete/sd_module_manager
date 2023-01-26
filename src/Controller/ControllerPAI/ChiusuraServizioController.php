@@ -23,17 +23,35 @@ class ChiusuraServizioController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
-    #[Route('/{page}', name: 'app_chiusura_servizio_index',requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(ChiusuraServizioRepository $chiusuraServizioRepository, int $page=1): Response
+
+    #[Route('/delete/{id}', name: 'app_chiusura_servizio_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, ChiusuraServizio $chiusuraServizio, ChiusuraServizioRepository $chiusuraServizioRepository): Response
+    {
+        $metodo = $request->getMethod();
+        if ($metodo == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $chiusuraServizio->getId(), $request->request->get('_token'))) {
+                $chiusuraServizioRepository->remove($chiusuraServizio, true);
+            }
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $chiusuraServizio->getId(), $request->query->get('_token'))) {
+                $chiusuraServizioRepository->remove($chiusuraServizio, true);
+            }
+        }
+
+        return $this->redirectToRoute('app_chiusura_servizio_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{page}', name: 'app_chiusura_servizio_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function index(ChiusuraServizioRepository $chiusuraServizioRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;
-        $offset = $schedePerPagina*$page-$schedePerPagina;
+        $offset = $schedePerPagina * $page - $schedePerPagina;
         $totaleSchede = $chiusuraServizioRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede/$schedePerPagina);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
         return $this->render('chiusura_servizio/index.html.twig', [
-            'chiusura_servizios' => $chiusuraServizioRepository->findBy([], null, $schedePerPagina, $offset ),
-            'pagina'=>$page,
-            'pagine_totali'=>$pagineTotali
+            'chiusura_servizios' => $chiusuraServizioRepository->findBy([], null, $schedePerPagina, $offset),
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali
         ]);
     }
 
@@ -57,10 +75,9 @@ class ChiusuraServizioController extends AbstractController
             $chiusuraServizioRepository->add($chiusuraServizio, true);
             $this->entityManager->flush();
 
-            if($pathName == 'app_scadenzario_index'){
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -89,7 +106,7 @@ class ChiusuraServizioController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $chiusuraServizioRepository->add($chiusuraServizio, true);
-            
+
 
             return $this->redirectToRoute('app_chiusura_servizio_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -98,15 +115,5 @@ class ChiusuraServizioController extends AbstractController
             'chiusura_servizio' => $chiusuraServizio,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_chiusura_servizio_delete', methods: ['POST'])]
-    public function delete(Request $request, ChiusuraServizio $chiusuraServizio, ChiusuraServizioRepository $chiusuraServizioRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$chiusuraServizio->getId(), $request->request->get('_token'))) {
-            $chiusuraServizioRepository->remove($chiusuraServizio, true);
-        }
-
-        return $this->redirectToRoute('app_chiusura_servizio_index', [], Response::HTTP_SEE_OTHER);
     }
 }

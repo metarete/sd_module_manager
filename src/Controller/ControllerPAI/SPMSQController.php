@@ -23,17 +23,35 @@ class SPMSQController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
-    #[Route('/{page}', name: 'app_s_p_m_s_q_index',requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(SPMSQRepository $sPMSQRepository, int $page=1): Response
+
+    #[Route('/delete/{id}', name: 'app_s_p_m_s_q_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, SPMSQ $sPMSQ, SPMSQRepository $sPMSQRepository): Response
+    {
+        $metodo = $request->getMethod();
+        if ($metodo == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $sPMSQ->getId(), $request->request->get('_token'))) {
+                $sPMSQRepository->remove($sPMSQ, true);
+            }
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $sPMSQ->getId(), $request->query->get('_token'))) {
+                $sPMSQRepository->remove($sPMSQ, true);
+            }
+        }
+
+        return $this->redirectToRoute('app_s_p_m_s_q_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{page}', name: 'app_s_p_m_s_q_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function index(SPMSQRepository $sPMSQRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;
-        $offset = $schedePerPagina*$page-$schedePerPagina;
+        $offset = $schedePerPagina * $page - $schedePerPagina;
         $totaleSchede = $sPMSQRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede/$schedePerPagina);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
         return $this->render('spmsq/index.html.twig', [
-            's_p_m_s_qs' => $sPMSQRepository->findBy([], null, $schedePerPagina, $offset ),
-            'pagina'=>$page,
-            'pagine_totali'=>$pagineTotali
+            's_p_m_s_qs' => $sPMSQRepository->findBy([], null, $schedePerPagina, $offset),
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali
         ]);
     }
 
@@ -58,10 +76,9 @@ class SPMSQController extends AbstractController
             $this->entityManager->flush();
 
 
-            if($pathName == 'app_scadenzario_index'){
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -98,15 +115,5 @@ class SPMSQController extends AbstractController
             's_p_m_s_q' => $sPMSQ,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_s_p_m_s_q_delete', methods: ['POST'])]
-    public function delete(Request $request, SPMSQ $sPMSQ, SPMSQRepository $sPMSQRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$sPMSQ->getId(), $request->request->get('_token'))) {
-            $sPMSQRepository->remove($sPMSQ, true);
-        }
-
-        return $this->redirectToRoute('app_s_p_m_s_q_index', [], Response::HTTP_SEE_OTHER);
     }
 }

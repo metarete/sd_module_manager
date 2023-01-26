@@ -12,7 +12,7 @@
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
-			
+
 		{% endblock %}
 
 		{% block javascripts %}
@@ -28,10 +28,10 @@
 							<a href="{{ path('app_scadenzario_index') }}" class="nav-link px-2 text-white">Home</a>
 						</li>
 						<li>
-							<a {% if app.user.roles[0] == 'ROLE_USER' %}class="invisible"{% endif %} href="{{ path('app_elenco_schede') }}" class="nav-link px-2 text-white">Schede</a>
+							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_elenco_schede') }}" class="nav-link px-2 text-white">Schede</a>
 						</li>
 						<li>
-							<a {% if app.user.roles[0] == 'ROLE_USER' %}class="invisible"{% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link px-2 text-white">Sincronizza</a>
+							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link px-2 text-white">Sincronizza</a>
 						</li>
 					</ul>
 					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -42,7 +42,10 @@
 					<div class="d-flex flex-row-reverse w-10 pe-3">
 
 						<a class="d-block link-light text-decoration-none dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true">
-							<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewbox="0 0 16 16">
+								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+							</svg>
 						</a>
 						<ul class="dropdown-menu text-small" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 34px);" data-popper-placement="bottom-end">
 							<li>

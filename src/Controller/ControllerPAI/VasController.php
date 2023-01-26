@@ -23,17 +23,35 @@ class VasController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
-    #[Route('/{page}', name: 'app_vas_index',requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(VasRepository $vasRepository, int $page=1): Response
+
+    #[Route('/delete/{id}', name: 'app_vas_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Vas $va, VasRepository $vasRepository): Response
+    {
+        $metodo = $request->getMethod();
+        if ($metodo == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $va->getId(), $request->request->get('_token'))) {
+                $vasRepository->remove($va, true);
+            }
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $va->getId(), $request->query->get('_token'))) {
+                $vasRepository->remove($va, true);
+            }
+        }
+
+        return $this->redirectToRoute('app_vas_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{page}', name: 'app_vas_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function index(VasRepository $vasRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;
-        $offset = $schedePerPagina*$page-$schedePerPagina;
+        $offset = $schedePerPagina * $page - $schedePerPagina;
         $totaleSchede = $vasRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede/$schedePerPagina);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
         return $this->render('vas/index.html.twig', [
-            'vas' => $vasRepository->findBy([], null, $schedePerPagina, $offset ),
-            'pagina'=>$page,
-            'pagine_totali'=>$pagineTotali
+            'vas' => $vasRepository->findBy([], null, $schedePerPagina, $offset),
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali
         ]);
     }
 
@@ -58,10 +76,9 @@ class VasController extends AbstractController
             $this->entityManager->flush();
 
 
-            if($pathName == 'app_scadenzario_index'){
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -98,15 +115,5 @@ class VasController extends AbstractController
             'va' => $va,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_vas_delete', methods: ['POST'])]
-    public function delete(Request $request, Vas $va, VasRepository $vasRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$va->getId(), $request->request->get('_token'))) {
-            $vasRepository->remove($va, true);
-        }
-
-        return $this->redirectToRoute('app_vas_index', [], Response::HTTP_SEE_OTHER);
     }
 }

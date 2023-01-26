@@ -23,17 +23,36 @@ class BarthelController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
-    #[Route('/{page}', name: 'app_barthel_index',requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(BarthelRepository $barthelRepository, int $page=1): Response
+
+    #[Route('/delete/{id}', name: 'app_barthel_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Barthel $barthel, BarthelRepository $barthelRepository): Response
+    {
+        $metodo = $request->getMethod();
+        if ($metodo == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $barthel->getId(), $request->request->get('_token'))) {
+                $barthelRepository->remove($barthel, true);
+            }
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $barthel->getId(), $request->query->get('_token'))) {
+                $barthelRepository->remove($barthel, true);
+            }
+        }
+
+
+        return $this->redirectToRoute('app_barthel_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{page}', name: 'app_barthel_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function index(BarthelRepository $barthelRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;
-        $offset = $schedePerPagina*$page-$schedePerPagina;
+        $offset = $schedePerPagina * $page - $schedePerPagina;
         $totaleSchede = $barthelRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede/$schedePerPagina);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
         return $this->render('barthel/index.html.twig', [
-            'barthels' => $barthelRepository->findBy([], null, $schedePerPagina, $offset ),
-            'pagina'=>$page,
-            'pagine_totali'=>$pagineTotali
+            'barthels' => $barthelRepository->findBy([], null, $schedePerPagina, $offset),
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali
         ]);
     }
 
@@ -57,10 +76,9 @@ class BarthelController extends AbstractController
             $barthelRepository->add($barthel, true);
             $this->entityManager->flush();
 
-            if($pathName == 'app_scadenzario_index'){
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -97,15 +115,5 @@ class BarthelController extends AbstractController
             'barthel' => $barthel,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_barthel_delete', methods: ['POST'])]
-    public function delete(Request $request, Barthel $barthel, BarthelRepository $barthelRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$barthel->getId(), $request->request->get('_token'))) {
-            $barthelRepository->remove($barthel, true);
-        }
-
-        return $this->redirectToRoute('app_barthel_index', [], Response::HTTP_SEE_OTHER);
     }
 }

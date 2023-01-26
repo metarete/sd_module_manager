@@ -23,17 +23,33 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
-    #[Route('/{page}', name: 'app_valutazione_figura_professionale_index',requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository, int $page=1): Response
+    #[Route('/delete/{id}', name: 'app_valutazione_figura_professionale_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale, ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository): Response
+    {
+        $metodo = $request->getMethod();
+        if ($metodo == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $valutazioneFiguraProfessionale->getId(), $request->request->get('_token'))) {
+                $valutazioneFiguraProfessionaleRepository->remove($valutazioneFiguraProfessionale, true);
+            }
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $valutazioneFiguraProfessionale->getId(), $request->query->get('_token'))) {
+                $valutazioneFiguraProfessionaleRepository->remove($valutazioneFiguraProfessionale, true);
+            }
+        }
+
+        return $this->redirectToRoute('app_valutazione_figura_professionale_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/{page}', name: 'app_valutazione_figura_professionale_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function index(ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;
-        $offset = $schedePerPagina*$page-$schedePerPagina;
+        $offset = $schedePerPagina * $page - $schedePerPagina;
         $totaleSchede = $valutazioneFiguraProfessionaleRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede/$schedePerPagina);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
         return $this->render('valutazione_figura_professionale/index.html.twig', [
-            'valutazione_figura_professionales' => $valutazioneFiguraProfessionaleRepository->findBy([], null, $schedePerPagina, $offset ),
-            'pagina'=>$page,
-            'pagine_totali'=>$pagineTotali
+            'valutazione_figura_professionales' => $valutazioneFiguraProfessionaleRepository->findBy([], null, $schedePerPagina, $offset),
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali
         ]);
     }
 
@@ -57,10 +73,9 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             $valutazioneFiguraProfessionaleRepository->add($valutazioneFiguraProfessionale, true);
             $this->entityManager->flush();
 
-            if($pathName == 'app_scadenzario_index'){
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -97,15 +112,5 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             'valutazione_figura_professionale' => $valutazioneFiguraProfessionale,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_valutazione_figura_professionale_delete', methods: ['POST'])]
-    public function delete(Request $request, ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale, ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$valutazioneFiguraProfessionale->getId(), $request->request->get('_token'))) {
-            $valutazioneFiguraProfessionaleRepository->remove($valutazioneFiguraProfessionale, true);
-        }
-
-        return $this->redirectToRoute('app_valutazione_figura_professionale_index', [], Response::HTTP_SEE_OTHER);
     }
 }

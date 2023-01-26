@@ -37,17 +37,25 @@ class ValutazioneGeneraleController extends AbstractController
     #[Route('/delete/{id}', name: 'app_valutazione_generale_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, ValutazioneGenerale $valutazioneGenerale, ValutazioneGeneraleRepository $valutazioneGeneraleRepository): Response
     {
-        
+
         $idSchedaPai = $valutazioneGenerale->getSchedaPAI()->getId();
         $schedePaiRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $schedePaiRepository->findOneBySomeField($idSchedaPai);
-
-        if ($this->isCsrfTokenValid('delete' . $valutazioneGenerale->getId(), $request->request->get('_token'))) {
-            if ($this->workflow->can($schedaPai, 'approva_per_cancellazione')) {
-                $schedaPai->setCurrentPlace('approvata');
-                
+        $metodo = $request->getMethod();
+        if ($metodo == "POST") {
+            if ($this->isCsrfTokenValid('delete' . $valutazioneGenerale->getId(), $request->request->get('_token'))) {
+                if ($this->workflow->can($schedaPai, 'approva_per_cancellazione')) {
+                    $schedaPai->setCurrentPlace('approvata');
+                }
+                $valutazioneGeneraleRepository->remove($valutazioneGenerale, true);
             }
-            $valutazioneGeneraleRepository->remove($valutazioneGenerale, true);
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $valutazioneGenerale->getId(), $request->query->get('_token'))) {
+                if ($this->workflow->can($schedaPai, 'approva_per_cancellazione')) {
+                    $schedaPai->setCurrentPlace('approvata');
+                }
+                $valutazioneGeneraleRepository->remove($valutazioneGenerale, true);
+            }
         }
 
         return $this->redirectToRoute('app_valutazione_generale_index', [], Response::HTTP_SEE_OTHER);
@@ -136,5 +144,4 @@ class ValutazioneGeneraleController extends AbstractController
             'form' => $form,
         ]);
     }
-
 }

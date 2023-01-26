@@ -17,7 +17,6 @@
                 <th>Totale Valutazione Funzionale</th>
                 <th>Totale</th>
                 <th>Operazioni</th>
-                <th>Elimina</th>
             </tr>
         </thead>
         <tbody>
@@ -37,8 +36,9 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_barthel_show', {'id': barthel.id}) }}">Visualizza</a>
                         <li><a class="dropdown-item" href="{{ path('app_barthel_edit', {'id': barthel.id}) }}">Modifica</a>
+                        <li><a class="dropdown-item" href="{{ path('app_barthel_delete', {'id': barthel.id, '_token': csrf_token('delete' ~ barthel.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">Elimina</a></li>
                 </td>
-                <td data-title='Elimina'> 
+                {#<td data-title='Elimina'> 
                     <form method="post" action="{{ path('app_barthel_delete', {'id': barthel.id}) }}" onsubmit="return confirm('Sei sicuro di voler cancellare questa scheda?');">
                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ barthel.id) }}">
                             <button class="btn btn-outline-danger"> 
@@ -47,7 +47,7 @@
                                 </svg>
                             </button>
                     </form>    
-                </td> 
+                </td> #}
             </tr>
         {% else %}
             <tr>

@@ -23,17 +23,35 @@ class TinettiController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
-    #[Route('/{page}', name: 'app_tinetti_index',requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(TinettiRepository $tinettiRepository, int $page=1): Response
+
+    #[Route('/delete/{id}', name: 'app_tinetti_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, Tinetti $tinetti, TinettiRepository $tinettiRepository): Response
+    {
+        $metodo = $request->getMethod();
+        if ($metodo == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $tinetti->getId(), $request->request->get('_token'))) {
+                $tinettiRepository->remove($tinetti, true);
+            }
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $tinetti->getId(), $request->query->get('_token'))) {
+                $tinettiRepository->remove($tinetti, true);
+            }
+        }
+
+        return $this->redirectToRoute('app_tinetti_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{page}', name: 'app_tinetti_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function index(TinettiRepository $tinettiRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;
-        $offset = $schedePerPagina*$page-$schedePerPagina;
+        $offset = $schedePerPagina * $page - $schedePerPagina;
         $totaleSchede = $tinettiRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede/$schedePerPagina);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
         return $this->render('tinetti/index.html.twig', [
-            'tinettis' => $tinettiRepository->findBy([], null, $schedePerPagina, $offset ),
-            'pagina'=>$page,
-            'pagine_totali'=>$pagineTotali
+            'tinettis' => $tinettiRepository->findBy([], null, $schedePerPagina, $offset),
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali
         ]);
     }
 
@@ -56,12 +74,11 @@ class TinettiController extends AbstractController
             $tinettiRepository = $this->entityManager->getRepository(Tinetti::class);
             $tinettiRepository->add($tinetti, true);
             $this->entityManager->flush();
-          
 
-            if($pathName == 'app_scadenzario_index'){
+
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -98,15 +115,5 @@ class TinettiController extends AbstractController
             'tinetti' => $tinetti,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_tinetti_delete', methods: ['POST'])]
-    public function delete(Request $request, Tinetti $tinetti, TinettiRepository $tinettiRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$tinetti->getId(), $request->request->get('_token'))) {
-            $tinettiRepository->remove($tinetti, true);
-        }
-
-        return $this->redirectToRoute('app_tinetti_index', [], Response::HTTP_SEE_OTHER);
     }
 }

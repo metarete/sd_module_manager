@@ -24,17 +24,35 @@ class ParereMMGController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
-    #[Route('/[page}', name: 'app_parere_mmg_index',requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(ParereMMGRepository $parereMMGRepository, int $page=1): Response
+
+    #[Route('/delete/{id}', name: 'app_parere_mmg_delete', methods: ['GET', 'POST'])]
+    public function delete(Request $request, ParereMMG $parereMMG, ParereMMGRepository $parereMMGRepository): Response
+    {
+        $metodo = $request->getMethod();
+        if ($metodo == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $parereMMG->getId(), $request->request->get('_token'))) {
+                $parereMMGRepository->remove($parereMMG, true);
+            }
+        } else {
+            if ($this->isCsrfTokenValid('delete' . $parereMMG->getId(), $request->query->get('_token'))) {
+                $parereMMGRepository->remove($parereMMG, true);
+            }
+        }
+
+        return $this->redirectToRoute('app_parere_mmg_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/[page}', name: 'app_parere_mmg_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    public function index(ParereMMGRepository $parereMMGRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;
-        $offset = $schedePerPagina*$page-$schedePerPagina;
+        $offset = $schedePerPagina * $page - $schedePerPagina;
         $totaleSchede = $parereMMGRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede/$schedePerPagina);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
         return $this->render('parere_mmg/index.html.twig', [
-            'parere_mmgs' => $parereMMGRepository->findBy([], null, $schedePerPagina, $offset ),
-            'pagina'=>$page,
-            'pagine_totali'=>$pagineTotali
+            'parere_mmgs' => $parereMMGRepository->findBy([], null, $schedePerPagina, $offset),
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali
         ]);
     }
 
@@ -59,10 +77,9 @@ class ParereMMGController extends AbstractController
             $parereMMGRepository->add($parereMMG, true);
             $this->entityManager->flush();
 
-            if($pathName == 'app_scadenzario_index'){
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -99,15 +116,5 @@ class ParereMMGController extends AbstractController
             'parere_mmg' => $parereMMG,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_parere_mmg_delete', methods: ['POST'])]
-    public function delete(Request $request, ParereMMG $parereMMG, ParereMMGRepository $parereMMGRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$parereMMG->getId(), $request->request->get('_token'))) {
-            $parereMMGRepository->remove($parereMMG, true);
-        }
-
-        return $this->redirectToRoute('app_parere_mmg_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -92,7 +92,7 @@
 												href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}">Modifica scheda Pai</a>
 											</li>
 											<li>
-												<li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}">Approva scheda Pai</a></li>
+												<li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" {% if scheda_pai.idOperatorePrincipale == null %} href="javascript:alert('Operatore principale mancante!');"{% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" >Approva scheda Pai</a></li>
 											</li>
 											<li>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')">Elimina scheda Pai</a>
