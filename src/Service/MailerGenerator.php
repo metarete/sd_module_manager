@@ -7,6 +7,7 @@ use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\NotificationEmail; 
 
 class MailerGenerator
 {
@@ -43,66 +44,66 @@ class MailerGenerator
 
 
             if ($numeroSchedeNuove != null && $numeroSchedeChiuse == null && $numeroSchedeChiuseConRinnovo == null) {
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per admin')
-                    ->text('Esiste almeno una scheda nello stato Nuova che deve essere approvata');
+                    ->markdown('Esiste almeno una scheda nello stato Nuova che deve essere approvata');
 
                 $this->mailer->send($email);
             }
             if ($numeroSchedeNuove != null && $numeroSchedeChiuse != null && $numeroSchedeChiuseConRinnovo == null) {
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per admin')
-                    ->text('Esiste almeno una scheda nello stato Nuova che deve essere approvata e una scheda che è stata chiusa.');
+                    ->markdown('Esiste almeno una scheda nello stato Nuova che deve essere approvata e una scheda che è stata chiusa.');
 
                 $this->mailer->send($email);
             }
             if ($numeroSchedeNuove != null && $numeroSchedeChiuse != null && $numeroSchedeChiuseConRinnovo != null) {
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per admin')
-                    ->text('Esiste almeno una scheda nello stato Nuova che deve essere approvata e una scheda che è stata chiusa.
+                    ->markdown('Esiste almeno una scheda nello stato Nuova che deve essere approvata e una scheda che è stata chiusa.
                 Esiste anche una scheda chiusa che necessita di un rinnovo: occorre attivarsi per creare un nuovo Progetto in SD Manager.');
 
                 $this->mailer->send($email);
             }
             if ($numeroSchedeNuove == null && $numeroSchedeChiuse != null && $numeroSchedeChiuseConRinnovo != null) {
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per admin')
-                    ->text('Esiste almeno  una scheda che è stata chiusa.Esiste anche una scheda chiusa che necessita di un rinnovo: occorre attivarsi per creare un nuovo Progetto in SD Manager.');
+                    ->markdown('Esiste almeno  una scheda che è stata chiusa.Esiste anche una scheda chiusa che necessita di un rinnovo: occorre attivarsi per creare un nuovo Progetto in SD Manager.');
 
                 $this->mailer->send($email);
             }
             if ($numeroSchedeNuove == null && $numeroSchedeChiuse == null && $numeroSchedeChiuseConRinnovo != null) {
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per admin')
-                    ->text('Esiste una scheda chiusa che necessita di un rinnovo: occorre attivarsi per creare un nuovo Progetto in SD Manager.');
+                    ->markdown('Esiste una scheda chiusa che necessita di un rinnovo: occorre attivarsi per creare un nuovo Progetto in SD Manager.');
 
                 $this->mailer->send($email);
             }
             if ($numeroSchedeNuove == null && $numeroSchedeChiuse != null && $numeroSchedeChiuseConRinnovo == null) {
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per admin')
-                    ->text('Esiste almeno  una scheda che è stata chiusa.');
+                    ->markdown('Esiste almeno  una scheda che è stata chiusa.');
 
                 $this->mailer->send($email);
             }
             if ($numeroSchedeNuove != null && $numeroSchedeChiuse == null && $numeroSchedeChiuseConRinnovo != null) {
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per admin')
-                    ->text('Esiste almeno una scheda nello stato Nuova che deve essere approvata.
+                    ->markdown('Esiste almeno una scheda nello stato Nuova che deve essere approvata.
                 Esiste anche una scheda chiusa che necessita di un rinnovo: occorre attivarsi per creare un nuovo Progetto in SD Manager.');
 
                 $this->mailer->send($email);
@@ -119,16 +120,17 @@ class MailerGenerator
         $arraySchedeInAttesaDiChiusura = $schedaPAIRepository->findByState('in_attesa_di_chiusura');
         $arrayOperatori = $userRepository->findAll();
         $testoApprovata = '
-        --Esiste almeno una scheda in stato approvata in cui sei operatore principale che deve essere attivata. Abilitare le scale, impostare la frequenza di compilazione e compilare la valutazione generale.';
+        <p>Esiste almeno una scheda in stato approvata in cui sei operatore principale che deve essere attivata. Abilitare le scale, impostare la frequenza di compilazione e compilare la valutazione generale.</p>';
         $testoRitardi = '
-        --Ci sono delle di valutazione in ritardo rispetto alla frequenza stabilita. Compilarle al più presto.';
+        <p>Ci sono delle di valutazione in ritardo rispetto alla frequenza stabilita. Compilarle al più presto.</p>';
         $testoChiusura = '
-        --Esistono una o più schede che necessitano di chiusura. Compilare le scale mancanti se necessario e la chiusura del servizio.';
+        <p>Esistono una o più schede che necessitano di chiusura. Compilare le scale mancanti se necessario e la chiusura del servizio.</p>';
         $testoAttiva = '
-        -- Esiste almeno una scheda in stato attiva in cui manca almeno una valutazione professionale.';
+        <p>Esiste almeno una scheda in stato attiva in cui manca almeno una valutazione professionale.</p>';
         for ($i = 0; $i < count($arrayOperatori); $i++) {
             $idOperatore = $arrayOperatori[$i]->getId();
             $flagSchedaApprovata = false;
+            $descrizioneSchedeApprovate ="Attiva le seguenti schede: ";
             $flagRitardi = false;
             $flagSchedeDaChiudere = false;
             $flagValutazioneProfessionale = false;
@@ -136,6 +138,8 @@ class MailerGenerator
                 $idOperatorePrincipale = $arraySchedeApprovate[$j]->getIdOperatorePrincipale()->getId();
                 if ($idOperatore == $idOperatorePrincipale) {
                     $flagSchedaApprovata = true;
+                    $id=$arraySchedeApprovate[$j]->getId();
+                    $descrizioneSchedeApprovate =  $descrizioneSchedeApprovate . "Scheda pai: " .$arraySchedeApprovate[$j]->getId() . " " . "Stato: ". $arraySchedeApprovate[$j]->getCurrentPlace() . " " . '<a href='.'http://localhost:54001/scheda_pai/app_scadenzario_index/'.$id.'/edit/'.'>Abilita scale e aggiungi la frequenza</a>' . "   " . '<a href='.'http://localhost:54001/scheda_pai/app_scadenzario_index/new'.'>Compila la valutazione generale</a>';
                 }
             }
             for ($t = 0; $t < count($arraySchedeAttive); $t++) {
@@ -196,6 +200,7 @@ class MailerGenerator
             $testoAttiva1 = $testoAttiva;
             if ($flagSchedaApprovata == false) {
                 $testoApprovata1 = '';
+                $descrizioneSchedeApprovate = '';
             }
             if ($flagRitardi == false) {
                 $testoRitardi1 = '';
@@ -206,18 +211,19 @@ class MailerGenerator
             if ($flagValutazioneProfessionale == false) {
                 $testoAttiva1 = '';
             }
-            $testoEmail = $testoApprovata1 . $testoRitardi1 . $testoChiusura1 . $testoAttiva1;
+            $testoEmail = $testoApprovata1 . $descrizioneSchedeApprovate . $testoRitardi1 . $testoChiusura1 . $testoAttiva1;
             if ($flagSchedaApprovata == false && $flagRitardi == false && $flagSchedeDaChiudere == false && $flagValutazioneProfessionale == false) {
                 //non invio l'email. l'operatore non ha nulla da fare.
             } else {
                 $mail = $userRepository->findEmailById($idOperatore);
                 $stringaMail = $mail[0];
                 $stringaMail = implode(", ", $stringaMail);
-                $email = (new Email())
+                $email = (new NotificationEmail())
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per operatori principali')
-                    ->text($testoEmail);
+                    ->markdown($testoEmail);
+                    
 
                 $this->mailer->send($email);
             }
