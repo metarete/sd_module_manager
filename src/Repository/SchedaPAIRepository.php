@@ -213,7 +213,16 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->execute();
     }
 
-    
+    public function countByState($value): int
+    {
+        return $this->createQueryBuilder('u')
+        ->select('count(u.id)')
+        ->andWhere('u.currentPlace = :currentPlace')
+        ->setParameter('currentPlace', $value)
+        ->getQuery()
+        ->getSingleScalarResult();
+        ;
+    }
 
    
 

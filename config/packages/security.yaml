@@ -48,8 +48,6 @@ security:
          - { path: ^/vas, roles: [ROLE_USER, ROLE_ADMIN]}
          - { path: ^/valutazione_generale, roles: [ROLE_USER, ROLE_ADMIN]}
          - { path: ^/valutazione_figura_professionale, roles: [ROLE_USER, ROLE_ADMIN]}
-         - { path: ^/controller_pai_bisogni, roles: ROLE_ADMIN}
-         - { path: ^/controller_pai_altra_tipologia_assistenza, roles: ROLE_ADMIN}
          - { path: ^/profilo, roles: [ROLE_USER, ROLE_ADMIN]}
          - { path: ^/paziente, roles: ROLE_ADMIN}
          

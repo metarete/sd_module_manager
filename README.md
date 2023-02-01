@@ -2,6 +2,7 @@
 # Setup
 
 Sistemare il file .env in base alle proprie esigenze
+(Copiare in file env.dist in .env)
 
 Lanciare ambiente docker
 
@@ -9,6 +10,9 @@ Lanciare ambiente docker
 $ cd <HOME-PROGETTO>
 $ docker-compose up -d
 ```
+Entrare nel container 
+
+docker exec -it sd_module_manager_php-fpm bash
 
 Aggiornare pacchetti
 
