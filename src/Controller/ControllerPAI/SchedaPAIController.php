@@ -122,6 +122,23 @@ class SchedaPAIController extends AbstractController
         //nome path
         $pathName = 'app_scheda_pai_index';
 
+        //calcolo valori delle schede per le scadenze delle scale
+
+        for($i=0; $i<count($schedaPais); $i++){
+            $schedaPais[$i]->setBarthelNumberToday();
+            $schedaPais[$i]->setCorrectBarthelNumberToday();
+            $schedaPais[$i]->setBradenNumberToday();
+            $schedaPais[$i]->setCorrectBradenNumberToday();
+            $schedaPais[$i]->setSpmsqNumberToday();
+            $schedaPais[$i]->setCorrectSpmsqNumberToday();
+            $schedaPais[$i]->setTinettiNumberToday();
+            $schedaPais[$i]->setCorrectTinettiNumberToday();
+            $schedaPais[$i]->setVasNumberToday();
+            $schedaPais[$i]->setCorrectVasNumberToday();
+            $schedaPais[$i]->setLesioniNumberToday();
+            $schedaPais[$i]->setCorrectLesioniNumberToday();
+        }
+
         return $this->render('scheda_pai/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,
@@ -338,6 +355,7 @@ class SchedaPAIController extends AbstractController
     {
 
         if ($this->isCsrfTokenValid('delete' . $schedaPAI->getId(), $request->get('_token'))) {
+            
             $schedaPAIRepository->remove($schedaPAI, true);
         }
 

@@ -3,7 +3,6 @@
 namespace App\EventListener;
 
 use App\Entity\EntityPAI\Braden;
-use App\Service\DateCompilazioneSchedeService;
 use App\Service\SetterTotaleBradenService;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Events;
@@ -11,12 +10,10 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 class CheckBraden implements EventSubscriberInterface
 {
-    private $dateCompilazioneSchede;
     private $setterTotaleBradenService;
 
-    public function __construct(DateCompilazioneSchedeService $dateCompilazioneSchede, SetterTotaleBradenService $setterTotaleBradenService)
+    public function __construct( SetterTotaleBradenService $setterTotaleBradenService)
     {
-       $this->dateCompilazioneSchede = $dateCompilazioneSchede;
        $this->setterTotaleBradenService = $setterTotaleBradenService;
     }
 
@@ -25,7 +22,6 @@ class CheckBraden implements EventSubscriberInterface
         return [
             Events::postUpdate,
             Events::postPersist,
-            Events::postRemove,
             
         ];
     }
@@ -40,9 +36,6 @@ class CheckBraden implements EventSubscriberInterface
         if (!$o instanceof Braden) {
             return;
         }
-        $entity = $o->getSchedaPAI();
-        
-        $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
         $this->setterTotaleBradenService->settaTotale($o);
         
     }
@@ -56,25 +49,7 @@ class CheckBraden implements EventSubscriberInterface
         if (!$o instanceof Braden) {
             return;
         }
-        $entity = $o->getSchedaPAI();
-        
-        $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
         $this->setterTotaleBradenService->settaTotale($o);
-        
-    }
-    public function postRemove(LifecycleEventArgs $args): void
-    {
-        $o = $args->getObject();
-        
-
-        // if this subscriber only applies to certain entity types,
-        // add some code to check the entity type as early as possible
-        if (!$o instanceof Braden) {
-            return;
-        }
-        $entity = $o->getSchedaPAI();
-        
-        $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
         
     }
     

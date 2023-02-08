@@ -6,9 +6,9 @@
 				padding: 50px 200px;
 			}
 			div {
-				
+
 				background-color: white;
-				
+
 
 			}
 			h1,
@@ -16,12 +16,12 @@
 			h3 {
 				color: black;
 				text-align: left;
-				padding: 10px;
+                padding: 10px;
 			}
 			#tabella {
 				font-family: Arial, Helvetica, sans-serif;
 				border-collapse: collapse;
-				
+
 
 			}
 
@@ -76,21 +76,24 @@
 	<body>
 		<div>
 			<h1>Module Manager</h1>
-			{% if testoApprovata1 != '' %}
-				<h3>{{testoApprovata1}}<br></h3>
-				<h3>Schede Pai da approvare:
+			{% if schedeNuove != null %}
+				<h3>Schede In Stato Nuova<br></h3>
+				<h3>
+					Le seguenti schede sono in stato nuova e devono essere approvate:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
 					<table id='tabella'>
 						<tr>
+							<th>Id</th>
 							<th>Data Inizio</th>
 							<th>Data Fine</th>
 							<th>Assistito</th>
 							<th>Stato</th>
 							<th>Link</th>
 						</tr>
-						{% for d in descrizioneSchedeApprovate %}
+						{% for d in testoEmailNuove %}
 							<tr>
+								<td data-title='Id'>{{d.id}}</td>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
@@ -104,87 +107,65 @@
 				</div>
 			{% endif %}
 
-			{% if testoRitardi1 != '' %}
-				<h3>{{testoRitardi1}}<br></h3>
-				<h3>Schede con dei ritardi sulla compilazione scale di valutazione:
-					<br></h3>
-				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella1'>
-						<tr>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Barthel in ritardo</th>
-							<th>Braden in ritardo</th>
-							<th>Spmsq in ritardo</th>
-							<th>Tinetti in ritardo</th>
-							<th>Vas in ritardo</th>
-							<th>Lesioni in ritardo</th>
-						</tr>
-						{% for d in descrizioneRitardi %}
-							<tr>
-								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-								<td data-title='Barthel'>{{ d.barthel}}</td>
-								<td data-title='Braden'>{{ d.braden}}</td>
-								<td data-title='Spmsq'>{{ d.spmsq}}</td>
-								<td data-title='Tinetti'>{{ d.tinetti}}</td>
-								<td data-title='Vas'>{{ d.vas}}</td>
-								<td data-title='Lesioni'>{{ d.lesioni}}</td>
-							</tr>
-						{% endfor %}
-					</table>
-				</div>
-			{% endif %}
-
-			{% if testoChiusura1 != '' %}
-				<h3>Schede pai di progetti scaduti in attesa di chisura:
+			{% if schedeChiuse != null %}
+				<h3>Schede in stato chiusa<br></h3>
+				<h3>Le seguenti schede sono state chiuse di recente:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
 					<table id='tabella'>
 						<tr>
+							<th>Id</th>
 							<th>Data Inizio</th>
 							<th>Data Fine</th>
 							<th>Assistito</th>
 							<th>Stato</th>
+							<th>Link</th>
 						</tr>
-						{% for d in descrizioneSchedeDaChiudere %}
+						{% for d in testoEmailChiuse %}
 							<tr>
+								<td data-title='Id'>{{d.id}}</td>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
-								<td data-title='Stato'>{{d.stato}}</td>
+								<td data-title='Stato'>{{ d.stato}}</td>
+								<td data-title='Link'>
+									<a href={{d.link}}>link</a>
+								</td>
 							</tr>
 						{% endfor %}
 					</table>
 				</div>
 			{% endif %}
 
-			{% if testoAttiva1 != '' %}
-				<h3>{{testoAttiva1}}<br></h3>
-				<h3>Schede con valutazioni professionali mancanti:<br></h3>
+			{% if schedeChiuseConRinnovo is not empty %}
+				<h3>Le seguenti schede sono state chiuse con rinnovo ed è necessario creare un nuovo progetto su SD manager:
+					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
 					<table id='tabella'>
 						<tr>
+							<th>Id</th>
 							<th>Data Inizio</th>
 							<th>Data Fine</th>
 							<th>Assistito</th>
-							<th>Valutazioni Mancanti</th>
+							<th>Stato</th>
+							<th>Link</th>
 						</tr>
-						{% for d in descrizioneValutazioneProfessionale %}
+						{% for d in testoEmailChiuseConRinnovo %}
 							<tr>
+								<td data-title='Id'>{{d.id}}</td>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
-								<td data-title='Valutazioni Mancante'>{{d.valore}}</td>
+								<td data-title='Stato'>{{ d.stato}}</td>
+								<td data-title='Link'>
+									<a href={{d.link}}>link</a>
+								</td>
 							</tr>
 						{% endfor %}
 					</table>
 				</div>
 			{% endif %}
 		</div>
-
 		{% block foot %}
 
 
@@ -192,5 +173,6 @@
 
 
 		{% endblock %}
+
 	</body>
 </html></div></body></html>

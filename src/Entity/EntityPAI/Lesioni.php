@@ -44,9 +44,11 @@ class Lesioni
     private ?string $noteSullaLesione = null;
 
     #[ORM\ManyToOne(inversedBy: 'idLesioni')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?SchedaPAI $schedaPAI = null;
 
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idLesioni')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreLesioni;
 
     public function getId(): ?int

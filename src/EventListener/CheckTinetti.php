@@ -5,18 +5,15 @@ namespace App\EventListener;
 use Doctrine\ORM\Events;
 use App\Entity\EntityPAI\Tinetti;
 use App\Service\SetterTotaliTinettiService;
-use App\Service\DateCompilazioneSchedeService;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 
 class CheckTinetti implements EventSubscriberInterface
 {
-    private $dateCompilazioneSchede;
     private $setterTotaliTinettiService;
 
-    public function __construct(DateCompilazioneSchedeService $dateCompilazioneSchede, SetterTotaliTinettiService $setterTotaliTinettiService)
+    public function __construct( SetterTotaliTinettiService $setterTotaliTinettiService)
     {
-       $this->dateCompilazioneSchede = $dateCompilazioneSchede;
        $this->setterTotaliTinettiService = $setterTotaliTinettiService;
     }
 
@@ -25,7 +22,6 @@ class CheckTinetti implements EventSubscriberInterface
         return [
             Events::postUpdate,
             Events::postPersist,
-            Events::postRemove,
             
         ];
     }
@@ -40,9 +36,6 @@ class CheckTinetti implements EventSubscriberInterface
         if (!$o instanceof Tinetti) {
             return;
         }
-        $entity = $o->getSchedaPAI();
-        
-        $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
         $this->setterTotaliTinettiService->settaTotali($o);
         
     }
@@ -56,25 +49,7 @@ class CheckTinetti implements EventSubscriberInterface
         if (!$o instanceof Tinetti) {
             return;
         }
-        $entity = $o->getSchedaPAI();
-        
-        $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
         $this->setterTotaliTinettiService->settaTotali($o);
-    }
-    public function postRemove(LifecycleEventArgs $args): void
-    {
-        $o = $args->getObject();
-        
-
-        // if this subscriber only applies to certain entity types,
-        // add some code to check the entity type as early as possible
-        if (!$o instanceof Tinetti) {
-            return;
-        }
-        $entity = $o->getSchedaPAI();
-        
-        $this->dateCompilazioneSchede->settaScadenzarioSchede($entity);
-        
     }
     
     

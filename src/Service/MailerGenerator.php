@@ -6,7 +6,6 @@ use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class MailerGenerator
@@ -20,51 +19,53 @@ class MailerGenerator
         $this->entityManager = $entityManager;
     }
 
-    private function creaTestoEmailNuove($testo, $schede): string
+    private function creaTestoEmailNuove($testo, $schede): array
     {
-        if ($schede == null) {
-            $testo = '<br>';
-            return $testo;
-        } else {
-            $testo = 'Le seguenti schede sono in stato nuova e devono essere approvate:' . '<br>';
+        if ($schede != null) {
             for ($i = 0; $i < count($schede); $i++) {
-                $dataInizio = $schede[$i]->getDataInizio()->format('d-m-Y');
-                $dataFine = $schede[$i]->getDataFine()->format('d-m-Y');
-                $testo = $testo . "Scheda pai => " . $schede[$i]->getId() . ",  " . "Data Inizio=> " . $dataInizio . ", " . "Data Fine=> " . $dataFine . ", "  . "Assistito=> " . $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito() . ",  " . "Stato=> " . $schede[$i]->getCurrentPlace()  . '<br>';
+                $riga = [
+                    "id" => $schede[$i]->getId(),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
+                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "stato" => $schede[$i]->getCurrentPlace(),
+                    "link" => 'http://localhost:54001/scheda_pai/'];
+                array_push($testo ,$riga);
             }
-            return $testo;
         }
+        return $testo;
     }
-    private function creaTestoEmailChiuse($testo, $schede): string
+    private function creaTestoEmailChiuse($testo, $schede): array
     {
-        if ($schede == null) {
-            $testo = '<br>';
-            return $testo;
-        } else {
-            $testo = 'Le seguenti schede sono state chiuse di recente:' . '<br>';
+        if ($schede != null) {
             for ($i = 0; $i < count($schede); $i++) {
-                $dataInizio = $schede[$i]->getDataInizio()->format('d-m-Y');
-                $dataFine = $schede[$i]->getDataFine()->format('d-m-Y');
-                $testo = $testo . "Scheda pai => " . $schede[$i]->getId() . ",  " . "Data Inizio=> " . $dataInizio . ", " . "Data Fine=> " . $dataFine . ", "  . "Assistito=> " . $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito() . ",  " . "Stato=> " . $schede[$i]->getCurrentPlace()  . '<br>';
+                $riga = [
+                    "id" => $schede[$i]->getId(),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
+                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "stato" => $schede[$i]->getCurrentPlace(),
+                    "link" => 'http://localhost:54001/scheda_pai/'];
+                array_push($testo ,$riga);
             }
-
-            return $testo;
         }
+        return $testo;
     }
-    private function creaTestoEmailChiuseConRinnovo($testo, $schede): string
+    private function creaTestoEmailChiuseConRinnovo($testo, $schede): array
     {
-        if ($schede == null) {
-            $testo = '<br>';
-            return $testo;
-        } else {
-            $testo = 'Le seguenti schede sono state chiuse con rinnovo ed è necessario creare un nuovo progetto su SD manager:' . '<br>';
+        if ($schede != null) {
             for ($i = 0; $i < count($schede); $i++) {
-                $dataInizio = $schede[$i]->getDataInizio()->format('d-m-Y');
-                $dataFine = $schede[$i]->getDataFine()->format('d-m-Y');
-                $testo = $testo . "Scheda pai => " . $schede[$i]->getId() . ",  " . "Data Inizio=> " . $dataInizio . ", " . "Data Fine=> " . $dataFine . ", "  . "Assistito=> " . $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito() . ",  " . "Stato=> " . $schede[$i]->getCurrentPlace()  . " " . '<a href="' . 'https://demo.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin/">SD_Manager</a>' . '<br>';
+                $riga = [
+                    "id" => $schede[$i]->getId(),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
+                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "stato" => $schede[$i]->getCurrentPlace(),
+                    "link" => 'https://demo.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin'];
+                array_push($testo ,$riga);
             }
-            return $testo;
         }
+        return $testo;
     }
 
 
@@ -78,14 +79,13 @@ class MailerGenerator
         $schedeChiuseConRinnovo = $schedaPAIRepository->findByState('chiusa_con_rinnovo');
         $utenti = $userRepository->findAll();
         $admin = [];
-        $testoEmailNuove = "";
-        $testoEmailChiuse = "";
-        $testoEmailChiuseConRinnovo = "";
+        $testoEmailNuove = [];
+        $testoEmailChiuse = [];
+        $testoEmailChiuseConRinnovo = [];
         $testoEmailNuove = $this->creaTestoEmailNuove($testoEmailNuove, $schedeNuove);
         $testoEmailChiuse = $this->creaTestoEmailChiuse($testoEmailChiuse, $schedeChiuse);
         $testoEmailChiuseConRinnovo = $this->creaTestoEmailChiuseConRinnovo($testoEmailChiuseConRinnovo, $schedeChiuseConRinnovo);
-        $testoEmailTotale = $testoEmailNuove . $testoEmailChiuse . $testoEmailChiuseConRinnovo;
-
+        
         for ($i = 0; $i < count($utenti); $i++) {
             $roles = $utenti[$i]->getRoles();
             if ($roles[0] == 'ROLE_ADMIN') {
@@ -99,11 +99,22 @@ class MailerGenerator
             $stringaMail = implode(", ", $stringaMail);
 
 
-            $email = (new NotificationEmail())
+            $email = (new TemplatedEmail())
                 ->from('tecnico@metarete.it')
                 ->to($stringaMail)
                 ->subject('Email per admin')
-                ->markdown($testoEmailTotale);
+                ->htmlTemplate("/email_admin.html.twig")
+                    ->context([
+                        "testoEmailNuove" => $testoEmailNuove,
+                        "testoEmailChiuse" => $testoEmailChiuse,
+                        "testoEmailChiuseConRinnovo" => $testoEmailChiuseConRinnovo,
+                        "schedeNuove" =>  $schedeNuove,
+                        "schedeChiuse" => $schedeChiuse,
+                        "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
+                        
+                    ]);
+
+
 
             $this->mailer->send($email);
         }
@@ -129,8 +140,8 @@ class MailerGenerator
             $idOperatore = $arrayOperatori[$i]->getId();
             $flagSchedaApprovata = false;
             $descrizioneSchedeApprovate = [];
-            $descrizioneRitardi =  '';
-            $descrizioneSchedeDaChiudere = "Schede in attesa di chiusura: " . '<br>';
+            $descrizioneRitardi =  [];
+            $descrizioneSchedeDaChiudere = [];
             $descrizioneValutazioneProfessionale = [];
             $flagRitardi = false;
             $flagSchedeDaChiudere = false;
@@ -187,36 +198,71 @@ class MailerGenerator
                         array_push($descrizioneValutazioneProfessionale, $riga);
                     }
 
-                    $descrizioneRitardi = $descrizioneRitardi . "Scale in ritardo della scheda " . $arraySchedeAttive[$t]->getId() . ":" . '<br>';
+                    $riga = [ 
+                        "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d-m-Y'),
+                        "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d-m-Y'),
+                        "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
+                        "barthel" => "Nessuna",
+                        "braden" => "Nessuna",
+                        "spmsq" => "Nessuna",
+                        "tinetti" => "Nessuna",
+                        "vas" => "Nessuna",
+                        "lesioni" => "Nessuna",
+                    ];
 
-                    if ($arraySchedeAttive[$t]->getNumeroBarthelAdOggi() <= $arraySchedeAttive[$t]->getNumeroBarthelAdOggiCorretto() && $arraySchedeAttive[$t]->isAbilitaBarthel() == true) {
+                    $arraySchedeAttive[$t]->setBarthelNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectBarthelNumberToday();
+                    $arraySchedeAttive[$t]->setBradenNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectBradenNumberToday();
+                    $arraySchedeAttive[$t]->setSpmsqNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectSpmsqNumberToday();
+                    $arraySchedeAttive[$t]->setTinettiNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectTinettiNumberToday(); 
+                    $arraySchedeAttive[$t]->setVasNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectVasNumberToday();
+                    $arraySchedeAttive[$t]->setLesioniNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectLesioniNumberToday();
+
+                    if ($arraySchedeAttive[$t]->getBarthelNumberToday() <= $arraySchedeAttive[$t]->getCorrectBarthelNumberToday() && $arraySchedeAttive[$t]->isAbilitaBarthel() == true) {
                         $flagRitardi = true;
+                        $riga["barthel"] = 'si';
                         //$numeroBarthelInRitardo =  (int)($arraySchedeAttive[$t]->getNumeroBarthelCorretto()/($arraySchedeAttive[$t]->getNumeroBarthelCorretto()- $arraySchedeAttive[$t]->getNumeroBarthelAdOggi()));
-                        $descrizioneRitardi = $descrizioneRitardi .'-Barthel =>  '  . '<a href=' . 'http://localhost:54001/barthel/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Barthel</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getNumeroBradenAdOggi() <= $arraySchedeAttive[$t]->getNumeroBradenAdOggiCorretto() && $arraySchedeAttive[$t]->isAbilitaBraden() == true) {
+                        //$descrizioneRitardi = $descrizioneRitardi .'-Barthel =>  '  . '<a href=' . 'http://localhost:54001/barthel/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Barthel</a>'.'<br>';
+                    } if ($arraySchedeAttive[$t]->getBradenNumberToday() <= $arraySchedeAttive[$t]->getCorrectBradenNumberToday() && $arraySchedeAttive[$t]->isAbilitaBraden() == true) {
                         $flagRitardi = true;
-                        $descrizioneRitardi = $descrizioneRitardi .'-Braden =>  '  . '<a href=' . 'http://localhost:54001/braden/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Braden</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getNumeroSpmsqAdOggi() <= $arraySchedeAttive[$t]->getNumeroSpmsqAdOggiCorretto() && $arraySchedeAttive[$t]->isAbilitaSpmsq() == true) {
+                        $riga["braden"] = 'si';
+                        //$descrizioneRitardi = $descrizioneRitardi .'-Braden =>  '  . '<a href=' . 'http://localhost:54001/braden/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Braden</a>'.'<br>';
+                    } if ($arraySchedeAttive[$t]->getSpmsqNumberToday() <= $arraySchedeAttive[$t]->getCorrectSpmsqNumberToday() && $arraySchedeAttive[$t]->isAbilitaSpmsq() == true) {
                         $flagRitardi = true;
-                        $descrizioneRitardi = $descrizioneRitardi .'-Spmsq =>  ' . '<a href=' . 'http://localhost:54001/spmsq/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Spmsq</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getNumeroTinettiAdOggi() <= $arraySchedeAttive[$t]->getNumeroTinettiAdOggiCorretto() && $arraySchedeAttive[$t]->isAbilitaTinetti() == true) {
+                        $riga["spmsq"] = 'si';
+                        //$descrizioneRitardi = $descrizioneRitardi .'-Spmsq =>  ' . '<a href=' . 'http://localhost:54001/spmsq/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Spmsq</a>'.'<br>';
+                    } if ($arraySchedeAttive[$t]->getTinettiNumberToday() <= $arraySchedeAttive[$t]->getCorrectTinettiNumberToday() && $arraySchedeAttive[$t]->isAbilitaTinetti() == true) {
                         $flagRitardi = true;
-                        $descrizioneRitardi = $descrizioneRitardi .'-Tinetti =>  ' . '<a href=' . 'http://localhost:54001/tinetti/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Tinetti</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getNumeroVasAdOggi() <= $arraySchedeAttive[$t]->getNumeroVasAdOggiCorretto() && $arraySchedeAttive[$t]->isAbilitaVas() == true) {
+                        $riga["tinetti"] = 'si';
+                        //$descrizioneRitardi = $descrizioneRitardi .'-Tinetti =>  ' . '<a href=' . 'http://localhost:54001/tinetti/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Tinetti</a>'.'<br>';
+                    } if ($arraySchedeAttive[$t]->getVasNumberToday() <= $arraySchedeAttive[$t]->getCorrectVasNumberToday() && $arraySchedeAttive[$t]->isAbilitaVas() == true) {
                         $flagRitardi = true;
-                        $descrizioneRitardi = $descrizioneRitardi .'-Vas =>  ' . '<a href=' . 'http://localhost:54001/vas/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Vas</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getNumeroLesioniAdOggi() <= $arraySchedeAttive[$t]->getNumeroLesioniAdOggiCorretto() && $arraySchedeAttive[$t]->isAbilitaLesioni() == true) {
+                        $riga["vas"] = 'si';
+                        //$descrizioneRitardi = $descrizioneRitardi .'-Vas =>  ' . '<a href=' . 'http://localhost:54001/vas/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Vas</a>'.'<br>';
+                    } if ($arraySchedeAttive[$t]->getLesioniNumberToday() <= $arraySchedeAttive[$t]->getCorrectLesioniNumberToday() && $arraySchedeAttive[$t]->isAbilitaLesioni() == true) {
                         $flagRitardi = true;
-                        $descrizioneRitardi = $descrizioneRitardi .'-Lesioni =>  ' . '<a href=' . 'http://localhost:54001/lesioni/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Lesioni</a>'.'<br>';
+                        $riga["lesioni"] = 'si';
+                        //$descrizioneRitardi = $descrizioneRitardi .'-Lesioni =>  ' . '<a href=' . 'http://localhost:54001/lesioni/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Lesioni</a>'.'<br>';
                     }
-                    $descrizioneRitardi = $descrizioneRitardi .'<br>';
+                    array_push($descrizioneRitardi, $riga);
                 }
             }
             for ($z = 0; $z < count($arraySchedeInAttesaDiChiusura); $z++) {
                 $idOperatorePrincipale = $arraySchedeInAttesaDiChiusura[$z]->getIdOperatorePrincipale()->getId();
                 if ($idOperatore == $idOperatorePrincipale) {
                     $flagSchedeDaChiudere = true;
-                    $descrizioneSchedeDaChiudere = $descrizioneSchedeDaChiudere .'Scheda Pai=> ' . $arraySchedeInAttesaDiChiusura[$z]->getId() . ", " . "Assistito=> " . $arraySchedeInAttesaDiChiusura[$z]->getNomeAssistito() . " " . $arraySchedeInAttesaDiChiusura[$z]->getCognomeAssistito() . '<br>';
+                    $riga = [
+                        "data_inizio" => $arraySchedeInAttesaDiChiusura[$z]->getDataInizio()->format('d-m-Y'),
+                        "data_fine" => $arraySchedeInAttesaDiChiusura[$z]->getDataFine()->format('d-m-Y'),
+                        "assistito" => $arraySchedeInAttesaDiChiusura[$z]->getNomeAssistito() . "  " . $arraySchedeInAttesaDiChiusura[$z]->getCognomeAssistito(),
+                        "stato" => $arraySchedeInAttesaDiChiusura[$z]->getCurrentPlace(),
+                    ];
+                    array_push($descrizioneSchedeDaChiudere, $riga);
                 }
             }
 

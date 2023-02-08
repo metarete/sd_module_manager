@@ -91,9 +91,11 @@ class Tinetti
     private $totale = 0;
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idTinetti')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idTinetti')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreTinetti;
 
     public function getId(): ?int

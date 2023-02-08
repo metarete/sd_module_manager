@@ -55,9 +55,11 @@ class SPMSQ
     private $totale;
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idSpmsq')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idSpmsq')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreSpmsq;
 
     public function getId(): ?int

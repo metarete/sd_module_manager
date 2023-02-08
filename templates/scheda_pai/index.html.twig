@@ -83,6 +83,7 @@
         </thead>
         <tbody>
         {% for scheda_pai in scheda_pais %}
+       
             <tr>
                 <td data-title='Id'>{{ scheda_pai.id }}</td>
                 <td data-title='Data Inizio'>{{ scheda_pai.dataInizio|date('Y-m-d') }} </td>
@@ -97,12 +98,12 @@
                 {% endfor %}
                 </td>
                 <td data-title='Stato' class ="{% if scheda_pai.currentPlace == 'approvata' %} text-pink {% elseif scheda_pai.currentPlace == 'attiva' %} text-success {% elseif scheda_pai.currentPlace == 'nuova' %} text-purple {% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura' %} text-warning {% elseif scheda_pai.currentPlace == 'chiusa' %} text-danger{% elseif scheda_pai.currentPlace == 'chiusa_con_rinnovo' %} text-orange {% endif %}">{{ scheda_pai.currentPlace }}</td>
-                <td data-title='BAR' {% if scheda_pai.abilitaBarthel == false %} class ='text-grey'  0 / 0 {% elseif scheda_pai.numeroBarthelAdOggi <= scheda_pai.numeroBarthelAdOggiCorretto %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.numeroBarthelAdOggi}} / {{scheda_pai.numeroBarthelCorretto}} </td>
-                <td data-title='BRA' {% if scheda_pai.abilitaBraden == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.numeroBradenAdOggi <= scheda_pai.numeroBradenAdOggiCorretto %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.numeroBradenAdOggi}} / {{scheda_pai.numeroBradenCorretto}} </td>
-                <td data-title='SPMS' {% if scheda_pai.abilitaSpmsq == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.numeroSpmsqAdOggi <= scheda_pai.numeroSpmsqAdOggiCorretto %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.numeroSpmsqAdOggi}} / {{scheda_pai.numeroSpmsqCorretto}} </td>
-                <td data-title='TIN' {% if scheda_pai.abilitaTinetti == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.numeroTinettiAdOggi <= scheda_pai.numeroTinettiAdOggiCorretto %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.numeroTinettiAdOggi}} / {{scheda_pai.numeroTinettiCorretto}} </td>
-                <td data-title='PVA' {% if scheda_pai.abilitaVas == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.numeroVasAdOggi <= scheda_pai.numeroVasAdOggiCorretto %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.numeroVasAdOggi}} / {{scheda_pai.numeroVasCorretto}}</td>
-                <td data-title='LES' {% if scheda_pai.abilitaLesioni == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.numeroLesioniAdOggi <= scheda_pai.numeroLesioniAdOggiCorretto %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.numeroLesioniAdOggi}} / {{scheda_pai.numeroLesioniCorretto}}</td>
+                <td data-title='BAR' {% if scheda_pai.abilitaBarthel == false %} class ='text-grey'  0 / 0 {% elseif scheda_pai.barthelNumberToday <= scheda_pai.correctBarthelNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.barthelNumberToday}} / {{scheda_pai.numeroBarthelCorretto}} </td>
+                <td data-title='BRA' {% if scheda_pai.abilitaBraden == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.bradenNumberToday <= scheda_pai.correctBradenNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.bradenNumberToday}} / {{scheda_pai.numeroBradenCorretto}} </td>
+                <td data-title='SPMS' {% if scheda_pai.abilitaSpmsq == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.spmsqNumberToday <= scheda_pai.correctSpmsqNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.spmsqNumberToday}} / {{scheda_pai.numeroSpmsqCorretto}} </td>
+                <td data-title='TIN' {% if scheda_pai.abilitaTinetti == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.tinettiNumberToday <= scheda_pai.correctTinettiNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.tinettiNumberToday}} / {{scheda_pai.numeroTinettiCorretto}} </td>
+                <td data-title='PVA' {% if scheda_pai.abilitaVas == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.vasNumberToday <= scheda_pai.correctVasNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.vasNumberToday}} / {{scheda_pai.numeroVasCorretto}}</td>
+                <td data-title='LES' {% if scheda_pai.abilitaLesioni == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.lesioniNumberToday <= scheda_pai.correctLesioniNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.lesioniNumberToday}} / {{scheda_pai.numeroLesioniCorretto}}</td>
                 <td data-title='Operazioni'>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

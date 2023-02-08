@@ -27,7 +27,7 @@ class ChiusuraServizio
     #[ORM\Column(type: 'boolean')]
     private $rinnovo = false;
 
-    #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idChiusuraServizio',  cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idChiusuraServizio',  cascade: ['persist'])]
     private $schedaPAI;
 
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idChiusuraServizio')]

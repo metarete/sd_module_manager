@@ -62,6 +62,22 @@ class ScadenzarioController extends AbstractController
         //setto pagina di partenza
         $pathName = 'app_scadenzario_index';
         
+
+         //calcolo valori delle schede per le scadenze delle scale
+        for($i=0; $i<count($schedaPais); $i++){
+            $schedaPais[$i]->setBarthelNumberToday();
+            $schedaPais[$i]->setCorrectBarthelNumberToday();
+            $schedaPais[$i]->setBradenNumberToday();
+            $schedaPais[$i]->setCorrectBradenNumberToday();
+            $schedaPais[$i]->setSpmsqNumberToday();
+            $schedaPais[$i]->setCorrectSpmsqNumberToday();
+            $schedaPais[$i]->setTinettiNumberToday();
+            $schedaPais[$i]->setCorrectTinettiNumberToday();
+            $schedaPais[$i]->setVasNumberToday();
+            $schedaPais[$i]->setCorrectVasNumberToday();
+            $schedaPais[$i]->setLesioniNumberToday();
+            $schedaPais[$i]->setCorrectLesioniNumberToday();
+        }
         
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,

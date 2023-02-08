@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\EntityPAI\SchedaPAI;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\AST\WhereClause;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -34,8 +33,9 @@ class SchedaPAIRepository extends ServiceEntityRepository
     public function remove(SchedaPAI $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
-
+        
         if ($flush) {
+            
             $this->getEntityManager()->flush();
         }
     }

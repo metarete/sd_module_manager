@@ -167,44 +167,21 @@ class SchedaPAI
     #[ORM\Column(type: 'integer')]
     private $frequenzaLesioni = 0;
 
-    #[ORM\Column(type: 'integer')]
-    private $numeroBarthelAdOggi = 0; 
+   //attributi non mappati
+    private $barthelNumberToday = 0;
+    private $bradenNumberToday = 0;
+    private $spmsqNumberToday = 0;
+    private $tinettiNumberToday = 0;
+    private $vasNumberToday = 0;
+    private $lesioniNumberToday = 0;
+    private $correctBarthelNumberToday = 0;
+    private $correctBradenNumberToday = 0;
+    private $correctSpmsqNumberToday = 0;
+    private $correctTinettiNumberToday = 0;
+    private $correctVasNumberToday = 0;
+    private $correctLesioniNumberToday = 0;
 
-    #[ORM\Column(type: 'integer')]
-    private $numeroBradenAdOggi = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroSpmsqAdOggi = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroTinettiAdOggi = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroVasAdOggi = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroLesioniAdOggi = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroBarthelAdOggiCorretto = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroBradenAdOggiCorretto = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroSpmsqAdOggiCorretto = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroTinettiAdOggiCorretto = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroVasAdOggiCorretto = 0;
-
-    #[ORM\Column(type: 'integer')]
-    private $numeroLesioniAdOggiCorretto = 0;
-
-
-
+    
 
     public function __construct()
     {
@@ -221,7 +198,6 @@ class SchedaPAI
         $this->idVas = new ArrayCollection();
         $this->idLesioni = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -918,122 +894,190 @@ class SchedaPAI
         return $this;
     }
 
-    public function getNumeroBarthelAdOggiCorretto(): ?int
+
+     // attributi non mappati
+    public function getBarthelNumberToday(): ?int
     {
-        return $this->numeroBarthelAdOggiCorretto;
+        return $this->barthelNumberToday;
     }
 
-    public function setNumeroBarthelAdOggiCorretto($numeroBarthelAdOggiCorretto)
+    public function setBarthelNumberToday(): ?self
     {
-        $this->numeroBarthelAdOggiCorretto = $numeroBarthelAdOggiCorretto;
+        $this->barthelNumberToday = count($this->getIdBarthel());
+        return $this;
+    }
+    public function getBradenNumberToday(): ?int
+    {
+        return $this->bradenNumberToday;
     }
 
-    public function getNumeroBradenAdOggiCorretto(): ?int
+    public function setBradenNumberToday(): ?self
     {
-        return $this->numeroBradenAdOggiCorretto;
+        $this->bradenNumberToday = count($this->getIdBraden());
+        return $this;
     }
 
-    public function setNumeroBradenAdOggiCorretto($numeroBradenAdOggiCorretto)
+    public function getSpmsqNumberToday(): ?int
     {
-        $this->numeroBradenAdOggiCorretto = $numeroBradenAdOggiCorretto;
+        return $this->spmsqNumberToday;
     }
 
-    public function getNumeroSpmsqAdOggiCorretto(): ?int
+    public function setSpmsqNumberToday(): ?self
     {
-        return $this->numeroSpmsqAdOggiCorretto;
+        $this->spmsqNumberToday = count($this->getIdSpmsq());
+        return $this;
     }
 
-    public function setNumeroSpmsqAdOggiCorretto($numeroSpmsqAdOggiCorretto)
+    public function getTinettiNumberToday(): ?int
     {
-        $this->numeroSpmsqAdOggiCorretto = $numeroSpmsqAdOggiCorretto;
+        return $this->tinettiNumberToday;
     }
 
-    public function getNumeroTinettiAdOggiCorretto(): ?int
+    public function setTinettiNumberToday(): ?self
     {
-        return $this->numeroTinettiAdOggiCorretto;
+        $this->tinettiNumberToday = count($this->getIdTinetti());
+        return $this;
     }
 
-    public function setNumeroTinettiAdOggiCorretto($numeroTinettiAdOggiCorretto)
+    public function getVasNumberToday(): ?int
     {
-        $this->numeroTinettiAdOggiCorretto = $numeroTinettiAdOggiCorretto;
+        return $this->vasNumberToday;
     }
 
-    public function getNumeroVasAdOggiCorretto(): ?int
+    public function setVasNumberToday(): ?self
     {
-        return $this->numeroVasAdOggiCorretto;
+        $this->vasNumberToday = count($this->getIdVas());
+        return $this;
     }
 
-    public function setNumeroVasAdOggiCorretto($numeroVasAdOggiCorretto)
+    public function getLesioniNumberToday(): ?int
     {
-        $this->numeroVasAdOggiCorretto = $numeroVasAdOggiCorretto;
+        return $this->lesioniNumberToday;
     }
 
-    public function getNumeroLesioniAdOggiCorretto(): ?int
+    public function setLesioniNumberToday(): ?self
     {
-        return $this->numeroLesioniAdOggiCorretto;
+        $this->lesioniNumberToday = count($this->getIdLesioni());
+        return $this;
     }
 
-    public function setNumeroLesioniAdOggiCorretto($numeroLesioniAdOggiCorretto)
+    public function getCorrectBarthelNumberToday(): ?int
     {
-        $this->numeroLesioniAdOggiCorretto = $numeroLesioniAdOggiCorretto;
-    }
-    public function getNumeroBarthelAdOggi(): ?int
-    {
-        return $this->numeroBarthelAdOggi;
+        return $this->correctBarthelNumberToday;
     }
 
-    public function setNumeroBarthelAdOggi($numeroBarthelAdOggi)
+    public function setCorrectBarthelNumberToday(): ?self
     {
-        $this->numeroBarthelAdOggi = $numeroBarthelAdOggi;
+        if($this->getFrequenzaBarthel() == 0){
+            return null;
+        }
+        if($this->isAbilitaBarthel() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        $this->correctBarthelNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaBarthel());
+        return $this;
     }
 
-    public function getNumeroBradenAdOggi(): ?int
+    public function getCorrectBradenNumberToday(): ?int
     {
-        return $this->numeroBradenAdOggi;
+        return $this->correctBradenNumberToday;
     }
 
-    public function setNumeroBradenAdOggi($numeroBradenAdOggi)
+    public function setCorrectBradenNumberToday(): ?self
     {
-        $this->numeroBradenAdOggi = $numeroBradenAdOggi;
+        if($this->getFrequenzaBraden() == 0){
+            return null;
+        }
+        if($this->isAbilitaBraden() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        $this->correctBradenNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaBraden());
+        return $this;
     }
 
-    public function getNumeroSpmsqAdOggi(): ?int
+    public function getCorrectSpmsqNumberToday(): ?int
     {
-        return $this->numeroSpmsqAdOggi;
+        return $this->correctSpmsqNumberToday;
     }
 
-    public function setNumeroSpmsqAdOggi($numeroSpmsqAdOggi)
+    public function setCorrectSpmsqNumberToday(): ?self
     {
-        $this->numeroSpmsqAdOggi = $numeroSpmsqAdOggi;
+        if($this->getFrequenzaSpmsq() == 0){
+            return null;
+        }
+        if($this->isAbilitaSpmsq() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        $this->correctSpmsqNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaSpmsq());
+        return $this;
     }
 
-    public function getNumeroTinettiAdOggi(): ?int
+    public function getCorrectTinettiNumberToday(): ?int
     {
-        return $this->numeroTinettiAdOggi;
+        return $this->correctTinettiNumberToday;
     }
 
-    public function setNumeroTinettiAdOggi($numeroTinettiAdOggi)
+    public function setCorrectTinettiNumberToday(): ?self
     {
-        $this->numeroTinettiAdOggi = $numeroTinettiAdOggi;
+        if($this->getFrequenzaTinetti() == 0){
+            return null;
+        }
+        if($this->isAbilitaTinetti() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        $this->correctTinettiNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaTinetti());
+        return $this;
     }
 
-    public function getNumeroVasAdOggi(): ?int
+    public function getCorrectVasNumberToday(): ?int
     {
-        return $this->numeroVasAdOggi;
+        return $this->correctVasNumberToday;
     }
 
-    public function setNumeroVasAdOggi($numeroVasAdOggi)
+    public function setCorrectVasNumberToday(): ?self
     {
-        $this->numeroVasAdOggi = $numeroVasAdOggi;
+        if($this->getFrequenzaVas() == 0){
+            return null;
+        }
+        if($this->isAbilitaVas() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        $this->correctVasNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaVas());
+        return $this;
     }
 
-    public function getNumeroLesioniAdOggi(): ?int
+    public function getCorrectLesioniNumberToday(): ?int
     {
-        return $this->numeroLesioniAdOggi;
+        return $this->correctLesioniNumberToday;
     }
 
-    public function setNumeroLesioniAdOggi($numeroLesioniAdOggi)
+    public function setCorrectLesioniNumberToday(): ?self
     {
-        $this->numeroLesioniAdOggi = $numeroLesioniAdOggi;
+        if($this->getFrequenzaLesioni() == 0){
+            return null;
+        }
+        if($this->isAbilitaLesioni() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        $this->correctLesioniNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaLesioni());
+        return $this;
     }
 }

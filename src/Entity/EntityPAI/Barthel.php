@@ -64,9 +64,11 @@ class Barthel
     private $totale;
 
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBarthel')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreBarthel;
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBarthel')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
     public function getId(): ?int

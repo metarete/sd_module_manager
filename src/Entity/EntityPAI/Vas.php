@@ -43,9 +43,11 @@ class Vas
     private $altro;
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idVas')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idVas')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreVas;
 
     public function getId(): ?int
