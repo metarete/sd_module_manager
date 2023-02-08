@@ -122,9 +122,9 @@ class SchedaPAIController extends AbstractController
         //nome path
         $pathName = 'app_scheda_pai_index';
 
-        //calcolo valori delle schede per le scadenze delle scale
+        //calcolo valori delle schede per le scadenze delle scale -> nel listener
 
-        for($i=0; $i<count($schedaPais); $i++){
+        /*for($i=0; $i<count($schedaPais); $i++){
             $schedaPais[$i]->setBarthelNumberToday();
             $schedaPais[$i]->setCorrectBarthelNumberToday();
             $schedaPais[$i]->setBradenNumberToday();
@@ -137,7 +137,7 @@ class SchedaPAIController extends AbstractController
             $schedaPais[$i]->setCorrectVasNumberToday();
             $schedaPais[$i]->setLesioniNumberToday();
             $schedaPais[$i]->setCorrectLesioniNumberToday();
-        }
+        }*/
 
         return $this->render('scheda_pai/index.html.twig', [
             'scheda_pais' => $schedaPais,

@@ -22,6 +22,7 @@ class CheckSchedePai implements EventSubscriberInterface
         return [
             Events::postUpdate,
             Events::postPersist,
+            Events::postLoad,
         ];
     }
 
@@ -35,6 +36,19 @@ class CheckSchedePai implements EventSubscriberInterface
             return;
         }
         $this->setterDatiSchedePaiService->settaDati($entity);
+
+        $entity->setBarthelNumberToday();
+        $entity->setCorrectBarthelNumberToday();
+        $entity->setBradenNumberToday();
+        $entity->setCorrectBradenNumberToday();
+        $entity->setSpmsqNumberToday();
+        $entity->setCorrectSpmsqNumberToday();
+        $entity->setTinettiNumberToday();
+        $entity->setCorrectTinettiNumberToday();
+        $entity->setVasNumberToday();
+        $entity->setCorrectVasNumberToday();
+        $entity->setLesioniNumberToday();
+        $entity->setCorrectLesioniNumberToday();
         
     }
 
@@ -48,6 +62,32 @@ class CheckSchedePai implements EventSubscriberInterface
             return;
         }
         $this->setterDatiSchedePaiService->settaDati($entity);
+    }
+
+    public function postLoad(LifecycleEventArgs $args): void
+    {
+        $entity = $args->getObject();
+
+        // if this subscriber only applies to certain entity types,
+        // add some code to check the entity type as early as possible
+        if (!$entity instanceof SchedaPAI) {
+            return;
+        }
+        
+
+        $entity->setBarthelNumberToday();
+        $entity->setCorrectBarthelNumberToday();
+        $entity->setBradenNumberToday();
+        $entity->setCorrectBradenNumberToday();
+        $entity->setSpmsqNumberToday();
+        $entity->setCorrectSpmsqNumberToday();
+        $entity->setTinettiNumberToday();
+        $entity->setCorrectTinettiNumberToday();
+        $entity->setVasNumberToday();
+        $entity->setCorrectVasNumberToday();
+        $entity->setLesioniNumberToday();
+        $entity->setCorrectLesioniNumberToday();
+        
     }
 
 }
