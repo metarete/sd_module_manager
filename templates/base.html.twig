@@ -27,8 +27,21 @@
 						<li>
 							<a href="{{ path('app_scadenzario_index') }}" class="nav-link px-2 text-white">Home</a>
 						</li>
-						<li>
-							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_elenco_schede') }}" class="nav-link px-2 text-white">Schede</a>
+						<li class="nav-item dropdown">
+							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Menu
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark">
+								<li>
+									<a class="dropdown-item" href="{{ path('app_elenco_schede') }}">Schede</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('app_paziente_index') }}">Pazienti</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('app_user_index') }}">Operatori</a>
+								</li>
+							</ul>
 						</li>
 						<li>
 							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link px-2 text-white">Sincronizza</a>

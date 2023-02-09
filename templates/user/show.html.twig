@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Paziente
+{% block title %}Operatore
 {% endblock %}
 
 {% block body %}
-	<h1>Paziente</h1>
+	<h1>Operatori</h1>
 
 	<div id="visualizza-tables">
 		<table class="col-sm-12">
@@ -12,35 +12,27 @@
 			<tbody>
 				<tr>
 					<th>Id</th>
-					<td>{{ paziente.id }}</td>
+					<td>{{ user.id }}</td>
 				</tr>
 				<tr>
 					<th>Nome</th>
-					<td>{{ paziente.nome }}</td>
+					<td>{{ user.name }}</td>
 				</tr>
 				<tr>
 					<th>Cognome</th>
-					<td>{{ paziente.cognome }}</td>
+					<td>{{ user.surname }}</td>
 				</tr>
-				<tr>
-					<th>Codice Fiscale</th>
-					<td>{{ paziente.codiceFiscale }}</td>
+                <tr>
+					<th>Username</th>
+					<td>{{ user.username }}</td>
 				</tr>
-				<tr>
-					<th>Indirizzo</th>
-					<td>{{ paziente.indirizzo }}</td>
+                <tr>
+					<th>Email</th>
+					<td>{{ user.email }}</td>
 				</tr>
-				<tr>
-					<th>Comune</th>
-					<td>{{ paziente.comune }}</td>
-				</tr>
-				<tr>
-					<th>Provincia</th>
-					<td>{{ paziente.provincia }}</td>
-				</tr>
-				<tr>
-					<th>CAP</th>
-					<td>{{ paziente.cap }}</td>
+                <tr>
+					<th>Ruolo</th>
+					<td>{{ user.roles[0] }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -48,7 +40,7 @@
 
 	<div class="pb-2 mb-4"></div>
 
-	<a href="{{ path('app_paziente_index') }}" type="button" class="btn btn-secondary">
+	<a href="{{ path('app_user_index') }}" type="button" class="btn btn-secondary">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewbox="0 0 16 16">
 			<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 		</svg>

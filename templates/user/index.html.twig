@@ -1,40 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Paziente
+{% block title %}Operatore
 {% endblock %}
 
 {% block body %}
-	<h1>Paziente</h1>
+	<h1>Operatori</h1>
 
 	<div class="no-more-tables">
 		<table class="col-sm-12  table-striped table-condensed cf">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Nome</th>
-					<th>Cognome</th>
-					<th>Codice Fiscale</th>
-					<th>SD Manager </th>
+					<th>Nome/Cognome</th>
+					<th>Username</th>
+                    <th>Ruolo</th>
 					<th>Operazioni</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for paziente in pazientes %}
+				{% for user in users %}
 					<tr>
-						<td>{{ paziente.id }}</td>
-						<td>{{ paziente.nome }}</td>
-						<td>{{ paziente.cognome }}</td>
-						<td>{{paziente.codiceFiscale}}</td>
+						<td>{{ user.id }}</td>
+						<td>{{ user.name }} {{ user.surname }}</td>
+						<td>{{ user.username }}</td>
+                        <td>{{ user.roles[0] }}</td>
 						<td>
-                            <a href='https://demo.sdmanager.it/index.php?module=Servizi.Domiciliari&func=utenti_edit&type=admin&id_utente={{paziente.idSdManager}}'><i class="bi bi-link-45deg fs-4"></i></a>
-                        </td>
-						<td>
-							<a href="{{ path('app_paziente_show', {'id': paziente.id}) }}" type="button" class="btn btn-primary">Visualizza</a>
+							<a href="{{ path('app_user_show', {'id': user.id}) }}" type="button" class="btn btn-primary">Visualizza</a>
 						</td>
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="5">Nessun paziente disponibile</td>
+						<td colspan="5">Nessun Operatore disponibile</td>
 					</tr>
 				{% endfor %}
 			</tbody>
