@@ -9,10 +9,23 @@ $grey: #747273;
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons.scss";
 
+//campi obbligatori
 label.required:after {
     content: " *";
     color: red;
 }
+//navbar
+
+.navbar-custom {
+    background-color: #31363c;
+}
+.navbar-expand{
+    background-color: #f8f9fa;
+    
+}
+
+
+//tabelle di visualizzazione
 @media only screen and (max-width: 1200px) {
 
     /* Force table to not be like tables anymore */
@@ -36,10 +49,12 @@ label.required:after {
         position: absolute;
         top: -9999px;
         left: -9999px;
+        background-color: #f8f9fa;
     }
 
     .no-more-tables tr {
         border: 1px solid #ccc;
+        background-color: #f8f9fa;
     }
 
     .no-more-tables td {
@@ -50,6 +65,7 @@ label.required:after {
         padding-left: 50%;
         white-space: normal;
         text-align: left;
+        background-color: #f8f9fa;
     }
 
     .no-more-tables td:before {
@@ -63,6 +79,7 @@ label.required:after {
         white-space: nowrap;
         text-align: left;
         font-weight: bold;
+        background-color: #f8f9fa;
     }
 
     #visualizza-tables thead tr {
@@ -142,6 +159,70 @@ body #scheda_pai table tr td {
     padding: 0 !important;
 }
 
+//stile dropdown delle tabella scheda-pai
 #tabella-index-scheda-pai .dropdown-menu{
     padding-bottom: 40px;
+}
+//filtro dark mode
+html.dark-mode { 
+    .no-more-tables td{
+        background-color: #31363c;
+        color: white;
+    }
+    .no-more-tables tr{
+        background-color: #31363c;
+        color: white;
+    }
+    #visualizza-tables td{
+        background-color: #31363c;
+        color: white;
+    }
+    #visualizza-tables tr{
+        background-color: #31363c;
+        color: white;
+    }
+    body{
+        background-color: #212529;
+        color: white;
+    }
+    .pagination a{
+        background-color: #31363c;
+        color: white;
+    }
+    .form-select{
+        background-color: #31363c;
+        color: white;
+    }
+    .navbar-expand{
+        background-color: #31363c;
+        color: white;
+    }
+    .card-body{
+        background-color: #31363c;
+        color: white;
+    }
+    .dropdown-menu a{
+        color: white;
+    }
+    .dropdown-menu{
+        background-color: #31363c;
+        color: white;
+    }
+    .dropdown-item:hover {
+        background-color: gray;
+    }
+    a.disabled {
+        /* Make the disabled links grayish*/
+        color: gray;
+        /* And disable the pointer events */
+        pointer-events: none;
+    }
+    .h6{
+        color: white;
+    }
+    .h3{
+        color: white;
+        
+    }
+    
 }

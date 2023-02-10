@@ -32,9 +32,9 @@
                         Apri
                         </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_show', {'id': valutazione_figura_professionale.id}) }}">Visualizza</a>
-                        <li><a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_edit', {'id': valutazione_figura_professionale.id}) }}">Modifica</a>
-                        <li><a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_delete', {'id': valutazione_figura_professionale.id, '_token': csrf_token('delete' ~ valutazione_figura_professionale.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">Elimina</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_show', {'id': valutazione_figura_professionale.id}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a>
+                        <li><a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_edit', {'id': valutazione_figura_professionale.id}) }}"><i class="bi bi-pencil-square"></i> Modifica</a>
+                        <li><a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_delete', {'id': valutazione_figura_professionale.id, '_token': csrf_token('delete' ~ valutazione_figura_professionale.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');"><i class="bi bi-trash3"></i> Elimina</a></li>
                 </td>
             </tr>
         {% else %}

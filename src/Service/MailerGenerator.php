@@ -222,7 +222,7 @@ class MailerGenerator
                     $arraySchedeAttive[$t]->setCorrectVasNumberToday();
                     $arraySchedeAttive[$t]->setLesioniNumberToday();
                     $arraySchedeAttive[$t]->setCorrectLesioniNumberToday();
-
+                    
                     if ($arraySchedeAttive[$t]->getBarthelNumberToday() <= $arraySchedeAttive[$t]->getCorrectBarthelNumberToday() && $arraySchedeAttive[$t]->isAbilitaBarthel() == true) {
                         $flagRitardi = true;
                         $riga["barthel"] = 'si';
@@ -249,7 +249,9 @@ class MailerGenerator
                         $riga["lesioni"] = 'si';
                         //$descrizioneRitardi = $descrizioneRitardi .'-Lesioni =>  ' . '<a href=' . 'http://localhost:54001/lesioni/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Lesioni</a>'.'<br>';
                     }
-                    array_push($descrizioneRitardi, $riga);
+                    if($riga["barthel"] == 'si' || $riga["braden"] == 'si' || $riga["spmsq"] == 'si' || $riga["tinetti"] == 'si' || $riga["vas"] == 'si' || $riga["lesioni"] == 'si'){
+                        array_push($descrizioneRitardi, $riga);
+                    }
                 }
             }
             for ($z = 0; $z < count($arraySchedeInAttesaDiChiusura); $z++) {
@@ -297,7 +299,6 @@ class MailerGenerator
                     ->from('tecnico@metarete.it')
                     ->to($stringaMail)
                     ->subject('Email per operatori')
-                    //->markdown($testoEmail);
                     ->htmlTemplate($testoEmailOperatori)
                     ->context([
                         'testoApprovata1' => $testoApprovata1,

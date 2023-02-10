@@ -22,7 +22,7 @@
 	<body>
 		{% block header %}
 			<div class="container-fluid container-lg">
-				<nav class="navbar navbar-dark bg-dark">
+				<nav class="navbar navbar-custom">
 					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 						<li>
 							<a href="{{ path('app_scadenzario_index') }}" class="nav-link px-2 text-white">Home</a>
@@ -60,7 +60,7 @@
 								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 							</svg>
 						</a>
-						<ul class="dropdown-menu text-small" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 34px);" data-popper-placement="bottom-end">
+						<ul class="dropdown-menu dropdown-menu-dark text-small" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 34px);" data-popper-placement="bottom-end">
 							<li>
 								<a class="dropdown-item" href="{{ path('app_profilo_show') }}">Profilo</a>
 							</li>
@@ -74,15 +74,17 @@
 								<a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
 							</li>
 						</ul>
-
+						<a class="button nav-link px-1 text-white" id="dark-mode" type="checkbox" onclick="window.darkMode()"><i class="bi bi-moon-fill"style="font-size:20px;"></i></a>
 					</div>
 				</nav>
 			</div>
 		{% endblock %}
+
 		<div class="container-fluid container-lg"> {% block body %}{% endblock %}
+
 			{% block foot %}
 
-				<nav class="navbar navbar-dark bg-dark">
+				<nav class="navbar navbar-custom">
 					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 						<li>
 							<h6 class="text-light">Contatti e descrizione</h6>

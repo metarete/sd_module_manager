@@ -20,17 +20,17 @@
 {% endblock %}
 {% block body %}
 	<div class="pb-2 mb-4"></div>
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Scheda Pai
 	</div>
 	{{ include('campi_scheda_pai.html.twig') }}
 	<div class="pb-2 mb-4"></div>
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Anagrafica Assistito
 	</div>
 	{{ include('dati_assistito.html.twig') }}
 	<div class="pb-2 mb-4"></div>
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Valutazione Generale
 	</div>
 	{% if valutazione_generale is empty %}
@@ -39,7 +39,7 @@
 		{{ include('campi_valutazione_generale.html.twig') }}
 		<div class="pb-2 mb-4"></div>
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Valutazione Figura Professionale
 	</div>
 	{% if valutazioni_figura_professionale is empty %}
@@ -50,7 +50,7 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Parere MMG
 	</div>
 	{% if parere_mmg is empty %}
@@ -59,7 +59,7 @@
 		{{ include('campi_parere_mmg.html.twig') }}
 		<div class="pb-2 mb-4"></div>
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Barthel
 	</div>
 	{% if barthels is empty %}
@@ -70,7 +70,7 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Braden
 	</div>
 	{% if bradens is empty %}
@@ -81,7 +81,7 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		SPMSQ
 	</div>
 	{% if spmsqs is empty %}
@@ -92,7 +92,7 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Tinetti
 	</div>
 	{% if tinettis is empty %}
@@ -103,7 +103,7 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Vas
 	</div>
 	{% if vass is empty %}
@@ -114,7 +114,7 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Lesioni
 	</div>
 	{% if lesionis is empty %}
@@ -125,7 +125,7 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 text-dark border-bottom border-dark">
+	<div class="h3 pb-2 mb-4 border-bottom border-dark">
 		Chiusura Servizio
 	</div>
 	{% if chiusura_servizio is empty %}

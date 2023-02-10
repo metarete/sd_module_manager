@@ -20,3 +20,7 @@ import bsCustomFileInput from 'bs-custom-file-input';
 import './bootstrap';
 
 bsCustomFileInput.init();
+
+window.darkMode = function(){
+    document.documentElement.classList.toggle('dark-mode');
+}

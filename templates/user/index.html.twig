@@ -25,7 +25,7 @@
 						<td>{{ user.username }}</td>
                         <td>{{ user.roles[0] }}</td>
 						<td>
-							<a href="{{ path('app_user_show', {'id': user.id}) }}" type="button" class="btn btn-primary">Visualizza</a>
+							<a href="{{ path('app_user_show', {'id': user.id}) }}" type="button" class="btn btn-primary"><i class="bi bi-clipboard2"></i> Visualizza</a>
 						</td>
 					</tr>
 				{% else %}

@@ -34,9 +34,9 @@
                         Apri
                         </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ path('app_barthel_show', {'id': barthel.id}) }}">Visualizza</a>
-                        <li><a class="dropdown-item" href="{{ path('app_barthel_edit', {'id': barthel.id}) }}">Modifica</a>
-                        <li><a class="dropdown-item" href="{{ path('app_barthel_delete', {'id': barthel.id, '_token': csrf_token('delete' ~ barthel.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">Elimina</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_barthel_show', {'id': barthel.id}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a>
+                        <li><a class="dropdown-item" href="{{ path('app_barthel_edit', {'id': barthel.id}) }}"><i class="bi bi-pencil-square"></i> Modifica</a>
+                        <li><a class="dropdown-item" href="{{ path('app_barthel_delete', {'id': barthel.id, '_token': csrf_token('delete' ~ barthel.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');"><i class="bi bi-trash3"></i> Elimina</a></li>
                 </td>
                 {#<td data-title='Elimina'> 
                     <form method="post" action="{{ path('app_barthel_delete', {'id': barthel.id}) }}" onsubmit="return confirm('Sei sicuro di voler cancellare questa scheda?');">
