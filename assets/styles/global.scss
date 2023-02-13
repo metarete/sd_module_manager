@@ -3,7 +3,7 @@ $primary: darken(#428bca, 20%);
 $orange: #fd7e14;
 $purple: #6f42c1;
 $pink: #d63384;
-$grey: #747273; 
+$grey: #747273;
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
@@ -14,14 +14,16 @@ label.required:after {
     content: " *";
     color: red;
 }
+
 //navbar
 
 .navbar-custom {
     background-color: #31363c;
 }
-.navbar-expand{
+
+.navbar-expand {
     background-color: #f8f9fa;
-    
+
 }
 
 
@@ -121,108 +123,157 @@ label.required:after {
     .no-more-tables td:before {
         content: attr(data-title);
     }
-     /*
+
+    /*
     Label the data
     */
     #visualizza-tables td:before {
         content: attr(data-title);
     }
 }
+
 body #scheda_pai table tr td {
 
 
-&.text-orange {
-    color: $orange;
+    &.text-orange {
+        color: $orange;
+    }
+
+    &.text-purple {
+        color: $purple;
+    }
+
+    &.text-pink {
+        color: $pink;
+    }
+
+    &.text-grey {
+        color: $grey;
+    }
 }
 
-&.text-purple {
-    color: $purple;
-}
-
-&.text-pink {
-    color: $pink;
-}
-&.text-grey {
-    color: $grey;
-}
-}
 #visualizza-tables {
 
     td,
     th {
         border: 1px solid;
-        
-        
+
+
     }
 }
+
 .hiddenRow {
     padding: 0 !important;
 }
 
 //stile dropdown delle tabella scheda-pai
-#tabella-index-scheda-pai .dropdown-menu{
+#tabella-index-scheda-pai .dropdown-menu {
     padding-bottom: 40px;
 }
+
 //filtro dark mode
-html.dark-mode { 
-    .no-more-tables td{
+html.dark-mode {
+    .no-more-tables td {
         background-color: #31363c;
         color: white;
     }
-    .no-more-tables tr{
+
+    .no-more-tables tr {
         background-color: #31363c;
         color: white;
     }
-    #visualizza-tables td{
+
+    #visualizza-tables td {
         background-color: #31363c;
         color: white;
     }
-    #visualizza-tables tr{
+
+    #visualizza-tables tr {
         background-color: #31363c;
         color: white;
     }
-    body{
+
+    body {
         background-color: #212529;
         color: white;
     }
-    .pagination a{
+
+    .pagination a {
         background-color: #31363c;
         color: white;
     }
-    .form-select{
+
+    .form-select {
+        background-color: #31363c;
+        color: white;
+
+        input:hover {
+            background-color: gray;
+        }
+    }
+
+    .navbar-expand {
         background-color: #31363c;
         color: white;
     }
-    .navbar-expand{
+
+    .card-body {
         background-color: #31363c;
         color: white;
     }
-    .card-body{
+
+    .dropdown-menu a {
+        color: white;
+    }
+
+    .dropdown-menu {
         background-color: #31363c;
         color: white;
     }
-    .dropdown-menu a{
-        color: white;
-    }
-    .dropdown-menu{
-        background-color: #31363c;
-        color: white;
-    }
+
     .dropdown-item:hover {
         background-color: gray;
     }
+
     a.disabled {
         /* Make the disabled links grayish*/
         color: gray;
         /* And disable the pointer events */
         pointer-events: none;
     }
-    .h6{
+
+    .h6,
+    .h3 {
         color: white;
     }
-    .h3{
+
+    input,
+    textarea {
+        background-color: #31363c;
         color: white;
-        
     }
-    
+
+    input[type=date],
+    input[type=time] {
+        background-color: #31363c;
+        color: white;
+    }
+
+    .ts-wrapper,
+    .ts-control,
+    .ts-wrapper-single{
+        background-color: #31363c;
+        color: white;
+    }
+    .ts-dropdown{
+        background-color: #31363c;
+        color: white;
+    }
+
+    .accordion-header,
+    .accordion-button,
+    .accordion-item {
+        background-color: #31363c;
+        color: white;
+    }
 }

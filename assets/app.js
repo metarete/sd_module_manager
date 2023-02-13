@@ -7,7 +7,7 @@
 const $ = require('jquery');
 require('bootstrap');
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('[data-toggle="popover"]').popover();
 });
 
@@ -21,6 +21,23 @@ import './bootstrap';
 
 bsCustomFileInput.init();
 
-window.darkMode = function(){
+window.darkMode = function () {
+    var theme;
+
+    const currentTheme = localStorage.getItem("theme");
+    if(typeof currentTheme === "undefined" || currentTheme == "light"){
+        theme = "dark";
+    }
+    else{
+        theme = "light";
+    }
     document.documentElement.classList.toggle('dark-mode');
+    localStorage.setItem("theme", theme);
 }
+
+$(function() {
+    const currentTheme = localStorage.getItem("theme");
+    if(currentTheme == "dark"){
+        document.documentElement.classList.toggle('dark-mode');
+    }
+});

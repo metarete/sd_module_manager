@@ -31,7 +31,7 @@ class SchedaPAIType extends AbstractType
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();},
                 'label' => 'Operatore Principale',
-                //'multiple'=> true,
+                'multiple'=> false,
                 'required'   => false,
                 'autocomplete' => true,
             ])
