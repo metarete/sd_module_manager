@@ -23,12 +23,12 @@
 		{% block header %}
 			<div class="container-fluid container-lg">
 				<nav class="navbar navbar-custom">
-					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<ul class="nav row-1 cols-6 gap-3">
 						<li>
-							<a href="{{ path('app_scadenzario_index') }}" class="nav-link px-2 text-white">Home</a>
+							<a href="{{ path('app_scadenzario_index') }}" class="nav-link px-2 text-white" style="font-size:20px;">Home</a>
 						</li>
 						<li class="nav-item dropdown">
-							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;">
 								Menu
 							</a>
 							<ul class="dropdown-menu dropdown-menu-dark">
@@ -44,56 +44,74 @@
 							</ul>
 						</li>
 						<li>
-							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link px-2 text-white">Sincronizza</a>
+							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link px-2 text-white" style="font-size:20px;">Sincronizza</a>
 						</li>
 					</ul>
-					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<ul class="nav row-1 cols-6 gap-3">
 						<li>
 							<h1 class="text-light">Module Manager</h1>
 						</li>
 					</ul>
-					<div class="d-flex flex-row-reverse w-10 pe-3">
-
-						<a class="d-block link-light text-decoration-none dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true">
-							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewbox="0 0 16 16">
-								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-							</svg>
+					<ul class="nav row-1 cols-6 gap-3">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="bi bi-grid" style="font-size:25px;"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark text-small" >
+								<div class="row">
+									<div class="col">
+										<a class="dropdown-icon-item" href="https://demo.sdmanager.it/index.phtml">
+											<img src="/image/brand.png" width="60" height="70" alt="SD Menager">
+										</a>
+								
+									</div>
+								</div>
+							</ul>
+						</li>
+					</li>
+					<li>
+						<a class="button nav-link px-1 text-white" id="dark-mode" type="checkbox" onclick="window.darkMode()">
+							<i class="bi bi-moon-fill" style="font-size:25px;"></i>
 						</a>
-						<ul class="dropdown-menu dropdown-menu-dark text-small" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 34px);" data-popper-placement="bottom-end">
+					</li>
+					<li>
+						<a class="nav-link px-1 text-white" href="http://localhost:49153/" role="button">
+							<i class="bi bi-envelope" style="font-size:25px;"></i>
+						</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-person-circle" style="font-size:25px;"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-dark text-small">
 							<li>
-								<a class="dropdown-item" href="{{ path('app_profilo_show') }}">Profilo</a>
+								<a class="dropdown-item" href="{{ path('app_profilo_show') }}">
+									<i class="bi bi-person-circle"></i>
+									Profilo</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}">Modifica Profilo</a>
+								<a class="dropdown-item" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}">
+									<i class="bi bi-pencil-square"></i>
+									Modifica Profilo</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="{{ path('app_profilo_password', {'id': app.user.id}) }}">Modifica Password</a>
+								<a class="dropdown-item" href="{{ path('app_profilo_password', {'id': app.user.id}) }}">
+									<i class="bi bi-key"></i>
+									Modifica Password</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+								<a class="dropdown-item" href="{{ path('app_logout') }}">
+									<i class="bi bi-box-arrow-left"></i>
+									Logout</a>
 							</li>
 						</ul>
-						<a class="button nav-link px-1 text-white" id="dark-mode" type="checkbox" onclick="window.darkMode()"><i class="bi bi-moon-fill"style="font-size:20px;"></i></a>
-					</div>
-				</nav>
-			</div>
-		{% endblock %}
+					</li>
+				</li>
+			</ul>
+		</body>
+	</html>
+</nav></body></html></div>{% endblock %}<div class="container-fluid container-lg"> {% block body %}{% endblock %}{% block foot %}<nav class="navbar navbar-custom"><ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+<li>
+	<h6 class="text-light">Contatti e descrizione</h6>
 
-		<div class="container-fluid container-lg"> {% block body %}{% endblock %}
-
-			{% block foot %}
-
-				<nav class="navbar navbar-custom">
-					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-						<li>
-							<h6 class="text-light">Contatti e descrizione</h6>
-
-						</li>
-					</ul>
-				</nav>
-			{% endblock %}
-
-		</div>
-	</body>
-</html>
+</li></ul></nav>{% endblock %}</div></body></html>

@@ -7,9 +7,7 @@
 const $ = require('jquery');
 require('bootstrap');
 
-$(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-});
+
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/global.scss';
@@ -23,21 +21,27 @@ bsCustomFileInput.init();
 
 window.darkMode = function () {
     var theme;
-
+    var el = document.getElementById("dark-mode");
     const currentTheme = localStorage.getItem("theme");
+
     if(typeof currentTheme === "undefined" || currentTheme == "light"){
         theme = "dark";
+        $(el).find('i').toggleClass('bi-brightness-high-fill bi-moon-fill');
     }
     else{
         theme = "light";
+        $(el).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
     }
+    //$(el).find('i').toggleClass('bi-brightness-high-fill bi-moon-fill');
     document.documentElement.classList.toggle('dark-mode');
     localStorage.setItem("theme", theme);
 }
 
 $(function() {
     const currentTheme = localStorage.getItem("theme");
+    var el = document.getElementById("dark-mode");
     if(currentTheme == "dark"){
         document.documentElement.classList.toggle('dark-mode');
+        $(el).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
     }
 });

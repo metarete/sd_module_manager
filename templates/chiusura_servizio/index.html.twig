@@ -8,7 +8,7 @@
 <div class="no-more-tables">
     <table class="col-sm-12  table-striped table-condensed cf">
         <thead class="cf">
-        <thead>
+        
             <tr>
                 <th>Id</th>
                 <th>Data di valutazione</th>
@@ -20,11 +20,11 @@
         <tbody>
         {% for chiusura_servizio in chiusura_servizios %}
             <tr>
-                <td date-title='Id'>{{ chiusura_servizio.id }}</td>
-                <td date-title='Data di valutazione'>{{ chiusura_servizio.dataValutazione ? chiusura_servizio.dataValutazione|date('Y-m-d') : '' }}</td>
+                <td data-title='Id'>{{ chiusura_servizio.id }}</td>
+                <td data-title='Data di valutazione'>{{ chiusura_servizio.dataValutazione ? chiusura_servizio.dataValutazione|date('Y-m-d') : '' }}</td>
                 <td data-title='Assistito'>{{chiusura_servizio.schedaPAI.nomeAssistito}} {{chiusura_servizio.schedaPAI.cognomeAssistito}}</td>
-                <td data-title= 'Operatore'>{{chiusura_servizio.operatore.name}} {{chiusura_servizio.operatore.surname}}<br></td>
-                <td date-title='Operazioni'>
+                <td data-title='Operatore'>{{chiusura_servizio.operatore.name}} {{chiusura_servizio.operatore.surname}}<br></td>
+                <td data-title='Operazioni'>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         Apri

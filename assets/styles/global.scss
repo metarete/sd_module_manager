@@ -19,6 +19,12 @@ label.required:after {
 
 .navbar-custom {
     background-color: #31363c;
+    display: flex;
+    min-height: var(--ct-topbar-height);
+    margin-left: var(--ct-leftbar-width);
+    justify-content: space-between;
+    
+
 }
 
 .navbar-expand {
@@ -26,6 +32,10 @@ label.required:after {
 
 }
 
+//spazio tra bottoni
+.gap-3 {
+    gap: 1.5rem !important;
+}
 
 //tabelle di visualizzazione
 @media only screen and (max-width: 1200px) {
@@ -74,7 +84,7 @@ label.required:after {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
-        top: 6px;
+        
         left: 6px;
         width: 45%;
         padding-right: 10px;
@@ -173,12 +183,24 @@ body #scheda_pai table tr td {
 
 //filtro dark mode
 html.dark-mode {
+    .no-more-tables thead tr {
+        background-color: #31363c;
+        color: white;
+    }
     .no-more-tables td {
         background-color: #31363c;
         color: white;
     }
 
     .no-more-tables tr {
+        background-color: #31363c;
+        color: white;
+    }
+    .no-more-tables td:before {
+        background-color: #31363c;
+        color: white;
+    }
+    #visualizza-tables thead tr {
         background-color: #31363c;
         color: white;
     }
@@ -189,6 +211,10 @@ html.dark-mode {
     }
 
     #visualizza-tables tr {
+        background-color: #31363c;
+        color: white;
+    }
+    #visualizza-tables td:before {
         background-color: #31363c;
         color: white;
     }
@@ -261,11 +287,12 @@ html.dark-mode {
 
     .ts-wrapper,
     .ts-control,
-    .ts-wrapper-single{
+    .ts-wrapper-single {
         background-color: #31363c;
         color: white;
     }
-    .ts-dropdown{
+
+    .ts-dropdown {
         background-color: #31363c;
         color: white;
     }

@@ -13,19 +13,30 @@
 					<th>Id</th>
 					<th>Nome/Cognome</th>
 					<th>Username</th>
-                    <th>Ruolo</th>
+					<th>Ruolo</th>
 					<th>Operazioni</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for user in users %}
 					<tr>
-						<td>{{ user.id }}</td>
-						<td>{{ user.name }} {{ user.surname }}</td>
-						<td>{{ user.username }}</td>
-                        <td>{{ user.roles[0] }}</td>
-						<td>
-							<a href="{{ path('app_user_show', {'id': user.id}) }}" type="button" class="btn btn-primary"><i class="bi bi-clipboard2"></i> Visualizza</a>
+						<td data-title='Id'>{{ user.id }}</td>
+						<td data-title='Nome/Cognome'>{{ user.name }}
+							{{ user.surname }}</td>
+						<td data-title='Username'>{{ user.username }}</td>
+						<td data-title='Ruolo'>
+							{% if user.roles[0] == "ROLE_ADMIN" %}
+								Admin
+							{% elseif user.roles[0] == "ROLE_USER" %}
+								Utente
+							{% elseif user.roles[0] == "ROLE_GESTORE" %}
+								Gestore
+							{% endif %}
+						</td>
+						<td data-title='Operazioni'>
+							<a href="{{ path('app_user_show', {'id': user.id}) }}" type="button" class="btn btn-primary">
+								<i class="bi bi-clipboard2"></i>
+								Visualizza</a>
 						</td>
 					</tr>
 				{% else %}
