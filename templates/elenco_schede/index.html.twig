@@ -5,149 +5,136 @@
 
 {% block body %}
 
-	<h1>Menù Principale Admin</h1>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+	<h1>Menù Principale</h1>
+
 	<div class="container-fluid text-center">
 		<div class="row">
 			<div class="col">
 				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
 
+					<div class="card-body">
+						<i class="bi bi-file-text" style="font-size:25px;"></i>
+						<h5 class="card-title">{{totaleSchede}}</h5>
+						<p class="card-text">Totale schede Pai.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+
+					<div class="card-body">
+						<i class="bi bi-people" style="font-size:25px;"></i>
+						<h5 class="card-title">{{totaleOperatori}}</h5>
+						<p class="card-text">Totale Operatori.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+
+					<div class="card-body">
+						<i class="bi bi-person-lines-fill" style="font-size:25px;"></i>
+						<h5 class="card-title">{{totalePazienti}}</h5>
+						<p class="card-text">Totale Pazienti.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pb-2 mb-4"></div>
+		<div class="row">
+			<div class="col">
+				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Schede Pai</h5>
-						<p class="card-text">Elenco totale delle schede pai.
-						</p>
-						<a href="{{ path('app_scheda_pai_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
+						<div class="row justify-content-md-center">
+							<div class="col-md-auto">
+								<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="col-sm-4">
+								<div class="my-2 my-sm-0">
+									<i class="mdi mdi-trending-up text-success mt-3 h3"></i>
+									<i class="bi bi-circle-fill" style="color: #6f42c1"></i>
+									<h3 class="fw-normal">
+										<span id="percentualeNuove">{{percentualeNuove}}</span><span>%</span>
+									</h3>
+									<p class="text-muted mb-0">Nuove</p>
+								</div>
 
-					<div class="card-body">
-						<h5 class="card-title">Valutazioni Generali</h5>
-						<p class="card-text">Elenco totale delle Valutazioni Generali.
-						</p>
-						<a href="{{ path('app_valutazione_generale_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
+							</div>
+							<div class="col-sm-4">
+								<div class="my-2 my-sm-0">
+									<i class="mdi mdi-trending-down text-primary mt-3 h3"></i>
+									<i class="bi bi-circle-fill" style="color: #d63384"></i>
+									<h3 class="fw-normal">
+										<span id="percentualeApprovate">{{percentualeApprovate}}</span><span>%</span>
+									</h3>
+									<p class="text-muted mb-0">
+										Approvate</p>
+								</div>
 
-					<div class="card-body">
-						<h5 class="card-title">Valutazioni Figure Professionali</h5>
-						<p class="card-text">Elenco totale delle Valutazioni Professionali degli operatori principali e secondari.
-						</p>
-						<a href="{{ path('app_valutazione_figura_professionale_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-		</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="my-2 my-sm-0">
+									<i class="mdi mdi-trending-down text-danger mt-3 h3"></i>
+									<i class="bi bi-circle-fill" style="color: #198754"></i>
+									<h3 class="fw-normal">
+										<span id="percentualeAttive">{{percentualeAttive}}</span><span>%</span>
+									</h3>
+									<p class="text-muted mb-0">
+										Attive</p>
+								</div>
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="col-sm-4">
+								<div class="my-2 my-sm-0">
+									<i class="mdi mdi-trending-up text-success mt-3 h3"></i>
+									<i class="bi bi-circle-fill" style="color: #ffc107"></i>
+									<h3 class="fw-normal">
+										<span id="percentualeInAttesa">{{percentualeInAttesa}}</span><span>%</span>
+									</h3>
+									<p class="text-muted mb-0">In Attesa di chiusura</p>
+								</div>
 
-		<div class="pb-2 mb-4"></div>
+							</div>
+							<div class="col-sm-4">
+								<div class="my-2 my-sm-0">
+									<i class="mdi mdi-trending-down text-primary mt-3 h3"></i>
+									<i class="bi bi-circle-fill" style="color: #dc3545"></i>
+									<h3 class="fw-normal">
+										<span id="percentualeChiuse">{{percentualeChiuse}}</span><span>%</span>
+									</h3>
+									<p class="text-muted mb-0">
+										Chiuse</p>
+								</div>
 
-		<div class="row">
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Pareri del medico condotto</h5>
-						<p class="card-text">Elenco totale dei pareri del medico condotto
-						</p>
-						<a href="{{ path('app_parere_mmg_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Chiusure Servizi</h5>
-						<p class="card-text">Elenco totale delle schede di chiusura servizi
-						</p>
-						<a href="{{ path('app_chiusura_servizio_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Schede Barthel</h5>
-						<p class="card-text">Elenco totale delle Schede Barthel
-						</p>
-						<a href="{{ path('app_barthel_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="pb-2 mb-4"></div>
-
-		<div class="row">
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Schede Braden</h5>
-						<p class="card-text">Elenco totale delle Schede Braden
-						</p>
-						<a href="{{ path('app_form_pai_braden_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Schede SPMSQ</h5>
-						<p class="card-text">Elenco totale delle Schede SPMSQ
-						</p>
-						<a href="{{ path('app_s_p_m_s_q_index') }}" class="btn btn-primary">Visualizza</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Schede Tinetti</h5>
-						<p class="card-text">Elenco totale delle Schede Tinetti
-						</p>
-						<a href="{{ path('app_tinetti_index') }}" class="btn btn-primary">Visualizza</a>
+							</div>
+							<div class="col-sm-4">
+								<div class="my-2 my-sm-0">
+									<i class="mdi mdi-trending-down text-danger mt-3 h3"></i>
+									<i class="bi bi-circle-fill" style="color: #fd7e14"></i>
+									<h3 class="fw-normal">
+										<span id="percentualeChiuseConRinnovo">{{percentualeChiuseConRinnovo}}</span><span>%</span>
+									</h3>
+									<p class="text-muted mb-0">
+										Chiuse con rinnovo</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="pb-2 mb-4"></div>
 
-			<div class="row">
-				<div class="col">
-					<div class="card">
-						<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">Schede Vas</h5>
-							<p class="card-text">Elenco totale delle Schede Vas
-							</p>
-							<a href="{{ path('app_vas_index') }}" class="btn btn-primary">Visualizza</a>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card">
-						<img src="/image/PAI.jpg" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">Schede Lesioni</h5>
-							<p class="card-text">Elenco totale delle Schede Lesioni
-							</p>
-							<a href="{{ path('app_lesioni_index') }}" class="btn btn-primary">Visualizza</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-	{% endblock %}
+			<div class="pb-2 mb-4"></div>
+
+
+		{% endblock %}

@@ -18,6 +18,7 @@ import bsCustomFileInput from 'bs-custom-file-input';
 import './bootstrap';
 
 bsCustomFileInput.init();
+//icona tema dark
 
 window.darkMode = function () {
     var theme;
@@ -44,4 +45,36 @@ $(function() {
         document.documentElement.classList.toggle('dark-mode');
         $(el).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
     }
+});
+//grafico schede
+var percentualeNuove = $("#percentualeNuove").text();
+var percentualeApprovate = $("#percentualeApprovate").text();
+var percentualeAttive = $("#percentualeAttive").text();
+var percentualeInAttesa = $("#percentualeInAttesa").text();
+var percentualeChiuse = $("#percentualeChiuse").text();
+var percentualeChiuseConRinnovo = $("#percentualeChiuseConRinnovo").text();
+
+var yValues = [percentualeNuove, percentualeApprovate, percentualeAttive, percentualeInAttesa, percentualeChiuse, percentualeChiuseConRinnovo];
+var barColors = [
+  "#6f42c1",
+  "#d63384",
+  "#198754",
+  "#ffc107",
+  "#dc3545",
+  "#fd7e14",
+];
+
+new Chart("myChart", {
+  type: "doughnut",
+  data: {
+    
+    legend: [{
+        position: 'top',
+        display: false
+      }],
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
 });
