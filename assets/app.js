@@ -20,31 +20,32 @@ import './bootstrap';
 bsCustomFileInput.init();
 //icona tema dark
 
-window.darkMode = function () {
-    var theme;
-    var el = document.getElementById("dark-mode");
-    const currentTheme = localStorage.getItem("theme");
-
-    if(typeof currentTheme === "undefined" || currentTheme == "light"){
-        theme = "dark";
-        $(el).find('i').toggleClass('bi-brightness-high-fill bi-moon-fill');
-    }
-    else{
-        theme = "light";
-        $(el).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
-    }
-    //$(el).find('i').toggleClass('bi-brightness-high-fill bi-moon-fill');
-    document.documentElement.classList.toggle('dark-mode');
-    localStorage.setItem("theme", theme);
+window.darkMode = function (elemento) {
+  var theme;
+  var test = $(elemento);
+  const currentTheme = localStorage.getItem("theme");
+  
+  if(typeof currentTheme === "undefined" || currentTheme == "light"){
+      theme = "dark";
+      test.find('i').toggleClass('bi-brightness-high-fill bi-moon-fill');
+  }
+  else{
+      theme = "light";
+      test.find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
+  }
+  //$(el).find('i').toggleClass('bi-brightness-high-fill bi-moon-fill');
+  document.documentElement.classList.toggle('dark-mode');
+  localStorage.setItem("theme", theme);
 }
-
 $(function() {
-    const currentTheme = localStorage.getItem("theme");
-    var el = document.getElementById("dark-mode");
-    if(currentTheme == "dark"){
-        document.documentElement.classList.toggle('dark-mode');
-        $(el).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
-    }
+  const currentTheme = localStorage.getItem("theme");
+  var el = document.getElementById("dark-mode-mobile");
+  var el2 = document.getElementById("dark-mode");
+  if(currentTheme == "dark"){
+      document.documentElement.classList.toggle('dark-mode');
+      $(el).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
+      $(el2).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
+  }
 });
 //grafico schede
 var percentualeNuove = $("#percentualeNuove").text();
