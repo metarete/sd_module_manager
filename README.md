@@ -1,12 +1,7 @@
 
 # Setup
 
-<<<<<<< Updated upstream
-Sistemare il file .env in base alle proprie esigenze
-(Copiare in file env.dist in .env)
-=======
 Copiare il file .env.dist in .env e sistemarlo in base alle proprie esigenze (quello in repo già funziona, al netto dell'integrazione con SD Manager).
->>>>>>> Stashed changes
 
 Lanciare ambiente docker
 
