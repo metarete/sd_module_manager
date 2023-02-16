@@ -14,22 +14,48 @@ label.required:after {
     content: " *";
     color: red;
 }
-
+//mano sul bottone
+.button{
+    cursor: pointer;
+}
 //navbar
-
-.navbar-custom {
-    background-color: #31363c;
-    display: flex;
-    min-height: var(--ct-topbar-height);
-    margin-left: var(--ct-leftbar-width);
-    justify-content: space-between;
-    
-
+@media only screen and (min-width: 1200px) {
+    .navbar-custom {
+        background-color: #31363c;
+        display: flex;
+        min-height: var(--ct-topbar-height);
+        margin-left: var(--ct-leftbar-width);
+        justify-content: space-between;
+    }
+    .navbar-mobile{
+        display: none;
+    }
 }
 
 .navbar-expand {
     background-color: #f8f9fa;
 
+}
+
+@media only screen and (max-width: 1200px) {
+    .navbar-mobile {
+        display: flex;
+        background-color: #31363c;
+        min-height: var(--ct-topbar-height);
+        margin-left: var(--ct-leftbar-width);
+        color: white;
+    }
+    .navbar-custom{
+        display: none;
+    }
+    
+    
+}
+.navbar-nav .nav-link.active {
+    color: rgba(253, 253, 253, 0.9);
+}
+.btn {
+    color: white;
 }
 
 //spazio tra bottoni
@@ -84,7 +110,7 @@ label.required:after {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
-        
+
         left: 6px;
         width: 45%;
         padding-right: 10px;
@@ -187,6 +213,7 @@ html.dark-mode {
         background-color: #31363c;
         color: white;
     }
+
     .no-more-tables td {
         background-color: #31363c;
         color: white;
@@ -196,10 +223,12 @@ html.dark-mode {
         background-color: #31363c;
         color: white;
     }
+
     .no-more-tables td:before {
         background-color: #31363c;
         color: white;
     }
+
     #visualizza-tables thead tr {
         background-color: #31363c;
         color: white;
@@ -214,6 +243,7 @@ html.dark-mode {
         background-color: #31363c;
         color: white;
     }
+
     #visualizza-tables td:before {
         background-color: #31363c;
         color: white;
@@ -304,3 +334,5 @@ html.dark-mode {
         color: white;
     }
 }
+
+

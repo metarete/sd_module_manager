@@ -12,7 +12,6 @@
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
-
 		{% endblock %}
 
 		{% block javascripts %}
@@ -22,6 +21,138 @@
 	<body>
 		{% block header %}
 			<div class="container-fluid container-lg">
+				<nav class="navbar navbar-mobile">
+					<ul class="nav row-1 cols-12 gap-3">
+
+						<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasProfilo" aria-controls="offcanvasProfilo">
+							<i class="bi bi-person-circle" style="font-size:25px;"></i>
+						</button>
+						<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasProfilo" aria-labelledby="offcanvasProfiloLabel">
+							<div class="offcanvas-header">
+								<h5 class="offcanvas-title" id="offcanvasProfiloLabel">Profilo</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+							</div>
+							<div class="offcanvas-body">
+								<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_show') }}"><i class="bi bi-person-circle"></i> Dati</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}"><i class="bi bi-pencil-square"></i> Modifica Profilo</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}"><i class="bi bi-key"></i> Modifica Password</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-left"></i> Logout</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="bi bi-grid" style="font-size:25px;"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark text-small">
+								<div class="row">
+									<div class="col">
+										<a class="dropdown-icon-item" href="https://demo.sdmanager.it/index.phtml">
+											<img src="/image/brand.png" width="60" height="70" alt="SD Menager">
+										</a>
+
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li>
+							<a class="nav-link px-1 text-white" href="http://localhost:49153/" role="button">
+								<i class="bi bi-envelope" style="font-size:25px;"></i>
+							</a>
+						</li>
+						<li>
+							<a class="button nav-link px-1 text-white" id="dark-mode-mobile" type="checkbox" onclick="window.darkMode(this)">
+								<i class="bi bi-moon-fill" style="font-size:25px;"></i>
+							</a>
+						</li>
+						<li>
+							<h1 class="text gap-3">Module Manager</h1>
+						</li>
+						<li>
+							<a href="{{ path('app_scadenzario_index') }}" class="nav-link px-2 text-white">
+								<i class="bi bi-house-door" style="font-size:25px;"></i>
+							</a>
+						</li>
+						<li>
+							<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link px-2 text-white">
+								<i class="bi bi-arrow-repeat" style="font-size:25px;"></i>
+							</a>
+						</li>
+
+
+					</ul>
+					<button {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+						<i class="bi bi-list" style="font-size:25px;"></i>
+					</button>
+					<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+						<div class="offcanvas-header">
+							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menù</h5>
+							<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body">
+							<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_elenco_schede') }}">Bacheca</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}">Schede Pai</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}">Pazienti</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}">Operatori</a>
+								</li>
+								<li class="nav-divider"></li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_valutazione_generale_index') }}">Valutazioni Generali</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_valutazione_figura_professionale_index') }}">Valutazione  Figure Professionali</a>
+								</li>
+								<li class="nav-divider"></li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_barthel_index') }}">Barthel</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_form_pai_braden_index') }}">Braden</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_s_p_m_s_q_index') }}">Spmsq</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_tinetti_index') }}">Tinetti</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_vas_index') }}">Vas</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_lesioni_index') }}">Lesioni</a>
+								</li>
+								<li class="nav-divider"></li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_parere_mmg_index') }}">Parere Medico</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_chiusura_servizio_index') }}">Chiusura Servizi</a>
+								</li>
+
+							</ul>
+
+						</div>
+					</div>
+
+				</nav>
 				<nav class="navbar navbar-custom">
 					<ul class="nav row-1 cols-6 gap-3">
 						<li>
@@ -95,20 +226,20 @@
 							<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<i class="bi bi-grid" style="font-size:25px;"></i>
 							</a>
-							<ul class="dropdown-menu dropdown-menu-dark text-small" >
+							<ul class="dropdown-menu dropdown-menu-dark text-small">
 								<div class="row">
 									<div class="col">
 										<a class="dropdown-icon-item" href="https://demo.sdmanager.it/index.phtml">
 											<img src="/image/brand.png" width="60" height="70" alt="SD Menager">
 										</a>
-								
+
 									</div>
 								</div>
 							</ul>
 						</li>
 					</li>
 					<li>
-						<a class="button nav-link px-1 text-white" id="dark-mode" type="checkbox" onclick="window.darkMode()">
+						<a class="button nav-link px-1 text-white" id="dark-mode" type="checkbox" onclick="window.darkMode(this)">
 							<i class="bi bi-moon-fill" style="font-size:25px;"></i>
 						</a>
 					</li>
