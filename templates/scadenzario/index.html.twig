@@ -6,7 +6,22 @@
 {% block body %}
 	<div id="scheda_pai">
 		<h1>Scadenzario</h1>
-
+<div class="b-example-divider"></div>
+	{% for message in app.flashes('Successo') %}
+    	<div class="alert alert-success alert-dismissible fade show" role="alert">
+    	<i class="bi bi-check-circle-fill" style="color:green"></i>
+        {{ message }}
+    	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    	</div>
+	{% endfor %}
+	{% for message in app.flashes('Fallimento') %}
+    	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    	<i class="bi bi-exclamation-triangle-fill" style = "colore:red"></i>
+        {{ message }}
+    	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    	</div>
+	{% endfor %}
+<div class="b-example-divider"></div>
 		<div class="no-more-tables">
 			<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
 				<thead class="cf"></thead>
@@ -89,7 +104,7 @@
 												href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Modifica scheda Pai</a>
 											</li>
 											<li>
-												<li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" {% if scheda_pai.idOperatorePrincipale == null %} href="javascript:alert('Operatore principale mancante!');"{% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva scheda Pai</a></li>
+												<li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" {% if scheda_pai.idOperatorePrincipale == null %} {% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva scheda Pai</a></li>
 											</li>
 											<li>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina scheda Pai</a>

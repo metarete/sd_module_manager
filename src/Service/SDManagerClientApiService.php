@@ -43,7 +43,7 @@ class SDManagerClientApiService
             'GET',
             'https://demo.sdmanager.it/ws/1.0/mSADManager/list-progetti/' . $dataInizio . "/" . $dataFine
         );
-
+        
         $content = $response->getContent();
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();

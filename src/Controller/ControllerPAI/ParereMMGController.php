@@ -42,7 +42,7 @@ class ParereMMGController extends AbstractController
         return $this->redirectToRoute('app_parere_mmg_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/[page}', name: 'app_parere_mmg_index', requirements: ['page' => '\d+'], methods: ['GET'])]
+    #[Route('/{page}', name: 'app_parere_mmg_index', requirements: ['page' => '\d+'], methods: ['GET'])]
     public function index(ParereMMGRepository $parereMMGRepository, int $page = 1): Response
     {
         $schedePerPagina = 10;

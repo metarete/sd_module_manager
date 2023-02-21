@@ -78,7 +78,7 @@
 			<h1>Module Manager</h1>
 			{% if testoApprovata1 != '' %}
 				<h3>{{testoApprovata1}}<br></h3>
-				<h3>Schede Pai da approvare:
+				<h3>Schede Pai da attivare:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
 					<table id='tabella'>
@@ -87,7 +87,7 @@
 							<th>Data Fine</th>
 							<th>Assistito</th>
 							<th>Stato</th>
-							<th>Link</th>
+							
 						</tr>
 						{% for d in descrizioneSchedeApprovate %}
 							<tr>
@@ -95,9 +95,7 @@
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
 								<td data-title='Stato'>{{ d.stato}}</td>
-								<td data-title='Link'>
-									<a href={{d.link}}>link</a>
-								</td>
+								
 							</tr>
 						{% endfor %}
 					</table>
@@ -183,13 +181,16 @@
 					</table>
 				</div>
 			{% endif %}
+			<div class="pb-2 mb-4"></div>
+			<h3><a href="http://localhost:54001/scheda_pai">Vai all'elenco schede</a></h3>
+			<div class="pb-2 mb-4"></div>
 		</div>
 
 		{% block foot %}
 
-
-			<h6 class="text-light">Contatti e descrizione</h6>
-
+			<div class="pb-2 mb-4"></div>
+			<h3 class="text-light">Contatti e descrizione</h3>
+			<div class="pb-2 mb-4"></div>
 
 		{% endblock %}
 	</body>

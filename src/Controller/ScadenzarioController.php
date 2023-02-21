@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Paziente;
 use App\Entity\EntityPAI\SchedaPAI;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,7 @@ class ScadenzarioController extends AbstractController
 
 
     #[Route('/{page}', name: 'app_scadenzario_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
-    public function index( int $page = 1 ): Response
+    public function index( Request $request, int $page = 1 ): Response
     {
         
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
@@ -78,7 +79,37 @@ class ScadenzarioController extends AbstractController
             $schedaPais[$i]->setLesioniNumberToday();
             $schedaPais[$i]->setCorrectLesioniNumberToday();
         }*/
-        
+         //alert
+         $session = $request->getSession();
+         $alertSincronizzazione = $session->get('alertSincronizzazione');
+         if ($alertSincronizzazione == 'completata') {
+             $this->addFlash(
+                 'Successo',
+                 'Sincronizzazione completata con successo!'
+             );
+         }
+         elseif($alertSincronizzazione == 'errore'){
+             $this->addFlash(
+                 'Fallimento',
+                 'Sincronizzazione fallita!'
+             );
+         }
+         elseif($alertSincronizzazione == 'chiusuraFallita'){
+             $this->addFlash(
+                 'Fallimento',
+                 'Chiusura Fallita! Per chiudere una scheda è necessario aver compilato tutte le
+                 scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale 
+                 per operatore coinvolto'
+             );
+         }
+         elseif($alertSincronizzazione == 'approvazioneFallita'){
+             $this->addFlash(
+                 'Fallimento',
+                 'Impossibile approvare la scheda. Per approvare la scheda è necessario impostare un
+                 operatore principale andando in modifica scheda pai'
+             );
+         }
+         $session->set('alertSincronizzazione', '');
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,

@@ -80,6 +80,7 @@
 				<h3>Schede In Stato Nuova<br></h3>
 				<h3>
 					Le seguenti schede sono in stato nuova e devono essere approvate:
+					<a href="http://localhost:54001/scheda_pai">Vai all'elenco schede</a>
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
 					<table id='tabella'>
@@ -89,7 +90,6 @@
 							<th>Data Fine</th>
 							<th>Assistito</th>
 							<th>Stato</th>
-							<th>Link</th>
 						</tr>
 						{% for d in testoEmailNuove %}
 							<tr>
@@ -98,9 +98,6 @@
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
 								<td data-title='Stato'>{{ d.stato}}</td>
-								<td data-title='Link'>
-									<a href={{d.link}}>link</a>
-								</td>
 							</tr>
 						{% endfor %}
 					</table>
@@ -119,7 +116,7 @@
 							<th>Data Fine</th>
 							<th>Assistito</th>
 							<th>Stato</th>
-							<th>Link</th>
+							
 						</tr>
 						{% for d in testoEmailChiuse %}
 							<tr>
@@ -128,9 +125,7 @@
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
 								<td data-title='Stato'>{{ d.stato}}</td>
-								<td data-title='Link'>
-									<a href={{d.link}}>link</a>
-								</td>
+								
 							</tr>
 						{% endfor %}
 					</table>
@@ -158,7 +153,7 @@
 								<td data-title='Assistito'>{{ d.assistito}}</td>
 								<td data-title='Stato'>{{ d.stato}}</td>
 								<td data-title='Link'>
-									<a href={{d.link}}>link</a>
+									<a href={{d.link}}>Crea progetto</a>
 								</td>
 							</tr>
 						{% endfor %}

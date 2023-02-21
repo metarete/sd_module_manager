@@ -976,7 +976,12 @@ class SchedaPAI
         }
         $dataInizio = $this->getDataInizio();
         $dataOggi = new DateTime();
-        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
         $this->correctBarthelNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaBarthel());
         return $this;
     }
@@ -996,7 +1001,12 @@ class SchedaPAI
         }
         $dataInizio = $this->getDataInizio();
         $dataOggi = new DateTime();
-        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
         $this->correctBradenNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaBraden());
         return $this;
     }
@@ -1016,7 +1026,12 @@ class SchedaPAI
         }
         $dataInizio = $this->getDataInizio();
         $dataOggi = new DateTime();
-        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
         $this->correctSpmsqNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaSpmsq());
         return $this;
     }
@@ -1036,7 +1051,13 @@ class SchedaPAI
         }
         $dataInizio = $this->getDataInizio();
         $dataOggi = new DateTime();
-        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
+        
         $this->correctTinettiNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaTinetti());
         return $this;
     }
@@ -1056,7 +1077,12 @@ class SchedaPAI
         }
         $dataInizio = $this->getDataInizio();
         $dataOggi = new DateTime();
-        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
         $this->correctVasNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaVas());
         return $this;
     }
@@ -1076,7 +1102,12 @@ class SchedaPAI
         }
         $dataInizio = $this->getDataInizio();
         $dataOggi = new DateTime();
-        $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
         $this->correctLesioniNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaLesioni());
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\EntityPAI\SchedaPAI;
 use Doctrine\ORM\EntityManagerInterface;
 
 
+
 class ApprovaSchedaService
 {
 
@@ -18,8 +19,9 @@ class ApprovaSchedaService
 
     public function approva(SchedaPAI $schedaPai)
     {
-        if($schedaPai->getIdOperatorePrincipale()== null)
+        if($schedaPai->getIdOperatorePrincipale()== null){
             return;
+        }
         else{
             $schedaPai->setCurrentPlace('approvata');
         }

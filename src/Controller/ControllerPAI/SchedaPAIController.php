@@ -60,7 +60,7 @@ class SchedaPAIController extends AbstractController
         //controllo login
         $user = $this->getUser();
 
-        
+
 
         //parametri per calcolo tabella
         $ruoloUser = $user->getRoles();
@@ -71,10 +71,10 @@ class SchedaPAIController extends AbstractController
         $lista = $userRepository->findAllUsername();
         $numeroSchedeVisibiliPerPagina = $request->request->get('filtro_numero_schede');
         $listaUsername = [];
-        for( $i = 0; $i<count($lista); $i++){
+        for ($i = 0; $i < count($lista); $i++) {
             $listaUsername[$i] = $lista[$i]['username'];
         }
-        
+
         //calcolo tabella
         $schedaPais = null;
 
@@ -88,21 +88,21 @@ class SchedaPAIController extends AbstractController
 
         if ($ruoloUser[0] == "ROLE_ADMIN") {
             if ($stato == null || $stato == "") {
-                if($operatore == '' || $operatore == null || $operatore == 'tutti')
+                if ($operatore == '' || $operatore == null || $operatore == 'tutti')
                     $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'ASC'), $schedePerPagina, $offset);
                 else
-                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, null,$schedePerPagina, $page);
+                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, null, $schedePerPagina, $page);
             } else {
-                if($operatore == '' || $operatore == null || $operatore == 'tutti')
+                if ($operatore == '' || $operatore == null || $operatore == 'tutti')
                     $schedaPais = $schedaPAIRepository->selectStatoSchedePai($stato, $page, $schedePerPagina);
                 else
-                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, $stato,$schedePerPagina, $page);
+                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, $stato, $schedePerPagina, $page);
             }
-        } 
-        
-        
-        
-        
+        }
+
+
+
+
         /*else if ($ruoloUser[0] == "ROLE_USER") {
             if ($stato == null || $stato == "") {
                 $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $ordinamentoId, $schedePerPagina, $page);
@@ -118,7 +118,7 @@ class SchedaPAIController extends AbstractController
 
         if ($pagineTotali == 0)
             $pagineTotali = 1;
-        
+
         //nome path
         $pathName = 'app_scheda_pai_index';
 
@@ -139,6 +139,38 @@ class SchedaPAIController extends AbstractController
             $schedaPais[$i]->setCorrectLesioniNumberToday();
         }*/
 
+        //alert
+        $session = $request->getSession();
+        $alertSincronizzazione = $session->get('alertSincronizzazione');
+        if ($alertSincronizzazione == 'completata') {
+            $this->addFlash(
+                'Successo',
+                'Sincronizzazione completata con successo!'
+            );
+        }
+        elseif($alertSincronizzazione == 'errore'){
+            $this->addFlash(
+                'Fallimento',
+                'Sincronizzazione fallita!'
+            );
+        }
+        elseif($alertSincronizzazione == 'chiusuraFallita'){
+            $this->addFlash(
+                'Fallimento',
+                'Chiusura Fallita! Per chiudere una scheda è necessario aver compilato tutte le
+                scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale 
+                per operatore coinvolto'
+            );
+        }
+        elseif($alertSincronizzazione == 'approvazioneFallita'){
+            $this->addFlash(
+                'Fallimento',
+                'Impossibile approvare la scheda. Per approvare la scheda è necessario impostare un
+                operatore principale andando in modifica scheda pai'
+            );
+        }
+        $session->set('alertSincronizzazione', '');
+        
         return $this->render('scheda_pai/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,
@@ -177,37 +209,31 @@ class SchedaPAIController extends AbstractController
             $dataInizio = $schedaPAI->getDataInizio();
             $dataFine = $schedaPAI->getDataFine();
             $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
-            if($frequenzaBarthel == 0){
-                $numeroBarthelCorretto=0;
-            }
-            else
+            if ($frequenzaBarthel == 0) {
+                $numeroBarthelCorretto = 0;
+            } else
                 $numeroBarthelCorretto = (int)($numeroGiorniTotali / $frequenzaBarthel);
-            if($frequenzaBraden == 0){
-                $numeroBradenCorretto =0;
-            }
-            else
+            if ($frequenzaBraden == 0) {
+                $numeroBradenCorretto = 0;
+            } else
                 $numeroBradenCorretto = (int)($numeroGiorniTotali / $frequenzaBraden);
-            if($frequenzaSpmsq==0){
-                $numeroSpmsqCorretto =0;
-            }
-            else
+            if ($frequenzaSpmsq == 0) {
+                $numeroSpmsqCorretto = 0;
+            } else
                 $numeroSpmsqCorretto = (int)($numeroGiorniTotali / $frequenzaSpmsq);
-            if($frequenzaTinetti==0){
-                $numeroTinettiCorretto =0;
-            }
-            else
+            if ($frequenzaTinetti == 0) {
+                $numeroTinettiCorretto = 0;
+            } else
                 $numeroTinettiCorretto = (int)($numeroGiorniTotali / $frequenzaTinetti);
-            if($frequenzaVas ==0){
-                $numeroVasCorretto=0;
-            }
-            else
+            if ($frequenzaVas == 0) {
+                $numeroVasCorretto = 0;
+            } else
                 $numeroVasCorretto = (int)($numeroGiorniTotali / $frequenzaVas);
-            if($frequenzaLesioni ==0){
-                $numeroLesioniCorretto=0;
-            }    
-            else
+            if ($frequenzaLesioni == 0) {
+                $numeroLesioniCorretto = 0;
+            } else
                 $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni);
-            
+
             $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
             $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
             $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
@@ -289,58 +315,50 @@ class SchedaPAIController extends AbstractController
             $dataInizio = $schedaPAI->getDataInizio();
             $dataFine = $schedaPAI->getDataFine();
             $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
-            if($frequenzaBarthel == 0){
-                $numeroBarthelCorretto=0;
-            }
-            else
+            if ($frequenzaBarthel == 0) {
+                $numeroBarthelCorretto = 0;
+            } else
                 $numeroBarthelCorretto = (int)($numeroGiorniTotali / $frequenzaBarthel);
-            if($frequenzaBraden == 0){
-                $numeroBradenCorretto =0;
-            }
-            else
+            if ($frequenzaBraden == 0) {
+                $numeroBradenCorretto = 0;
+            } else
                 $numeroBradenCorretto = (int)($numeroGiorniTotali / $frequenzaBraden);
-            if($frequenzaSpmsq==0){
-                $numeroSpmsqCorretto =0;
-            }
-            else
+            if ($frequenzaSpmsq == 0) {
+                $numeroSpmsqCorretto = 0;
+            } else
                 $numeroSpmsqCorretto = (int)($numeroGiorniTotali / $frequenzaSpmsq);
-            if($frequenzaTinetti==0){
-                $numeroTinettiCorretto =0;
-            }
-            else
+            if ($frequenzaTinetti == 0) {
+                $numeroTinettiCorretto = 0;
+            } else
                 $numeroTinettiCorretto = (int)($numeroGiorniTotali / $frequenzaTinetti);
-            if($frequenzaVas ==0){
-                $numeroVasCorretto=0;
-            }
-            else
+            if ($frequenzaVas == 0) {
+                $numeroVasCorretto = 0;
+            } else
                 $numeroVasCorretto = (int)($numeroGiorniTotali / $frequenzaVas);
-            if($frequenzaLesioni ==0){
-                $numeroLesioniCorretto=0;
-            }    
-            else
+            if ($frequenzaLesioni == 0) {
+                $numeroLesioniCorretto = 0;
+            } else
                 $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni);
-            
+
             $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
             $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
             $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
             $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
             $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
             $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
-            
+
             if ($form->getClickedButton() && 'salvaEApprova' === $form->getClickedButton()->getName()) {
                 $schedaPAI->setCurrentPlace('approvata');
             }
-                
+
             $schedaPAIRepository->add($schedaPAI, true);
-            
-            
-           
-            if($pathName == 'app_scadenzario_index'){
+
+
+
+            if ($pathName == 'app_scadenzario_index') {
                 return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else
+            } else
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
-            
         }
 
         return $this->renderForm('scheda_pai/edit.html.twig', [
@@ -355,12 +373,12 @@ class SchedaPAIController extends AbstractController
     {
 
         if ($this->isCsrfTokenValid('delete' . $schedaPAI->getId(), $request->get('_token'))) {
-            
+
             $schedaPAIRepository->remove($schedaPAI, true);
         }
 
-       
-            return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+
+        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/pdf/{id}', name: 'app_scheda_pai_pdf', methods: ['GET'])]
@@ -388,13 +406,14 @@ class SchedaPAIController extends AbstractController
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
-        
+
 
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
 
         $img = file_get_contents(
-            "/app/public/image/logo.jpeg");
+            "/app/public/image/logo.jpeg"
+        );
         $image64 = base64_encode($img);
 
         // Retrieve the HTML generated in our twig file
@@ -426,12 +445,11 @@ class SchedaPAIController extends AbstractController
 
         // Render the HTML as PDF
         $dompdf->render();
-        
+
         // Output the generated PDF to Browser (inline view)
         $dompdf->stream("SchedaPai.pdf", [
             "Attachment" => false
         ]);
-
     }
     #[Route('/{pathName}/anagrafica_assistito/{id}', name: 'app_scheda_pai_anagrafica_assistito', methods: ['GET'])]
     public function datiAssistito(SchedaPAI $schedaPAI, string $pathName)
@@ -449,7 +467,7 @@ class SchedaPAIController extends AbstractController
         ]);
     }
     #[Route('/{pathName}/chiusura_scheda/{id}', name: 'app_scheda_pai_chiusura', methods: ['GET'])]
-    public function chiudiScheda(SchedaPAI $schedaPAI, string $pathName): Response
+    public function chiudiScheda(SchedaPAI $schedaPAI, string $pathName, Request $request): Response
     {
         $idScheda = $schedaPAI->getId();
         $barthelRepository = $this->entityManager->getRepository(Barthel::class);
@@ -478,43 +496,54 @@ class SchedaPAIController extends AbstractController
         $numeroValutazioneProfessionaliMinime = $numeroOperatoriInf + $numeroOperatoriTdr + $numeroOperatoriLog + $numeroOperatoriAsa + $numeroOperatoriOss;
         $numeroValutazioniProfessionali = count($schedaPAI->getIdValutazioneFiguraProfessionale());
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
-        
-        if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $chiusuraServizio!=null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime)
-        {
-            if($chiusuraServizio->getRinnovo() == false){
+
+        if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
+            if ($chiusuraServizio->getRinnovo() == false) {
                 $schedaPAI->setCurrentPlace('chiusa');
                 $this->entityManager->flush();
-            }
-            else{
+            } else {
                 $schedaPAI->setCurrentPlace('chiusa_con_rinnovo');
                 $this->entityManager->flush();
             }
-        }   
-        else{
-            return new Response('Impossibile chiudere la scheda.');
+        } else {
+            //alert fallimento chiusura
+            $session = $request->getSession();
+            $session->set('alertSincronizzazione', 'chiusuraFallita');
+            if ($pathName == 'app_scadenzario_index') {
+                return $this->redirectToRoute('app_scadenzario_index', []);
+            } else
+                return $this->redirectToRoute('app_scheda_pai_index', []);
         }
 
-        if($pathName == 'app_scadenzario_index'){
+        if ($pathName == 'app_scadenzario_index') {
             return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-        }
-        else
+        } else
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/sincronizza_progetti', name: 'app_scheda_pai_sincronizza', methods: ['GET'])]
-    public function sincronizza()
+    public function sincronizza(Request $request)
     {
         $dataInizio = date('d-m-Y', strtotime('-3 month'));
         $dataFine = date('d-m-Y', strtotime('+3 month'));
         $this->SdManagerClientApiService->sincAssistiti();
         $this->SdManagerClientApiService->sincOperatori();
         $this->SdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
+        
+        $session = $request->getSession();
+        $session->set('alertSincronizzazione', 'completata');
+
         return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/approva_scheda_pai/{id}', name: 'app_scheda_pai_approva', methods: ['GET'])]
-    public function approva(SchedaPAI $schedaPAI, string $pathName)
+    public function approva(Request $request , SchedaPAI $schedaPAI, string $pathName)
     {
         $this->approvaSchedaService->approva($schedaPAI);
+        if($schedaPAI->getIdOperatorePrincipale()==null){
+            $session = $request->getSession();
+            $session->set('alertSincronizzazione', 'approvazioneFallita');
+        }
+        
         return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
     }
 }
