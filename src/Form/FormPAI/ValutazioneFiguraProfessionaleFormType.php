@@ -23,16 +23,20 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'choices' => $operatoreChoices
             ])
             ->add('diagnosiProfessionale', TextType::class, [
-                'attr' => array('style' => 'height:100px')
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
             ])
             ->add('obbiettiviDaRaggiungere', TextType::class, [
-                'attr' => array('style' => 'height:100px')
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
             ])
             ->add('tipoEFrequenza', TextType::class, [
-                'attr' => array('style' => 'height:100px')
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
             ])
             ->add('modalitaTempiMonitoraggio', TextType::class, [
-                'attr' => array('style' => 'height:100px')
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
             ])
             ->add('dataValutazione', DateType::class,[
                 'widget' => 'single_text',  
