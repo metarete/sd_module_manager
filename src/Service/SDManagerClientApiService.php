@@ -16,6 +16,10 @@ class SDManagerClientApiService
     private $entityManager;
     private $userPasswordHasher;
 
+    private $codiceResponseProgetti;
+    private $codiceResponseOperatori;
+    private $codiceResponseAssistiti;
+
     private $numeroProgettiScaricati = 0;
     private $numeroProgettiAggiornati = 0;
 
@@ -24,6 +28,21 @@ class SDManagerClientApiService
         $this->client = $client;
         $this->entityManager = $entityManager;
         $this->userPasswordHasher = $userPasswordHasher;
+    }
+
+    public function getCodiceResponseProgetti(): int
+    {
+        return $this->codiceResponseProgetti;
+    }
+
+    public function getCodiceResponseOperatori(): int
+    {
+        return $this->codiceResponseOperatori;
+    }
+
+    public function getCodiceResponseAssistiti(): int
+    {
+        return $this->codiceResponseAssistiti;
     }
 
     public function getNumeroProgettiScaricati(): int
@@ -44,6 +63,11 @@ class SDManagerClientApiService
             'https://demo.sdmanager.it/ws/1.0/mSADManager/list-progetti/' . $dataInizio . "/" . $dataFine
         );
         
+        $this->codiceResponseProgetti = $response->getStatusCode();
+        if($this->codiceResponseProgetti != 200){
+            $content = [];
+            return $content;
+        }
         $content = $response->getContent();
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
@@ -58,6 +82,11 @@ class SDManagerClientApiService
             'https://demo.sdmanager.it/ws/1.0/mSADManager/list-operatori/'
         );
 
+        $this->codiceResponseOperatori = $response->getStatusCode();
+        if($this->codiceResponseOperatori != 200){
+            $content = [];
+            return $content;
+        }
         $content = $response->getContent();
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
@@ -72,6 +101,11 @@ class SDManagerClientApiService
             'https://demo.sdmanager.it/ws/1.0/mSADManager/list-utenti/'
         );
 
+        $this->codiceResponseAssistiti = $response->getStatusCode();
+        if($this->codiceResponseAssistiti != 200){
+            $content = [];
+            return $content;
+        }
         $content = $response->getContent();
         // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
@@ -83,6 +117,10 @@ class SDManagerClientApiService
     public function sincOperatori()
     {
         $utenti = $this->getOperatori();
+        if($this->codiceResponseOperatori != 200){
+            return;
+        }
+            
         $userRepository = $this->entityManager->getRepository(User::class);
         for ($i = 0; $i < count($utenti); $i++) {
             $userUtente = $utenti[$i]['username'];
@@ -119,6 +157,9 @@ class SDManagerClientApiService
     public function sincProgetti(string $dataInizio, string $dataFine)
     {
         $progetti = $this->getProgetti($dataInizio, $dataFine);
+        if($this->codiceResponseProgetti != 200){
+            return;
+        }
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
@@ -146,6 +187,9 @@ class SDManagerClientApiService
     public function sincAssistiti()
     {
         $assistiti = $this->getAssistiti();
+        if($this->codiceResponseAssistiti != 200){
+            return;
+        }
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         for ($i = 0; $i < count($assistiti); $i++) {
             $cf = $assistiti[$i]['cf'];

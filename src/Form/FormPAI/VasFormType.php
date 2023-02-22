@@ -24,9 +24,11 @@ class VasFormType extends AbstractType
         $builder
             ->add('data', DateType::class,[
                 'widget' => 'single_text',  
+                'empty_data' => 0,
             ])
             ->add('ora', TimeType::class, [
                 'widget' => 'single_text',
+                'empty_data' => '00',
                 'attr'=>array
                 ('class'=>'timepicker')
             ])

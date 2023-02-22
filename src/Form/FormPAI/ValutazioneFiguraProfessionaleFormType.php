@@ -36,6 +36,7 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
             ])
             ->add('dataValutazione', DateType::class,[
                 'widget' => 'single_text',  
+                'empty_data' => 0,
             ])
         ;
     }

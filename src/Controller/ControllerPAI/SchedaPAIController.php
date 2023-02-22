@@ -523,13 +523,27 @@ class SchedaPAIController extends AbstractController
     #[Route('/sincronizza_progetti', name: 'app_scheda_pai_sincronizza', methods: ['GET'])]
     public function sincronizza(Request $request)
     {
+        $session = $request->getSession();
+
         $dataInizio = date('d-m-Y', strtotime('-3 month'));
         $dataFine = date('d-m-Y', strtotime('+3 month'));
+
         $this->SdManagerClientApiService->sincAssistiti();
+        if($this->SdManagerClientApiService->getCodiceResponseAssistiti()!= 200){
+            $session->set('alertSincronizzazione', 'errore');
+            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+        }
         $this->SdManagerClientApiService->sincOperatori();
+        if($this->SdManagerClientApiService->getCodiceResponseOperatori()!= 200){
+            $session->set('alertSincronizzazione', 'errore');
+            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+        }
         $this->SdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
+        if($this->SdManagerClientApiService->getCodiceResponseProgetti()!= 200){
+            $session->set('alertSincronizzazione', 'errore');
+            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+        }
         
-        $session = $request->getSession();
         $session->set('alertSincronizzazione', 'completata');
 
         return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);

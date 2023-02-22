@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SPMSQFormType extends AbstractType
 {
@@ -16,6 +17,7 @@ class SPMSQFormType extends AbstractType
         $builder
             ->add('dataValutazione', DateType::class,[
                 'widget' => 'single_text',  
+                'empty_data' => 0,
             ])
             ->add('giornoOggi', CheckboxType::class, [
                 'label'    => 'Errori alla domanda:Che giorno è oggi?',
@@ -57,7 +59,10 @@ class SPMSQFormType extends AbstractType
                 'label'    => 'Errori nel calcolo:Sottragga da 20 tre e poi ancora fino in fondo',
                 'required' => false,
             ])
-            ->add('totale')
+            ->add('totale',null,[
+                'empty_data' => 0,
+            ])
+            ->add('salva', SubmitType::class, ['label' => 'Salva'])
         ;
     }
 

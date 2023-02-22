@@ -26,6 +26,7 @@ class BarthelFormType extends AbstractType
         $builder
             ->add('dataValutazione', DateType::class,[
                 'widget' => 'single_text',  
+                'empty_data' => 0,
             ])
             ->add('alimentazione', ChoiceType::class,[
                 'choices' => $votiBarthel010Choices

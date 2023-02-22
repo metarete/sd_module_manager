@@ -15,6 +15,7 @@ use App\Form\FormPAI\ValutazioneGeneraleFormType;
 use App\Repository\ValutazioneGeneraleRepository;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/valutazione_generale')]
 class ValutazioneGeneraleController extends AbstractController
@@ -104,6 +105,8 @@ class ValutazioneGeneraleController extends AbstractController
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
 
+      
+        
         return $this->renderForm('valutazione_generale/new.html.twig', [
             'valutazione_generale' => $valutazioneGenerale,
             'form' => $form,

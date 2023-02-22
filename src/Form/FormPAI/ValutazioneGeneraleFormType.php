@@ -41,6 +41,7 @@ class ValutazioneGeneraleFormType extends AbstractType
             
             ->add('data_valutazione', DateType::class,[
                 'widget' => 'single_text', 
+                'empty_data' => 0,
             ])
             ->add('tipologia_valutazione', ChoiceType::class,[
                 'choices' => $valutazioneChoices

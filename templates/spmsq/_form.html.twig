@@ -87,5 +87,9 @@
     E' consentito un errore in meno se il soggetto ha un livello di istruzione superiore
     </div>
 </div>
-    <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.salva) }}
+	</div>
+</div>
 {{ form_end(form) }}

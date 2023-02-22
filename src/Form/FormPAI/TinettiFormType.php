@@ -23,6 +23,7 @@ class TinettiFormType extends AbstractType
         $builder
             ->add('dataValutazione', DateType::class,[
                 'widget' => 'single_text',  
+                'empty_data' => 0,
             ])
             ->add('equilibrioSeduto', ChoiceType::class,[
                 'choices' => $votiTinetti01Choices

@@ -32,12 +32,15 @@ class LesioniFormType extends AbstractType
 
         $builder
             ->add('dataRivalutazioniSettimanali', DateType::class,[
-                'widget' => 'single_text',  
+                'widget' => 'single_text',
+                'empty_data' => 0,  
             ])
             ->add('tipologiaLesione', ChoiceType::class,[
                 'choices' => $tipoLesioneChoices
             ])
-            ->add('numeroSedeLesione')
+            ->add('numeroSedeLesione',null,[
+                'empty_data' => 0,
+            ])
             ->add('gradoLesione', ChoiceType::class,[
                 'choices' => $gradoLesioneChoices
             ])
