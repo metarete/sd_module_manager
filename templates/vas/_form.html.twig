@@ -1,4 +1,61 @@
 {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.data) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.ora) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.base2) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.pz) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.esito) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.farmaci) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.altro) }}
+	</div>
+</div>
+<div class="alert alert-info" role="alert">
+    <div class="row">
+    Legenda livello di dolore
+    </div>
+    <div class="row">
+    - AS: assenza di dolore (livello numerico 0)
+    </div>
+    <div class="row">
+    - ML: molto lieve (livello numerico 1-2)
+    </div>
+    <div class="row">
+    - LI: lieve (livello numerico 3)
+    </div>
+    <div class="row">
+    - MO: moderato (livello numerico 4-5-6)
+    </div>
+    <div class="row">
+    - FO: forte (livello numerico 7-8-9)
+    </div>
+    <div class="row">
+    - FS: fortissimo (livello numerico 10)
+    </div>
+</div>
+<button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
 {{ form_end(form) }}

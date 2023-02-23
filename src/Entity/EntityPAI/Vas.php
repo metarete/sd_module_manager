@@ -33,9 +33,6 @@ class Vas
     #[ORM\Column(type: 'string', length: 255)]
     private $esito;
 
-    #[ORM\Column(type: 'integer')]
-    private $rilevanzaMonitoraggio;
-
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $farmaci;
 
@@ -111,18 +108,6 @@ class Vas
     public function setEsito(string $esito): self
     {
         $this->esito = $esito;
-
-        return $this;
-    }
-
-    public function getRilevanzaMonitoraggio(): ?int
-    {
-        return $this->rilevanzaMonitoraggio;
-    }
-
-    public function setRilevanzaMonitoraggio(int $rilevanzaMonitoraggio): self
-    {
-        $this->rilevanzaMonitoraggio = $rilevanzaMonitoraggio;
 
         return $this;
     }

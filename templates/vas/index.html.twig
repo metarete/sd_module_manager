@@ -32,7 +32,7 @@
                         </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('app_vas_show', {'id': va.id}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a>
-                        <li><a class="dropdown-item" href="{{ path('app_vas_edit', {'id': va.id}) }}">Modifica</a>
+                        <li><a class="dropdown-item" href="{{ path('app_vas_edit', {'id': va.id}) }}"><i class="bi bi-pencil-square"></i> Modifica</a>
                         <li><a class="dropdown-item" href="{{ path('app_vas_delete', {'id': va.id, '_token': csrf_token('delete' ~ va.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');"><i class="bi bi-trash3"></i> Elimina</a></li>
                 </td>
             </tr>

@@ -5,7 +5,6 @@ namespace App\Form\FormPAI;
 use App\Entity\EntityPAI\Vas;
 use Symfony\Component\Form\AbstractType;
 use App\Doctrine\DBAL\Type\VotiRilevazioneVas;
-use App\Doctrine\DBAL\Type\VotiMonitoraggioVas;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -16,8 +15,6 @@ class VasFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $VotiMonitoraggioVas = new VotiMonitoraggioVas();
-        $votiMonitoraggioVasChoices = $VotiMonitoraggioVas->getValues();
         $VotiRilevazioneVas = new VotiRilevazioneVas();
         $votiRilevazioneVasChoices = $VotiRilevazioneVas->getValues();
         
@@ -33,16 +30,16 @@ class VasFormType extends AbstractType
                 ('class'=>'timepicker')
             ])
             ->add('base2', ChoiceType::class,[
-                'choices' => $votiRilevazioneVasChoices
+                'choices' => $votiRilevazioneVasChoices,
+                'label' => 'Rilevazione del dolore prima del trattamento',
             ])
             ->add('pz', ChoiceType::class,[
-                'choices' => $votiRilevazioneVasChoices
+                'choices' => $votiRilevazioneVasChoices,
+                'label' => 'Rilevazione del dolore durante il trattamento',
             ])
             ->add('esito', ChoiceType::class,[
-                'choices' => $votiRilevazioneVasChoices
-            ])
-            ->add('rilevanzaMonitoraggio', ChoiceType::class,[
-                'choices' => $votiMonitoraggioVasChoices
+                'choices' => $votiRilevazioneVasChoices,
+                'label' => 'Rilevazione  del dolore a fine trattamento',
             ])
             ->add('farmaci')
             ->add('altro')
