@@ -21,7 +21,7 @@
         {% for va in vas %}
             <tr>
                 <td data-title='Id'>{{ va.id }}</td>
-                <td data-title='Data'>{{ va.data ? va.data|date('Y-m-d') : '' }}</td>
+                <td data-title='Data'>{{ va.data ? va.data|date('d-m-Y') : '' }}</td>
                 <td data-title='Ora'>{{ va.ora ? va.ora|date('H:i:s') : '' }}</td>
                 <td data-title='Assistito'>{{va.schedaPAI.nomeAssistito}} {{va.schedaPAI.cognomeAssistito}}</td>
                 <td data-title= 'Operatore'>{{va.operatore.name}} {{va.operatore.surname}}<br></td>

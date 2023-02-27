@@ -22,7 +22,7 @@
         {% for s_p_m_s_q in s_p_m_s_qs %}
             <tr>
                 <td data-title='Id'>{{ s_p_m_s_q.id }}</td>
-                <td data-title='Data di valutazione'>{{ s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : '' }}</td>
+                <td data-title='Data di valutazione'>{{ s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : '' }}</td>
                 <td data-title='Assistito'>{{s_p_m_s_q.schedaPAI.nomeAssistito}} {{s_p_m_s_q.schedaPAI.cognomeAssistito}}</td>
                 <td data-title= 'Operatore'>{{s_p_m_s_q.operatore.name}} {{s_p_m_s_q.operatore.surname}}<br></td>
                 <td data-title='Totale'>{{ s_p_m_s_q.totale }}</td>

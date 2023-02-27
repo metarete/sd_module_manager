@@ -28,17 +28,19 @@ class ScaricaProgettiCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setHelp('Questo comando serve a scaricare tutti i progetti compresi tra le due date inserite in input. ')
-            ->addArgument('data_inizio', InputArgument::REQUIRED, 'data inizio = data nel formato GG-MM-AAAA')
-            ->addArgument('data_fine', InputArgument::REQUIRED, 'data fine = data nel formato GG-MM-AAAA')
+            ->setHelp('Questo comando serve a scaricare tutti i progetti. ')
+            //->addArgument('data_inizio', InputArgument::REQUIRED, 'data inizio = data nel formato GG-MM-AAAA')
+            //->addArgument('data_fine', InputArgument::REQUIRED, 'data fine = data nel formato GG-MM-AAAA')
         ;
     }
     
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $dataInizio = $input->getArgument('data_inizio');
-        $dataFine = $input->getArgument('data_fine');
+        //$dataInizio = $input->getArgument('data_inizio');
+        //$dataFine = $input->getArgument('data_fine');
+        $dataInizio = date('d-m-Y', strtotime('-3 month'));
+        $dataFine = date('d-m-Y', strtotime('+3 month'));
         $this->sdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
        
         

@@ -22,7 +22,7 @@
         {% for lesioni in lesionis %}
             <tr>
                 <td data-title='Id'>{{ lesioni.id }}</td>
-                <td data-title='Data Rivalutazioni Settimanali'>{{ lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('Y-m-d') : '' }}</td>
+                <td data-title='Data Rivalutazioni Settimanali'>{{ lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : '' }}</td>
                 <td data-title='Assistito'>{{lesioni.schedaPAI.nomeAssistito}} {{lesioni.schedaPAI.cognomeAssistito}}</td>
                 <td data-title= 'Operatore'>{{lesioni.operatore.name}} {{lesioni.operatore.surname}}<br></td>
                 <td data-title='Tipologia Lesione'>{{ lesioni.tipologiaLesione }}</td>

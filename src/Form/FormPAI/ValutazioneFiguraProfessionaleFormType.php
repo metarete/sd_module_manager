@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ValutazioneFiguraProfessionaleFormType extends AbstractType
@@ -19,30 +19,31 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
         $operatoreChoices = $TipoOperatore->getValues();
 
         $builder
-            ->add('tipoOperatore', ChoiceType::class,[
-                'choices' => $operatoreChoices
-            ])
-            ->add('diagnosiProfessionale', TextType::class, [
-                'attr' => array('style' => 'height:100px'),
-                'empty_data' => '',
-            ])
-            ->add('obbiettiviDaRaggiungere', TextType::class, [
-                'attr' => array('style' => 'height:100px'),
-                'empty_data' => '',
-            ])
-            ->add('tipoEFrequenza', TextType::class, [
-                'attr' => array('style' => 'height:100px'),
-                'empty_data' => '',
-            ])
-            ->add('modalitaTempiMonitoraggio', TextType::class, [
-                'attr' => array('style' => 'height:100px'),
-                'empty_data' => '',
-            ])
-            ->add('dataValutazione', DateType::class,[
-                'widget' => 'single_text',  
+            ->add('dataValutazione', DateType::class, [
+                'widget' => 'single_text',
                 'empty_data' => 0,
             ])
-        ;
+            ->add('tipoOperatore', ChoiceType::class, [
+                'choices' => $operatoreChoices
+            ])
+            ->add('diagnosiProfessionale', TextareaType::class, [
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
+            ])
+            ->add('obbiettiviDaRaggiungere', TextareaType::class, [
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
+            ])
+            ->add('tipoEFrequenza', TextareaType::class, [
+                'attr' => array('style' => 'height:100px'),
+                'required'   => false,
+                'empty_data' => '',
+            ])
+            ->add('modalitaTempiMonitoraggio', TextareaType::class, [
+                'attr' => array('style' => 'height:100px'),
+                'required'   => false,
+                'empty_data' => '',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

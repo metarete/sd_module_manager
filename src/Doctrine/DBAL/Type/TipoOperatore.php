@@ -11,10 +11,10 @@ class TipoOperatore extends EnumType
     // etichetta => valore
     // mantenere allineate con workflow
     protected $values = array(
-        'INF' => 'INF',
-        'TDR' => 'TDR',
+        'Infermiere' => 'INF',
+        'Terapista della riabilitazione' => 'TDR',
         'LOG' => 'LOG',
-        'ASA' => 'ASA',
-        'OSS' => 'OSS'
+        'Ausiliario Socio Assistenziale' => 'ASA',
+        'Operatore Socio Sanitario' => 'OSS'
     );
 }

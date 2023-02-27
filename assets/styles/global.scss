@@ -14,6 +14,10 @@ label.required:after {
     content: " *";
     color: red;
 }
+label.test:after {
+    content: " *";
+    color: red;
+}
 //mano sul bottone
 .button{
     cursor: pointer;
@@ -57,7 +61,14 @@ label.required:after {
 .btn {
     color: white;
 }
-
+//footer
+.blog-footer {
+    padding: 2.5rem 0;
+    color: white;
+    text-align: center;
+    background-color: #31363c;
+    border-top: 0.05rem solid #e5e5e5;
+}
 //spazio tra bottoni
 .gap-3 {
     gap: 1.5rem !important;
@@ -171,16 +182,17 @@ label.required:after {
 body #scheda_pai table tr td {
 
 
-    &.text-orange {
-        color: $orange;
+    .badge.bg-orange {
+        background-color: $orange;
+        
     }
 
-    &.text-purple {
-        color: $purple;
+    .badge.bg-purple {
+        background-color: $purple;
     }
 
-    &.text-pink {
-        color: $pink;
+    .badge.bg-pink {
+        background-color: $pink;
     }
 
     &.text-grey {
@@ -332,6 +344,11 @@ html.dark-mode {
     .accordion-item {
         background-color: #31363c;
         color: white;
+    }
+
+    .form-control{
+        color: white;
+        background-color: #31363c;
     }
 }
 

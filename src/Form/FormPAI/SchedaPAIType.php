@@ -28,7 +28,8 @@ class SchedaPAIType extends AbstractType
                 'class'=> User::class,
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();},
-                'label' => 'Operatore Principale',
+                'label_attr' => ['class' => 'test'],
+                'label' => 'Operatore principale',
                 'multiple'=> false,
                 'required'   => false,
                 'autocomplete' => true,
@@ -37,7 +38,7 @@ class SchedaPAIType extends AbstractType
                 'class'=> User::class,
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();},
-                'label' => 'Operatori Secondari Inf',
+                'label' => 'Operatori Secondari (Infermieri)',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
@@ -47,7 +48,7 @@ class SchedaPAIType extends AbstractType
                 'class'=> User::class,
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();},
-                'label' => 'Operatori Secondari Tdr',    
+                'label' => 'Operatori Secondari (Terapista Della Riabilitazione)',    
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
@@ -67,7 +68,7 @@ class SchedaPAIType extends AbstractType
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();
                 },
-                'label' => 'Operatori Secondari Asa',
+                'label' => 'Operatori Secondari (Ausiliario Socio Assistenziale)',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,
@@ -77,7 +78,7 @@ class SchedaPAIType extends AbstractType
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();
                 },
-                'label' => 'Operatori Secondari Oss',
+                'label' => 'Operatori Secondari (Operatore Socio Sanitario',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,

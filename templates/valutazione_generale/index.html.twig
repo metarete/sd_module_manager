@@ -31,7 +31,7 @@
         {% for valutazione_generale in valutazione_generales %}
             <tr>
                 <td data-title='Id'>{{ valutazione_generale.id }}</td>
-                <td data-title='Data valutazione'>{{ valutazione_generale.dataValutazione ? valutazione_generale.dataValutazione|date('Y-m-d') : '' }}</td>
+                <td data-title='Data valutazione'>{{ valutazione_generale.dataValutazione ? valutazione_generale.dataValutazione|date('d-m-Y') : '' }}</td>
                 <td data-title='Tipologia valutazione'>{{ valutazione_generale.tipologiaValutazione }}</td>
                 <td data-title='Assistito'>{{valutazione_generale.schedaPAI.nomeAssistito}} {{valutazione_generale.schedaPAI.cognomeAssistito}}</td>
                 <td data-title='Operatore'>{{valutazione_generale.operatore.name}} {{valutazione_generale.operatore.surname}}<br></td>

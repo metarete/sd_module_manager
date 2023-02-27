@@ -13,7 +13,7 @@ use App\Entity\EntityPAI\ValutazioneGenerale;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -49,15 +49,18 @@ class ValutazioneGeneraleFormType extends AbstractType
             
             ->add('n_componenti_nucleo_abitativo')
             ->add('panf', ChoiceType::class,[
-                'choices' => $panfChoices
+                'choices' => $panfChoices,
+                'label' => 'Presenza Assistente Non Famigliare'
             ])
             
             ->add('fanf', ChoiceType::class,[
-                'choices' => $fanfChoices
+                'choices' => $fanfChoices,
+                'label' => 'Frequenza Assistente Non Famigliare'
             ])
             
             ->add('iss', ChoiceType::class,[
-                'choices' => $issChoices
+                'choices' => $issChoices,
+                'label' => 'Indicatore Supporto Sociale'
             ])
             
             ->add('buonoSociale')
@@ -104,7 +107,7 @@ class ValutazioneGeneraleFormType extends AbstractType
             ->add('comportamento', ChoiceType::class,[
                 'choices' => $disturbiChoices
             ])
-            ->add('diagnosi', TextType::class, [
+            ->add('diagnosi', TextareaType::class, [
                 'attr' => array('style' => 'height:100px')
             ])
             

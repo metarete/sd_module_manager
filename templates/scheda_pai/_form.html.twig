@@ -46,8 +46,23 @@
 </div>
 <div class="row">
 	<div class="col">
-		{{ form_row(form.frequenzaBarthel) }}
+		<div class="row">
+			<div class="col col-lg-2">
+				{{ form_label(form.frequenzaBarthel) }}
+			</div>
+			<div class="col col-lg-1">
+				<a class="bi bi-info-circle-fill" data-toggle="tooltip" title="Ogni quanti giorni dovrà essere compilata la scala di valutazione."></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_widget(form.frequenzaBarthel) }}
+			</div>
+		</div>
 	</div>
+</div>
+<div class ="row">
+	<div class="pb-2 mb-4"></div>
 </div>
 <div class="row">
 	<div class="col">
@@ -56,8 +71,23 @@
 </div>
 <div class="row">
 	<div class="col">
-		{{ form_row(form.frequenzaBraden) }}
+		<div class="row">
+			<div class="col col-lg-2">
+				{{ form_label(form.frequenzaBraden) }}
+			</div>
+			<div class="col col-lg-1">
+				<a class="bi bi-info-circle-fill" data-toggle="tooltip" title="Ogni quanti giorni dovrà essere compilata la scala di valutazione."></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_widget(form.frequenzaBraden) }}
+			</div>
+		</div>
 	</div>
+</div>
+<div class ="row">
+	<div class="pb-2 mb-4"></div>
 </div>
 <div class="row">
 	<div class="col">
@@ -66,8 +96,23 @@
 </div>
 <div class="row">
 	<div class="col">
-		{{ form_row(form.frequenzaSpmsq) }}
+		<div class="row">
+			<div class="col col-lg-2">
+				{{ form_label(form.frequenzaSpmsq) }}
+			</div>
+			<div class="col col-lg-1">
+				<a class="bi bi-info-circle-fill" data-toggle="tooltip" title="Ogni quanti giorni dovrà essere compilata la scala di valutazione."></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_widget(form.frequenzaSpmsq) }}
+			</div>
+		</div>
 	</div>
+</div>
+<div class ="row">
+	<div class="pb-2 mb-4"></div>
 </div>
 <div class="row">
 	<div class="col">
@@ -76,8 +121,23 @@
 </div>
 <div class="row">
 	<div class="col">
-		{{ form_row(form.frequenzaTinetti) }}
+		<div class="row">
+			<div class="col col-lg-2">
+				{{ form_label(form.frequenzaTinetti) }}
+			</div>
+			<div class="col col-lg-1">
+				<a class="bi bi-info-circle-fill" data-toggle="tooltip" title="Ogni quanti giorni dovrà essere compilata la scala di valutazione."></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_widget(form.frequenzaTinetti) }}
+			</div>
+		</div>
 	</div>
+</div>
+<div class ="row">
+	<div class="pb-2 mb-4"></div>
 </div>
 <div class="row">
 	<div class="col">
@@ -86,8 +146,23 @@
 </div>
 <div class="row">
 	<div class="col">
-		{{ form_row(form.frequenzaVas) }}
+		<div class="row">
+			<div class="col col-lg-2">
+				{{ form_label(form.frequenzaVas) }}
+			</div>
+			<div class="col col-lg-1">
+				<a class="bi bi-info-circle-fill" data-toggle="tooltip" title="Ogni quanti giorni dovrà essere compilata la scala di valutazione."></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_widget(form.frequenzaVas) }}
+			</div>
+		</div>
 	</div>
+</div>
+<div class ="row">
+	<div class="pb-2 mb-4"></div>
 </div>
 <div class="row">
 	<div class="col">
@@ -96,8 +171,23 @@
 </div>
 <div class="row">
 	<div class="col">
-		{{ form_row(form.frequenzaLesioni) }}
+		<div class="row">
+			<div class="col col-lg-2">
+				{{ form_label(form.frequenzaLesioni) }}
+			</div>
+			<div class="col col-lg-1">
+				<a class="bi bi-info-circle-fill" data-toggle="tooltip" title="Ogni quanti giorni dovrà essere compilata la scala di valutazione."></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_widget(form.frequenzaLesioni) }}
+			</div>
+		</div>
 	</div>
+</div>
+<div class ="row">
+	<div class="pb-2 mb-4"></div>
 </div>
 <div class="row">
 	<div class="col">
@@ -106,10 +196,9 @@
 </div>
 <div class="row">
 	<div class="col">
-        {% if scheda_pai.idOperatorePrincipale == null or scheda_pai.currentPlace != "nuova"%}
-		    {{ form_row(form.salvaEApprova, { 'attr':{'disabled':'disabled'}}) }}
-        {% endif %}
+		{% if scheda_pai.idOperatorePrincipale == null or scheda_pai.currentPlace != "nuova"%}
+			{{ form_row(form.salvaEApprova, { 'attr':{'disabled':'disabled'}}) }}
+		{% endif %}
 	</div>
 </div>
-
 {{ form_end(form) }}

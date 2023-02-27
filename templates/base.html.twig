@@ -35,16 +35,24 @@
 							<div class="offcanvas-body">
 								<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_show') }}"><i class="bi bi-person-circle"></i> Dati</a>
+										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_show') }}">
+											<i class="bi bi-person-circle"></i>
+											Dati</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}"><i class="bi bi-pencil-square"></i> Modifica Profilo</a>
+										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}">
+											<i class="bi bi-pencil-square"></i>
+											Modifica Profilo</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}"><i class="bi bi-key"></i> Modifica Password</a>
+										<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}">
+											<i class="bi bi-key"></i>
+											Modifica Password</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}"><i class="bi bi-box-arrow-left"></i> Logout</a>
+										<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">
+											<i class="bi bi-box-arrow-left"></i>
+											Logout</a>
 									</li>
 								</ul>
 							</div>
@@ -243,11 +251,7 @@
 							<i class="bi bi-moon-fill" style="font-size:25px;"></i>
 						</a>
 					</li>
-					<li>
-						<a class="nav-link px-1 text-white" href="http://localhost:49153/" role="button">
-							<i class="bi bi-envelope" style="font-size:25px;"></i>
-						</a>
-					</li>
+					
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							<i class="bi bi-person-circle" style="font-size:25px;"></i>
@@ -279,8 +283,13 @@
 			</ul>
 		</body>
 	</html>
-</nav></body></html></div>{% endblock %}<div class="container-fluid container-lg"> {% block body %}{% endblock %}{% block foot %}<nav class="navbar navbar-custom"><ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-<li>
-	<h6 class="text-light">Contatti e descrizione</h6>
-
-</li></ul></nav>{% endblock %}</div></body></html>
+</nav></body></html></div>{% endblock %}<div class="container-fluid container-lg"> {% block body %}{% endblock %}
+{% block foot %}
+<footer class="blog-footer">
+		
+	<p>Module Manager è un servizio di Metarete Srl</p>
+	<p><a href = "">Privacy</a></p>
+	<p><a href = "">Cookie</a></p>
+	<p><a href = "">About</a></p>
+		
+</footer>{% endblock %}</div></body></html>

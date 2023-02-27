@@ -12,7 +12,7 @@ use App\Doctrine\DBAL\Type\CutePerilesionale;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class LesioniFormType extends AbstractType
@@ -53,7 +53,7 @@ class LesioniFormType extends AbstractType
             ->add('cutePerilesionale', ChoiceType::class,[
                 'choices' => $cuteChoices
             ])
-            ->add('noteSullaLesione', TextType::class, [
+            ->add('noteSullaLesione', TextareaType::class, [
                 'required' => false,
                 'attr' => array('style' => 'height:100px')
             ])

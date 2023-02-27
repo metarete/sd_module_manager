@@ -24,7 +24,7 @@
         {% for tinetti in tinettis %}
             <tr>
                 <td data-title='Id'>{{ tinetti.id }}</td>
-                <td data-title='Data valutazione'>{{ tinetti.dataValutazione ? tinetti.dataValutazione|date('Y-m-d') : '' }}</td>
+                <td data-title='Data valutazione'>{{ tinetti.dataValutazione ? tinetti.dataValutazione|date('d-m-Y') : '' }}</td>
                 <td data-title='Assistito'>{{tinetti.schedaPAI.nomeAssistito}} {{tinetti.schedaPAI.cognomeAssistito}}</td>
                 <td data-title= 'Operatore'>{{tinetti.operatore.name}} {{tinetti.operatore.surname}}<br></td>
                 <td data-title='Totale equilibrio'>{{ tinetti.totaleEquilibrio }}</td>

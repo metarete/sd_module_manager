@@ -22,7 +22,7 @@
         {% for braden in bradens %}
             <tr>
                 <td data-title='Id'>{{ braden.id }}</td>
-                <td data-title='Data Valutazione'>{{ braden.dataValutazione ? braden.dataValutazione|date('Y-m-d') : '' }}</td>
+                <td data-title='Data Valutazione'>{{ braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : '' }}</td>
                 <td data-title='Assistito'>{{braden.schedaPAI.nomeAssistito}} {{braden.schedaPAI.cognomeAssistito}}</td>
                 <td data-title='Operatore'>{{braden.operatore.name}} {{braden.operatore.surname}}<br></td>
                 <td data-title='Totale'>{{ braden.totale }}</td>
