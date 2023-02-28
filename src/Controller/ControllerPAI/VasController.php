@@ -38,7 +38,7 @@ class VasController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_vas_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{page}', name: 'app_vas_index', requirements: ['page' => '\d+'], methods: ['GET'])]
@@ -108,7 +108,7 @@ class VasController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $vasRepository->add($va, true);
 
-            return $this->redirectToRoute('app_vas_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('vas/edit.html.twig', [

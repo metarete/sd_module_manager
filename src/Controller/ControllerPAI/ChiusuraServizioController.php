@@ -38,7 +38,7 @@ class ChiusuraServizioController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_chiusura_servizio_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{page}', name: 'app_chiusura_servizio_index', requirements: ['page' => '\d+'], methods: ['GET'])]
@@ -108,7 +108,7 @@ class ChiusuraServizioController extends AbstractController
             $chiusuraServizioRepository->add($chiusuraServizio, true);
 
 
-            return $this->redirectToRoute('app_chiusura_servizio_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('chiusura_servizio/edit.html.twig', [

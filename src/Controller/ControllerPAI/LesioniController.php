@@ -39,7 +39,7 @@ class LesioniController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_lesioni_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{page}', name: 'app_lesioni_index', requirements: ['page' => '\d+'], methods: ['GET'])]
@@ -108,7 +108,7 @@ class LesioniController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $lesioniRepository->add($lesioni, true);
 
-            return $this->redirectToRoute('app_lesioni_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('lesioni/edit.html.twig', [

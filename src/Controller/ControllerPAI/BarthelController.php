@@ -39,7 +39,7 @@ class BarthelController extends AbstractController
         }
 
 
-        return $this->redirectToRoute('app_barthel_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{page}', name: 'app_barthel_index', requirements: ['page' => '\d+'], methods: ['GET'])]
@@ -108,7 +108,7 @@ class BarthelController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $barthelRepository->add($barthel, true);
 
-            return $this->redirectToRoute('app_barthel_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('barthel/edit.html.twig', [

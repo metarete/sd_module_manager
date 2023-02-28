@@ -5,6 +5,7 @@ $purple: #6f42c1;
 $pink: #d63384;
 $grey: #747273;
 
+
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons.scss";
@@ -14,53 +15,65 @@ label.required:after {
     content: " *";
     color: red;
 }
+
 label.test:after {
     content: " *";
     color: red;
 }
+
 //mano sul bottone
-.button{
+.button {
     cursor: pointer;
 }
+
 //navbar
-@media only screen and (min-width: 1200px) {
-    .navbar-custom {
-        background-color: #31363c;
-        display: flex;
-        min-height: var(--ct-topbar-height);
-        margin-left: var(--ct-leftbar-width);
-        justify-content: space-between;
-    }
-    .navbar-mobile{
-        display: none;
-    }
-}
 
 .navbar-expand {
     background-color: #f8f9fa;
 
 }
 
-@media only screen and (max-width: 1200px) {
-    .navbar-mobile {
-        display: flex;
-        background-color: #31363c;
-        min-height: var(--ct-topbar-height);
-        margin-left: var(--ct-leftbar-width);
+.navbar-mobile {
+    display: flex;
+    background-color: #31363c;
+    min-height: var(--ct-topbar-height);
+    margin-left: var(--ct-leftbar-width);
+    color: white;
+
+    .accordion-header.accordion-navbar,
+    .accordion-button.accordion-navbar,
+    .accordion-item.accordion-navbar {
+        background-color: #212529;
         color: white;
+        border-style: none;
+        box-shadow: none;
+
+
     }
-    .navbar-custom{
-        display: none;
+
+    .accordion-button::after {
+        display: inline-block;
+        font-family: bootstrap-icons !important;
+        font-style: normal;
+        font-weight: normal !important;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        vertical-align: -0.125em;
+        -webkit-font-smoothing: antialiased;
+        background: none;
+        content:'\F282';
     }
-    
-    
 }
+
 .navbar-nav .nav-link.active {
     color: rgba(253, 253, 253, 0.9);
 }
+
 .btn {
     color: white;
 }
+
 //footer
 .blog-footer {
     padding: 2.5rem 0;
@@ -69,6 +82,7 @@ label.test:after {
     background-color: #31363c;
     border-top: 0.05rem solid #e5e5e5;
 }
+
 //spazio tra bottoni
 .gap-3 {
     gap: 1.5rem !important;
@@ -184,7 +198,7 @@ body #scheda_pai table tr td {
 
     .badge.bg-orange {
         background-color: $orange;
-        
+
     }
 
     .badge.bg-purple {
@@ -346,10 +360,8 @@ html.dark-mode {
         color: white;
     }
 
-    .form-control{
+    .form-control {
         color: white;
         background-color: #31363c;
     }
 }
-
-

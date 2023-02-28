@@ -38,7 +38,7 @@ class SPMSQController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_s_p_m_s_q_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{page}', name: 'app_s_p_m_s_q_index', requirements: ['page' => '\d+'], methods: ['GET'])]
@@ -108,7 +108,7 @@ class SPMSQController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $sPMSQRepository->add($sPMSQ, true);
 
-            return $this->redirectToRoute('app_s_p_m_s_q_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('spmsq/edit.html.twig', [

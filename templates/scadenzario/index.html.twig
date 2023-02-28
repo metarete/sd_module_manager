@@ -107,10 +107,7 @@
 										</button>
 										<ul class="dropdown-menu">
 											<li>
-												<a class="dropdown-item" href="{{ path('app_scheda_pai_anagrafica_assistito', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza Dati Assistito</a>
-											</li>
-											<li>
-												<a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza scheda Pai</a>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a>
 											</li>
 											<li>
 												<a class="dropdown-item 
@@ -121,16 +118,16 @@
 														disabled
 													{% endif %}
 												{% endif %}" 
-												href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Modifica scheda Pai</a>
+												href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Configura</a>
 											</li>
 											<li>
-												<li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" {% if scheda_pai.idOperatorePrincipale == null %} {% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva scheda Pai</a></li>
+												<li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" {% if scheda_pai.idOperatorePrincipale == null %} {% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva</a></li>
 											</li>
 											<li>
-												<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina scheda Pai</a>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina</a>
 											</li>
 											<li>
-												<a class="dropdown-item {% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi Scheda</a>
+												<a class="dropdown-item {% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi</a>
 											</li>
         
 											<li><hr class="dropdown-divider"></li>
@@ -171,6 +168,10 @@
 											</li>
 											<li>
 												<a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaLesioni == false %}disabled{% endif %}" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Lesioni</a>
+											</li>
+											<li><hr class="dropdown-divider"></li>
+											<li>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_anagrafica_assistito', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Informazioni Assistito</a>
 											</li>
 										</ul>
 									</div>

@@ -38,7 +38,7 @@ class BradenController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_form_pai_braden_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{page}', name: 'app_form_pai_braden_index', requirements: ['page' => '\d+'], methods: ['GET'])]
@@ -107,7 +107,7 @@ class BradenController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $bradenRepository->add($braden, true);
 
-            return $this->redirectToRoute('app_form_pai_braden_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('braden/edit.html.twig', [

@@ -38,7 +38,7 @@ class TinettiController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_tinetti_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{page}', name: 'app_tinetti_index', requirements: ['page' => '\d+'], methods: ['GET'])]
@@ -108,7 +108,7 @@ class TinettiController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tinettiRepository->add($tinetti, true);
 
-            return $this->redirectToRoute('app_tinetti_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('tinetti/edit.html.twig', [

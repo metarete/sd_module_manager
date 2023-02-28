@@ -8,14 +8,14 @@
 		tr:hover {
 			background-color: coral;
 		}
-		 @media screen and (min-width: 1200px){
-			tr{
+		@media screen and(min-width: 1200px) {
+			tr {
 				width: 30%;
 			}
-			td{
+			td {
 				width: 70%;
 			}
-		 }
+		}
 	</style>
 {% endblock %}
 {% block body %}
@@ -30,9 +30,19 @@
 	</div>
 	{{ include('dati_assistito.html.twig') }}
 	<div class="pb-2 mb-4"></div>
-	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Valutazione Generale
+	<div class="row">
+		<div class="col col-lg-10">
+			<div class="h3 pb-2 mb-4 border-bottom border-dark">
+				Valutazione Generale
+			</div>
+		</div>
+		<div class="col col-lg-2">
+			<a class="btn btn-primary {% if not valutazione_generale is empty %} disabled {% endif %} {% if scheda_pai.currentPlace != 'approvata' or user and user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<i class="bi bi-plus-circle"></i>
+				Nuova</a>
+		</div>
 	</div>
+
 	{% if valutazione_generale is empty %}
 		<h6>Nessuna scheda di valutazione generale</h6>
 	{% else %}
@@ -40,7 +50,19 @@
 		<div class="pb-2 mb-4"></div>
 	{% endif %}
 	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Valutazione Figura Professionale
+		<div class="pb-2 mb-4"></div>
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 border-bottom border-dark">
+					Valutazione Figura Professionale
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' %}disabled{% endif %}" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
 	</div>
 	{% if valutazioni_figura_professionale is empty %}
 		<h6>Nessuna scheda di valutazione professionale</h6>
@@ -50,8 +72,17 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Parere MMG
+	<div class="row">
+		<div class="col col-lg-10">
+			<div class="h3 pb-2 mb-4 border-bottom border-dark">
+				Parere Medico Condotto
+			</div>
+		</div>
+		<div class="col col-lg-2">
+			<a class="btn btn-primary {% if not parere_mmg is empty %} disabled {% endif %} {% if scheda_pai.currentPlace != 'attiva' or user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<i class="bi bi-plus-circle"></i>
+				Nuova</a>
+		</div>
 	</div>
 	{% if parere_mmg is empty %}
 		<h6>Nessun parere mmg</h6>
@@ -60,7 +91,18 @@
 		<div class="pb-2 mb-4"></div>
 	{% endif %}
 	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Barthel
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 border-bottom border-dark">
+					Barthel
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBarthel == false %}disabled{% endif %}" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
 	</div>
 	{% if barthels is empty %}
 		<h6>Nessuna scheda di valutazione barthel</h6>
@@ -71,7 +113,18 @@
 		{% endfor %}
 	{% endif %}
 	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Braden
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 border-bottom border-dark">
+					Braden
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBraden == false %}disabled{% endif %}" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
 	</div>
 	{% if bradens is empty %}
 		<h6>Nessuna scheda di valutazione braden</h6>
@@ -82,7 +135,18 @@
 		{% endfor %}
 	{% endif %}
 	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		SPMSQ
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 border-bottom border-dark">
+					SPMSQ
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaSpmsq == false %}disabled{% endif %}" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
 	</div>
 	{% if spmsqs is empty %}
 		<h6>Nessuna scheda di valutazione spmsq</h6>
@@ -93,7 +157,18 @@
 		{% endfor %}
 	{% endif %}
 	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Tinetti
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 border-bottom border-dark">
+					Tinetti
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaTinetti == false %}disabled{% endif %}" href="{{ path('app_tinetti_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
 	</div>
 	{% if tinettis is empty %}
 		<h6>Nessuna scheda di valutazione tinetti</h6>
@@ -104,7 +179,18 @@
 		{% endfor %}
 	{% endif %}
 	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Vas
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 border-bottom border-dark">
+					Vas
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaVas == false %}disabled{% endif %}" href="{{ path('app_vas_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
 	</div>
 	{% if vass is empty %}
 		<h6>Nessuna scheda di valutazione vas</h6>
@@ -115,7 +201,18 @@
 		{% endfor %}
 	{% endif %}
 	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Lesioni
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 border-bottom border-dark">
+					Lesioni
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaLesioni == false %}disabled{% endif %}" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
 	</div>
 	{% if lesionis is empty %}
 		<h6>Nessuna scheda di valutazione lesioni</h6>
@@ -125,8 +222,23 @@
 			<div class="pb-2 mb-4"></div>
 		{% endfor %}
 	{% endif %}
-	<div class="h3 pb-2 mb-4 border-bottom border-dark">
-		Chiusura Servizio
+	<div class="row">
+		<div class="col col-lg-10">
+			<div class="h3 pb-2 mb-4 border-bottom border-dark">
+				Chiusura Servizio
+			</div>
+		</div>
+		<div class="col col-lg-2">
+			<a class="btn btn-primary {% if not chiusura_servizio is empty %} disabled {% endif %}
+							{% if user.roles[0] == 'ROLE_ADMIN' %}
+								{% else %}
+									{% if user.username != scheda_pai.idOperatorePrincipale.username %}
+										disabled
+									{% endif %}
+								{% endif %}" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<i class="bi bi-plus-circle"></i>
+				Nuova</a>
+		</div>
 	</div>
 	{% if chiusura_servizio is empty %}
 		<h6>Nessuna chiusura servizio</h6>
@@ -136,12 +248,12 @@
 
 	<div class="pb-2 mb-4"></div>
 	<a href="{{ path('app_scheda_pai_pdf', {'id': scheda_pai.id}) }}" type="button" class="btn btn-primary">
-		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
-  			<path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-  			<path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewbox="0 0 16 16">
+			<path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+			<path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/>
 		</svg>
 		Genera PDF</a>
-	
+
 	<a href="{{ path(pathName) }}" type="button" class="btn btn-secondary">
 		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewbox="0 0 16 16">
 			<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>

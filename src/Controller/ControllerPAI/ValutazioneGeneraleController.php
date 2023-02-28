@@ -59,7 +59,7 @@ class ValutazioneGeneraleController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_valutazione_generale_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/{page}', name: 'app_valutazione_generale_index', requirements: ['page' => '\d+'], methods: ['GET'])]
     public function index(ValutazioneGeneraleRepository $valutazioneGeneraleRepository, int $page = 1): Response
@@ -139,7 +139,7 @@ class ValutazioneGeneraleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $valutazioneGeneraleRepository->add($valutazioneGenerale, true);
 
-            return $this->redirectToRoute('app_valutazione_generale_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('valutazione_generale/edit.html.twig', [

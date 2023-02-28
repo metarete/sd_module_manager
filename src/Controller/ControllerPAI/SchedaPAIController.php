@@ -276,6 +276,8 @@ class SchedaPAIController extends AbstractController
         $bisogni = [];
         $bisogni = $this->bisogniService->getBisogni($valutazioneGenerale);
 
+        $user = $this->getUser();
+
 
         return $this->render('scheda_pai_completa.html.twig', [
             'scheda_pai' => $schedaPAI,
@@ -294,7 +296,8 @@ class SchedaPAIController extends AbstractController
             'assistiti' => $assistiti,
             'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
             'bisogni' => $bisogni,
-            'pathName' => $pathName
+            'pathName' => $pathName,
+            'user' => $user,
         ]);
     }
 

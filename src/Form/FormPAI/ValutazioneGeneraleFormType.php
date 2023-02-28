@@ -146,11 +146,11 @@ class ValutazioneGeneraleFormType extends AbstractType
                 'required' => false,
             ])
             ->add('ulcereCutaneePrimoSecondoGrado',CheckboxType::class, [
-                'label'    => 'Ulcere curanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 1 e 2 grado',
+                'label'    => 'Ulcere cutanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 1 e 2 grado',
                 'required' => false,
             ])
             ->add('ulcereCutaneeTerzoQuartoGrado',CheckboxType::class, [
-                'label'    => 'Ulcere curanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 3 e 4 grado',
+                'label'    => 'Ulcere cutanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 3 e 4 grado',
                 'required' => false,
             ])
             ->add('prelieviVenosiNonOccasionali')

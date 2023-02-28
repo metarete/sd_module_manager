@@ -37,7 +37,7 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('app_valutazione_figura_professionale_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/{page}', name: 'app_valutazione_figura_professionale_index', requirements: ['page' => '\d+'], methods: ['GET'])]
     public function index(ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository, int $page = 1): Response
@@ -105,7 +105,7 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $valutazioneFiguraProfessionaleRepository->add($valutazioneFiguraProfessionale, true);
 
-            return $this->redirectToRoute('app_valutazione_figura_professionale_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('valutazione_figura_professionale/edit.html.twig', [
