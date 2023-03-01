@@ -42,19 +42,7 @@ class LesioniController extends AbstractController
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{page}', name: 'app_lesioni_index', requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(LesioniRepository $lesioniRepository, int $page = 1): Response
-    {
-        $schedePerPagina = 10;
-        $offset = $schedePerPagina * $page - $schedePerPagina;
-        $totaleSchede = $lesioniRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
-        return $this->render('lesioni/index.html.twig', [
-            'lesionis' => $lesioniRepository->findBy([], null, $schedePerPagina, $offset),
-            'pagina' => $page,
-            'pagine_totali' => $pagineTotali
-        ]);
-    }
+    
 
     #[Route('/{pathName}/new', name: 'app_lesioni_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response

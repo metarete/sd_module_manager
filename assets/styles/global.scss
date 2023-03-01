@@ -88,6 +88,8 @@ label.test:after {
     gap: 1.5rem !important;
 }
 
+
+
 //tabelle di visualizzazione
 @media only screen and (max-width: 1200px) {
 
@@ -325,7 +327,11 @@ html.dark-mode {
     }
 
     .h6,
-    .h3 {
+    .h3,
+    .h1,
+    .h2,
+    .h4,
+    .h5 {
         color: white;
     }
 

@@ -167,11 +167,12 @@
                 </td>
             </tr>
              <tr>
-            <td colspan="8" class="hiddenRow">
+            <td colspan="13" class="hiddenRow">
                 <div  class="collapse collapse-vertical" id="data{{scheda_pai.id}}"> 
                     <table class="col-sm-12  table-striped table-condensed ">
                         <thead class="cf">
                             <tr>
+                                <th>Nome Progetto</th>
                                 <th>Codice Fiscale Assistito</th>
 								<th>Op Principale</th>
                                 <th>Op Inf</th>
@@ -182,6 +183,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <td data-title='Nome Progetto'>
+							{{scheda_pai.nomeProgetto}}
+						</td>
                         <td data-title='Codice Fiscale Assistito'>
 						{% for i in assistiti %}
 						    {% if i.idSdManager == scheda_pai.idAssistito %}

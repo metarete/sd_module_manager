@@ -42,20 +42,6 @@ class BarthelController extends AbstractController
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{page}', name: 'app_barthel_index', requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(BarthelRepository $barthelRepository, int $page = 1): Response
-    {
-        $schedePerPagina = 10;
-        $offset = $schedePerPagina * $page - $schedePerPagina;
-        $totaleSchede = $barthelRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
-        return $this->render('barthel/index.html.twig', [
-            'barthels' => $barthelRepository->findBy([], null, $schedePerPagina, $offset),
-            'pagina' => $page,
-            'pagine_totali' => $pagineTotali
-        ]);
-    }
-
     #[Route('/{pathName}/new', name: 'app_barthel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {

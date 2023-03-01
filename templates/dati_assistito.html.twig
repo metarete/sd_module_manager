@@ -1,57 +1,88 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('app') }}
 	<style>
-		tr:hover {
-			background-color: coral;
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
 		}
 	</style>
 {% endblock %}
-<div id="visualizza-tables">
-	<table class="col-sm-12">
-		<thead class="cf"></thead>
-		<tbody>
-			<tr>
-				<th>Nome</th>
-				<td>
-					{{assistito.nome}}
-				</td>
-			</tr>
-			<tr>
-				<th>Cognome</th>
-				<td>
-					{{assistito.cognome}}
-				</td>
-			</tr>
-			<tr>
-				<th>Codice fiscale</th>
-				<td>
-					{{assistito.codiceFiscale}}
-				</td>
-			</tr>
-			<tr>
-				<th>Indirizzo</th>
-				<td>
-					{{assistito.indirizzo}}
-				</td>
-			</tr>
-			<tr>
-				<th>Comune</th>
-				<td>
-					{{assistito.comune}}
-				</td>
-			</tr>
-			<tr>
-				<th>Provincia</th>
-				<td>
-					{{assistito.provincia}}
-				</td>
-			</tr>
-			<tr>
-				<th>CAP</th>
-				<td>
-					{{assistito.cap}}
-				</td>
-			</tr>
-		</tbody>
-	</tbody>
-</table></div>
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="card">
+			<div class="card-body">
+				<table class="col-sm-12">
+					<thead class="cf"></thead>
+					<tbody>
+						<tr>
+							<th>
+								<h5 class="card-text">Nome</h5>
+							</th>
+							<td>
+								<p class="card-title">{{assistito.nome}}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Cognome</h5>
+							</th>
+							<td>
+								<p class="card-title">{{assistito.cognome}}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Codice Fiscale</h5>
+							</th>
+							<td>
+								<p class="card-title">{{assistito.codiceFiscale}}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Indirizzo</h5>
+							</th>
+							<td>
+								<p class="card-title">{{assistito.indirizzo}}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Comune</h5>
+							</th>
+							<td>
+								<p class="card-title">{{assistito.comune}}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Provincia</h5>
+							</th>
+							<td>
+								<p class="card-title">{{assistito.provincia}}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">CAP</h5>
+							</th>
+							<td>
+								<p class="card-title">{{assistito.cap}}</p>
+							</td>
+						</tr>
+					</tbody>
+				</thead>
+			</table>
+		</div>
+	</div>
+</div></div>

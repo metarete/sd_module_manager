@@ -41,19 +41,7 @@ class SPMSQController extends AbstractController
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{page}', name: 'app_s_p_m_s_q_index', requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(SPMSQRepository $sPMSQRepository, int $page = 1): Response
-    {
-        $schedePerPagina = 10;
-        $offset = $schedePerPagina * $page - $schedePerPagina;
-        $totaleSchede = $sPMSQRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
-        return $this->render('spmsq/index.html.twig', [
-            's_p_m_s_qs' => $sPMSQRepository->findBy([], null, $schedePerPagina, $offset),
-            'pagina' => $page,
-            'pagine_totali' => $pagineTotali
-        ]);
-    }
+    
 
     #[Route('/{pathName}/new', name: 'app_s_p_m_s_q_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response

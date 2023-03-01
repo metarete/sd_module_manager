@@ -1,104 +1,134 @@
 <style>
-body {
-	margin: 0;
-	
-	
-}
-table{
-	/*background-color: #212529; /* For browsers that do not support gradients */
-  	/*background-image: #212529;*/
-	color: black;
-}
+	body {
+		margin: 0;
+	}
 </style>
-<div id="visualizza-tables">
-	<table class="col-sm-12 ">
-		<tbody>
-			{% if variabileTest != 1%}
-				<tr>
-					<th>Id</th>
-					<td>{{ scheda_pai.id }}</td>
-				</tr>
-			{% endif %}
-			<tr>
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="col">
+			<div class="card">
 
-				<th>Operatore Principale</th>
-				<td>
-					{% if scheda_pai.idOperatorePrincipale == null %}
+				<div class="card-body">
+					<i class="bi bi-person" style="font-size:25px;"></i>
+					<h5 class="card-text">Operatore Principale
+					</h5>
+					<p class="card-title">
+					{% if scheda_pai.idOperatorePrincipale  is empty %}
 						Nessuno
 					{% else %}
-						{{ scheda_pai.idOperatorePrincipale.name}}
-						{{ scheda_pai.idOperatorePrincipale.surname}}
+					{{scheda_pai.idOperatorePrincipale.name}}
+						{{scheda_pai.idOperatorePrincipale.surname}}
+					{% endif %}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
 
-						<br>
-					{% endif %}
-				</td>
-			</tr>
-			<tr>
-				<th>Operatore Secondario Inf</th>
-				<td>
-					{% if scheda_pai.idOperatoreSecondarioInf  is empty %}
-						Nessuno
-					{% endif %}
-					{% for i in scheda_pai.idOperatoreSecondarioInf %}
-						{{i.name}}
-						{{i.surname}}
-						<br>
-					{% endfor %}
-				</td>
-			</tr>
-			<tr>
-				<th>Operatore Secondario Tdr</th>
-				<td>
-					{% if scheda_pai.idOperatoreSecondarioTdr is empty %}
-						Nessuno
-					{% endif %}
-					{% for i in scheda_pai.idOperatoreSecondarioTdr %}
-						{{i.name}}
-						{{i.surname}}
-						<br>
-					{% endfor %}
-				</td>
-			</tr>
-			<tr>
-				<th>Operatore Secondario Log</th>
-				<td>
-					{% if scheda_pai.idOperatoreSecondarioLog  is empty %}
-						Nessuno
-					{% endif %}
-					{% for i in scheda_pai.idOperatoreSecondarioLog %}
-						{{i.name}}
-						{{i.surname}}
-						<br>
-					{% endfor %}
-				</td>
-			</tr>
-			<tr>
-				<th>Operatore Secondario Asa</th>
-				<td>
-					{% if scheda_pai.idOperatoreSecondarioAsa  is empty %}
-						Nessuno
-					{% endif %}
-					{% for i in scheda_pai.idOperatoreSecondarioAsa %}
-						{{i.name}}
-						{{i.surname}}
-						<br>
-					{% endfor %}
-				</td>
-			</tr>
-			<tr>
-				<th>Operatore Secondario Oss</th>
-				<td>
-					{% if scheda_pai.idOperatoreSecondarioOss  is empty %}
-						Nessuno
-					{% endif %}
-					{% for i in scheda_pai.idOperatoreSecondarioOss %}
-						{{i.name}}
-						{{i.surname}}
-						<br>
-					{% endfor %}
-				</td>
-			</tr>
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Infermieri
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioInf  is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioInf %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
 
-		</tbody>
-	</tbody>
-</table></div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Terapisti della riabilitazione
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioTdr is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioTdr %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">LOG
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioLog is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioLog %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Ausiliari Socio Assistenziale
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioAsa is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioAsa %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Operatori Socio Sanitario
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioOss is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioOss %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

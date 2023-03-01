@@ -4,46 +4,95 @@
 {% endblock %}
 
 {% block body %}
+	{% block stylesheets %}
+		{{ encore_entry_link_tags('app') }}
+		<style>
+			body {
+				margin: 0;
+			}
+			.card {
+				padding: 0;
+				text-align: left;
+				
+			}
+			.card-text {
+				border-bottom-style: solid;
+			}
+			.card-title {
+				border-bottom-style: solid;
+				padding-bottom: 8px
+			}
+		</style>
+	{% endblock %}
+
 	<h1>Paziente</h1>
 
-	<div id="visualizza-tables">
-		<table class="col-sm-12">
-			<thead class="cf"></thead>
-			<tbody>
-				<tr>
-					<th>Id</th>
-					<td>{{ paziente.id }}</td>
-				</tr>
-				<tr>
-					<th>Nome</th>
-					<td>{{ paziente.nome }}</td>
-				</tr>
-				<tr>
-					<th>Cognome</th>
-					<td>{{ paziente.cognome }}</td>
-				</tr>
-				<tr>
-					<th>Codice Fiscale</th>
-					<td>{{ paziente.codiceFiscale }}</td>
-				</tr>
-				<tr>
-					<th>Indirizzo</th>
-					<td>{{ paziente.indirizzo }}</td>
-				</tr>
-				<tr>
-					<th>Comune</th>
-					<td>{{ paziente.comune }}</td>
-				</tr>
-				<tr>
-					<th>Provincia</th>
-					<td>{{ paziente.provincia }}</td>
-				</tr>
-				<tr>
-					<th>CAP</th>
-					<td>{{ paziente.cap }}</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<table class="col-sm-12">
+						<thead class="cf"></thead>
+						<tbody>
+							<tr>
+								<th>
+									<h5 class="card-text">Nome</h5>
+								</th>
+								<td>
+									<p class="card-title">{{ paziente.nome }}
+										{{paziente.cognome}}</p>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h5 class="card-text">Codice Fiscale</h5>
+								</th>
+								<td>
+									<p class="card-title">{{ paziente.codiceFiscale }}
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h5 class="card-text">Indirizzo</h5>
+								</th>
+								<td>
+									<p class="card-title">{{ paziente.indirizzo }}
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h5 class="card-text">Comune</h5>
+								</th>
+								<td>
+									<p class="card-title">{{ paziente.comune }}
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h5 class="card-text">Provincia</h5>
+								</th>
+								<td>
+									<p class="card-title">{{ paziente.provincia }}
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h5 class="card-text">CAP</h5>
+								</th>
+								<td>
+									<p class="card-title">{{ paziente.cap }}
+									</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="pb-2 mb-4"></div>
@@ -53,6 +102,6 @@
 			<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 		</svg>
 		Torna indietro</a>
-        
+
 	<div class="pb-2 mb-4"></div>
 {% endblock %}

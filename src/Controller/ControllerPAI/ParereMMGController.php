@@ -42,19 +42,7 @@ class ParereMMGController extends AbstractController
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{page}', name: 'app_parere_mmg_index', requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(ParereMMGRepository $parereMMGRepository, int $page = 1): Response
-    {
-        $schedePerPagina = 10;
-        $offset = $schedePerPagina * $page - $schedePerPagina;
-        $totaleSchede = $parereMMGRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
-        return $this->render('parere_mmg/index.html.twig', [
-            'parere_mmgs' => $parereMMGRepository->findBy([], null, $schedePerPagina, $offset),
-            'pagina' => $page,
-            'pagine_totali' => $pagineTotali
-        ]);
-    }
+   
 
     #[Route('/{pathName}/new', name: 'app_parere_mmg_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response

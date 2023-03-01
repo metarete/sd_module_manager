@@ -160,6 +160,7 @@ class SDManagerClientApiService
         if($this->codiceResponseProgetti != 200){
             return;
         }
+        
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
@@ -167,18 +168,20 @@ class SDManagerClientApiService
                 $dataInizio = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_inizio']);
                 $dataFine = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_fine']);
                 $idAssistito = $progetti[$i]['id_utente'];
+                $nomeProgetto = $progetti[$i]['nome'];
                 if ($schedaPAIRepository->findOneByProgetto($idProgetto) == null) {
                     $schedaPai = new SchedaPAI;
                     $schedaPai->setDataInizio($dataInizio);
                     $schedaPai->setDataFine($dataFine);
                     $schedaPai->setIdAssistito($idAssistito);
                     $schedaPai->setIdProgetto($idProgetto);
+                    $schedaPai->setNomeProgetto($nomeProgetto);
                     $schedaPai->setCurrentPlace('nuova');
                     $schedaPai->setIdConsole('demo');
                     $schedaPAIRepository->add($schedaPai, true);
                     $this->numeroProgettiScaricati++;
                 } else {
-                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine);
+                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto);
                     $this->numeroProgettiAggiornati++;
                 }
             }

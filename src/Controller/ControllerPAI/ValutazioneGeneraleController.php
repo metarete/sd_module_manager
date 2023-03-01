@@ -61,19 +61,7 @@ class ValutazioneGeneraleController extends AbstractController
 
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/{page}', name: 'app_valutazione_generale_index', requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(ValutazioneGeneraleRepository $valutazioneGeneraleRepository, int $page = 1): Response
-    {
-        $schedePerPagina = 10;
-        $offset = $schedePerPagina * $page - $schedePerPagina;
-        $totaleSchede = $valutazioneGeneraleRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
-        return $this->render('valutazione_generale/index.html.twig', [
-            'valutazione_generales' => $valutazioneGeneraleRepository->findBy([], null, $schedePerPagina, $offset),
-            'pagina' => $page,
-            'pagine_totali' => $pagineTotali
-        ]);
-    }
+    
 
     #[Route('/{pathName}/new', name: 'app_valutazione_generale_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response

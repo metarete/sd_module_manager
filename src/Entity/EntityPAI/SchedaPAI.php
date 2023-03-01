@@ -69,6 +69,9 @@ class SchedaPAI
     #[ORM\Column(type: 'integer')]
     private $idProgetto;
 
+    #[ORM\Column(type: 'string')]
+    private $nomeProgetto;
+
     #[ORM\OneToOne(targetEntity: ValutazioneGenerale::class, inversedBy: 'schedaPAI', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $idValutazioneGenerale;
@@ -417,6 +420,18 @@ class SchedaPAI
     public function setIdProgetto(?int $idProgetto): self
     {
         $this->idProgetto = $idProgetto;
+
+        return $this;
+    }
+
+    public function getNomeProgetto(): ?string
+    {
+        return $this->nomeProgetto;
+    }
+
+    public function setNomeProgetto(?string $nomeProgetto): self
+    {
+        $this->nomeProgetto = $nomeProgetto;
 
         return $this;
     }

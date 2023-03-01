@@ -39,19 +39,7 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
 
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('/{page}', name: 'app_valutazione_figura_professionale_index', requirements: ['page' => '\d+'], methods: ['GET'])]
-    public function index(ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository, int $page = 1): Response
-    {
-        $schedePerPagina = 10;
-        $offset = $schedePerPagina * $page - $schedePerPagina;
-        $totaleSchede = $valutazioneFiguraProfessionaleRepository->contaSchede();
-        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
-        return $this->render('valutazione_figura_professionale/index.html.twig', [
-            'valutazione_figura_professionales' => $valutazioneFiguraProfessionaleRepository->findBy([], null, $schedePerPagina, $offset),
-            'pagina' => $page,
-            'pagine_totali' => $pagineTotali
-        ]);
-    }
+    
 
     #[Route('/{pathName}/new', name: 'app_valutazione_figura_professionale_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
