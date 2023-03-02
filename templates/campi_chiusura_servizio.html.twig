@@ -21,61 +21,80 @@
 	<div class="row">
 		<div class="card">
 			<div class="card-body">
-				<table class="col-sm-12">
-					<thead class="cf"></thead>
-					<tbody>
-						<tr>
-							<th>
-								<h5 class="card-text">Operatore</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ chiusura_servizio.operatore.name }}
-									{{chiusura_servizio.operatore.surname}}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Data di valutazione</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ chiusura_servizio.dataValutazione ? chiusura_servizio.dataValutazione|date('Y-m-d') : '' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Conclusioni</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ chiusura_servizio.conclusioni }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Operazioni</h5>
-							</th>
-							<td>
-								<p class="card-title" style="border-bottom-style: none;">
-									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-											Apri
-										</button>
-										<ul class="dropdown-menu">
-											<li>
-												<a class="dropdown-item" href="{{ path('app_chiusura_servizio_edit', {'id': chiusura_servizio.id}) }}">
-													<i class="bi bi-pencil-square"></i>
-													Modifica</a>
-											</li>
-											<li>
-												<a class="dropdown-item" href="{{ path('app_chiusura_servizio_delete', {'id': chiusura_servizio.id, '_token': csrf_token('delete' ~ chiusura_servizio.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-													<i class="bi bi-trash3"></i>Cancella</a>
-											</li>
-										</ul>
-									</div>
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="row">
+					<div class="col">
+						<table class="col-sm-12">
+							<thead class="cf"></thead>
+							<tbody>
+								<tr>
+									<th>
+										<h5 class="card-text">Operatore</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ chiusura_servizio.operatore.name }}
+											{{chiusura_servizio.operatore.surname}}</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Data di valutazione</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ chiusura_servizio.dataValutazione ? chiusura_servizio.dataValutazione|date('Y-m-d') : '' }}</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col">
+						<table class="col-sm-12">
+							<thead class="cf"></thead>
+							<tbody>
+								<tr>
+									<th>
+										<h5 class="card-text">Conclusioni</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ chiusura_servizio.conclusioni }}</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Operazioni</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title" style="border-bottom-style: none;">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+													Apri
+												</button>
+												<ul class="dropdown-menu">
+													<li>
+														<a class="dropdown-item" href="{{ path('app_chiusura_servizio_edit', {'id': chiusura_servizio.id}) }}">
+															<i class="bi bi-pencil-square"></i>
+															Modifica</a>
+													</li>
+													<li>
+														<a class="dropdown-item" href="{{ path('app_chiusura_servizio_delete', {'id': chiusura_servizio.id, '_token': csrf_token('delete' ~ chiusura_servizio.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+															<i class="bi bi-trash3"></i>Cancella</a>
+													</li>
+												</ul>
+											</div>
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,313 +1,336 @@
 {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
 
 <div class="row">
-        <div class="col">
-            {{ form_row(form.dataValutazione) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel1">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading1">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse1" aria-expanded="true" aria-controls="panelsStayOpen-collapse1">
-            Descrizione Alimentazione
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse1" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading1">
-        <div class="accordion-body">
-            <strong>10</strong> Capace di alimentarsi da solo quando i cibi sono preparati su un vassoio o tavolo raggiungibili.
-            Se usa un ausilio deve essere capace di utilizzarlo, tagliare i cibi e, se lo desidera, usare sale e pepe, spalmare il burro, ecc.
-            <strong>8</strong> Indipendente nell'alimentarsi con i cibi preparati su un vassoio, ad eccezione di tagliare la carne, aprire
-            il contenitore del latte, girare il coperchio di un vasetto, ecc. Non è necessaria la presenza di un'altra persona.
-            <strong>5</strong> Capace di alimentarsi da solo, con supervisione. Richiede assistenza nelle attività associate come versare il 
-            latte, zucchero o altro nella tazza, usare sale e pepe, spalmare il burro, girare un piatto di portata o altro.
-            <strong>2</strong> Capace di utilizzare una posata, in genere un cucchiaio, ma qualcuno deve assistere attivamente durante il pasto
-            <strong>0</strong> Dipendente per tutti gli aspetti. Deve essere alimentato (imboccato, SNG, PEG, ecc).
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		{{ form_row(form.dataValutazione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.alimentazione) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanels2">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading2">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse2" aria-expanded="true" aria-controls="panelsStayOpen-collapse2">
-            Descrizione Bagno/Doccia (lavarsi)
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse2" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading2">
-        <div class="accordion-body">
-            <strong>5</strong> Capace di fare il bagno in vasca, la doccia o una spugnatura completa. Autonomo in tutte le operazioni, senza la 
-            presenza di un'altra persona, quale che sia il metodo usato.
-            <strong>4</strong> Necessità di supervisione per sicurezza (trasferimenti, temperatura dell'acqua, ecc).
-            <strong>3</strong> Necessita di aiuto per il trasferimento nella doccia/bagno oppure nel lavarsi o asciugarsi.
-            <strong>1</strong> Necessita di aiuto per tutte le operazioni.
-            <strong>0</strong> Totale dipendenza nel lavarsi.
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col col-lg-2">
+		{{ form_label(form.alimentazione) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaAlimentazione" role="button" aria-expanded="false" aria-controls="legendaAlimentazione"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.bagnoDoccia) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel3">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading3">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse3" aria-expanded="true" aria-controls="panelsStayOpen-collapse3">
-            Descrizione Igiene personale
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse3" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading3">
-        <div class="accordion-body">
-            <strong>5</strong> Capace di lavarsi mani e faccia, pettinarsi, lavarsi i denti e radersi. Un uomo deve essere capace di usare,
-            senza aiuto, qualsiasi tipo di rasoio, comprese le manipolazioni necessarie. Una donna deve essere in grado di truccarsi, se 
-            abituata a farlo, ma non è necessario che sia in grado di acconciarsi i capelli.
-            <strong>4</strong> In grado di attendere all'igiene personale, ma necessita di aiuto minimo prima e/o dopo le operazioni.
-            <strong>3</strong> Necessita di aiuto per una o più operazioni dell'igiene personale.
-            <strong>1</strong> Necessita di aiuto per tutte le operazioni.
-            <strong>0</strong> Incapace di attendere all'igiene personale, dipendente sotto tutti gli aspetti.
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaAlimentazione" class="collapse collapse-info">
+			-10: Capace di alimentarsi da solo quando i cibi sono preparati su un vassoio o tavolo raggiungibili.
+																														            Se usa un ausilio deve essere capace di utilizzarlo, tagliare i cibi e, se lo desidera, usare sale e pepe, spalmare il burro, ecc.
+			<br>-8: Indipendente nell'alimentarsi con i cibi preparati su un vassoio, ad eccezione di tagliare la carne, aprire
+																														            il contenitore del latte, girare il coperchio di un vasetto, ecc. Non è necessaria la presenza di un'altra persona.
+			<br>-5: Capace di alimentarsi da solo, con supervisione. Richiede assistenza nelle attività associate come versare il 
+																														            latte, zucchero o altro nella tazza, usare sale e pepe, spalmare il burro, girare un piatto di portata o altro.
+			<br>-2: Capace di utilizzare una posata, in genere un cucchiaio, ma qualcuno deve assistere attivamente durante il pasto
+			<br>-0: Dipendente per tutti gli aspetti. Deve essere alimentato (imboccato, SNG, PEG, ecc).</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.igienePersonale) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.alimentazione) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel4">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading4">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse4" aria-expanded="true" aria-controls="panelsStayOpen-collapse4">
-            Descrizione Abbigliamento
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse4" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading4">
-        <div class="accordion-body">
-            <strong>10</strong> Capace di indossare, togliere e chiudere correttamente gli indumenti, allacciarsi le scarpe e toglierle, 
-            applicare oppure togliere un corsetto o una protesi.
-            <strong>8</strong> Necessita solo di un minimo aiuto per alcuni aspetti, come bottoni, cerniere, reggiseno, lacci di scarpe.
-            <strong>5</strong> Necessita di aiuto per mettere o togliere qualsiasi indumento.
-            <strong>2</strong> Capace di collaborare in qualche modo, ma dipendente sotto tutti gli aspetti.
-            <strong>0</strong> Dipendente sotto tutti gli aspetti e non collabora.
-        </div>
-        </div>
-    </div>
-  </div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.bagnoDoccia) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaBagnoDoccia" role="button" aria-expanded="false" aria-controls="legendaBagnoDoccia"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.abbigliamento) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel5">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading5">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse5" aria-expanded="true" aria-controls="panelsStayOpen-collapse5">
-            Descrizione continenza intestinale
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse5" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading5">
-        <div class="accordion-body">
-            <strong>10</strong> Controllo intestinale completo e nessuna perdita, capace di mettersi supposte o praticarsi un 
-            enteroclisma se necessario.
-            <strong>8</strong> Può necessitare di supervisione per l'uso di supposte o enteroclisma, occasionali perdite.
-            <strong>5</strong> Capace di assumere una posizione appropriata, ma non di eseguire manovre facilitatorie o pulirsi da solo
-            senza assistenza, e ha perdite frequenti. Necessita di aiuto nell'uso di dispositivi come pannolini, ecc.
-            <strong>2</strong> Necessita di aiuto nell'assumere una posizione appropriata e necessita di manovre facilitatorie.
-            <strong>0</strong> Incontinente.
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaBagnoDoccia" class="collapse collapse-info">
+			-5: Capace di fare il bagno in vasca, la doccia o una spugnatura completa. Autonomo in tutte le operazioni, senza la
+																											            presenza di un'altra persona, quale che sia il metodo usato.
+			<br>-4: Necessità di supervisione per sicurezza (trasferimenti, temperatura dell'acqua, ecc).
+			<br>-3: Necessita di aiuto per il trasferimento nella doccia/bagno oppure nel lavarsi o asciugarsi.
+			<br>-1: Necessita di aiuto per tutte le operazioni.
+			<br>-0: Totale dipendenza nel lavarsi.
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.continenzaIntestinale) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.bagnoDoccia) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel6">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading6">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse6" aria-expanded="true" aria-controls="panelsStayOpen-collapse6">
-            Descrizione continenza urinaria
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse6" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading6">
-        <div class="accordion-body">
-            <strong>10</strong> Controllo completo durante il giorno e la notte e/o indipendente con dispositivi esterni o interni.
-            <strong>8</strong> Generalmente asciutto durante il giorno e la notte, ha occasionalmente qualche perdita e necessita di 
-            minimo aiuto per l'uso dei dispositivi esterni o interni.
-            <strong>5</strong> In genere asciutto durante il giorno ma non di notte, necessario l'aiuto parziale nell'uso dei dispositivi.
-            <strong>2</strong> Incontinente ma in grado di cooperare nell'applicazione di un dispositivo esterno o interno.
-            <strong>0</strong> Incontinente o catetere a dimora o dipendente per l'applicazione di dispositivi esterni o interni.
-        </div>
-        </div>
-    </div>
-  </div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.igienePersonale) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaIgienePersonale" role="button" aria-expanded="false" aria-controls="legendaIgienePersonale"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.continenzaUrinaria) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel7">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading7">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse7" aria-expanded="true" aria-controls="panelsStayOpen-collapse7">
-            Descrizione Toilet
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse7" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading7">
-        <div class="accordion-body">
-            <strong>10</strong> Capace di trasferirsi sul e dal gabinetto, gestire i vestiti senza sporcarsi, usare la carta igienica
-            senza aiuto. Se necessario, può usare la comoda o padella, o il pappagallo, ma deve essere in grado di svuotarli e pulirli.
-            <strong>8</strong> Necessita di supervisione per sicurezza con l'uso del normale gabinetto. Usa la comoda indipendentemente
-            tranne che per svuotarla e pulirla.
-            <strong>5</strong> Necessita di aiuto per svestirsi/vestirsi, per i trasferimenti e per lavare le mani.
-            <strong>2</strong> Necessita aiuto per tutti gli aspetti.
-            <strong>0</strong> Completamente dipendente.
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaIgienePersonale" class="collapse collapse-info">
+			-5:
+																											Capace di lavarsi mani e faccia, pettinarsi, lavarsi i denti e radersi. Un uomo deve essere capace di usare,
+																																            senza aiuto, qualsiasi tipo di rasoio, comprese le manipolazioni necessarie. Una donna deve essere in grado di truccarsi, se 
+																																            abituata a farlo, ma non è necessario che sia in grado di acconciarsi i capelli.
+			<br>-4:
+																											In grado di attendere all'igiene personale, ma necessita di aiuto minimo prima e/o dopo le operazioni.
+			<br>-3:
+																											Necessita di aiuto per una o più operazioni dell'igiene personale.
+			<br>-1:
+																											Necessita di aiuto per tutte le operazioni.
+			<br>-0:
+																											Incapace di attendere all'igiene personale, dipendente sotto tutti gli aspetti.
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.toilet) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.igienePersonale) }}
+	</div>
 </div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.abbigliamento) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaAbbigliamento" role="button" aria-expanded="false" aria-controls="legendaAbbigliamento"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaAbbigliamento" class="collapse collapse-info">
+			-10:
+																								Capace di indossare, togliere e chiudere correttamente gli indumenti, allacciarsi le scarpe e toglierle, 
+																																		            applicare oppure togliere un corsetto o una protesi.
+			<br>-8:
+																								Necessita solo di un minimo aiuto per alcuni aspetti, come bottoni, cerniere, reggiseno, lacci di scarpe.
+			<br>-5:
+																								Necessita di aiuto per mettere o togliere qualsiasi indumento.
+			<br>-2:
+																								Capace di collaborare in qualche modo, ma dipendente sotto tutti gli aspetti.
+			<br>-0:
+																								Dipendente sotto tutti gli aspetti e non collabora.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.abbigliamento) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.continenzaIntestinale) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaContinenzaIntestinale" role="button" aria-expanded="false" aria-controls="legendaContinenzaIntestinale"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaContinenzaIntestinale" class="collapse collapse-info">
+			-10:
+																										Controllo intestinale completo e nessuna perdita, capace di mettersi supposte o praticarsi un 
+																																				            enteroclisma se necessario.
+			<br>-8:
+																										Può necessitare di supervisione per l'uso di supposte o enteroclisma, occasionali perdite.
+			<br>-5:
+																										Capace di assumere una posizione appropriata, ma non di eseguire manovre facilitatorie o pulirsi da solo
+																																				            senza assistenza, e ha perdite frequenti. Necessita di aiuto nell'uso di dispositivi come pannolini, ecc.
+			<br>-2:
+																										Necessita di aiuto nell'assumere una posizione appropriata e necessita di manovre facilitatorie.
+			<br>-0:
+																										Incontinente.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.continenzaIntestinale) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.continenzaUrinaria) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaContinenzaUrinaria" role="button" aria-expanded="false" aria-controls="legendaContinenzaUrinaria"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaContinenzaUrinaria" class="collapse collapse-info">
+			-10:
+																												Controllo completo durante il giorno e la notte e/o indipendente con dispositivi esterni o interni.
+			<br>-8:
+																												Generalmente asciutto durante il giorno e la notte, ha occasionalmente qualche perdita e necessita di 
+																																						            minimo aiuto per l'uso dei dispositivi esterni o interni.
+			<br>-5:
+																												In genere asciutto durante il giorno ma non di notte, necessario l'aiuto parziale nell'uso dei dispositivi.
+			<br>-2:
+																												Incontinente ma in grado di cooperare nell'applicazione di un dispositivo esterno o interno.
+			<br>-0:
+																												Incontinente o catetere a dimora o dipendente per l'applicazione di dispositivi esterni o interni.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.continenzaUrinaria) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.toilet) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaToilet" role="button" aria-expanded="false" aria-controls="legendaToilet"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaToilet" class="collapse collapse-info">
+			-10:
+																														Capace di trasferirsi sul e dal gabinetto, gestire i vestiti senza sporcarsi, usare la carta igienica
+																																								            senza aiuto. Se necessario, può usare la comoda o padella, o il pappagallo, ma deve essere in grado di svuotarli e pulirli.
+			<br>-8:
+																														Necessita di supervisione per sicurezza con l'uso del normale gabinetto. Usa la comoda indipendentemente
+																																								            tranne che per svuotarla e pulirla.
+			<br>-5:
+																														Necessita di aiuto per svestirsi/vestirsi, per i trasferimenti e per lavare le mani.
+			<br>-2:
+																														Necessita aiuto per tutti gli aspetti.
+			<br>-0:
+																														Completamente dipendente.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.toilet) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.trasferimentoLettoSedia) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaTrasferimentoLettoSedia" role="button" aria-expanded="false" aria-controls="legendaTrasferimentoLettoSedia"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaTrasferimentoLettoSedia" class="collapse collapse-info">
+			-15:
+																		E' indipendente durante tutte le fasi. Capace di avvicinarsi al letto in carrozzina con sicurezza,
+																		bloccare i freni, sollevare le pedane, trasferirsi con sicurezza sul letto, sdraiarsi, rimettersi seduto sul bordo, cambiare
+																		la posizione della carrozzina.
+			<br>-12:
+																		Necessita la presenza di una persona per maggiore fiducia o per supervisione a scopo di sicurezza.
+			<br>-8:
+																		Necessario minimo aiuto da parte di una persona per uno o più aspetti del trasferimento.
+			<br>-3:
+																		Collabora, ma richiede massimo aiuto da parte di una persona durante tutti i movimenti del trasferimento.
+			<br>-0:
+																		Non collabora al trasferimento. Necessarie due persone per trasferire la persona con o senza un sollevatore meccanico.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.trasferimentoLettoSedia) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.scale) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaScale" role="button" aria-expanded="false" aria-controls="legendaScale"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaScale" class="collapse collapse-info">
+			-10:
+																																						In grado di salire o scendere una rampa di scale con sicurezza senza aiuto o supervisione. In 
+																																																            grado di usare uno scorrimano, bastone o stampelle se necessario ed in grado di portarli con sè durante la salita o la discesa.
+			<br>-8:
+																																						In genere non richiede assistenza. Occasionalmente necessita di supervisione, per sicurezza o a causa di 
+																																																            rigidità mattutina, dispenea, ecc.
+			<br>-5:
+																																						Capace di salire/scendere le scale ma non in grado di gestire gli ausili e necessita di supervisione e assistenza
+			<br>-2:
+																																						Necessita di aiuto per salire o scendere le scale (compreso eventualmente l'uso di ausili).
+			<br>-0:
+																																						Incapace di salire o scendere le scale.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.scale) }}
+	</div>
+</div>
+<br>
 
-<div class="accordion" id="accordionPanel8">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading8">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse8" aria-expanded="true" aria-controls="panelsStayOpen-collapse8">
-            Descrizione trasferimento letto-sedia carrozzina
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse8" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading8">
-        <div class="accordion-body">
-            <strong>15</strong> E' indipendente durante tutte le fasi. Capace di avvicinarsi al letto in carrozzina con sicurezza,
-            bloccare i freni, sollevare le pedane, trasferirsi con sicurezza sul letto, sdraiarsi, rimettersi seduto sul bordo, cambiare
-            la posizione della carrozzina.
-            <strong>12</strong> Necessita la presenza di una persona per maggiore fiducia o per supervisione a scopo di sicurezza.
-            <strong>8</strong> Necessario minimo aiuto da parte di una persona per uno o più aspetti del trasferimento.
-            <strong>3</strong> Collabora, ma richiede massimo aiuto da parte di una persona durante tutti i movimenti del trasferimento.
-            <strong>0</strong> Non collabora al trasferimento. Necessarie due persone per trasferire la persona con o senza un sollevatore
-            meccanico.
-        </div>
-        </div>
-    </div>
-  </div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.deambulazione) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.deambulazioneValida) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaDeambulazioneValida" role="button" aria-expanded="false" aria-controls="legendaDeambulazioneValida"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.trasferimentoLettoSedia) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel9">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading9">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse9" aria-expanded="true" aria-controls="panelsStayOpen-collapse9">
-            Descrizione scale
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse9" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading9">
-        <div class="accordion-body">
-            <strong>10</strong> In grado di salire o scendere una rampa di scale con sicurezza senza aiuto o supervisione. In 
-            grado di usare uno scorrimano, bastone o stampelle se necessario ed in grado di portarli con sè durante la salita o la discesa.
-            <strong>8</strong> In genere non richiede assistenza. Occasionalmente necessita di supervisione, per sicurezza o a causa di 
-            rigidità mattutina, dispenea, ecc.
-            <strong>5</strong> Capace di salire/scendere le scale ma non in grado di gestire gli ausili e necessita di supervisione e assistenza
-            <strong>2</strong> Necessita di aiuto per salire o scendere le scale (compreso eventualmente l'uso di ausili).
-            <strong>0</strong> Incapace di salire o scendere le scale.
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaDeambulazioneValida" class="collapse collapse-info">
+			-15:
+																																						Capace di portare una protesi se necessario, bloccarla, sbloccarla, assumere la stazione eretta, sedersi, e 
+																																																            piazzare gli ausili a portata di mano. In grado di usare stampelle, bastone ewalker e di deambulare per 50 metri senza supervisione.
+			<br>-12:
+																																						Indipendente nella deambulazione non con autonomia (50 metri). Necessita di supervisione per maggiore
+																																																            fiducia o sicurezza in situazioni pericolose.
+			<br>-8:
+																																						Necessita di assistenza da una persona per raggiungere gli ausili e/o per manipolazione degli stessi.
+			<br>-3:
+																																						Necessita della presenza costante di uno o più assistenti durante la deambulazione.
+			<br>-0:
+																																						Non in grado di deambulare autonomamente.
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.scale) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.deambulazioneValida) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.usoCarrozzina) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaUsoCarrozzina" role="button" aria-expanded="false" aria-controls="legendaUsoCarrozzina"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.deambulazione) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel10">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading10">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse10" aria-expanded="true" aria-controls="panelsStayOpen-collapse10">
-            Descrizione Deambulazione valida
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse10" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading10">
-        <div class="accordion-body">
-            <strong>15</strong> Capace di portare una protesi se necessario, bloccarla, sbloccarla, assumere la stazione eretta, sedersi, e 
-            piazzare gli ausili a portata di mano. In grado di usare stampelle, bastone ewalker e di deambulare per 50 metri senza supervisione.
-            <strong>12</strong> Indipendente nella deambulazione non con autonomia (50 metri). Necessita di supervisione per maggiore
-            fiducia o sicurezza in situazioni pericolose.
-            <strong>8</strong> Necessita di assistenza da una persona per raggiungere gli ausili e/o per manipolazione degli stessi.
-            <strong>3</strong> Necessita della presenza costante di uno o più assistenti durante la deambulazione.
-            <strong>0</strong> Non in grado di deambulare autonomamente.
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaUsoCarrozzina" class="collapse collapse-info">
+			-5:
+																																						Capace di compiere autonomamente tutti gli spostamenti (girare attorno agli angoli, rigirarsi, 
+																																																            avvicinarsi al tavolo, letto, wc ecc); l'autonomia deve essere > 50m.
+			<br>-4:
+																																						Capace di spostarsi autonomamente, per periodi ragionevolmente lunghi, su terreni e superfici 
+																																																            regolari. Può essere necessaria assistenza per fare curve strette.
+			<br>-3:
+																																						Necessita la presenza e l'assistenza costante di una persona per avvicinare la carrozzina al tavolo,
+																																																            al letto, ecc.
+			<br>-1:
+																																						Capace di spostarsi solo per brevi tratti e su superfici piane, necessaria assistenza per tutte le manovre.
+			<br>-0:
+																																						Dipendente negli spostamenti con la carrozzina.
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.deambulazioneValida) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.usoCarrozzina) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel11">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading11">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse11" aria-expanded="true" aria-controls="panelsStayOpen-collapse11">
-            Descrizione uso carrozzina
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse11" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading11">
-        <div class="accordion-body">
-            <strong>5</strong> Capace di compiere autonomamente tutti gli spostamenti (girare attorno agli angoli, rigirarsi, 
-            avvicinarsi al tavolo, letto, wc ecc); l'autonomia deve essere > 50m.
-            <strong>4</strong> Capace di spostarsi autonomamente, per periodi ragionevolmente lunghi, su terreni e superfici 
-            regolari. Può essere necessaria assistenza per fare curve strette.
-            <strong>3</strong> Necessita la presenza e l'assistenza costante di una persona per avvicinare la carrozzina al tavolo,
-            al letto, ecc.
-            <strong>1</strong> Capace di spostarsi solo per brevi tratti e su superfici piane, necessaria assistenza per tutte le manovre. 
-            <strong>0</strong> Dipendente negli spostamenti con la carrozzina.
-        </div>
-        </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-        <div class="col">
-            {{ form_row(form.usoCarrozzina) }}
-        </div>
-</div>
+<br>
 
-    <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+
+<button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
 {{ form_end(form) }}

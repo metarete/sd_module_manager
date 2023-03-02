@@ -2,91 +2,100 @@
 
 
 <div class="row">
-        <div class="col">
-            {{ form_row(form.dataValutazione) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.dataValutazione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.giornoOggi) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.giornoOggi) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.giornoSettimana) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.giornoSettimana) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.posto) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.posto) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.indirizzo) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.indirizzo) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.anni) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.anni) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.dataNascita) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.dataNascita) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.presidenteAttuale) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.presidenteAttuale) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.presidentePrecedente) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.presidentePrecedente) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.cognomeMadre) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.cognomeMadre) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.sottrazione) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.sottrazione) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		Legenda
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaBraden" role="button" aria-expanded="false" aria-controls="legendaBraden"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.totale) }}
-        </div>
+	<div class="col">
+		<div id="legendaBraden" class="collapse collapse-info">
+			<div class="alert alert-info" role="alert">
+				<div class="row">
+					Esito della valutazione
+				</div>
+				<div class="row">
+					- 0-2 errori: assenza di deterioramento
+				</div>
+				<div class="row">
+					- 3-4 errori: deterioramento lieve
+				</div>
+				<div class="row">
+					- 5-7 errori: deterioramento moderato
+				</div>
+				<div class="row">
+					- 8-10 errori: deterioramento grave
+				</div>
+				<div class="row">
+					Note:
+				</div>
+				<div class="row">
+					E' consentito un errore in più se il soggetto ha un livello di istruzione inferiore
+				</div>
+				<div class="row">
+					E' consentito un errore in meno se il soggetto ha un livello di istruzione superiore
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="alert alert-info" role="alert">
-    <div class="row">
-    Esito della valutazione
-    </div>
-    <div class="row">
-    - 0-2 errori: assenza di deterioramento
-    </div>
-    <div class="row">
-    - 3-4 errori: deterioramento lieve
-    </div>
-    <div class="row">
-    - 5-7 errori: deterioramento moderato
-    </div>
-    <div class="row">
-    - 8-10 errori: deterioramento grave
-    </div>
-    <div class="row">
-    Note:
-    </div>
-    <div class="row">
-    E' consentito un errore in più se il soggetto ha un livello di istruzione inferiore
-    </div>
-    <div class="row">
-    E' consentito un errore in meno se il soggetto ha un livello di istruzione superiore
-    </div>
-</div>
+<br>
 <div class="row">
 	<div class="col">
 		{{ form_row(form.salva) }}

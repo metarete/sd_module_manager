@@ -47,10 +47,12 @@ class TinettiFormType extends AbstractType
                 'choices' => $votiTinetti02Choices
             ])
             ->add('girarsi1', ChoiceType::class,[
-                'choices' => $votiTinetti02Choices
+                'choices' => $votiTinetti02Choices,
+                'label' => 'Girarsi a 360 gradi A'
             ])
             ->add('girarsi2', ChoiceType::class,[
-                'choices' => $votiTinetti02Choices
+                'choices' => $votiTinetti02Choices,
+                'label' => 'Girarsi a 360 gradi B'
             ])
             ->add('sedersi', ChoiceType::class,[
                 'choices' => $votiTinetti02Choices
@@ -59,16 +61,20 @@ class TinettiFormType extends AbstractType
                 'choices' => $votiTinetti01Choices
             ])
             ->add('piedeDx',  ChoiceType::class,[
-                'choices' => $votiTinetti01Choices
+                'choices' => $votiTinetti01Choices,
+                'label' => 'Lunghezza passo piede destro'
             ])
             ->add('piedeDx2',  ChoiceType::class,[
-                'choices' => $votiTinetti01Choices
+                'choices' => $votiTinetti01Choices,
+                'label' => 'Altezza passo piede destro'
             ])
             ->add('piedeSx',  ChoiceType::class,[
-                'choices' => $votiTinetti01Choices
+                'choices' => $votiTinetti01Choices,
+                'label' => 'Lunghezza passo piede sinistro'
             ])
             ->add('piedeSx2',  ChoiceType::class,[
-                'choices' => $votiTinetti01Choices
+                'choices' => $votiTinetti01Choices,
+                'label' => 'Altezza passo piede sinistro'
             ])
             ->add('simmetriaPasso',  ChoiceType::class,[
                 'choices' => $votiTinetti01Choices

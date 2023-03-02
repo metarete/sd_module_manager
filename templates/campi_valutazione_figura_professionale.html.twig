@@ -21,119 +21,138 @@
 	<div class="row">
 		<div class="card">
 			<div class="card-body">
-				<table class="col-sm-12">
-					<thead class="cf"></thead>
-					<tbody>
-						<tr>
-							<th>
-								<h5 class="card-text">Operatore</h5>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<p class="card-title">{{ valutazione_figura_professionale.operatore.name }}
-									{{valutazione_figura_professionale.operatore.surname}}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Tipo di Operatore</h5>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<p class="card-title">{{ valutazione_figura_professionale.tipoOperatore }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Data di valutazione</h5>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<p class="card-title">{{ valutazione_figura_professionale.dataValutazione ? valutazione_figura_professionale.dataValutazione|date('Y-m-d') : '' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Diagnosi Professionale</h5>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<p class="card-title">{{ valutazione_figura_professionale.diagnosiProfessionale }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Obbiettivi da raggiungere</h5>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<p class="card-title">{{ valutazione_figura_professionale.obbiettiviDaRaggiungere }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Tipo e frequenza</h5>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<p class="card-title">
-									{% if  valutazione_figura_professionale.tipoEFrequenza is empty %}
-										Nessuno
-									{% else %}
-										{{ valutazione_figura_professionale.tipoEFrequenza }}
-									{% endif %}
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Modalità e tempi di monitoraggio  degli obbiettivi</h5>
-							</th>
-						</tr>
-						<tr>
-							<td>
-								<p class="card-title">
-									{% if valutazione_figura_professionale.modalitaTempiMonitoraggio is empty %}
-										Nessuno
-									{% else %}
-										{{ valutazione_figura_professionale.modalitaTempiMonitoraggio }}
-									{% endif %}
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Operazioni</h5>
-							</th>
-							<td>
-								<p class="card-title" style="border-bottom-style: none;">
-									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-											Apri
-										</button>
-										<ul class="dropdown-menu">
-											<li>
-												<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_edit', {'id': valutazione_figura_professionale.id}) }}">
-													<i class="bi bi-pencil-square"></i>
-													Modifica</a>
-											</li>
-											<li>
-												<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_delete', {'id': valutazione_figura_professionale.id, '_token': csrf_token('delete' ~ valutazione_figura_professionale.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-													<i class="bi bi-trash3"></i>Cancella</a>
-											</li>
-										</ul>
-									</div>
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="row">
+					<div class="col">
+						<table class="col-sm-12">
+							<thead class="cf"></thead>
+							<tbody>
+								<tr>
+									<th>
+										<h5 class="card-text">Operatore</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ valutazione_figura_professionale.operatore.name }}
+											{{valutazione_figura_professionale.operatore.surname}}</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Tipo di Operatore</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ valutazione_figura_professionale.tipoOperatore }}</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Data di valutazione</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ valutazione_figura_professionale.dataValutazione ? valutazione_figura_professionale.dataValutazione|date('Y-m-d') : '' }}</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Diagnosi Professionale</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ valutazione_figura_professionale.diagnosiProfessionale }}</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="col">
+						<table class="col-sm-12">
+							<thead class="cf"></thead>
+							<tbody>
+								<tr>
+									<th>
+										<h5 class="card-text">Obbiettivi da raggiungere</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">
+											{% if valutazione_figura_professionale.obbiettiviDaRaggiungere is empty %}
+												Nessuno
+											{% else %}
+												{{ valutazione_figura_professionale.obbiettiviDaRaggiungere }}
+											{% endif %}
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Tipo e frequenza</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">
+											{% if  valutazione_figura_professionale.tipoEFrequenza is empty %}
+												Nessuno
+											{% else %}
+												{{ valutazione_figura_professionale.tipoEFrequenza }}
+											{% endif %}
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Modalità e tempi di monitoraggio  degli obbiettivi</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">
+											{% if valutazione_figura_professionale.modalitaTempiMonitoraggio is empty %}
+												Nessuno
+											{% else %}
+												{{ valutazione_figura_professionale.modalitaTempiMonitoraggio }}
+											{% endif %}
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Operazioni</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title" style="border-bottom-style: none;">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+													Apri
+												</button>
+												<ul class="dropdown-menu">
+													<li>
+														<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_edit', {'id': valutazione_figura_professionale.id}) }}">
+															<i class="bi bi-pencil-square"></i>
+															Modifica</a>
+													</li>
+													<li>
+														<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_delete', {'id': valutazione_figura_professionale.id, '_token': csrf_token('delete' ~ valutazione_figura_professionale.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+															<i class="bi bi-trash3"></i>Cancella</a>
+													</li>
+												</ul>
+											</div>
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

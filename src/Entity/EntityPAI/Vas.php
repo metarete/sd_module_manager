@@ -21,9 +21,6 @@ class Vas
     #[Assert\Type(\DateTime::class)]
     private $data;
 
-    #[ORM\Column(type: 'time')]
-    private $ora;
-
     #[ORM\Column(type: 'string', length: 255)]
     private $base2;
 
@@ -60,18 +57,6 @@ class Vas
     public function setData(\DateTimeInterface $data): self
     {
         $this->data = $data;
-
-        return $this;
-    }
-
-    public function getOra(): ?\DateTimeInterface
-    {
-        return $this->ora;
-    }
-
-    public function setOra(\DateTimeInterface $ora): self
-    {
-        $this->ora = $ora;
 
         return $this;
     }

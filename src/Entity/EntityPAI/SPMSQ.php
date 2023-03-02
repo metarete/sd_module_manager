@@ -52,7 +52,7 @@ class SPMSQ
     private $sottrazione;
 
     #[ORM\Column(type: 'integer')]
-    private $totale;
+    private $totale =0;
 
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idSpmsq')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]

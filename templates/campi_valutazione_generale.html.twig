@@ -31,6 +31,8 @@
 										<th>
 											<h5 class="card-text">Operatore</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.operatore.name }}
 												{{valutazione_generale.operatore.surname}}</p>
@@ -40,6 +42,8 @@
 										<th>
 											<h5 class="card-text">Data Valutazione</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.dataValutazione ? valutazione_generale.dataValutazione|date('Y-m-d') : '' }}</p>
 										</td>
@@ -48,6 +52,8 @@
 										<th>
 											<h5 class="card-text">Tipologia Valutazione</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.tipologiaValutazione }}</p>
 										</td>
@@ -56,6 +62,8 @@
 										<th>
 											<h5 class="card-text">N° componenti nucleo abitativo</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.nComponentiNucleoAbitativo }}</p>
 										</td>
@@ -64,6 +72,8 @@
 										<th>
 											<h5 class="card-text">Presenza Assistente Non Famigliare</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.panf }}</p>
 										</td>
@@ -73,6 +83,8 @@
 											<h5 class="card-text">Frequenza Assistente Non Famigliare
 											</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.fanf }}</p>
 										</td>
@@ -81,6 +93,8 @@
 										<th>
 											<h5 class="card-text">Indicatore Supporto Sociale</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.iss }}</p>
 										</td>
@@ -96,6 +110,8 @@
 										<th>
 											<h5 class="card-text">Rischio Infettivo</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.rischioInfettivo ? 'Si' : 'No' }}</p>
 										</td>
@@ -104,172 +120,191 @@
 										<th>
 											<h5 class="card-text">Uso Servizi Igenici</h5>
 										</th>
+									</tr>
+									<tr>
 										<td>
 											<p class="card-title">{{ valutazione_generale.usoServiziIgenici }}</p>
 										</td>
 									</tr>
 									<tr>
 										<th>
-											<h5 class="card-text">Abbigliamento</h5></th>
+											<h5 class="card-text">Abbigliamento</h5>
 										</th>
-										<td>
-											<p class="card-title">{{ valutazione_generale.abbigliamento }}</p>
-										</td>
-									</tr>
-									<tr>
-										<th>
-											<h5 class="card-text">Alimentazione</h5>
-										</th>
-										<td>
-											<p class="card-title">{{ valutazione_generale.alimentazione }}</p>
-										</td>
-									</tr>
-									<tr>
-										<th>
-											<h5 class="card-text">Indicatore Deambulazione</h5>
-										</th>
-										<td>
-											<p class="card-title">{{ valutazione_generale.indicatoreDeambulazione }}</p>
-										</td>
-									</tr>
-									<tr>
-										<th>
-											<h5 class="card-text">Igiene Personale</h5>
-										</th>
-										<td>
-											<p class="card-title">{{ valutazione_generale.igenePersonale }}</p>
-										</td>
-									</tr>
-									<tr>
-										<th>
-											<h5 class="card-text">Cognitività</h5>
-										</th>
-										<td>
-											<p class="card-title">{{ valutazione_generale.cognitivita }}</p>
-										</td>
-									</tr>
-									<tr>
-										<th>
-											<h5 class="card-text">Comportamento</h5>
-										</th>
-										<td>
-											<p class="card-title">{{ valutazione_generale.comportamento }}</p>
-										</td>
 									</tr>
 								</tbody>
-							</table>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col">
-							<table class="col-sm-12">
-								<thead class="cf"></thead>
-								<tbody>
-									<tr>
-										<th>
-											<h5 class="card-text">Bisogni</h5>
-										</th>
-									</tr>
-									<tr>
-										<td>
-											<p class="card-title" style="border-bottom-style: none;">
-												{% if bisogni is empty %}
-													<li>
-														Nessun bisogno</li>
-												{% else %}
-													{% for i in 0..bisogni|length-1 %}
-														<li>{{ bisogni[i] }}</li>
-													{% endfor %}
-												{% endif %}
-											</p>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col">
-							<table class="col-sm-12">
-								<thead class="cf"></thead>
-								<tbody>
-									<tr>
-										<th>
-											<h5 class="card-text">Altre Tipologie Di Assistenza</h5>
-										</th>
-									</tr>
-									<tr>
-										<td>
-											<p class="card-title" style="border-bottom-style: none;">
-												{% if altra_tipologia_assistenza is empty %}
-													<li>
-														Nessuna altra tipologia di assistenza</li>
-												{% else %}
-													{% for i in 0..altra_tipologia_assistenza|length-1 %}
-														<li>{{ altra_tipologia_assistenza[i] }}</li>
-													{% endfor %}
-												{% endif %}
-											</p>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col">
-							<table class="col-sm-12">
-								<thead class="cf"></thead>
-								<tbody>
-									<tr>
-										<th>
-											<h5 class="card-text">Diagnosi</h5>
-										</th>
-									</tr>
-									<tr>
-										<td>
-											<p class="card-title">{{ valutazione_generale.diagnosi }}</p>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="col">
-							<table class="col-sm-12">
-								<thead class="cf"></thead>
-								<tbody>
-									<tr>
-										<th>
-											<h5 class="card-text">Operazioni</h5>
-										</th>
-										<td>
-											<div class="btn-group" role="group">
-												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-													Apri
-												</button>
-												<ul class="dropdown-menu">
-													<li>
-														<a class="dropdown-item" href="{{ path('app_valutazione_generale_edit', {'id': valutazione_generale.id}) }}">
-															<i class="bi bi-pencil-square"></i>
-															Modifica</a>
-													</li>
-													<li>
-														<a class="dropdown-item" href="{{ path('app_valutazione_generale_delete', {'id': valutazione_generale.id, '_token': csrf_token('delete' ~ valutazione_generale.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-															<i class="bi bi-trash3"></i>Cancella</a>
-													</li>
-												</ul>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title">{{ valutazione_generale.abbigliamento }}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Alimentazione</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title">{{ valutazione_generale.alimentazione }}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Indicatore Deambulazione</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title">{{ valutazione_generale.indicatoreDeambulazione }}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Igiene Personale</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title">{{ valutazione_generale.igenePersonale }}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Cognitività</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title">{{ valutazione_generale.cognitivita }}</p>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h5 class="card-text">Comportamento</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title">{{ valutazione_generale.comportamento }}</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col">
+				<table class="col-sm-12">
+					<thead class="cf"></thead>
+					<tbody>
+						<tr>
+							<th>
+								<h5 class="card-text">Bisogni</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title" style="border-bottom-style: none;">
+									{% if bisogni is empty %}
+										<li>
+											Nessun bisogno</li>
+									{% else %}
+										{% for i in 0..bisogni|length-1 %}
+											<li>{{ bisogni[i] }}</li>
+										{% endfor %}
+									{% endif %}
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col">
+				<table class="col-sm-12">
+					<thead class="cf"></thead>
+					<tbody>
+						<tr>
+							<th>
+								<h5 class="card-text">Altre Tipologie Di Assistenza</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title" style="border-bottom-style: none;">
+									{% if altra_tipologia_assistenza is empty %}
+										<li>
+											Nessuna altra tipologia di assistenza</li>
+									{% else %}
+										{% for i in 0..altra_tipologia_assistenza|length-1 %}
+											<li>{{ altra_tipologia_assistenza[i] }}</li>
+										{% endfor %}
+									{% endif %}
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col">
+				<table class="col-sm-12">
+					<thead class="cf"></thead>
+					<tbody>
+						<tr>
+							<th>
+								<h5 class="card-text">Diagnosi</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<p class="card-title">{{ valutazione_generale.diagnosi }}</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col">
+				<table class="col-sm-12">
+					<thead class="cf"></thead>
+					<tbody>
+						<tr>
+							<th>
+								<h5 class="card-text">Operazioni</h5>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+										Apri
+									</button>
+									<ul class="dropdown-menu">
+										<li>
+											<a class="dropdown-item" href="{{ path('app_valutazione_generale_edit', {'id': valutazione_generale.id}) }}">
+												<i class="bi bi-pencil-square"></i>
+												Modifica</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="{{ path('app_valutazione_generale_delete', {'id': valutazione_generale.id, '_token': csrf_token('delete' ~ valutazione_generale.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+												<i class="bi bi-trash3"></i>Cancella</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-</div>
+</div></div></div></div>

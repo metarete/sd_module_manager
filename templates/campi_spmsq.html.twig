@@ -21,141 +21,190 @@
 	<div class="row">
 		<div class="card">
 			<div class="card-body">
-				<table class="col-sm-12">
-					<thead class="cf"></thead>
-					<tbody>
-						<tr>
-							<th>
-								<h5 class="card-text">Operatore</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.operatore.name }}
-									{{s_p_m_s_q.operatore.surname}}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Data Valutazione</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : '' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Che giorno è oggi?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.giornoOggi ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Che giorno della settimana è?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.giornoSettimana ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Come si chiama questo posto?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.posto ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Qual è il suo indirizzo?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.indirizzo ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Quanti anni ha?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.anni ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Quando è nato?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.dataNascita ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Chi è il Presidente della Repubblica?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.presidenteAttuale ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Chi era il Presidente precedente?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.presidentePrecedente ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Qual è il cognome da ragazza si sua madre?</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.cognomeMadre ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Sottragga da 20 tre e poi ancora fino in fondo</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ s_p_m_s_q.sottrazione ? 'Risposta errata' : 'Risposta corretta' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Totale Errori</h5>
-							</th>
-							<td>
-								<p class="card-title" id="totale">{{ s_p_m_s_q.totale}}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Operazioni</h5>
-							</th>
-							<td>
-								<p class="card-title" id="totale" style="border-bottom-style: none;">
-									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-											Apri
-										</button>
-										<ul class="dropdown-menu">
-											<li>
-												<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_edit', {'id': s_p_m_s_q.id}) }}">
-													<i class="bi bi-pencil-square"></i>
-													Modifica</a>
-											</li>
-											<li>
-												<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_delete', {'id': s_p_m_s_q.id, '_token': csrf_token('delete' ~ s_p_m_s_q.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-													<i class="bi bi-trash3"></i>Cancella</a>
-											</li>
-										</ul>
-									</div>
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="row">
+					<div class="col">
+						<table class="col-sm-12">
+							<thead class="cf"></thead>
+							<tbody>
+								<tr>
+									<th>
+										<h5 class="card-text">Operatore</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ s_p_m_s_q.operatore.name }}
+											{{s_p_m_s_q.operatore.surname}}</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Data Valutazione</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : '' }}</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="pb-2 mb-4"></div>
+					<div class="row">
+						<div class="col">
+							<table class="col-sm-12">
+								<thead class="cf"></thead>
+								<tbody>
+									<tr>
+										<th>
+											<h5 class="card-text">Che giorno è oggi?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.giornoOggi ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Che giorno della settimana è?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.giornoSettimana ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Come si chiama questo posto?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.posto ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Qual è il suo indirizzo?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.indirizzo ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Quanti anni ha?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.anni ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Quando è nato?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.dataNascita ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col">
+							<table class="col-sm-12">
+								<thead class="cf"></thead>
+								<tbody>
+									<tr>
+										<th>
+											<h5 class="card-text">Chi è il Presidente della Repubblica?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.presidenteAttuale ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Chi era il Presidente precedente?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.presidentePrecedente ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Qual è il cognome da ragazza si sua madre?</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.cognomeMadre ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Sottragga da 20 tre e poi ancora fino in fondo</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ s_p_m_s_q.sottrazione ? 'Risposta errata' : 'Risposta corretta' }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Totale Errori</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title" id="totale">{{ s_p_m_s_q.totale}}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Operazioni</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title" id="totale" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_edit', {'id': s_p_m_s_q.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_delete', {'id': s_p_m_s_q.id, '_token': csrf_token('delete' ~ s_p_m_s_q.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

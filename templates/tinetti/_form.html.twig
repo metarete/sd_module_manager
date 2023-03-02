@@ -1,467 +1,487 @@
 {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
 
 <div class="row">
-        <div class="col">
-            {{ form_row(form.dataValutazione) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.dataValutazione) }}
+	</div>
 </div>
 <div class="form-floating">
-    <h4>Equilibrio</h4>
-</div>
-<div class="accordion" id="accordionPanel1">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading1">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse1" aria-expanded="true" aria-controls="panelsStayOpen-collapse1">
-            Descrizione Equilibrio da seduto
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse1" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading1">
-        <div class="accordion-body">
-            <strong>0</strong> Si inclina o scivola dalla sedia.
-            <strong>1</strong> E' stabile, sicuro. 
-        </div>
-        </div>
-    </div>
-  </div>
+	<h4>Equilibrio</h4>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.equilibrioSeduto) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel2">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading2">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse2" aria-expanded="true" aria-controls="panelsStayOpen-collapse2">
-            Descrizione alzarsi dalla sedia
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse2" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading2">
-        <div class="accordion-body">
-            <strong>0</strong> E' incapace senza aiuto.
-            <strong>1</strong> Deve aiutarsi con le braccia.
-            <strong>2</strong> Si alza senza aiutarsi con le braccia.
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col col-lg-2">
+		{{ form_label(form.equilibrioSeduto) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaEquilibrioSeduto" role="button" aria-expanded="false" aria-controls="legendaEquilibrioSeduto"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.sedia) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel3">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading3">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse3" aria-expanded="true" aria-controls="panelsStayOpen-collapse3">
-            Descrizione Tentativo di alzarsi
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse3" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading3">
-        <div class="accordion-body">
-            <strong>0</strong> E’ incapace senza aiuto
-            <strong>1</strong> Capace ma richiede più di un tentativo
-            <strong>2</strong> Capace al primo tentativo 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaEquilibrioSeduto" class="collapse collapse-info">
+			<strong>0</strong>
+			Si inclina o scivola dalla sedia.
+			<strong>1</strong>
+			E' stabile, sicuro.
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.alzarsi) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.equilibrioSeduto) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel4">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading4">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse4" aria-expanded="true" aria-controls="panelsStayOpen-collapse4">
-            Descrizione Equilibrio stazione eretta
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse4" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading4">
-        <div class="accordion-body">
-            <strong>0</strong> Instabile (vacilla, muove i piedi, oscilla il tronco)
-            <strong>1</strong> Stabile grazie all’ausilio di un bastone o altri ausili
-            <strong>2</strong> Stabile senza ausili per il cammino
-        </div>
-        </div>
-    </div>
-  </div>
+<br>
+<div class="row">
+	<div class="col col-lg-2">
+		{{ form_label(form.sedia) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaSedia" role="button" aria-expanded="false" aria-controls="legendaSedia"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.stazioneEretta) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel5">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading5">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse5" aria-expanded="true" aria-controls="panelsStayOpen-collapse5">
-            Descrizione Equilibrio stazione eretta prolungata
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse5" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading5">
-        <div class="accordion-body">
-            <strong>0</strong> Instabile (vacilla, muove i piedi, oscilla il tronco) 
-            <strong>1</strong> Stabile ma a base larga (malleoli mediali dist. > 10 cm)
-            <strong>2</strong> Stabile a base stretta senza supporti 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaSedia" class="collapse collapse-info">
+			<strong>0</strong>
+			E' incapace senza aiuto.
+			<strong>1</strong>
+			Deve aiutarsi con le braccia.
+			<strong>2</strong>
+			Si alza senza aiutarsi con le braccia.
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.stazioneErettaProlungata) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.sedia) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel6">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading6">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse6" aria-expanded="true" aria-controls="panelsStayOpen-collapse6">
-            Descrizione Romberg
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse6" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading6">
-        <div class="accordion-body">
-            <strong>0</strong> Instabile
-            <strong>1</strong> Stabile 
-        </div>
-        </div>
-    </div>
-  </div>
+<br>
+
+<div class="row">
+	<div class="col col-lg-2">
+		{{ form_label(form.alzarsi) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaAlzarsi" role="button" aria-expanded="false" aria-controls="legendaAlzarsi"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.romberg) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel7">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading7">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse7" aria-expanded="true" aria-controls="panelsStayOpen-collapse7">
-            Descrizione Romberg sensibilizzato
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse7" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading7">
-        <div class="accordion-body">
-            <strong>0</strong> Incomincia a cadere
-            <strong>1</strong> Oscilla ma si riprende da solo
-            <strong>2</strong> Stabile 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaAlzarsi" class="collapse collapse-info">
+			<strong>0</strong>
+			E’ incapace senza aiuto
+			<strong>1</strong>
+			Capace ma richiede più di un tentativo
+			<strong>2</strong>
+			Capace al primo tentativo
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.rombergSensibilizzato) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.alzarsi) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel8">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading8">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse8" aria-expanded="true" aria-controls="panelsStayOpen-collapse8">
-            Descrizione Girarsi di 360° A
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse8" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading8">
-        <div class="accordion-body">
-            <strong>0</strong> A passi discontinui
-            <strong>1</strong> A passi continui 
-        </div>
-        </div>
-    </div>
-  </div>
+<br>
+<div class="row">
+	<div class="col col-lg-2">
+		{{ form_label(form.stazioneEretta) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaStazioneEretta" role="button" aria-expanded="false" aria-controls="legendaStazioneEretta"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.girarsi1) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel9">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading9">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse9" aria-expanded="true" aria-controls="panelsStayOpen-collapse9">
-            Descrizione Girarsi di 360° B
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse9" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading9">
-        <div class="accordion-body">
-            <strong>0</strong> Instabile (si aggrappa, oscilla)
-            <strong>1</strong> Stabile 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaStazioneEretta" class="collapse collapse-info">
+			<strong>0</strong>
+			Instabile (vacilla, muove i piedi, oscilla il tronco)
+			<strong>1</strong>
+			Stabile grazie all’ausilio di un bastone o altri ausili
+			<strong>2</strong>
+			Stabile senza ausili per il cammino
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.girarsi2) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.stazioneEretta) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel10">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading10">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse10" aria-expanded="true" aria-controls="panelsStayOpen-collapse10">
-            Descrizione Sedersi
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse10" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading10">
-        <div class="accordion-body">
-            <strong>0</strong> Insicuro (sbaglia la distanza, cade sulla sedia)
-            <strong>1</strong> Usa le braccia o ha un movimento discontinuo
-            <strong>2</strong> Sicuro, movimenti continui   
-        </div>
-        </div>
-    </div>
-  </div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.stazioneErettaProlungata) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaStazioneErettaProlungata" role="button" aria-expanded="false" aria-controls="legendaStazioneErettaProlungata"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.sedersi) }}
-        </div>
+	<div class="col">
+		<div id="legendaStazioneErettaProlungata" class="collapse collapse-info">
+			<strong>0</strong>
+			Instabile (vacilla, muove i piedi, oscilla il tronco)
+			<strong>1</strong>
+			Stabile ma a base larga (malleoli mediali dist. > 10 cm)
+			<strong>2</strong>
+			Stabile a base stretta senza supporti
+		</div>
+	</div>
 </div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.stazioneErettaProlungata) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.romberg) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaRomberg" role="button" aria-expanded="false" aria-controls="legendaRomberg"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaRomberg" class="collapse collapse-info">
+			<strong>0</strong>
+			Instabile
+			<strong>1</strong>
+			Stabile
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.romberg) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.rombergSensibilizzato) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaRombergSensibilizzato" role="button" aria-expanded="false" aria-controls="legendaRombergSensibilizzato"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaRombergSensibilizzato" class="collapse collapse-info">
+			<strong>0</strong>
+			Incomincia a cadere
+			<strong>1</strong>
+			Oscilla ma si riprende da solo
+			<strong>2</strong>
+			Stabile
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.rombergSensibilizzato) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.girarsi1) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaGirarsi1" role="button" aria-expanded="false" aria-controls="legendaGirarsi1"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaGirarsi1" class="collapse collapse-info">
+			<strong>0</strong>
+			A passi discontinui
+			<strong>1</strong>
+			A passi continui
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.girarsi1) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.girarsi2) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaGirarsi2" role="button" aria-expanded="false" aria-controls="legendaGirarsi2"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaGirarsi2" class="collapse collapse-info">
+			<strong>0</strong>
+			Instabile (si aggrappa, oscilla)
+			<strong>1</strong>
+			Stabile
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.girarsi2) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.sedersi) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaSedersi" role="button" aria-expanded="false" aria-controls="legendaSedersi"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaSedersi" class="collapse collapse-info">
+			<strong>0</strong>
+			Insicuro (sbaglia la distanza, cade sulla sedia)
+			<strong>1</strong>
+			Usa le braccia o ha un movimento discontinuo
+			<strong>2</strong>
+			Sicuro, movimenti continui
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.sedersi) }}
+	</div>
+</div>
+<br>
+
 
 <div class="form-floating">
-    <h4>Andatura</h4>
-</div>
-<div class="accordion" id="accordionPanel12">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading12">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse12" aria-expanded="true" aria-controls="panelsStayOpen-collapse12">
-            Descrizione inizio deambulazione
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse12" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading12">
-        <div class="accordion-body">
-            <strong>0</strong> Una certa esitazione o più tentativi
-            <strong>1</strong> Nessuna esitazione 
-        </div>
-        </div>
-    </div>
-  </div>
+	<h4>Andatura</h4>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.inizioDeambulazione) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel13">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading13">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse13" aria-expanded="true" aria-controls="panelsStayOpen-collapse13">
-            Descrizione lunghezza passo piede destro
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse13" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading13">
-        <div class="accordion-body">
-            <strong>0</strong> Durante il passo il piede dx non supera il sx
-            <strong>1</strong> Il piede dx supera il sx 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col col-lg-3">
+		{{ form_label(form.inizioDeambulazione) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaInizioDeambulazione" role="button" aria-expanded="false" aria-controls="legendaInizioDeambulazione"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.piedeDx) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel14">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading14">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse14" aria-expanded="true" aria-controls="panelsStayOpen-collapse14">
-            Descrizione altezza passo piede destro
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse14" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading14">
-        <div class="accordion-body">
-            <strong>0</strong> Il piede dx non si alza completamente dal pavimento
-            <strong>1</strong> Il piede dx si alza completamente dal pavimento 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaInizioDeambulazione" class="collapse collapse-info">
+			<strong>0</strong>
+			Una certa esitazione o più tentativi
+			<strong>1</strong>
+			Nessuna esitazione
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.piedeDx2) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.inizioDeambulazione) }}
+	</div>
 </div>
-<div class="accordion" id="accordionPanel15">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading15">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse15" aria-expanded="true" aria-controls="panelsStayOpen-collapse15">
-            Descrizione lunghezza passo piede sinistro
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse15" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading15">
-        <div class="accordion-body">
-            <strong>0</strong> Durante il passo il piede sx non supera il dx
-            <strong>1</strong> Il piede sx supera il dx
-        </div>
-        </div>
-    </div>
-  </div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.piedeDx) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaPiedeDx" role="button" aria-expanded="false" aria-controls="legendaPiedeDx"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.piedeSx) }}
-        </div>
-</div>
-<div class="accordion" id="accordionPanel16">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading16">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse16" aria-expanded="true" aria-controls="panelsStayOpen-collapse16">
-            Descrizione altezza passo piede sinistro
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse16" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading16">
-        <div class="accordion-body">
-            <strong>0</strong> Il piede sx non si alza completamento dal pavimento
-            <strong>1</strong> Il piede sx si alza completamento dal pavimento 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col">
+		<div id="legendaPiedeDx" class="collapse collapse-info">
+			<strong>0</strong>
+			Durante il passo il piede dx non supera il sx
+			<strong>1</strong>
+			Il piede dx supera il sx
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.piedeSx2) }}
-        </div>
+	<div class="col">
+		{{ form_widget(form.piedeDx) }}
+	</div>
 </div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.piedeDx2) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaPiedeDx2" role="button" aria-expanded="false" aria-controls="legendaPiedeDx2"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaPiedeDx2" class="collapse collapse-info">
+			<strong>0</strong>
+			Il piede dx non si alza completamente dal pavimento
+			<strong>1</strong>
+			Il piede dx si alza completamente dal pavimento
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.piedeDx2) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.piedeSx) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaPiedeSx" role="button" aria-expanded="false" aria-controls="legendaPiedeSx"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaPiedeSx" class="collapse collapse-info">
+			<strong>0</strong>
+			Durante il passo il piede sx non supera il dx
+			<strong>1</strong>
+			Il piede sx supera il dx
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.piedeSx) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col col-lg-3">
+		{{ form_label(form.piedeSx2) }}
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaPiedeSx2" role="button" aria-expanded="false" aria-controls="legendaPiedeSx2"></a>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div id="legendaPiedeSx2" class="collapse collapse-info">
+			<strong>0</strong>
+			Il piede sx non si alza completamento dal pavimento
+			<strong>1</strong>
+			Il piede sx si alza completamento dal pavimento
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.piedeSx2) }}
+	</div>
+</div>
+<br>
+
+
 <div class="accordion" id="accordionPanel17">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading17">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse17" aria-expanded="true" aria-controls="panelsStayOpen-collapse17">
-            Descrizione simmetria passo
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse17" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading17">
-        <div class="accordion-body">
-            <strong>0</strong> Il passo dx e sx non sembrano uguali
-            <strong>1</strong> Il passo dx e sx sembrano uguali 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col-lg-12 col-12">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-heading17">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse17" aria-expanded="true" aria-controls="panelsStayOpen-collapse17">
+					Descrizione simmetria passo
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapse17" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading17">
+				<div class="accordion-body">
+					<strong>0</strong>
+					Il passo dx e sx non sembrano uguali
+					<strong>1</strong>
+					Il passo dx e sx sembrano uguali
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.simmetriaPasso) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.simmetriaPasso) }}
+	</div>
 </div>
 <div class="accordion" id="accordionPanel18">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading18">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse18" aria-expanded="true" aria-controls="panelsStayOpen-collapse18">
-            Descrizione continuità passo
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse18" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading18">
-        <div class="accordion-body">
-            <strong>0</strong> Interrotto o discontinuo
-            <strong>1</strong> Continuo 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col-lg-12 col-12">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-heading18">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse18" aria-expanded="true" aria-controls="panelsStayOpen-collapse18">
+					Descrizione continuità passo
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapse18" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading18">
+				<div class="accordion-body">
+					<strong>0</strong>
+					Interrotto o discontinuo
+					<strong>1</strong>
+					Continuo
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.continuitaPasso) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.continuitaPasso) }}
+	</div>
 </div>
 <div class="accordion" id="accordionPanel19">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading19">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse19" aria-expanded="true" aria-controls="panelsStayOpen-collapse19">
-            Descrizione traiettoria
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse19" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading19">
-        <div class="accordion-body">
-            <strong>0</strong> Marcata deviazione
-            <strong>1</strong> Lieve o modesta deviazione o uso di ausili
-            <strong>2</strong> Assenza di deviazione o uso di ausili
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col-lg-12 col-12">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-heading19">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse19" aria-expanded="true" aria-controls="panelsStayOpen-collapse19">
+					Descrizione traiettoria
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapse19" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading19">
+				<div class="accordion-body">
+					<strong>0</strong>
+					Marcata deviazione
+					<strong>1</strong>
+					Lieve o modesta deviazione o uso di ausili
+					<strong>2</strong>
+					Assenza di deviazione o uso di ausili
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.traiettoria) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.traiettoria) }}
+	</div>
 </div>
 <div class="accordion" id="accordionPanel20">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading20">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse20" aria-expanded="true" aria-controls="panelsStayOpen-collapse20">
-            Descrizione tronco
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse20" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading20">
-        <div class="accordion-body">
-            <strong>0</strong> Marcata oscillazione o uso di ausili
-            <strong>1</strong> Nessuna oscillazione ma flessione di gambe, ginocchia schiena o allargamento delle braccia durante il cammino
-            <strong>2</strong> Nessuna oscillazione, flessione o uso di ausili 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col-lg-12 col-12">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-heading20">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse20" aria-expanded="true" aria-controls="panelsStayOpen-collapse20">
+					Descrizione tronco
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapse20" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading20">
+				<div class="accordion-body">
+					<strong>0</strong>
+					Marcata oscillazione o uso di ausili
+					<strong>1</strong>
+					Nessuna oscillazione ma flessione di gambe, ginocchia schiena o allargamento delle braccia durante il cammino
+					<strong>2</strong>
+					Nessuna oscillazione, flessione o uso di ausili
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.tronco) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.tronco) }}
+	</div>
 </div>
 <div class="accordion" id="accordionPanel21">
-  <div class = "col-lg-12 col-12">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-heading21">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse21" aria-expanded="true" aria-controls="panelsStayOpen-collapse21">
-            Descrizione cammino
-        </button>
-        </h2>
-        <div id="panelsStayOpen-collapse21" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading21">
-        <div class="accordion-body">
-            <strong>0</strong> I talloni sono separati
-            <strong>1</strong> I talloni quasi si toccano durante il cammino 
-        </div>
-        </div>
-    </div>
-  </div>
+	<div class="col-lg-12 col-12">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="panelsStayOpen-heading21">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse21" aria-expanded="true" aria-controls="panelsStayOpen-collapse21">
+					Descrizione cammino
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapse21" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading21">
+				<div class="accordion-body">
+					<strong>0</strong>
+					I talloni sono separati
+					<strong>1</strong>
+					I talloni quasi si toccano durante il cammino
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.cammino) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.cammino) }}
+	</div>
 </div>
 
-    <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+<button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
 {{ form_end(form) }}
-
-

@@ -1,49 +1,62 @@
 {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
 
 <div class="row">
-        <div class="col">
-            {{ form_row(form.dataRivalutazioniSettimanali) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.dataRivalutazioniSettimanali) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.tipologiaLesione) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.tipologiaLesione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.numeroSedeLesione) }}
-        </div>
-</div>
-<figure class="figure">
-  <img src="/image/immagine_lesioni.jpeg" class="figure-img img-fluid rounded" alt="Immagine delle sedi delle lesioni">
-  <figcaption class="figure-caption">Immagine sedi lesioni</figcaption>
-</figure>
-<div class="row">
-        <div class="col">
-            {{ form_row(form.gradoLesione) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.numeroSedeLesione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.condizioneLesione) }}
-        </div>
+	<div class="col">
+		Immagine Lesioni
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaLesioni" role="button" aria-expanded="false" aria-controls="legendaLesioni"></a>
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.bordiLesione) }}
-        </div>
+	<div class="col">
+		<div id="legendaLesioni" class="collapse">
+			<figure class="figure">
+				<img src="/image/immagine_lesioni.jpeg" class="figure-img img-fluid rounded" alt="Immagine delle sedi delle lesioni">
+				<figcaption class="figure-caption">Immagine sedi lesioni</figcaption>
+			</figure>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.gradoLesione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.cutePerilesionale) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.condizioneLesione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.noteSullaLesione) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.bordiLesione) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.cutePerilesionale) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.noteSullaLesione) }}
+	</div>
 </div>
 
-    <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+<button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
 {{ form_end(form) }}

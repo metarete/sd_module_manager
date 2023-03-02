@@ -23,12 +23,6 @@ class VasFormType extends AbstractType
                 'widget' => 'single_text',  
                 'empty_data' => 0,
             ])
-            ->add('ora', TimeType::class, [
-                'widget' => 'single_text',
-                'empty_data' => '00',
-                'attr'=>array
-                ('class'=>'timepicker')
-            ])
             ->add('base2', ChoiceType::class,[
                 'choices' => $votiRilevazioneVasChoices,
                 'label' => 'Rilevazione del dolore prima del trattamento',

@@ -1,98 +1,109 @@
 {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
-    <div class="row">
-        <div class="col">
-            {{ form_row(form.dataValutazione) }}
-        </div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.dataValutazione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.percezioneSensoriale) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.percezioneSensoriale) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.umidita) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.umidita) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.attivita) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.attivita) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.mobilita) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.mobilita) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.nutrizione) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.nutrizione) }}
+	</div>
 </div>
 <div class="row">
-        <div class="col">
-            {{ form_row(form.frizioneScivolamento) }}
-        </div>
+	<div class="col">
+		{{ form_row(form.frizioneScivolamento) }}
+	</div>
 </div>
-<div class="alert alert-info" role="alert">
-<table class="col-sm-12  table-striped table-condensed cf">
-        <thead class="cf">
-        <thead>
-            <tr>
-                <th>Indicatori</th>
-                <th>4</th>
-                <th>3</th>
-                <th>2</th>
-                <th>1</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>Percezione Sensoriale</th>
-                <td>Non Limitata</td>
-                <td>Leggermente Limitata</td>
-                <td>Molto Limitata</td>
-                <td>Completamente Limitata</td>
-            </tr>
-            <tr>
-                <th>Umidità</th>
-                <td>Raramente bagnato</td>
-                <td>Occasionalmente bagnato</td>
-                <td>Spesso bagnato</td>
-                <td>Costantemente bagnato</td>
-            </tr>
-            <tr>
-                <th>Attività</th>
-                <td>Cammina frequentemente</td>
-                <td>Cammina occasionalmente</td>
-                <td>In poltrona</td>
-                <td>Completamente allettato</td>
-            </tr>
-            <tr>
-                <th>Mobilità</th>
-                <td>Limitazioni assenti</td>
-                <td>Parzialmente limitato</td>
-                <td>Molto limitato</td>
-                <td>Completamente immobile</td>
-            </tr>
-            <tr>
-                <th>Nutrizione</th>
-                <td>Eccellente</td>
-                <td>Adeguata</td>
-                <td>Probabilmente inadeguata</td>
-                <td>Molto povera</td>
-            </tr>
-            <tr>
-                <th>Frizione e scivolamento</th>
-                <td></td>
-                <td>Senza problemi apparenti</td>
-                <td>Problema potenziale</td>
-                <td>Problema</td>
-            </tr>
-        </tbody>
-</table>
-
+<div class="row">
+	<div class="col">
+		Legenda
+		<a class="bi bi-eye" style="color:cyan;" data-bs-toggle="collapse" href="#legendaBraden" role="button" aria-expanded="false" aria-controls="legendaBraden"></a>
+	</div>
 </div>
-
-    <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+<div class="row">
+	<div class="col">
+		<div id="legendaBraden" class="collapse collapse-info">
+			<div class="alert alert-info" role="alert">
+				<table class="col-sm-12  table-striped table-condensed cf">
+					<thead class="cf"></thead>
+					<thead>
+						<tr>
+							<th>Indicatori</th>
+							<th>4</th>
+							<th>3</th>
+							<th>2</th>
+							<th>1</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Percezione Sensoriale</th>
+							<td>Non Limitata</td>
+							<td>Leggermente Limitata</td>
+							<td>Molto Limitata</td>
+							<td>Completamente Limitata</td>
+						</tr>
+						<tr>
+							<th>Umidità</th>
+							<td>Raramente bagnato</td>
+							<td>Occasionalmente bagnato</td>
+							<td>Spesso bagnato</td>
+							<td>Costantemente bagnato</td>
+						</tr>
+						<tr>
+							<th>Attività</th>
+							<td>Cammina frequentemente</td>
+							<td>Cammina occasionalmente</td>
+							<td>In poltrona</td>
+							<td>Completamente allettato</td>
+						</tr>
+						<tr>
+							<th>Mobilità</th>
+							<td>Limitazioni assenti</td>
+							<td>Parzialmente limitato</td>
+							<td>Molto limitato</td>
+							<td>Completamente immobile</td>
+						</tr>
+						<tr>
+							<th>Nutrizione</th>
+							<td>Eccellente</td>
+							<td>Adeguata</td>
+							<td>Probabilmente inadeguata</td>
+							<td>Molto povera</td>
+						</tr>
+						<tr>
+							<th>Frizione e scivolamento</th>
+							<td></td>
+							<td>Senza problemi apparenti</td>
+							<td>Problema potenziale</td>
+							<td>Problema</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
 {{ form_end(form) }}

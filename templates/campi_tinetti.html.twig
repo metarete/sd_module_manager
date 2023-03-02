@@ -21,237 +21,320 @@
 	<div class="row">
 		<div class="card">
 			<div class="card-body">
-				<table class="col-sm-12">
-					<thead class="cf"></thead>
-					<tbody>
-						<tr>
-							<th>
-								<h5 class="card-text">Operatore</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.operatore.name }}
-									{{tinetti.operatore.surname}}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Data Valutazione</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.dataValutazione ? tinetti.dataValutazione|date('Y-m-d') : '' }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Equilibrio da seduto</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.equilibrioSeduto }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Alzarsi dalla sedia</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.sedia }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Tentativo di alzarsi</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.alzarsi }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Equilibrio stazione eretta</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.stazioneEretta }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Equilibrio stazione eretta prolungata</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.stazioneErettaProlungata }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Romberg</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.romberg }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Romberg sensibilizzato</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.rombergSensibilizzato }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Girarsi a 360° a</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.girarsi1 }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Girarsi a 360° b</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.girarsi2 }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Sedersi</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.sedersi }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Totale Equilibrio</h5>
-							</th>
-							<td>
-								<p class="card-title" id="totale">{{ tinetti.totaleEquilibrio }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Inizio della deambulazione immediatamente dopo il via</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.inizioDeambulazione }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Lunghezza passo piede destro</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.piedeDx }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Altezza passo piede destro</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.piedeDx2 }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Lunghezza passo piede sinistro</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.piedeSx }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Altezza passo piede destro</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.piedeSx2 }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Simmetria del passo</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.simmetriaPasso }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Continuità del passo</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.continuitaPasso }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Traiettoria</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.traiettoria }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Tronco</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.tronco }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Cammino</h5>
-							</th>
-							<td>
-								<p class="card-title">{{ tinetti.cammino }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Totale Andatura</h5>
-							</th>
-							<td>
-								<p class="card-title" id="totale">{{ tinetti.totaleAndatura }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Totale</h5>
-							</th>
-							<td>
-								<p class="card-title" id="totale">{{ tinetti.totale }}</p>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<h5 class="card-text">Operazioni</h5>
-							</th>
-							<td>
-								<p class="card-title" style="border-bottom-style: none;">
-									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-											Apri
-										</button>
-										<ul class="dropdown-menu">
-											<li>
-												<a class="dropdown-item" href="{{ path('app_tinetti_edit', {'id': tinetti.id}) }}">
-													<i class="bi bi-pencil-square"></i>
-													Modifica</a>
-											</li>
-											<li>
-												<a class="dropdown-item" href="{{ path('app_tinetti_delete', {'id': tinetti.id, '_token': csrf_token('delete' ~ tinetti.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-													<i class="bi bi-trash3"></i>Cancella</a>
-											</li>
-										</ul>
-									</div>
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="row">
+					<div class="col">
+						<table class="col-sm-12">
+							<thead class="cf"></thead>
+							<tbody>
+								<tr>
+									<th>
+										<h5 class="card-text">Operatore</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ tinetti.operatore.name }}
+											{{tinetti.operatore.surname}}</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Data Valutazione</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">{{ tinetti.dataValutazione ? tinetti.dataValutazione|date('Y-m-d') : '' }}</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="pb-2 mb-4"></div>
+					<div class="row">
+						<div class="col">
+							<table class="col-sm-12">
+								<thead class="cf"></thead>
+								<tbody>
+									<tr>
+										<th>
+											<h5 class="card-text">Equilibrio da seduto</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.equilibrioSeduto }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Alzarsi dalla sedia</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.sedia }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Tentativo di alzarsi</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.alzarsi }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Equilibrio stazione eretta</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.stazioneEretta }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Equilibrio stazione eretta prolungata</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.stazioneErettaProlungata }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Romberg</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.romberg }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Romberg sensibilizzato</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.rombergSensibilizzato }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Girarsi a 360° a</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.girarsi1 }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Girarsi a 360° b</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.girarsi2 }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Sedersi</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.sedersi }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Totale Equilibrio</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title" id="totale">{{ tinetti.totaleEquilibrio }}</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col">
+							<table class="col-sm-12">
+								<thead class="cf"></thead>
+								<tbody>
+									<tr>
+										<th>
+											<h5 class="card-text">Inizio della deambulazione immediatamente dopo il via</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.inizioDeambulazione }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Lunghezza passo piede destro</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.piedeDx }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Altezza passo piede destro</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.piedeDx2 }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Lunghezza passo piede sinistro</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.piedeSx }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Altezza passo piede destro</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.piedeSx2 }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Simmetria del passo</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.simmetriaPasso }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Continuità del passo</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.continuitaPasso }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Traiettoria</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.traiettoria }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Tronco</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.tronco }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Cammino</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title">{{ tinetti.cammino }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Totale Andatura</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title" id="totale">{{ tinetti.totaleAndatura }}</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="pb-2 mb-4"></div>
+					<div class="row">
+						<div class="col">
+							<table class="col-sm-12">
+								<thead class="cf"></thead>
+								<tbody>
+									<tr>
+										<th>
+											<h5 class="card-text">Totale</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title" id="totale">{{ tinetti.totale }}</p>
+										</td>
+									</tr>
+									<tr>
+										<th>
+											<h5 class="card-text">Operazioni</h5>
+										</th>
+									</tr>
+									<tr>
+										<td>
+											<p class="card-title" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_tinetti_edit', {'id': tinetti.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_tinetti_delete', {'id': tinetti.id, '_token': csrf_token('delete' ~ tinetti.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
