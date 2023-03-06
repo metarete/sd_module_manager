@@ -34,13 +34,15 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     private EntityManagerInterface $em;
     private $client;
     private $params;
+    private $security;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $em, HttpClientInterface $client, ParameterBagInterface $params)
+    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $em, HttpClientInterface $client, ParameterBagInterface $params, Security $security)
     {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->client = $client;
         $this->params = $params;
+        $this->security = $security;
     }
 
     public function authenticate(Request $request): Passport
@@ -98,8 +100,13 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         //if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
           //  return new RedirectResponse($targetPath);
         //}
-
-        return new RedirectResponse($this->urlGenerator->generate('app_scadenzario_index'));
+        $user = $this->security->getUser();
+        $role = $user->getRoles();
+        
+        if($role[0]=='ROLE_ADMIN')
+            return new RedirectResponse($this->urlGenerator->generate('app_scheda_pai_index'));
+        else
+            return new RedirectResponse($this->urlGenerator->generate('app_scadenzario_index'));
     }
 
     protected function getLoginUrl(Request $request): string

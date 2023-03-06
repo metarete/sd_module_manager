@@ -190,6 +190,7 @@ class MailerGenerator
                         $flagValutazioneProfessionale = true;
                         $valore = count($idOperatoriTotali) - $numeroValutazioneProfessionali;
                         $riga = [
+                            "id" => $arraySchedeAttive[$t]->getId(),
                             "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d-m-Y'),
                             "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d-m-Y'),
                             "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
@@ -259,6 +260,7 @@ class MailerGenerator
                 if ($idOperatore == $idOperatorePrincipale) {
                     $flagSchedeDaChiudere = true;
                     $riga = [
+                        "id" => $arraySchedeInAttesaDiChiusura[$z]->getId(),
                         "data_inizio" => $arraySchedeInAttesaDiChiusura[$z]->getDataInizio()->format('d-m-Y'),
                         "data_fine" => $arraySchedeInAttesaDiChiusura[$z]->getDataFine()->format('d-m-Y'),
                         "assistito" => $arraySchedeInAttesaDiChiusura[$z]->getNomeAssistito() . "  " . $arraySchedeInAttesaDiChiusura[$z]->getCognomeAssistito(),

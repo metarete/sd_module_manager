@@ -1,14 +1,10 @@
 <html>
 	<head>
 		<style>
-			body {
-				background-color: grey;
-				padding: 50px 200px;
-			}
+
 			div {
 
 				background-color: white;
-
 
 			}
 			h1,
@@ -16,61 +12,37 @@
 			h3 {
 				color: black;
 				text-align: left;
-                padding: 10px;
+				padding: 10px;
 			}
-			#tabella {
+
+			.tabella {
 				font-family: Arial, Helvetica, sans-serif;
 				border-collapse: collapse;
 
 
 			}
 
-			#tabella td,
-			#tabella th {
+			.tabella td,
+			.tabella th {
 				border: 1px solid #ddd;
 				padding: 8px;
 			}
 
-			#tabella tr:nth-child(even) {
+			.tabella tr:nth-child(even) {
 				background-color: #f2f2f2;
 			}
 
-			#tabella tr:hover {
+			.tabella tr:hover {
 				background-color: #ddd;
 			}
 
-			#tabella th {
+			.tabella th {
 				padding: 12px 50px;
 				text-align: left;
 				background-color: #04AA6D;
 				color: white;
 			}
-			#tabella1 {
-				font-family: Arial, Helvetica, sans-serif;
-				border-collapse: collapse;
-
-			}
-
-			#tabella1 td,
-			#tabella1 th {
-				border: 1px solid #ddd;
-				padding: 8px;
-			}
-
-			#tabella1 tr:nth-child(even) {
-				background-color: #f2f2f2;
-			}
-
-			#tabella1 tr:hover {
-				background-color: #ddd;
-			}
-
-			#tabella1 th {
-				padding: 12px 50px;
-				text-align: left;
-				background-color: #04AA6D;
-				color: white;
-			}
+			
 		</style>
 	</head>
 	<body>
@@ -83,24 +55,31 @@
 					<a href="http://localhost:54001/scheda_pai">Vai all'elenco schede</a>
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella'>
-						<tr>
-							<th>Id</th>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Stato</th>
-						</tr>
-						{% for d in testoEmailNuove %}
+					{% for d in testoEmailNuove %}
+						<br>
+						<table class='tabella'>
 							<tr>
+								<th>Id</th>
 								<td data-title='Id'>{{d.id}}</td>
+							</tr>
+							<tr>
+								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
+							</tr>
+							<tr>
+								<th>Data Fine</th>
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
+							</tr>
+							<tr>
+								<th>Assistito</th>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
+							</tr>
+							<tr>
+								<th>Stato</th>
 								<td data-title='Stato'>{{ d.stato}}</td>
 							</tr>
-						{% endfor %}
-					</table>
+						</table>
+					{% endfor %}
 				</div>
 			{% endif %}
 
@@ -109,26 +88,31 @@
 				<h3>Le seguenti schede sono state chiuse di recente:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella'>
-						<tr>
-							<th>Id</th>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Stato</th>
-							
-						</tr>
-						{% for d in testoEmailChiuse %}
+					{% for d in testoEmailChiuse %}
+						<br>
+						<table class='tabella'>
 							<tr>
+								<th>Id</th>
 								<td data-title='Id'>{{d.id}}</td>
-								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-								<td data-title='Stato'>{{ d.stato}}</td>
-								
 							</tr>
-						{% endfor %}
-					</table>
+							<tr>
+								<th>Data Inizio</th>
+								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
+							</tr>
+							<tr>
+								<th>Data Fine</th>
+								<td data-title='Data Fine'>{{d.data_fine}}</td>
+							</tr>
+							<tr>
+								<th>Assistito</th>
+								<td data-title='Assistito'>{{ d.assistito}}</td>
+							</tr>
+							<tr>
+								<th>Stato</th>
+								<td data-title='Stato'>{{ d.stato}}</td>
+							</tr>
+						</table>
+					{% endfor %}
 				</div>
 			{% endif %}
 
@@ -136,28 +120,37 @@
 				<h3>Le seguenti schede sono state chiuse con rinnovo ed è necessario creare un nuovo progetto su SD manager:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella'>
-						<tr>
-							<th>Id</th>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Stato</th>
-							<th>Link</th>
-						</tr>
-						{% for d in testoEmailChiuseConRinnovo %}
+					{% for d in testoEmailChiuseConRinnovo %}
+						<br>
+						<table class='tabella'>
 							<tr>
+								<th>Id</th>
 								<td data-title='Id'>{{d.id}}</td>
+							</tr>
+							<tr>
+								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
+							</tr>
+							<tr>
+								<th>Data Fine</th>
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
+							</tr>
+							<tr>
+								<th>Assistito</th>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
+							</tr>
+							<tr>
+								<th>Stato</th>
 								<td data-title='Stato'>{{ d.stato}}</td>
+							</tr>
+							<tr>
+								<th>Link</th>
 								<td data-title='Link'>
 									<a href={{d.link}}>Crea progetto</a>
 								</td>
 							</tr>
-						{% endfor %}
-					</table>
+						</table>
+					{% endfor %}
 				</div>
 			{% endif %}
 		</div>
@@ -170,4 +163,4 @@
 		{% endblock %}
 
 	</body>
-</html></div></body></html>
+</html>

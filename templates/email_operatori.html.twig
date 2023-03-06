@@ -1,15 +1,9 @@
 <html>
 	<head>
 		<style>
-			body {
-				background-color: grey;
-				padding: 50px 200px;
-			}
-			div {
-				
-				background-color: white;
-				
 
+			div {
+				background-color: white;
 			}
 			h1,
 			h4,
@@ -18,54 +12,29 @@
 				text-align: left;
 				padding: 10px;
 			}
-			#tabella {
+
+			.tabella {
 				font-family: Arial, Helvetica, sans-serif;
 				border-collapse: collapse;
-				
+
 
 			}
 
-			#tabella td,
-			#tabella th {
+			.tabella td,
+			.tabella th {
 				border: 1px solid #ddd;
 				padding: 8px;
 			}
 
-			#tabella tr:nth-child(even) {
+			.tabella tr:nth-child(even) {
 				background-color: #f2f2f2;
 			}
 
-			#tabella tr:hover {
+			.tabella tr:hover {
 				background-color: #ddd;
 			}
 
-			#tabella th {
-				padding: 12px 50px;
-				text-align: left;
-				background-color: #04AA6D;
-				color: white;
-			}
-			#tabella1 {
-				font-family: Arial, Helvetica, sans-serif;
-				border-collapse: collapse;
-
-			}
-
-			#tabella1 td,
-			#tabella1 th {
-				border: 1px solid #ddd;
-				padding: 8px;
-			}
-
-			#tabella1 tr:nth-child(even) {
-				background-color: #f2f2f2;
-			}
-
-			#tabella1 tr:hover {
-				background-color: #ddd;
-			}
-
-			#tabella1 th {
+			.tabella th {
 				padding: 12px 50px;
 				text-align: left;
 				background-color: #04AA6D;
@@ -81,24 +50,40 @@
 				<h3>Schede Pai da attivare:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella'>
-						<tr>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Stato</th>
-							
-						</tr>
-						{% for d in descrizioneSchedeApprovate %}
+					{% for d in descrizioneSchedeApprovate %}
+						<br>
+						<table class='tabella'>
 							<tr>
+								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-								<td data-title='Stato'>{{ d.stato}}</td>
-								
 							</tr>
-						{% endfor %}
-					</table>
+							<tr>
+								<th>Data Fine</th>
+								<td data-title='Data Fine'>{{d.data_fine}}</td>
+							</tr>
+							<tr>
+								<th>Assistito</th>
+								<td data-title='Assistito'>{{ d.assistito}}</td>
+							</tr>
+							<tr>
+								<th>Stato</th>
+								<td data-title='Stato'>{{ d.stato}}</td>
+							</tr>
+							<tr>
+								<th>Configura</th>
+								<td data-title='Configura'>
+									<a href="http://localhost:54001/scheda_pai/app_scadenzario_index/{{d.id}}/edit">configura</a>
+								</td>
+							</tr>
+							<tr>
+								<th>Compila Valutazione Generale</th>
+								<td data-title='Valutazione generale'>
+									<a href='http://localhost:54001/valutazione_generale/app_scadenzario_index/new?id_pai={{d.id}}'>compila_valutazione</a>
+								</td>
+
+							</tr>
+						</table>
+					{% endfor %}
 				</div>
 			{% endif %}
 
@@ -107,32 +92,47 @@
 				<h3>Schede con dei ritardi sulla compilazione scale di valutazione:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella1'>
-						<tr>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Barthel in ritardo</th>
-							<th>Braden in ritardo</th>
-							<th>Spmsq in ritardo</th>
-							<th>Tinetti in ritardo</th>
-							<th>Vas in ritardo</th>
-							<th>Lesioni in ritardo</th>
-						</tr>
-						{% for d in descrizioneRitardi %}
+					{% for d in descrizioneRitardi %}
+						<br>
+						<table class='tabella'>
 							<tr>
+								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
+							</tr>
+							<tr>
+								<th>Data Fine</th>
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
+							</tr>
+							<tr>
+								<th>Assistito</th>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
+							</tr>
+							<tr>
+								<th>Barthel in ritardo</th>
 								<td data-title='Barthel'>{{ d.barthel}}</td>
+							</tr>
+							<tr>
+								<th>Braden in ritardo</th>
 								<td data-title='Braden'>{{ d.braden}}</td>
+							</tr>
+							<tr>
+								<th>SPMSQ in ritardo</th>
 								<td data-title='Spmsq'>{{ d.spmsq}}</td>
+							</tr>
+							<tr>
+								<th>Tinetti in ritardo</th>
 								<td data-title='Tinetti'>{{ d.tinetti}}</td>
+							</tr>
+							<tr>
+								<th>VAS in ritardo</th>
 								<td data-title='Vas'>{{ d.vas}}</td>
+							</tr>
+							<tr>
+								<th>Lesioni in ritardo</th>
 								<td data-title='Lesioni'>{{ d.lesioni}}</td>
 							</tr>
-						{% endfor %}
-					</table>
+						</table>
+					{% endfor %}
 				</div>
 			{% endif %}
 
@@ -140,22 +140,34 @@
 				<h3>Schede pai di progetti scaduti in attesa di chisura:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella'>
-						<tr>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Stato</th>
-						</tr>
-						{% for d in descrizioneSchedeDaChiudere %}
+				{% for d in descrizioneSchedeDaChiudere %}
+						<br>
+						<table class='tabella'>
 							<tr>
+								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-								<td data-title='Stato'>{{d.stato}}</td>
 							</tr>
-						{% endfor %}
-					</table>
+							<tr>
+								<th>Data Fine</th>
+								<td data-title='Data Fine'>{{d.data_fine}}</td>
+							</tr>
+							<tr>
+								<th>Assistito</th>
+								<td data-title='Assistito'>{{ d.assistito}}</td>
+							</tr>
+							<tr>
+								<th>Stato</th>
+								<td data-title='Stato'>In Attesa Di Chiusura</td>
+							</tr>
+							
+							<tr>
+								<th>Chiudi</th>
+								<td data-title='Chiudi'>
+									<a href="http://localhost:54001/scheda_pai/app_scadenzario_index/chiusura_scheda/{{d.id}}">chiudi</a>
+								</td>
+							</tr>
+						</table>
+					{% endfor %}
 				</div>
 			{% endif %}
 
@@ -163,26 +175,40 @@
 				<h3>{{testoAttiva1}}<br></h3>
 				<h3>Schede con valutazioni professionali mancanti:<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-					<table id='tabella'>
-						<tr>
-							<th>Data Inizio</th>
-							<th>Data Fine</th>
-							<th>Assistito</th>
-							<th>Valutazioni Mancanti</th>
-						</tr>
-						{% for d in descrizioneValutazioneProfessionale %}
+				{% for d in descrizioneValutazioneProfessionale %}
+						<br>
+						<table class='tabella'>
 							<tr>
+								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
+							</tr>
+							<tr>
+								<th>Data Fine</th>
 								<td data-title='Data Fine'>{{d.data_fine}}</td>
+							</tr>
+							<tr>
+								<th>Assistito</th>
 								<td data-title='Assistito'>{{ d.assistito}}</td>
+							</tr>
+							<tr>
+								<th>Valutazioni Mancanti</th>
 								<td data-title='Valutazioni Mancante'>{{d.valore}}</td>
 							</tr>
-						{% endfor %}
-					</table>
+							<tr>
+								<th>Compila Valutazione Professionale</th>
+								<td data-title='Compila Valutazione Professionale'>
+									<a href="http://localhost:54001/valutazione_figura_professionale/app_scadenzario_index/new?id_pai={{d.id}}">compila</a>
+								</td>
+							</tr>
+							
+						</table>
+					{% endfor %}
 				</div>
 			{% endif %}
 			<div class="pb-2 mb-4"></div>
-			<h3><a href="http://localhost:54001/scheda_pai">Vai all'elenco schede</a></h3>
+			<h3>
+				<a href="http://localhost:54001/scheda_pai">Vai all'elenco schede</a>
+			</h3>
 			<div class="pb-2 mb-4"></div>
 		</div>
 
