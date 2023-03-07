@@ -1,0 +1,102 @@
+<div class="container-fluid text-center">
+	<table class="col-sm-12">
+		<thead class="cf"></thead>
+		<tbody>
+			<tr>
+				<th>
+					Operatore Principale
+				</th>
+			
+				<td>
+					{% if scheda_pai.idOperatorePrincipale  is empty %}
+						Nessuno
+					{% else %}
+						{{scheda_pai.idOperatorePrincipale.name}}
+						{{scheda_pai.idOperatorePrincipale.surname}}
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Infermieri
+				</th>
+			
+				<td>
+					{% if scheda_pai.idOperatoreSecondarioInf  is empty %}
+						Nessuno
+					{% endif %}
+					{% for i in scheda_pai.idOperatoreSecondarioInf %}
+						{{i.name}}
+						{{i.surname}}
+						<br>
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Terapisti della riabilitazione
+				</th>
+			
+				<td>
+					{% if scheda_pai.idOperatoreSecondarioTdr is empty %}
+						Nessuno
+					{% endif %}
+					{% for i in scheda_pai.idOperatoreSecondarioTdr %}
+						{{i.name}}
+						{{i.surname}}
+						<br>
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					LOG
+				</th>
+			
+				<td>
+					{% if scheda_pai.idOperatoreSecondarioLog is empty %}
+						Nessuno
+					{% endif %}
+					{% for i in scheda_pai.idOperatoreSecondarioLog %}
+						{{i.name}}
+						{{i.surname}}
+						<br>
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Ausiliari Socio Assistenziale
+				</th>
+			
+				<td>
+					{% if scheda_pai.idOperatoreSecondarioAsa is empty %}
+						Nessuno
+					{% endif %}
+					{% for i in scheda_pai.idOperatoreSecondarioAsa %}
+						{{i.name}}
+						{{i.surname}}
+						<br>
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Operatori Socio Sanitario
+				</th>
+			
+				<td>
+					{% if scheda_pai.idOperatoreSecondarioOss is empty %}
+						Nessuno
+					{% endif %}
+					{% for i in scheda_pai.idOperatoreSecondarioOss %}
+						{{i.name}}
+						{{i.surname}}
+						<br>
+					{% endfor %}
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+</div>

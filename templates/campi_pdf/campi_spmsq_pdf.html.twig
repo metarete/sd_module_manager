@@ -1,0 +1,125 @@
+<table class="col-sm-12">
+	<thead class="cf"></thead>
+	<tbody>
+		<tr>
+			<th>
+				Operatore
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.operatore.name }}
+				{{s_p_m_s_q.operatore.surname}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Data Valutazione
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : '' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Che giorno è oggi?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.giornoOggi ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Che giorno della settimana è?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.giornoSettimana ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Come si chiama questo posto?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.posto ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Qual è il suo indirizzo?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.indirizzo ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Quanti anni ha?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.anni ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Quando è nato?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.dataNascita ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Chi è il Presidente della Repubblica?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.presidenteAttuale ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Chi era il Presidente precedente?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.presidentePrecedente ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Qual è il cognome da ragazza si sua madre?
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.cognomeMadre ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Sottragga da 20 tre e poi ancora fino in fondo
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.sottrazione ? 'Risposta errata' : 'Risposta corretta' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Totale Errori
+			</th>
+
+			<td>
+				{{ s_p_m_s_q.totale}}
+			</td>
+		</tr>
+
+	</tbody>
+</table>

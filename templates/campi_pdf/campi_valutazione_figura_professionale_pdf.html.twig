@@ -1,0 +1,89 @@
+<div class="container-fluid text-center">
+	<table class="col-sm-12">
+		<thead class="cf"></thead>
+		<tbody>
+			<tr>
+				<th>
+					Operatore
+				</th>
+
+				<td>
+					{{ valutazione_figura_professionale.operatore.name }}
+					{{valutazione_figura_professionale.operatore.surname}}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Tipo di Operatore
+				</th>
+
+				<td>
+					{{ valutazione_figura_professionale.tipoOperatore }}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Data di valutazione
+				</th>
+
+				<td>
+					{{ valutazione_figura_professionale.dataValutazione ? valutazione_figura_professionale.dataValutazione|date('Y-m-d') : '' }}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Diagnosi Professionale
+				</th>
+
+				<td>
+					{{ valutazione_figura_professionale.diagnosiProfessionale }}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Obbiettivi da raggiungere
+				</th>
+
+				<td>
+
+					{% if valutazione_figura_professionale.obbiettiviDaRaggiungere is empty %}
+						Nessuno
+					{% else %}
+						{{ valutazione_figura_professionale.obbiettiviDaRaggiungere }}
+					{% endif %}
+
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Tipo e frequenza
+				</th>
+
+				<td>
+
+					{% if  valutazione_figura_professionale.tipoEFrequenza is empty %}
+						Nessuno
+					{% else %}
+						{{ valutazione_figura_professionale.tipoEFrequenza }}
+					{% endif %}
+
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Modalità e tempi di monitoraggio  degli obbiettivi
+				</th>
+
+				<td>
+
+					{% if valutazione_figura_professionale.modalitaTempiMonitoraggio is empty %}
+						Nessuno
+					{% else %}
+						{{ valutazione_figura_professionale.modalitaTempiMonitoraggio }}
+					{% endif %}
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

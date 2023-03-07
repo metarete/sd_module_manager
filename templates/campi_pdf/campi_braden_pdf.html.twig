@@ -1,0 +1,87 @@
+<table class="col-sm-12">
+	<thead class="cf"></thead>
+	<tbody>
+		<tr>
+			<th>
+				Operatore
+			</th>
+
+			<td>
+				{{ braden.operatore.name }}
+				{{braden.operatore.surname}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Data Valutazione
+			</th>
+
+			<td>
+				{{ braden.dataValutazione ? braden.dataValutazione|date('Y-m-d') : '' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Percezione Sensoriale
+			</th>
+
+			<td>
+				{{ braden.percezioneSensoriale }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Umidità
+			</th>
+
+			<td>
+				{{ braden.umidita }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Attività
+			</th>
+
+			<td>
+				{{ braden.attivita }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Mobilità
+			</th>
+
+			<td>
+				{{ braden.mobilita }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Nutrizione
+			</th>
+
+			<td>
+				{{ braden.nutrizione }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Frizione Scivolamento
+			</th>
+
+			<td>
+				{{ braden.frizioneScivolamento }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Totale
+			</th>
+
+			<td>
+				{{ braden.totale }}
+			</td>
+		</tr>
+	</tbody>
+</table>

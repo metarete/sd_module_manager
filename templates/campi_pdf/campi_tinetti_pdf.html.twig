@@ -1,0 +1,232 @@
+<table class="col-sm-12">
+	<thead class="cf"></thead>
+	<tbody>
+		<tr>
+			<th>
+				Operatore
+			</th>
+
+			<td>
+				{{ tinetti.operatore.name }}
+				{{tinetti.operatore.surname}}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Data Valutazione
+			</th>
+
+			<td>
+				{{ tinetti.dataValutazione ? tinetti.dataValutazione|date('Y-m-d') : '' }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Equilibrio da seduto
+			</th>
+
+			<td>
+				{{ tinetti.equilibrioSeduto }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Alzarsi dalla sedia
+			</th>
+
+			<td>
+				{{ tinetti.sedia }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Tentativo di alzarsi
+			</th>
+
+			<td>
+				{{ tinetti.alzarsi }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Equilibrio stazione eretta
+			</th>
+
+			<td>
+				{{ tinetti.stazioneEretta }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Equilibrio stazione eretta prolungata
+			</th>
+
+			<td>
+				{{ tinetti.stazioneErettaProlungata }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Romberg
+			</th>
+
+			<td>
+				{{ tinetti.romberg }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Romberg sensibilizzato
+			</th>
+
+			<td>
+				{{ tinetti.rombergSensibilizzato }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Girarsi a 360° a
+			</th>
+
+			<td>
+				{{ tinetti.girarsi1 }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Girarsi a 360° b
+			</th>
+
+			<td>
+				{{ tinetti.girarsi2 }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Sedersi
+			</th>
+
+			<td>
+				{{ tinetti.sedersi }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Totale Equilibrio
+			</th>
+
+			<td>
+				{{ tinetti.totaleEquilibrio }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Inizio della deambulazione immediatamente dopo il via
+			</th>
+
+			<td>
+				{{ tinetti.inizioDeambulazione }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Lunghezza passo piede destro
+			</th>
+
+			<td>
+				{{ tinetti.piedeDx }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Altezza passo piede destro
+			</th>
+
+			<td>
+				{{ tinetti.piedeDx2 }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Lunghezza passo piede sinistro
+			</th>
+
+			<td>
+				{{ tinetti.piedeSx }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Altezza passo piede destro
+			</th>
+
+			<td>
+				{{ tinetti.piedeSx2 }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Simmetria del passo
+			</th>
+
+			<td>
+				{{ tinetti.simmetriaPasso }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Continuità del passo
+			</th>
+
+			<td>
+				{{ tinetti.continuitaPasso }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Traiettoria
+			</th>
+
+			<td>
+				{{ tinetti.traiettoria }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Tronco
+			</th>
+
+			<td>
+				{{ tinetti.tronco }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Cammino
+			</th>
+
+			<td>
+				{{ tinetti.cammino }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Totale Andatura
+			</th>
+
+			<td>
+				{{ tinetti.totaleAndatura }}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Totale
+			</th>
+
+			<td>
+				{{ tinetti.totale }}
+			</td>
+		</tr>
+
+	</tbody>
+</table>

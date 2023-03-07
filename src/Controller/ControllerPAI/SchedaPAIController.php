@@ -387,6 +387,9 @@ class SchedaPAIController extends AbstractController
     #[Route('/pdf/{id}', name: 'app_scheda_pai_pdf', methods: ['GET'])]
     public function generatePdf(SchedaPAI $schedaPAI)
     {
+        //data creazione pdf
+        $dataCreazione = date("d/m/Y");
+
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
         $valutazioniFiguraProfessionale = $schedaPAI->getIdValutazioneFiguraProfessionale();
@@ -417,11 +420,18 @@ class SchedaPAIController extends AbstractController
         $img = file_get_contents(
             "/app/public/image/logo.jpeg"
         );
+        $imgTitle = file_get_contents(
+            "/app/public/image/PAI.jpg"
+        );
+        $imgLogoMetarete = file_get_contents(
+            "/app/public/image/logo-metarete.png"
+        );
         $image64 = base64_encode($img);
-
+        $image64Title = base64_encode($imgTitle);
+        $image64Metarete = base64_encode($imgLogoMetarete);
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('template_pdf.html.twig', [
-            'title' => "Scheda Pai completa",
+            'title' => "Scheda PAI",
             'scheda_pai' => $schedaPAI,
             'valutazione_generale' => $valutazioneGenerale,
             'valutazioni_figura_professionale' => $valutazioniFiguraProfessionale,
@@ -438,6 +448,9 @@ class SchedaPAIController extends AbstractController
             'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
             'bisogni' => $bisogni,
             'image64' => $image64,
+            'image64Title' => $image64Title,
+            'image64Metarete' => $image64Metarete,
+            'dataCreazione' => $dataCreazione,
         ]);
         //$html .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
         // Load HTML to Dompdf

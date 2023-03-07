@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<style>
+
 			table,
 			th,
 			td {
@@ -31,14 +33,15 @@
 
 			h1 {
 				text-align: center;
-				color: red;
-
 			}
 			h3 {
 				text-align: left;
 				color: black;
 				border-bottom-style: solid;
 
+			}
+			h4 {
+				text-align: center;
 			}
 			@page {
 				margin: 100px 25px;
@@ -58,11 +61,6 @@
 				line-height: 35px;
 				border-radius: 10% 30% 50% 70%;
 			}
-			header img {
-				float: right;
-				width: 50px;
-				height: 50px;
-			}
 
 
 			footer {
@@ -70,7 +68,7 @@
 				bottom: -60px;
 				left: 0;
 				right: 0;
-				height: 50px;
+				height: 100px;
 
 				/** Extra personal styles **/
 				background-color: #212529;
@@ -78,26 +76,63 @@
 				text-align: center;
 				line-height: 35px;
 			}
+			
+			figure.center {
+				margin: auto;
+				width: 60%;
+				padding: 10px;
+			}
+			.right {
+				position: absolute;
+				right: 0;
+				width: 300px;
+				padding: 10px;
+			}
+			.left {
+				position: absolute;
+				left: 0;
+				width: 300px;
+				padding: 10px;
+			}
+			.center {
+				margin: auto;
+				width: 20%;	
+			}
 		</style>
 	</head>
 	<body>
 		{% block body %}
+			{{include('campi_pdf/pagina_principale_pdf.html.twig')}}
+			<div style="page-break-before: always;"></div>
+
 			<header>
+				<div class="right">
 				<figure class="figure">
-					<img src="data:image/png;base64, {{image64}}">
+					<img src="data:image/png;base64, {{image64}}"height="50px;">
 				</figure>
-				<h2>Scheda Pai completa</h2>
+				</div>
+				<h2>Scheda PAI</h2>
 			</header>
-			<footer>footer on each page</footer>
+			<footer>
+				<div class="right">
+				<figure class="figure">
+					<img src="data:image/png;base64, {{image64}}" height="50px;">
+				</figure>
+				</div>
+				<div class="left">
+				{{assistito.nome}} {{assistito.cognome}}<br>
+				{{assistito.indirizzo}} {{assistito.comune}} {{assistito.provincia}}
+				</div>
+			</footer>
 
 
 			<h3>Anagrafica</h3>
 
-			{{ include('dati_assistito.html.twig') }}
+			{{include('campi_pdf/dati_assistito_pdf.html.twig')}}
 
 			<h3>Operatori principali e secondari</h3>
 
-			{{ include('campi_scheda_pai.html.twig') }}
+			{{ include('campi_pdf/campi_scheda_pai_pdf.html.twig') }}
 
 			<div style="page-break-before: always;"></div>
 
@@ -105,7 +140,7 @@
 			{% if valutazione_generale is empty %}
 				<h4>Nessuna scheda di valutazione generale</h4>
 			{% else %}
-				{{ include('campi_valutazione_generale.html.twig') }}
+				{{ include('campi_pdf/campi_valutazione_generale_pdf.html.twig') }}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
 			<h3>Valutazione Figura Professionale</h3>
@@ -113,8 +148,8 @@
 				<h4>Nessuna scheda di valutazione professionale</h4>
 			{% else %}
 				{% for valutazione_figura_professionale in valutazioni_figura_professionale %}
-
-					{{ include('campi_valutazione_figura_professionale.html.twig') }}
+					{{ include('campi_pdf/campi_valutazione_figura_professionale_pdf.html.twig') }}
+					<br>
 				{% endfor %}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
@@ -123,7 +158,8 @@
 				<h4>Nessuna scheda di valutazione barthel</h4>
 			{% else %}
 				{% for barthel in barthels %}
-					{{ include('campi_barthel.html.twig') }}
+					{{ include('campi_pdf/campi_barthel_pdf.html.twig') }}
+					<br>
 				{% endfor %}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
@@ -132,7 +168,8 @@
 				<h4>Nessuna scheda di valutazione braden</h4>
 			{% else %}
 				{% for braden in bradens %}
-					{{ include('campi_braden.html.twig') }}
+					{{ include('campi_pdf/campi_braden_pdf.html.twig') }}
+					<br>
 				{% endfor %}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
@@ -141,7 +178,8 @@
 				<h4>Nessuna scheda di valutazione spmsq</h4>
 			{% else %}
 				{% for s_p_m_s_q in spmsqs %}
-					{{ include('campi_spmsq.html.twig') }}
+					{{ include('campi_pdf/campi_spmsq_pdf.html.twig') }}
+					<br>
 				{% endfor %}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
@@ -150,7 +188,8 @@
 				<h4>Nessuna scheda di valutazione tinetti</h4>
 			{% else %}
 				{% for tinetti in tinettis %}
-					{{ include('campi_tinetti.html.twig') }}
+					{{ include('campi_pdf/campi_tinetti_pdf.html.twig') }}
+					<br>
 				{% endfor %}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
@@ -159,7 +198,8 @@
 				<h4>Nessuna scheda di valutazione vas</h4>
 			{% else %}
 				{% for va in vass %}
-					{{ include('campi_vas.html.twig') }}
+					{{ include('campi_pdf/campi_vas_pdf.html.twig') }}
+					<br>
 				{% endfor %}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
@@ -168,7 +208,8 @@
 				<h4>Nessuna scheda di valutazione lesioni</h4>
 			{% else %}
 				{% for lesioni in lesionis %}
-					{{ include('campi_lesioni.html.twig') }}
+					{{ include('campi_pdf/campi_lesioni_pdf.html.twig') }}
+					<br>
 				{% endfor %}
 			{% endif %}
 			<div style="page-break-before: always;"></div>
@@ -176,13 +217,13 @@
 			{% if parere_mmg is empty %}
 				<h4>Nessun parere mmg</h4>
 			{% else %}
-				{{ include('campi_parere_mmg.html.twig') }}
+				{{ include('campi_pdf/campi_parere_mmg_pdf.html.twig') }}
 			{% endif %}
 			<h3>Chiusura Servizio</h3>
 			{% if chiusura_servizio is empty %}
 				<h4>Nessuna chiusura servizio</h4>
 			{% else %}
-				{{ include('campi_chiusura_servizio.html.twig') }}
+				{{ include('campi_pdf/campi_chiusura_servizio_pdf.html.twig') }}
 			{% endif %}
 
 		{% endblock %}
