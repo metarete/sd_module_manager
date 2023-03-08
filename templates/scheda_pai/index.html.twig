@@ -145,7 +145,7 @@
                         </button>
                     <ul class="dropdown-menu">             
                         <li><a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Modifica</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Configura</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" {% if scheda_pai.idOperatorePrincipale == null %} {% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-key"></i> Approva</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id, '_token':  csrf_token('delete' ~ scheda_pai.id) }) }}"onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina</a></li>
                         <li><a class="dropdown-item {% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi</a></li>

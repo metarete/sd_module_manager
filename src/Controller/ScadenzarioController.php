@@ -102,11 +102,17 @@ class ScadenzarioController extends AbstractController
                  per operatore coinvolto'
              );
          }
+         elseif($alertSincronizzazione == 'chiusuraCompletata'){
+            $this->addFlash(
+                'Successo',
+                'Chiusura Completata con successo!'
+            );
+        }
          elseif($alertSincronizzazione == 'approvazioneFallita'){
              $this->addFlash(
                  'Fallimento',
                  'Impossibile approvare la scheda. Per approvare la scheda è necessario impostare un
-                 operatore principale andando in modifica scheda pai'
+                 operatore principale andando in configura'
              );
          }
          $session->set('alertSincronizzazione', '');

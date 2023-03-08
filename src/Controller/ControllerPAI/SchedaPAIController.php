@@ -162,11 +162,17 @@ class SchedaPAIController extends AbstractController
                 per operatore coinvolto'
             );
         }
+        elseif($alertSincronizzazione == 'chiusuraCompletata'){
+            $this->addFlash(
+                'Successo',
+                'Chiusura Completata con successo!'
+            );
+        }
         elseif($alertSincronizzazione == 'approvazioneFallita'){
             $this->addFlash(
                 'Fallimento',
                 'Impossibile approvare la scheda. Per approvare la scheda è necessario impostare un
-                operatore principale andando in modifica scheda pai'
+                operatore principale andando in configura'
             );
         }
         $session->set('alertSincronizzazione', '');
@@ -516,9 +522,13 @@ class SchedaPAIController extends AbstractController
         if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
             if ($chiusuraServizio->getRinnovo() == false) {
                 $schedaPAI->setCurrentPlace('chiusa');
+                $session = $request->getSession();
+                $session->set('alertSincronizzazione', 'chiusuraCompletata');
                 $this->entityManager->flush();
             } else {
                 $schedaPAI->setCurrentPlace('chiusa_con_rinnovo');
+                $session = $request->getSession();
+                $session->set('alertSincronizzazione', 'chiusuraCompletata');
                 $this->entityManager->flush();
             }
         } else {
