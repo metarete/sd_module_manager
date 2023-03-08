@@ -52,14 +52,14 @@
 				top: -60px;
 				left: 0;
 				right: 0;
-				height: 70px;
+				height: 50px;
 
 				/** Extra personal styles **/
 				background-color: #212529;
 				color: white;
 				text-align: center;
 				line-height: 35px;
-				border-radius: 10% 30% 50% 70%;
+				border-radius: 10%;
 			}
 
 
@@ -107,11 +107,12 @@
 
 			<header>
 				<div class="right">
-				<figure class="figure">
-					<img src="data:image/png;base64, {{image64}}"height="50px;">
-				</figure>
+				{{scheda_pai.nomeProgetto}}
 				</div>
-				<h2>Scheda PAI</h2>
+				<div class="left">
+				{{assistito.nome}} {{assistito.cognome}}
+				{{assistito.indirizzo}} {{assistito.comune}} {{assistito.provincia}}
+				</div>
 			</header>
 			<footer>
 				<div class="right">
@@ -120,8 +121,7 @@
 				</figure>
 				</div>
 				<div class="left">
-				{{assistito.nome}} {{assistito.cognome}}<br>
-				{{assistito.indirizzo}} {{assistito.comune}} {{assistito.provincia}}
+				Coop Progetto Assistenza s.c.s.<br> 0375 203401
 				</div>
 			</footer>
 

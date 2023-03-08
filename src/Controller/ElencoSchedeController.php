@@ -20,7 +20,7 @@ class ElencoSchedeController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/elenco_schede', name: 'app_elenco_schede')]
+    #[Route('/bacheca', name: 'app_bacheca')]
     public function index(): Response
     {
         $user= $this-> getUser();
@@ -45,7 +45,7 @@ class ElencoSchedeController extends AbstractController
         $percentualeChiuse = (int)(($schedeChiuse/$totaleSchede) * 100);
         $percentualeChiuseConRinnovo = (int)(($schedeChiuseConRinnovo/$totaleSchede) * 100);
         
-        return $this->render('elenco_schede/index.html.twig', [
+        return $this->render('bacheca/index.html.twig', [
             'controller_name' => 'ElencoSchedeController',
             'user' => $user,
             'schedeNuove' => $schedeNuove,
