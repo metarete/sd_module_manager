@@ -78,7 +78,7 @@ class SchedaPAIType extends AbstractType
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();
                 },
-                'label' => 'Operatori Secondari (Operatore Socio Sanitario',
+                'label' => 'Operatori Secondari (Operatore Socio Sanitario)',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,

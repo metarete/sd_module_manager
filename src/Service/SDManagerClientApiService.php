@@ -9,12 +9,14 @@ use App\Entity\Paziente;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class SDManagerClientApiService
 {
     private $client;
     private $entityManager;
     private $userPasswordHasher;
+    private $params;
 
     private $codiceResponseProgetti;
     private $codiceResponseOperatori;
@@ -23,11 +25,12 @@ class SDManagerClientApiService
     private $numeroProgettiScaricati = 0;
     private $numeroProgettiAggiornati = 0;
 
-    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
+    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, ParameterBagInterface $params)
     {
         $this->client = $client;
         $this->entityManager = $entityManager;
         $this->userPasswordHasher = $userPasswordHasher;
+        $this->params = $params;
     }
 
     public function getCodiceResponseProgetti(): int
@@ -57,10 +60,10 @@ class SDManagerClientApiService
 
     public function getProgetti(string $dataInizio, string $dataFine): array
     {
-
+        $url = $this->params->get('app.ws_sdmanager_api_progetti');
         $response = $this->client->request(
             'GET',
-            'https://demo.sdmanager.it/ws/1.0/mSADManager/list-progetti/' . $dataInizio . "/" . $dataFine
+            $url . $dataInizio . "/" . $dataFine
         );
         
         $this->codiceResponseProgetti = $response->getStatusCode();
@@ -77,9 +80,10 @@ class SDManagerClientApiService
     }
     public function getOperatori(): array
     {
+        $url = $this->params->get('app.ws_sdmanager_api_operatori');
         $response = $this->client->request(
             'GET',
-            'https://demo.sdmanager.it/ws/1.0/mSADManager/list-operatori/'
+            $url
         );
 
         $this->codiceResponseOperatori = $response->getStatusCode();
@@ -96,9 +100,10 @@ class SDManagerClientApiService
     }
     public function getAssistiti(): array
     {
+        $url = $this->params->get('app.ws_sdmanager_api_assistiti');
         $response = $this->client->request(
             'GET',
-            'https://demo.sdmanager.it/ws/1.0/mSADManager/list-utenti/'
+            $url
         );
 
         $this->codiceResponseAssistiti = $response->getStatusCode();
@@ -116,21 +121,27 @@ class SDManagerClientApiService
 
     public function sincOperatori()
     {
+        $pass = $this->params->get('app.testing_password_user');
+
         $utenti = $this->getOperatori();
         if($this->codiceResponseOperatori != 200){
             return;
         }
-            
+         
         $userRepository = $this->entityManager->getRepository(User::class);
+        //faccio passare tutti gli utenti scaricati
         for ($i = 0; $i < count($utenti); $i++) {
             $userUtente = $utenti[$i]['username'];
+            // se è nuovo lo creo
             if ($userRepository->findOneByUsername($userUtente) == null) {
                 $utente = new User;
-                if ($utenti[$i]['emails'] != null) {
+                //se c'è l'email su SD manager proseguo
+                if (!empty($utenti[$i]['emails'])) {
                     $email = $utenti[$i]['emails'][0]['email'];
+                    //se l'email non è già stata assegnata ad un altro utente registro il nuovo utente
                     if ($userRepository->findOneByEmail($email) == null) {
                         $utente->setEmail($email);
-                        $password = 'prova1';
+                        $password = $pass;
                         $hashedPassword = $this->userPasswordHasher->hashPassword(
                             $utente,
                             $password
@@ -147,7 +158,9 @@ class SDManagerClientApiService
                         $userRepository->add($utente, true);
                     }
                 }
-            } else {
+                //se c'è già e ha la mail aggiorno la mail
+            } else if (!empty($utenti[$i]['emails'])){
+                //altro if controllo mail
                 $email = $utenti[$i]['emails'][0]['email'];
                 $userRepository->updateUserByUsername($userUtente, $utenti[$i]['nome'], $utenti[$i]['cognome'], $email);
             }
@@ -162,13 +175,16 @@ class SDManagerClientApiService
         }
         
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        //faccio passare i progetti scaricati uno ad uno
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
-            if ($progetti[$i]['scheda_pai'] == 1) {
+            //se il progetto è attivo e deve avere la scheda pai
+            if ($progetti[$i]['scheda_pai'] == 1 && $progetti[$i]['stato_progetto']=='ATTIVO') {
                 $dataInizio = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_inizio']);
                 $dataFine = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_fine']);
                 $idAssistito = $progetti[$i]['id_utente'];
                 $nomeProgetto = $progetti[$i]['nome'];
+                //se non c'è già lo creo da zero
                 if ($schedaPAIRepository->findOneByProgetto($idProgetto) == null) {
                     $schedaPai = new SchedaPAI;
                     $schedaPai->setDataInizio($dataInizio);
@@ -181,8 +197,19 @@ class SDManagerClientApiService
                     $schedaPAIRepository->add($schedaPai, true);
                     $this->numeroProgettiScaricati++;
                 } else {
-                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto);
-                    $this->numeroProgettiAggiornati++;
+                    //se c'è già 
+                    $schedaPai = $schedaPAIRepository->findOneByProgetto($idProgetto);
+                    //se è stata spostata in avanti la data di fine ed era in stato di attesa di chiusura lo riattivo
+                    if($dataFine > $schedaPai->getDataFine() && $dataFine > date("d-m-Y") && $schedaPai->getCurrentPlace()=='in_attesa_di_chiusura'){
+                        $statoAttivo = 'attiva';
+                        $schedaPAIRepository->riattivaSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoAttivo);
+                        $this->numeroProgettiAggiornati++;
+                    }
+                    //aggiorno i dati 
+                    else{
+                        $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto);
+                        $this->numeroProgettiAggiornati++;
+                    }
                 }
             }
         }

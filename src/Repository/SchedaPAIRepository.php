@@ -215,6 +215,26 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->execute();
     }
 
+    public function riattivaSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoAttivo): void
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+        ->update(null, null)
+        ->set('u.dataFine', ':dataFine')
+        ->set('u.dataInizio', ':dataInizio')
+        ->set('u.idAssistito', ':idAssistito')
+        ->set('u.nomeProgetto', ':nomeProgetto')
+        ->set('u.currentPlace', ':currentPlace')
+        ->where('u.idProgetto = :idProgetto')
+        ->setParameter('dataInizio', $dataInizio)
+        ->setParameter('dataFine', $dataFine)
+        ->setParameter('idAssistito', $idAssistito)
+        ->setParameter('idProgetto', $idProgetto)
+        ->setParameter('nomeProgetto', $nomeProgetto)
+        ->setParameter('currentPlace', $statoAttivo)
+        ->getQuery()
+        ->execute();
+    }
+
     public function countByState($value): int
     {
         return $this->createQueryBuilder('u')

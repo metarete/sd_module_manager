@@ -129,6 +129,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             'password' => $password,
             'token' => $token
         ];
+        
+        
         // faccio la richiesta di verifica
         $response = $this->client->request(
             'POST',
@@ -142,6 +144,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             ]
         );
         // ritorno esito
+        
         if ($response->getStatusCode() == 200) {
             return (true);
         } else {

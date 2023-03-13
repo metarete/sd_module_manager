@@ -89,7 +89,7 @@ class SchedaPAIController extends AbstractController
         if ($ruoloUser[0] == "ROLE_ADMIN") {
             if ($stato == null || $stato == "") {
                 if ($operatore == '' || $operatore == null || $operatore == 'tutti')
-                    $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'ASC'), $schedePerPagina, $offset);
+                    $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
                 else
                     $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, null, $schedePerPagina, $page);
             } else {

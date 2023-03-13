@@ -28,6 +28,7 @@
 				<thead>
 					<tr>
 						<th>Espandi</th>
+						<th>Nome Progetto</th>
 						<th>Data Inizio</th>
 						<th>Data Fine</th>
 						<th>Assistito</th>
@@ -42,6 +43,7 @@
 						
 					</tr>
 					<tr>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -66,6 +68,8 @@
 										<a href="#"></td>
 									</div>
 								</td>
+								<td data-title='Nome Progetto'>{{scheda_pai.nomeProgetto}}
+								</td>								
 								<td data-title='Data Inizio'>{{ scheda_pai.dataInizio|date('d-m-Y') }}
 								</td>
 								<td data-title='Data Fine'>{{ scheda_pai.dataFine|date('d-m-Y')}}
@@ -183,7 +187,7 @@
 										<table class="col-sm-12  table-striped table-condensed ">
 											<thead class="cf">
 												<tr>
-													<th>Nome Progetto</th>
+													
 													<th>Codice Fiscale Assistito</th>
 													<th>Op Principale</th>
 													<th>Op Inf</th>
@@ -194,9 +198,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<td data-title='Nome Progetto'>
-													{{scheda_pai.nomeProgetto}}
-												</td>
+												
 												<td data-title='Codice Fiscale Assistito'>
 													{% for i in assistiti %}
 														{% if i.idSdManager == scheda_pai.idAssistito %}
