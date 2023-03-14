@@ -13,7 +13,7 @@ class TipoOperatore extends EnumType
     protected $values = array(
         'Infermiere' => 'INF',
         'Terapista della riabilitazione' => 'TDR',
-        'LOG' => 'LOG',
+        'Logopedista' => 'LOG',
         'Ausiliario Socio Assistenziale' => 'ASA',
         'Operatore Socio Sanitario' => 'OSS'
     );

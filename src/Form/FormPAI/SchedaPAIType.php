@@ -58,7 +58,7 @@ class SchedaPAIType extends AbstractType
                 'choice_label' => function (User $user) {
                     return $user->getName() . ' ' . $user->getSurname();
                 },
-                'label' => 'Operatori Secondari Log',
+                'label' => 'Operatori Secondari (Logopedista)',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,

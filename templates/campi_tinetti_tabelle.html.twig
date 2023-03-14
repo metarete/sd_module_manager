@@ -1,0 +1,147 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+						<thead class="cf"></thead>
+                        
+						<thead>
+                            <tr>
+                                <th><h3>Equilibrio</h3></th>
+								{% for tinetti in tinettis %}                                  
+									<th data-title='Data Valutazione'>{{tinetti.dataValutazione ? tinetti.dataValutazione|date('Y-m-d') : ''}}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+                            <tr>
+								<th>Equilibrio da Seduto</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.equilibrioSeduto}}</td>
+								{% endfor %}
+							</tr>
+                            <tr>
+								<th>Alzarsi dalla sedia</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.sedia}}</td>
+								{% endfor %}
+							</tr>
+                            <tr>
+								<th>Tentativo di alzarsi</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.alzarsi}}</td>
+								{% endfor %}
+							</tr>
+                            <tr>
+								<th>Equilibrio stazione eretta</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.stazioneEretta}}</td>
+								{% endfor %}
+							</tr>
+                            <tr>
+								<th>Equilibrio stazione eretta prolungata</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.stazioneErettaProlungata}}</td>
+								{% endfor %}
+							</tr>
+                             <tr>
+								<th>Romberg</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.romberg}}</td>
+								{% endfor %}
+							</tr>
+                             <tr>
+								<th>Romberg sensibilizzato</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.rombergSensibilizzato}}</td>
+								{% endfor %}
+							</tr>
+                             <tr>
+								<th>Girarsi a 360° A</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.girarsi1}}</td>
+								{% endfor %}
+							</tr>
+                             <tr>
+								<th>Girarsi a 360° B</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.girarsi2}}</td>
+								{% endfor %}
+							</tr>
+                            <tr>
+								<th>Sedersi</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.sedersi}}</td>
+								{% endfor %}
+							</tr>
+                            <tr>
+								<th>Totale Equilibrio</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.totaleEquilibrio}}/16</td>
+								{% endfor %}
+							</tr>
+                            <tr>
+								<th></th>
+								{% for tinetti in tinettis %}
+									<td><br></td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Operatore</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.operatore.name }}
+										{{tinetti.operatore.surname}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th></th>
+								{% for tinetti in tinettis %}
+									<td>
+										<p class="card-title" id="totale" style="border-bottom-style: none;">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+													Apri
+												</button>
+												<ul class="dropdown-menu">
+													<li>
+														<a class="dropdown-item" href="{{ path('app_tinetti_edit', {'id': tinetti.id}) }}">
+															<i class="bi bi-pencil-square"></i>
+															Modifica</a>
+													</li>
+													<li>
+														<a class="dropdown-item" href="{{ path('app_tinetti_delete', {'id': tinetti.id, '_token': csrf_token('delete' ~ tinetti.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+															<i class="bi bi-trash3"></i>Cancella</a>
+													</li>
+												</ul>
+											</div>
+										</p>
+									</td>
+								{% endfor %}
+							</tr>
+                        </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

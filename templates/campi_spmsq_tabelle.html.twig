@@ -1,0 +1,146 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+						<thead class="cf"></thead>
+						<thead>
+							<tr>
+								<td></td>
+								{% for s_p_m_s_q in spmsqs %}
+									<th data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : ''}}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>Che giorno è oggi?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.giornoOggi ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Che giorno della settimana è?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.giornoSettimana ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Come si chiama questo posto?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.posto ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Qual è il suo indirizzo?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.indirizzo ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Quanti anni ha?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.anni ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Quando è nato?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.dataNascita ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Chi è il Presidente della Repubblica?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.presidenteAttuale ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Chi era il Presidente precedente?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.presidentePrecedente ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Qual è il cognome da ragazza si sua madre?</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.cognomeMadre ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.sottrazione ? 'Risposta errata' : 'Risposta corretta'}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale errori</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{s_p_m_s_q.totale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th></th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td><br></td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Operatore</th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>{{ s_p_m_s_q.operatore.name }}
+										{{s_p_m_s_q.operatore.surname}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th></th>
+								{% for s_p_m_s_q in spmsqs %}
+									<td>
+										<p class="card-title" id="totale" style="border-bottom-style: none;">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+													Apri
+												</button>
+												<ul class="dropdown-menu">
+													<li>
+														<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_edit', {'id': s_p_m_s_q.id}) }}">
+															<i class="bi bi-pencil-square"></i>
+															Modifica</a>
+													</li>
+													<li>
+														<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_delete', {'id': s_p_m_s_q.id, '_token': csrf_token('delete' ~ s_p_m_s_q.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+															<i class="bi bi-trash3"></i>Cancella</a>
+													</li>
+												</ul>
+											</div>
+										</p>
+									</td>
+								{% endfor %}
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

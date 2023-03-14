@@ -1,0 +1,166 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+						<thead class="cf"></thead>
+						<thead>
+							<tr>
+								<td></td>
+								{% for barthel in barthels %}
+									<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('Y-m-d') : ''}}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>Alimentazione</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.alimentazione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Bagno Doccia</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.bagnoDoccia}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Igiene Personale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.igienePersonale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Abbigliamento</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.abbigliamento}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Continenza Intestinale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.continenzaIntestinale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Continenza Urinaria</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.continenzaUrinaria}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Toilet</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.toilet}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale Valutazione Funzionale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.totaleValutazioneFunzionale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Trasferimento Letto Sedia</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.trasferimentoLettoSedia}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Scale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.scale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Deambulazione</th>
+								{% for barthel in barthels %}
+									{% if barthel.deambulazione == true %}
+										<td>{{ barthel.deambulazioneValida}}</td>
+									{% else %}
+										<td>/</td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Uso carrozzina</th>
+								{% for barthel in barthels %}
+									{% if barthel.deambulazione == false %}
+										<td>{{ barthel.usoCarrozzina}}</td>
+									{% else %}
+										<td>/</td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.totale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th></th>
+								{% for barthel in barthels %}
+									<td><br></td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Operatore</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.operatore.name }}
+										{{barthel.operatore.surname}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th></th>
+								{% for barthel in barthels %}
+									<td>
+										<p class="card-title" id="totale" style="border-bottom-style: none;">
+											<div class="btn-group" role="group">
+												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+													Apri
+												</button>
+												<ul class="dropdown-menu">
+													<li>
+														<a class="dropdown-item" href="{{ path('app_barthel_edit', {'id': barthel.id}) }}">
+															<i class="bi bi-pencil-square"></i>
+															Modifica</a>
+													</li>
+													<li>
+														<a class="dropdown-item" href="{{ path('app_barthel_delete', {'id': barthel.id, '_token': csrf_token('delete' ~ barthel.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+															<i class="bi bi-trash3"></i>Cancella</a>
+													</li>
+												</ul>
+											</div>
+										</p>
+									</td>
+								{% endfor %}
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
