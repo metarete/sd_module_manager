@@ -167,12 +167,9 @@
 	{% if tinettis is empty %}
 		<h6>Nessuna scheda di valutazione tinetti</h6>
 	{% else %}
-		{% for tinetti in tinettis %}
-			{{ include('campi_tinetti.html.twig') }}
-			<div class="pb-2 mb-4"></div>
-		{% endfor %}
 		{{ include('campi_tinetti_tabelle.html.twig') }}
 	{% endif %}
+	<div class="pb-2 mb-4"></div>
 	<div class="h3 pb-2 mb-4 ">
 		<div class="row">
 			<div class="col col-lg-10">
@@ -190,11 +187,9 @@
 	{% if vass is empty %}
 		<h6>Nessuna scheda di valutazione vas</h6>
 	{% else %}
-		{% for va in vass %}
-			{{ include('campi_vas.html.twig') }}
-			<div class="pb-2 mb-4"></div>
-		{% endfor %}
+		{{ include('campi_vas_tabelle.html.twig')}}
 	{% endif %}
+	<div class="pb-2 mb-4"></div>
 	<div class="h3 pb-2 mb-4 ">
 		<div class="row">
 			<div class="col col-lg-10">
@@ -212,11 +207,9 @@
 	{% if lesionis is empty %}
 		<h6>Nessuna scheda di valutazione lesioni</h6>
 	{% else %}
-		{% for lesioni in lesionis %}
-			{{ include('campi_lesioni.html.twig') }}
-			<div class="pb-2 mb-4"></div>
-		{% endfor %}
+		{{ include('campi_lesioni_tabelle.html.twig') }}
 	{% endif %}
+	<div class="pb-2 mb-4"></div>
 	<div class="row">
 		<div class="col col-lg-10">
 			<div class="h3 pb-2 mb-4 ">

@@ -76,7 +76,7 @@
 				text-align: center;
 				line-height: 35px;
 			}
-			
+
 			figure.center {
 				margin: auto;
 				width: 60%;
@@ -96,8 +96,9 @@
 			}
 			.center {
 				margin: auto;
-				width: 20%;	
+				width: 20%;
 			}
+			
 		</style>
 	</head>
 	<body>
@@ -107,21 +108,27 @@
 
 			<header>
 				<div class="right">
-				{{scheda_pai.nomeProgetto}}
+					{{scheda_pai.nomeProgetto}}
 				</div>
 				<div class="left">
-				{{assistito.nome}} {{assistito.cognome}}
-				{{assistito.indirizzo}} {{assistito.comune}} {{assistito.provincia}}
+					{{assistito.nome}}
+					{{assistito.cognome}}
+					{{assistito.indirizzo}}
+					{{assistito.comune}}
+					{{assistito.provincia}}
 				</div>
 			</header>
+			
 			<footer>
+				
 				<div class="right">
-				<figure class="figure">
-					<img src="data:image/png;base64, {{image64}}" height="50px;">
-				</figure>
+					<figure class="figure">
+						<img src="data:image/png;base64, {{image64}}" height="50px;">
+					</figure>
 				</div>
 				<div class="left">
-				Coop Progetto Assistenza s.c.s.<br> 0375 203401
+					Coop Progetto Assistenza s.c.s.<br>
+					0375 203401
 				</div>
 			</footer>
 
@@ -133,6 +140,10 @@
 			<h3>Operatori principali e secondari</h3>
 
 			{{ include('campi_pdf/campi_scheda_pai_pdf.html.twig') }}
+
+			<h3>Caratteristiche Progetto</h3>
+
+			{{ include('campi_pdf/campi_progetto_pdf.html.twig') }}
 
 			<div style="page-break-before: always;"></div>
 
@@ -157,60 +168,60 @@
 			{% if barthels is empty %}
 				<h4>Nessuna scheda di valutazione barthel</h4>
 			{% else %}
-				{% for barthel in barthels %}
-					{{ include('campi_pdf/campi_barthel_pdf.html.twig') }}
-					<br>
-				{% endfor %}
+
+				{{ include('campi_pdf/campi_barthel_pdf.html.twig') }}
+				<br>
+
 			{% endif %}
 			<div style="page-break-before: always;"></div>
 			<h3>Braden</h3>
 			{% if bradens is empty %}
 				<h4>Nessuna scheda di valutazione braden</h4>
 			{% else %}
-				{% for braden in bradens %}
-					{{ include('campi_pdf/campi_braden_pdf.html.twig') }}
-					<br>
-				{% endfor %}
+
+				{{ include('campi_pdf/campi_braden_pdf.html.twig') }}
+				<br>
+
 			{% endif %}
 			<div style="page-break-before: always;"></div>
 			<h3>SPMSQ</h3>
 			{% if spmsqs is empty %}
 				<h4>Nessuna scheda di valutazione spmsq</h4>
 			{% else %}
-				{% for s_p_m_s_q in spmsqs %}
-					{{ include('campi_pdf/campi_spmsq_pdf.html.twig') }}
-					<br>
-				{% endfor %}
+
+				{{ include('campi_pdf/campi_spmsq_pdf.html.twig') }}
+				<br>
+
 			{% endif %}
 			<div style="page-break-before: always;"></div>
 			<h3>Tinetti</h3>
 			{% if tinettis is empty %}
 				<h4>Nessuna scheda di valutazione tinetti</h4>
 			{% else %}
-				{% for tinetti in tinettis %}
-					{{ include('campi_pdf/campi_tinetti_pdf.html.twig') }}
-					<br>
-				{% endfor %}
+
+				{{ include('campi_pdf/campi_tinetti_pdf.html.twig') }}
+				<br>
+
 			{% endif %}
 			<div style="page-break-before: always;"></div>
 			<h3>Vas</h3>
 			{% if vass is empty %}
 				<h4>Nessuna scheda di valutazione vas</h4>
 			{% else %}
-				{% for va in vass %}
-					{{ include('campi_pdf/campi_vas_pdf.html.twig') }}
-					<br>
-				{% endfor %}
+
+				{{ include('campi_pdf/campi_vas_pdf.html.twig') }}
+				<br>
+
 			{% endif %}
 			<div style="page-break-before: always;"></div>
 			<h3>Lesioni</h3>
 			{% if lesionis is empty %}
 				<h4>Nessuna scheda di valutazione lesioni</h4>
 			{% else %}
-				{% for lesioni in lesionis %}
-					{{ include('campi_pdf/campi_lesioni_pdf.html.twig') }}
-					<br>
-				{% endfor %}
+
+				{{ include('campi_pdf/campi_lesioni_pdf.html.twig') }}
+				<br>
+
 			{% endif %}
 			<div style="page-break-before: always;"></div>
 			<h3>Parere MMG</h3>

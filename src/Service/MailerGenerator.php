@@ -25,6 +25,7 @@ class MailerGenerator
             for ($i = 0; $i < count($schede); $i++) {
                 $riga = [
                     "id" => $schede[$i]->getId(),
+                    "nome_progetto" => $schede[$i]->getNomeProgetto(),
                     "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
                     "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
@@ -41,6 +42,7 @@ class MailerGenerator
             for ($i = 0; $i < count($schede); $i++) {
                 $riga = [
                     "id" => $schede[$i]->getId(),
+                    "nome_progetto" => $schede[$i]->getNomeProgetto(),
                     "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
                     "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
@@ -57,9 +59,11 @@ class MailerGenerator
             for ($i = 0; $i < count($schede); $i++) {
                 $riga = [
                     "id" => $schede[$i]->getId(),
+                    "nome_progetto" => $schede[$i]->getNomeProgetto(),
                     "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
                     "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "motivazione" => $schede[$i]->getIdChiusuraServizio()->getConclusioni(),
                     "stato" => $schede[$i]->getCurrentPlace(),
                     "link" => 'https://demo.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin'];
                 array_push($testo ,$riga);
@@ -71,7 +75,10 @@ class MailerGenerator
 
     public function EmailAdmin()
     {
-
+        $img = file_get_contents(
+            "/app/public//image/logoCoop.jpg"
+        );
+        $image64 = base64_encode($img);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $schedeNuove = $schedaPAIRepository->findByState('nuova');
@@ -111,7 +118,7 @@ class MailerGenerator
                         "schedeNuove" =>  $schedeNuove,
                         "schedeChiuse" => $schedeChiuse,
                         "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
-                        
+                        "image64" =>$image64,
                     ]);
 
 
@@ -122,6 +129,10 @@ class MailerGenerator
 
     public function EmailOperatore()
     {
+        $img = file_get_contents(
+            "/app/public//image/logoCoop.jpg"
+        );
+        $image64 = base64_encode($img);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $arraySchedeApprovate = $schedaPAIRepository->findByState('approvata');
@@ -152,6 +163,7 @@ class MailerGenerator
                     $flagSchedaApprovata = true;
                     $riga = [
                         "id" => $arraySchedeApprovate[$j]->getId(),
+                        "nome_progetto" => $arraySchedeApprovate[$j]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeApprovate[$j]->getDataInizio()->format('d-m-Y'),
                         "data_fine" => $arraySchedeApprovate[$j]->getDataFine()->format('d-m-Y'),
                         "assistito" => $arraySchedeApprovate[$j]->getNomeAssistito() . "  " . $arraySchedeApprovate[$j]->getCognomeAssistito(),
@@ -191,6 +203,7 @@ class MailerGenerator
                         $valore = count($idOperatoriTotali) - $numeroValutazioneProfessionali;
                         $riga = [
                             "id" => $arraySchedeAttive[$t]->getId(),
+                            "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
                             "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d-m-Y'),
                             "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d-m-Y'),
                             "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
@@ -200,6 +213,7 @@ class MailerGenerator
                     }
 
                     $riga = [ 
+                        "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d-m-Y'),
                         "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d-m-Y'),
                         "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
@@ -261,6 +275,7 @@ class MailerGenerator
                     $flagSchedeDaChiudere = true;
                     $riga = [
                         "id" => $arraySchedeInAttesaDiChiusura[$z]->getId(),
+                        "nome_progetto" => $arraySchedeInAttesaDiChiusura[$z]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeInAttesaDiChiusura[$z]->getDataInizio()->format('d-m-Y'),
                         "data_fine" => $arraySchedeInAttesaDiChiusura[$z]->getDataFine()->format('d-m-Y'),
                         "assistito" => $arraySchedeInAttesaDiChiusura[$z]->getNomeAssistito() . "  " . $arraySchedeInAttesaDiChiusura[$z]->getCognomeAssistito(),
@@ -311,7 +326,7 @@ class MailerGenerator
                         'descrizioneSchedeDaChiudere' => $descrizioneSchedeDaChiudere,
                         'testoAttiva1' => $testoAttiva1,
                         'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
-                        
+                        "image64" =>$image64,
                     ]);
 
 

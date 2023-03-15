@@ -250,6 +250,15 @@ body #scheda_pai table tr td {
 #tabella-index-scheda-pai .dropdown-menu {
     padding-bottom: 40px;
 }
+//stile tabelle in visualizza scheda pai
+#tabella-index-scale-scheda-pai tbody tr {
+    border-color: black;
+    border-style: solid;
+    border-width: initial;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
 
 //filtro dark mode
 html.dark-mode {
@@ -385,5 +394,13 @@ html.dark-mode {
     .form-control {
         color: white;
         background-color: #31363c;
+    }
+    #tabella-index-scale-scheda-pai tbody tr {
+        border-color: white;
+        border-style: solid;
+        border-width: initial;
+        border-bottom-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
     }
 }

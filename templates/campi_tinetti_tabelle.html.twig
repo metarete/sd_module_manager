@@ -22,14 +22,14 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
 						<thead class="cf"></thead>
                         
 						<thead>
                             <tr>
                                 <th><h3>Equilibrio</h3></th>
 								{% for tinetti in tinettis %}                                  
-									<th data-title='Data Valutazione'>{{tinetti.dataValutazione ? tinetti.dataValutazione|date('Y-m-d') : ''}}</th>
+									<th data-title='Data Valutazione'>{{tinetti.dataValutazione ? tinetti.dataValutazione|date('d-m-Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>
@@ -97,13 +97,94 @@
                             <tr>
 								<th>Totale Equilibrio</th>
 								{% for tinetti in tinettis %}
-									<td>{{ tinetti.totaleEquilibrio}}/16</td>
+									<td><strong>{{ tinetti.totaleEquilibrio}}/16</td>
 								{% endfor %}
 							</tr>
-                            <tr>
+							<tr>
+								<th><br></th>
+							</tr>
+							<tr>
+								<th><h3>Andatura</h3></th>
+								{% for tinetti in tinettis %}
+									<td><br></td>
+								{% endfor %}
+							</tr>
+							 <tr>
+								<th>Inizio della deambulazione immediatamente dopo il via</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.inizioDeambulazione}}</td>
+								{% endfor %}
+							</tr>
+							 <tr>
+								<th>Lunghezza passo piede destro</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.piedeDx}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Altezza passo piede destro</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.piedeDx2}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Lunghezza passo piede sinistro</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.piedeSx}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Altezza passo piede sinistro</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.piedeSx2}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Simmetria del passo</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.simmetriaPasso}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Continuità passo</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.continuitaPasso}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Traiettoria</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.traiettoria}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Tronco</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.tronco}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Cammino</th>
+								{% for tinetti in tinettis %}
+									<td>{{ tinetti.cammino}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale andatura</th>
+								{% for tinetti in tinettis %}
+									<td><strong>{{ tinetti.totaleAndatura}}/12</td>
+								{% endfor %}
+							</tr>
+							<tr>
 								<th></th>
 								{% for tinetti in tinettis %}
 									<td><br></td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale</th>
+								{% for tinetti in tinettis %}
+									<td><strong>{{ tinetti.totale}}/28</td>
 								{% endfor %}
 							</tr>
 							<tr>

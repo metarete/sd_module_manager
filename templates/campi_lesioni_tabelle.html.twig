@@ -24,73 +24,74 @@
 				<div class="row">
 					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
 						<thead class="cf"></thead>
+
 						<thead>
 							<tr>
-								<td></td>
-								{% for braden in bradens %}
-									<th data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</th>
+								<th></th>
+								{% for lesioni in lesionis %}
+									<th data-title='Data Valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th>Percezione Sensoriale</th>
-								{% for braden in bradens %}
-									<td>{{ braden.percezioneSensoriale}}</td>
+                            <tr>
+								<th>Tipologia Lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.tipologiaLesione}}</td>
 								{% endfor %}
 							</tr>
-							<tr>
-								<th>Umidità</th>
-								{% for braden in bradens %}
-									<td>{{ braden.umidita}}</td>
+                            <tr>
+								<th>Numero sede lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.numeroSedeLesione}}</td>
 								{% endfor %}
 							</tr>
-							<tr>
-								<th>Attività</th>
-								{% for braden in bradens %}
-									<td>{{ braden.attivita}}</td>
+                            <tr>
+								<th>Grado lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.gradoLesione}}</td>
 								{% endfor %}
 							</tr>
-							<tr>
-								<th>Mobilità</th>
-								{% for braden in bradens %}
-									<td>{{ braden.mobilita}}</td>
+                            <tr>
+								<th>Condizione lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.condizioneLesione}}</td>
 								{% endfor %}
 							</tr>
-							<tr>
-								<th>Nutrizione</th>
-								{% for braden in bradens %}
-									<td>{{ braden.nutrizione}}</td>
+                            <tr>
+								<th>Bordi lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.bordiLesione}}</td>
 								{% endfor %}
 							</tr>
-							<tr>
-								<th>Frizione Scivolamento</th>
-								{% for braden in bradens %}
-									<td>{{ braden.frizioneScivolamento}}</td>
+                            <tr>
+								<th>Cute perilesionale</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.cutePerilesionale}}</td>
 								{% endfor %}
 							</tr>
-							<tr>
-								<th>Totale</th>
-								{% for braden in bradens %}
-									<td><strong>{{ braden.totale}}</td>
+                            <tr>
+								<th>Note sulla lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.noteSullaLesione}}</td>
 								{% endfor %}
 							</tr>
 							<tr>
 								<th></th>
-								{% for braden in bradens %}
+								{% for lesioni in lesionis %}
 									<td><br></td>
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Operatore</th>
-								{% for braden in bradens %}
-									<td>{{ braden.operatore.name }}
-										{{braden.operatore.surname}}</td>
+								{% for lesioni in lesionis %}
+									<td>{{ lesioni.operatore.name }}
+										{{lesioni.operatore.surname}}</td>
 								{% endfor %}
 							</tr>
 							<tr>
 								<th></th>
-								{% for braden in bradens %}
+								{% for lesioni in lesionis %}
 									<td>
 										<p class="card-title" id="totale" style="border-bottom-style: none;">
 											<div class="btn-group" role="group">
@@ -99,12 +100,12 @@
 												</button>
 												<ul class="dropdown-menu">
 													<li>
-														<a class="dropdown-item" href="{{ path('app_form_pai_braden_edit', {'id': braden.id}) }}">
+														<a class="dropdown-item" href="{{ path('app_lesioni_edit', {'id': lesioni.id}) }}">
 															<i class="bi bi-pencil-square"></i>
 															Modifica</a>
 													</li>
 													<li>
-														<a class="dropdown-item" href="{{ path('app_form_pai_braden_delete', {'id': braden.id, '_token': csrf_token('delete' ~ braden.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+														<a class="dropdown-item" href="{{ path('app_lesioni_delete', {'id': lesioni.id, '_token': csrf_token('delete' ~ lesioni.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
 															<i class="bi bi-trash3"></i>Cancella</a>
 													</li>
 												</ul>

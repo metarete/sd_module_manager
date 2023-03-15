@@ -1,150 +1,143 @@
-<table class="col-sm-12">
-	<thead class="cf"></thead>
-	<tbody>
-		<tr>
-			<th>
-				Operatore
-			</th>
-
-			<td>
-				{{ barthel.operatore.name }}
-				{{barthel.operatore.surname}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Data di valutazione
-			</th>
-
-			<td>
-				{{ barthel.dataValutazione ? barthel.dataValutazione|date('Y-m-d') : '' }}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Alimentazione
-			</th>
-
-			<td>
-				{{ barthel.alimentazione}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Bagno Doccia
-			</th>
-
-			<td>
-				{{ barthel.bagnoDoccia}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Igiene Personale
-			</th>
-
-			<td>
-				{{ barthel.igienePersonale}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Abbigliamento
-			</th>
-
-			<td>
-				{{ barthel.abbigliamento}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Continenza Intestinale
-			</th>
-
-			<td>
-				{{ barthel.continenzaIntestinale}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Continenza Urinaria
-			</th>
-
-			<td>
-				{{ barthel.continenzaUrinaria}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Toilet
-			</th>
-
-			<td>
-				{{ barthel.toilet}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Totale Valutazione Funzionale
-			</th>
-
-			<td>
-				{{ barthel.totaleValutazioneFunzionale}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Trasferimento Letto Sedia
-			</th>
-			<td>
-				{{ barthel.trasferimentoLettoSedia}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Scale
-			</th>
-
-			<td>
-				{{ barthel.scale}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Deambulazione
-			</th>
-
-			<td>
-				{{ barthel.deambulazione ? 'Si' : 'No' }}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Deambulazione Valida
-			</th>
-
-			<td>
-				{{ barthel.deambulazioneValida}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Uso Carrozzina
-			</th>
-
-			<td>
-				{{ barthel.usoCarrozzina}}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Totale
-			</th>
-
-			<td>
-				{{ barthel.totale}}
-			</td>
-		</tr>
-
-	</tbody>
-</table>
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+			
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+						<thead class="cf"></thead>
+						<thead>
+							<tr>
+								<td></td>
+								{% for barthel in barthels %}
+									<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>Alimentazione</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.alimentazione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Bagno Doccia</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.bagnoDoccia}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Igiene Personale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.igienePersonale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Abbigliamento</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.abbigliamento}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Continenza Intestinale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.continenzaIntestinale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Continenza Urinaria</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.continenzaUrinaria}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Toilet</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.toilet}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale Valutazione Funzionale</th>
+								{% for barthel in barthels %}
+									<td><strong>{{ barthel.totaleValutazioneFunzionale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Trasferimento Letto Sedia</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.trasferimentoLettoSedia}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Scale</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.scale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Deambulazione</th>
+								{% for barthel in barthels %}
+									{% if barthel.deambulazione == true %}
+										<td>{{ barthel.deambulazioneValida}}</td>
+									{% else %}
+										<td>/</td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Uso carrozzina</th>
+								{% for barthel in barthels %}
+									{% if barthel.deambulazione == false %}
+										<td>{{ barthel.usoCarrozzina}}</td>
+									{% else %}
+										<td>/</td>
+									{% endif %}
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale</th>
+								{% for barthel in barthels %}
+									<td><strong>{{ barthel.totale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th></th>
+								{% for barthel in barthels %}
+									<td><br></td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Operatore</th>
+								{% for barthel in barthels %}
+									<td>{{ barthel.operatore.name }}
+										{{barthel.operatore.surname}}</td>
+								{% endfor %}
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

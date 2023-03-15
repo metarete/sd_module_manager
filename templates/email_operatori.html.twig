@@ -16,7 +16,7 @@
 			.tabella {
 				font-family: Arial, Helvetica, sans-serif;
 				border-collapse: collapse;
-
+				width: 100%;
 
 			}
 
@@ -24,6 +24,8 @@
 			.tabella th {
 				border: 1px solid #ddd;
 				padding: 8px;
+				width: 50%;
+				font-size: x-large
 			}
 
 			.tabella tr:nth-child(even) {
@@ -37,14 +39,43 @@
 			.tabella th {
 				padding: 12px 50px;
 				text-align: left;
-				background-color: #04AA6D;
+				background-color: #31363c;
+				color: white;
+			}
+			.blog-footer {
+				padding: 2.5rem;
+				color: white;
+				text-align: center;
+				background-color: #31363c;
+				border-top: 0.05rem solid #e5e5e5;
+				display: flex;
+			}
+			.blog-footer .left {
+				flex: 1;
+				text-align: left;
+				padding: 10px;
+				background-color: #31363c;
+			}
+			.blog-footer .right {
+				padding-right: 10px;
+				background-color: #31363c;
+			}
+			.navbar-mobile {
+				display: flex;
+				background-color: #31363c;
+				min-height: var(--ct-topbar-height);
+				margin-left: var(--ct-leftbar-width);
 				color: white;
 			}
 		</style>
 	</head>
 	<body>
 		<div>
-			<h1>Module Manager</h1>
+			<nav class="navbar navbar-mobile">
+				<ul class="nav row-1 cols-12 gap-3">
+					<a style="font-size:60px;padding-left:15px;">Module Manager</a>
+				</ul>
+			</nav>
 			{% if testoApprovata1 != '' %}
 				<h3>{{testoApprovata1}}<br></h3>
 				<h3>Schede Pai da attivare:
@@ -53,6 +84,10 @@
 					{% for d in descrizioneSchedeApprovate %}
 						<br>
 						<table class='tabella'>
+							<tr>
+								<th>Nome Progetto</th>
+								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
+							</tr>
 							<tr>
 								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
@@ -95,6 +130,10 @@
 					{% for d in descrizioneRitardi %}
 						<br>
 						<table class='tabella'>
+							<tr>
+								<th>Nome Progetto</th>
+								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
+							</tr>
 							<tr>
 								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
@@ -140,9 +179,13 @@
 				<h3>Schede pai di progetti scaduti in attesa di chisura:
 					<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-				{% for d in descrizioneSchedeDaChiudere %}
+					{% for d in descrizioneSchedeDaChiudere %}
 						<br>
 						<table class='tabella'>
+							<tr>
+								<th>Nome Progetto</th>
+								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
+							</tr>
 							<tr>
 								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
@@ -159,7 +202,7 @@
 								<th>Stato</th>
 								<td data-title='Stato'>In Attesa Di Chiusura</td>
 							</tr>
-							
+
 							<tr>
 								<th>Chiudi</th>
 								<td data-title='Chiudi'>
@@ -175,9 +218,13 @@
 				<h3>{{testoAttiva1}}<br></h3>
 				<h3>Schede con valutazioni professionali mancanti:<br></h3>
 				<div style="overflow-x: auto; padding: 10px">
-				{% for d in descrizioneValutazioneProfessionale %}
+					{% for d in descrizioneValutazioneProfessionale %}
 						<br>
 						<table class='tabella'>
+							<tr>
+								<th>Nome Progetto</th>
+								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
+							</tr>
 							<tr>
 								<th>Data Inizio</th>
 								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
@@ -200,7 +247,7 @@
 									<a href="http://localhost:54001/valutazione_figura_professionale/app_scadenzario_index/new?id_pai={{d.id}}">compila</a>
 								</td>
 							</tr>
-							
+
 						</table>
 					{% endfor %}
 				</div>
@@ -214,10 +261,21 @@
 
 		{% block foot %}
 
-			<div class="pb-2 mb-4"></div>
-			<h3 class="text-light">Contatti e descrizione</h3>
-			<div class="pb-2 mb-4"></div>
+			<footer class="blog-footer">
+				<div class="left">
+					<br>
+					Module Manager è un servizio di Metarete Srl<br>
+					<a href="" style="color:white;">Privacy</a>
+					<a href="" style="color:white;">Cookie</a>
+					<a href="" style="color:white;">About</a>
+				</div>
+				<div class="right">
+					<figure class="figure">
+						<img src="data:image/png;base64, {{image64}}" height="80px;">
+					</figure>
+				</div>
+			</footer>
 
 		{% endblock %}
 	</body>
-</html></div></body></html>
+</html>

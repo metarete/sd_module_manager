@@ -22,13 +22,13 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
 						<thead class="cf"></thead>
 						<thead>
 							<tr>
 								<td></td>
 								{% for s_p_m_s_q in spmsqs %}
-									<th data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('Y-m-d') : ''}}</th>
+									<th data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>
@@ -36,67 +36,107 @@
 							<tr>
 								<th>Che giorno è oggi?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.giornoOggi ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.giornoOggi == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Che giorno della settimana è?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.giornoSettimana ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.giornoSettimana == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Come si chiama questo posto?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.posto ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.posto == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Qual è il suo indirizzo?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.indirizzo ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.indirizzo == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Quanti anni ha?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.anni ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.anni == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Quando è nato?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.dataNascita ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.dataNascita == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Chi è il Presidente della Repubblica?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.presidenteAttuale ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.presidenteAttuale == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Chi era il Presidente precedente?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.presidentePrecedente ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.presidentePrecedente == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Qual è il cognome da ragazza si sua madre?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.cognomeMadre ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.cognomeMadre == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.sottrazione ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.sottrazione == false %}
+										<td><i class="bi bi-check-circle-fill" style="color:green"></i></td>
+									{% else %}
+										<td><i class="bi bi-x-circle-fill" style="color:red"></i></td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Totale errori</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{s_p_m_s_q.totale}}</td>
+									<td><strong>{{s_p_m_s_q.totale}}</td>
 								{% endfor %}
 							</tr>
 							<tr>

@@ -10,6 +10,7 @@
 		}
 		.card-text {
 			border-bottom-style: solid;
+			
 		}
 		.card-title {
 			border-bottom-style: solid;
@@ -22,13 +23,13 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
 						<thead class="cf"></thead>
 						<thead>
 							<tr>
 								<td></td>
 								{% for barthel in barthels %}
-									<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('Y-m-d') : ''}}</th>
+									<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>
@@ -78,7 +79,7 @@
 							<tr>
 								<th>Totale Valutazione Funzionale</th>
 								{% for barthel in barthels %}
-									<td>{{ barthel.totaleValutazioneFunzionale}}</td>
+									<td><strong>{{ barthel.totaleValutazioneFunzionale}}</td>
 								{% endfor %}
 							</tr>
 							<tr>
@@ -116,7 +117,7 @@
 							<tr>
 								<th>Totale</th>
 								{% for barthel in barthels %}
-									<td>{{ barthel.totale}}</td>
+									<td><strong>{{ barthel.totale}}</td>
 								{% endfor %}
 							</tr>
 							<tr>
