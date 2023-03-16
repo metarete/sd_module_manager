@@ -10,7 +10,7 @@
 		}
 		.card-text {
 			border-bottom-style: solid;
-			
+
 		}
 		.card-title {
 			border-bottom-style: solid;
@@ -18,148 +18,347 @@
 		}
 	</style>
 {% endblock %}
-<div class="container-fluid text-center">
-	<div class="row">
-		<div class="card">
-			<div class="card-body">
-				<div class="row">
-					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
-						<thead class="cf"></thead>
-						<thead>
-							<tr>
-								<td></td>
+<div class="visualizzazione-desktop">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+								<tr>
+									<td></td>
+									{% for barthel in barthels %}
+										<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</th>
+									{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Alimentazione</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.alimentazione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Bagno Doccia</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.bagnoDoccia}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Igiene Personale</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.igienePersonale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Abbigliamento</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.abbigliamento}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Continenza Intestinale</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.continenzaIntestinale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Continenza Urinaria</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.continenzaUrinaria}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Toilet</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.toilet}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Totale Valutazione Funzionale</th>
+									{% for barthel in barthels %}
+										<td>
+											<strong>{{ barthel.totaleValutazioneFunzionale}}</td>
+										{% endfor %}
+									</tr>
+								</tr>
+								<tr>
+									<th>Trasferimento Letto Sedia</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.trasferimentoLettoSedia}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Scale</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.scale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Deambulazione</th>
+									{% for barthel in barthels %}
+										{% if barthel.deambulazione == true %}
+											<td>{{ barthel.deambulazioneValida}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Uso carrozzina</th>
+									{% for barthel in barthels %}
+										{% if barthel.deambulazione == false %}
+											<td>{{ barthel.usoCarrozzina}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Totale</th>
+									{% for barthel in barthels %}
+										<td>
+											<strong>{{ barthel.totale}}/100</td>
+										{% endfor %}
+									</tr>
+								</tr>
+								<tr>
+									<th></th>
+									{% for barthel in barthels %}
+										<td><br></td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Operatore</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.operatore.name }}
+											{{barthel.operatore.surname}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th></th>
+									{% for barthel in barthels %}
+										<td>
+											<p class="card-title" id="totale" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_barthel_edit', {'id': barthel.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_barthel_delete', {'id': barthel.id, '_token': csrf_token('delete' ~ barthel.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</td>
+									{% endfor %}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="visualizzazione-mobile">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Alimentazione</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</th>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.alimentazione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>Alimentazione</th>
+								<tr>
+									<th>Bagno Doccia</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.alimentazione}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.bagnoDoccia}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Bagno Doccia</th>
+								<tr>
+									<th>Igiene Personale</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.bagnoDoccia}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.igienePersonale}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Igiene Personale</th>
+								<tr>
+									<th>Abbigliamento</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.igienePersonale}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.abbigliamento}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Abbigliamento</th>
+								<tr>
+									<th>Continenza Intestinale</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.abbigliamento}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.continenzaIntestinale}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Continenza Intestinale</th>
+								<tr>
+									<th>Continenza Urinaria</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.continenzaIntestinale}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.continenzaUrinaria}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Continenza Urinaria</th>
+								<tr>
+									<th>Toilet</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.continenzaUrinaria}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.toilet}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Toilet</th>
+								<tr>
+									<th>Totale Valutazione Funzionale</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.toilet}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<th>{{ barthel.totaleValutazioneFunzionale}}</th>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Totale Valutazione Funzionale</th>
+								<tr>
+									<th>Trasferimento Letto Sedia</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td><strong>{{ barthel.totaleValutazioneFunzionale}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.trasferimentoLettoSedia}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Trasferimento Letto Sedia</th>
+								<tr>
+									<th>Scale</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.trasferimentoLettoSedia}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ barthel.scale}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Scale</th>
+								<tr>
+									<th>Deambulazione</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td>{{ barthel.scale}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										{% if barthel.deambulazione == true %}
+											<td>{{ barthel.deambulazioneValida}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+										
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Deambulazione</th>
+								<tr>
+									<th>Uso carrozzina</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									{% if barthel.deambulazione == true %}
-										<td>{{ barthel.deambulazioneValida}}</td>
-									{% else %}
-										<td>/</td>
-									{% endif %}
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										{% if barthel.deambulazione == false %}
+											<td>{{ barthel.usoCarrozzina}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+										
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Uso carrozzina</th>
+								<tr>
+									<th>Totale</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									{% if barthel.deambulazione == false %}
-										<td>{{ barthel.usoCarrozzina}}</td>
-									{% else %}
-										<td>/</td>
-									{% endif %}
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<th>{{ barthel.totale}}/100</th>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Totale</th>
+								<tr>
+									<th>Operatore</th>
+									<td></td>
+								</tr>
 								{% for barthel in barthels %}
-									<td><strong>{{ barthel.totale}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<th>{{ barthel.operatore.name }}
+											{{barthel.operatore.surname}}
+											<br>
+											<p class="card-title" id="totale" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_barthel_edit', {'id': barthel.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_barthel_delete', {'id': barthel.id, '_token': csrf_token('delete' ~ barthel.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</th>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th></th>
-								{% for barthel in barthels %}
-									<td><br></td>
-								{% endfor %}
-							</tr>
-							<tr>
-								<th>Operatore</th>
-								{% for barthel in barthels %}
-									<td>{{ barthel.operatore.name }}
-										{{barthel.operatore.surname}}</td>
-								{% endfor %}
-							</tr>
-							<tr>
-								<th></th>
-								{% for barthel in barthels %}
-									<td>
-										<p class="card-title" id="totale" style="border-bottom-style: none;">
-											<div class="btn-group" role="group">
-												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-													Apri
-												</button>
-												<ul class="dropdown-menu">
-													<li>
-														<a class="dropdown-item" href="{{ path('app_barthel_edit', {'id': barthel.id}) }}">
-															<i class="bi bi-pencil-square"></i>
-															Modifica</a>
-													</li>
-													<li>
-														<a class="dropdown-item" href="{{ path('app_barthel_delete', {'id': barthel.id, '_token': csrf_token('delete' ~ barthel.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-															<i class="bi bi-trash3"></i>Cancella</a>
-													</li>
-												</ul>
-											</div>
-										</p>
-									</td>
-								{% endfor %}
-							</tr>
-						</tbody>
-					</table>
+							</tbody>
+
+
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

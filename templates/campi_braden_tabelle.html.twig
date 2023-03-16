@@ -17,104 +17,229 @@
 		}
 	</style>
 {% endblock %}
-<div class="container-fluid text-center">
-	<div class="row">
-		<div class="card">
-			<div class="card-body">
-				<div class="row">
-					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
-						<thead class="cf"></thead>
-						<thead>
-							<tr>
-								<td></td>
+
+<div class="visualizzazione-desktop">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+								<tr>
+									<td></td>
+									{% for braden in bradens %}
+										<th data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</th>
+									{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Percezione Sensoriale</th>
+									{% for braden in bradens %}
+										<td>{{ braden.percezioneSensoriale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Umidità</th>
+									{% for braden in bradens %}
+										<td>{{ braden.umidita}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Attività</th>
+									{% for braden in bradens %}
+										<td>{{ braden.attivita}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Mobilità</th>
+									{% for braden in bradens %}
+										<td>{{ braden.mobilita}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Nutrizione</th>
+									{% for braden in bradens %}
+										<td>{{ braden.nutrizione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Frizione Scivolamento</th>
+									{% for braden in bradens %}
+										<td>{{ braden.frizioneScivolamento}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Totale</th>
+									{% for braden in bradens %}
+										<td>
+											<strong>{{ braden.totale}}</td>
+										{% endfor %}
+									</tr>
+								</tr>
+								<tr>
+									<th></th>
+									{% for braden in bradens %}
+										<td><br></td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Operatore</th>
+									{% for braden in bradens %}
+										<td>{{ braden.operatore.name }}
+											{{braden.operatore.surname}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th></th>
+									{% for braden in bradens %}
+										<td>
+											<p class="card-title" id="totale" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_form_pai_braden_edit', {'id': braden.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_form_pai_braden_delete', {'id': braden.id, '_token': csrf_token('delete' ~ braden.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</td>
+									{% endfor %}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="visualizzazione-mobile">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead></thead>
+							<tbody>
+								<tr>
+									<th>Percezione Sensoriale</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<th data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</th>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ braden.percezioneSensoriale}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>Percezione Sensoriale</th>
+								<tr>
+									<th>Umidità</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<td>{{ braden.percezioneSensoriale}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ braden.umidita}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Umidità</th>
+								<tr>
+									<th>Attività</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<td>{{ braden.umidita}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ braden.attivita}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Attività</th>
+								<tr>
+									<th>Mobilità</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<td>{{ braden.attivita}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ braden.mobilita}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Mobilità</th>
+								<tr>
+									<th>Nutrizione</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<td>{{ braden.mobilita}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ braden.nutrizione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Nutrizione</th>
+								<tr>
+									<th>Frizione e Scivolamento</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<td>{{ braden.nutrizione}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td>{{ braden.frizioneScivolamento}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Frizione Scivolamento</th>
+								<tr>
+									<th>Totale</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<td>{{ braden.frizioneScivolamento}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<th>{{ braden.totale}}</th>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th>Totale</th>
+								<tr>
+									<th>Operatore</th>
+									<td></td>
+								</tr>
 								{% for braden in bradens %}
-									<td><strong>{{ braden.totale}}</td>
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<th>{{ braden.operatore.name }}
+											{{braden.operatore.surname}}
+											<br>
+											<p class="card-title" id="totale" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_form_pai_braden_edit', {'id': braden.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_form_pai_braden_delete', {'id': braden.id, '_token': csrf_token('delete' ~ braden.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</th>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th></th>
-								{% for braden in bradens %}
-									<td><br></td>
-								{% endfor %}
-							</tr>
-							<tr>
-								<th>Operatore</th>
-								{% for braden in bradens %}
-									<td>{{ braden.operatore.name }}
-										{{braden.operatore.surname}}</td>
-								{% endfor %}
-							</tr>
-							<tr>
-								<th></th>
-								{% for braden in bradens %}
-									<td>
-										<p class="card-title" id="totale" style="border-bottom-style: none;">
-											<div class="btn-group" role="group">
-												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-													Apri
-												</button>
-												<ul class="dropdown-menu">
-													<li>
-														<a class="dropdown-item" href="{{ path('app_form_pai_braden_edit', {'id': braden.id}) }}">
-															<i class="bi bi-pencil-square"></i>
-															Modifica</a>
-													</li>
-													<li>
-														<a class="dropdown-item" href="{{ path('app_form_pai_braden_delete', {'id': braden.id, '_token': csrf_token('delete' ~ braden.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-															<i class="bi bi-trash3"></i>Cancella</a>
-													</li>
-												</ul>
-											</div>
-										</p>
-									</td>
-								{% endfor %}
-							</tr>
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

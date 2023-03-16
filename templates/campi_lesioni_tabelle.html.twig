@@ -17,105 +17,227 @@
 		}
 	</style>
 {% endblock %}
-<div class="container-fluid text-center">
-	<div class="row">
-		<div class="card">
-			<div class="card-body">
-				<div class="row">
-					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
-						<thead class="cf"></thead>
+<div class="visualizzazione-desktop">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
 
-						<thead>
-							<tr>
-								<th></th>
+							<thead>
+								<tr>
+									<th></th>
+									{% for lesioni in lesionis %}
+										<th data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</th>
+									{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Tipologia Lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.tipologiaLesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Numero sede lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.numeroSedeLesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Grado lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.gradoLesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Condizione lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.condizioneLesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Bordi lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.bordiLesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Cute perilesionale</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.cutePerilesionale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Note sulla lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.noteSullaLesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th></th>
+									{% for lesioni in lesionis %}
+										<td><br></td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Operatore</th>
+									{% for lesioni in lesionis %}
+										<td>{{ lesioni.operatore.name }}
+											{{lesioni.operatore.surname}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th></th>
+									{% for lesioni in lesionis %}
+										<td>
+											<p class="card-title" id="totale" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_lesioni_edit', {'id': lesioni.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_lesioni_delete', {'id': lesioni.id, '_token': csrf_token('delete' ~ lesioni.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</td>
+									{% endfor %}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="visualizzazione-mobile">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead></thead>
+							<tbody>
+								<tr>
+									<th>Tipologia lesione</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<th data-title='Data Valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</th>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td>{{lesioni.tipologiaLesione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-						</thead>
-						<tbody>
-                            <tr>
-								<th>Tipologia Lesione</th>
+								<tr>
+									<th>Numero sede lesione</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.tipologiaLesione}}</td>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td>{{lesioni.numeroSedeLesione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-                            <tr>
-								<th>Numero sede lesione</th>
+								<tr>
+									<th>Grado lesione</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.numeroSedeLesione}}</td>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td>{{lesioni.gradoLesione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-                            <tr>
-								<th>Grado lesione</th>
+								<tr>
+									<th>Condizione lesione</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.gradoLesione}}</td>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td>{{lesioni.condizioneLesione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-                            <tr>
-								<th>Condizione lesione</th>
+								<tr>
+									<th>Bordi lesione</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.condizioneLesione}}</td>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td>{{lesioni.bordiLesione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-                            <tr>
-								<th>Bordi lesione</th>
+								<tr>
+									<th>Cute perilesionale</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.bordiLesione}}</td>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td>{{lesioni.cutePerilesionale}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-                            <tr>
-								<th>Cute perilesionale</th>
+								<tr>
+									<th>Note sulla lesione</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.cutePerilesionale}}</td>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td>{{lesioni.noteSullaLesione}}</td>
+									</tr>
 								{% endfor %}
-							</tr>
-                            <tr>
-								<th>Note sulla lesione</th>
+								<tr>
+									<th>Operatore</th>
+									<td></td>
+								</tr>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.noteSullaLesione}}</td>
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<th>{{ lesioni.operatore.name }}
+											{{lesioni.operatore.surname}}
+											<br>
+											<p class="card-title" id="totale" style="border-bottom-style: none;">
+												<div class="btn-group" role="group">
+													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+														Apri
+													</button>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="{{ path('app_lesioni_edit', {'id': lesioni.id}) }}">
+																<i class="bi bi-pencil-square"></i>
+																Modifica</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="{{ path('app_lesioni_delete', {'id': lesioni.id, '_token': csrf_token('delete' ~ lesioni.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+																<i class="bi bi-trash3"></i>Cancella</a>
+														</li>
+													</ul>
+												</div>
+											</p>
+										</th>
+									</tr>
 								{% endfor %}
-							</tr>
-							<tr>
-								<th></th>
-								{% for lesioni in lesionis %}
-									<td><br></td>
-								{% endfor %}
-							</tr>
-							<tr>
-								<th>Operatore</th>
-								{% for lesioni in lesionis %}
-									<td>{{ lesioni.operatore.name }}
-										{{lesioni.operatore.surname}}</td>
-								{% endfor %}
-							</tr>
-							<tr>
-								<th></th>
-								{% for lesioni in lesionis %}
-									<td>
-										<p class="card-title" id="totale" style="border-bottom-style: none;">
-											<div class="btn-group" role="group">
-												<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-													Apri
-												</button>
-												<ul class="dropdown-menu">
-													<li>
-														<a class="dropdown-item" href="{{ path('app_lesioni_edit', {'id': lesioni.id}) }}">
-															<i class="bi bi-pencil-square"></i>
-															Modifica</a>
-													</li>
-													<li>
-														<a class="dropdown-item" href="{{ path('app_lesioni_delete', {'id': lesioni.id, '_token': csrf_token('delete' ~ lesioni.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-															<i class="bi bi-trash3"></i>Cancella</a>
-													</li>
-												</ul>
-											</div>
-										</p>
-									</td>
-								{% endfor %}
-							</tr>
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
