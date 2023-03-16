@@ -107,13 +107,13 @@
 							<tr>
 								<th>Configura</th>
 								<td data-title='Configura'>
-									<a href="http://localhost:54001/scheda_pai/app_scadenzario_index/{{d.id}}/edit">configura</a>
+									<a href="{{url}}/scheda_pai/app_scadenzario_index/{{d.id}}/edit">configura</a>
 								</td>
 							</tr>
 							<tr>
 								<th>Compila Valutazione Generale</th>
 								<td data-title='Valutazione generale'>
-									<a href='http://localhost:54001/valutazione_generale/app_scadenzario_index/new?id_pai={{d.id}}'>compila_valutazione</a>
+									<a href='{{url}}/valutazione_generale/app_scadenzario_index/new?id_pai={{d.id}}'>compila_valutazione</a>
 								</td>
 
 							</tr>
@@ -206,7 +206,7 @@
 							<tr>
 								<th>Chiudi</th>
 								<td data-title='Chiudi'>
-									<a href="http://localhost:54001/scheda_pai/app_scadenzario_index/chiusura_scheda/{{d.id}}">chiudi</a>
+									<a href="{{url}}/scheda_pai/app_scadenzario_index/chiusura_scheda/{{d.id}}">chiudi</a>
 								</td>
 							</tr>
 						</table>
@@ -244,7 +244,7 @@
 							<tr>
 								<th>Compila Valutazione Professionale</th>
 								<td data-title='Compila Valutazione Professionale'>
-									<a href="http://localhost:54001/valutazione_figura_professionale/app_scadenzario_index/new?id_pai={{d.id}}">compila</a>
+									<a href="{{url}}/valutazione_figura_professionale/app_scadenzario_index/new?id_pai={{d.id}}">compila</a>
 								</td>
 							</tr>
 
@@ -254,7 +254,7 @@
 			{% endif %}
 			<div class="pb-2 mb-4"></div>
 			<h3>
-				<a href="http://localhost:54001/scheda_pai">Vai all'elenco schede</a>
+				<a href="{{url}}/scheda_pai">Vai all'elenco schede</a>
 			</h3>
 			<div class="pb-2 mb-4"></div>
 		</div>

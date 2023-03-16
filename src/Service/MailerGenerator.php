@@ -7,20 +7,24 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MailerGenerator
 {
     private $mailer;
     private $entityManager;
+    private $params;
 
-    public function __construct(MailerInterface $mailer, EntityManagerInterface $entityManager)
+    public function __construct(MailerInterface $mailer, EntityManagerInterface $entityManager, ParameterBagInterface $params)
     {
         $this->mailer = $mailer;
         $this->entityManager = $entityManager;
+        $this->params= $params;
     }
 
     private function creaTestoEmailNuove($testo, $schede): array
     {
+        $url = $this->params->get('app.site_url');
         if ($schede != null) {
             for ($i = 0; $i < count($schede); $i++) {
                 $riga = [
@@ -30,7 +34,7 @@ class MailerGenerator
                     "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "stato" => $schede[$i]->getCurrentPlace(),
-                    "link" => 'http://localhost:54001/scheda_pai/'];
+                    "link" => $url.'/scheda_pai/'];
                 array_push($testo ,$riga);
             }
         }
@@ -38,6 +42,7 @@ class MailerGenerator
     }
     private function creaTestoEmailChiuse($testo, $schede): array
     {
+        $url = $this->params->get('app.site_url');
         if ($schede != null) {
             for ($i = 0; $i < count($schede); $i++) {
                 $riga = [
@@ -47,7 +52,7 @@ class MailerGenerator
                     "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "stato" => $schede[$i]->getCurrentPlace(),
-                    "link" => 'http://localhost:54001/scheda_pai/'];
+                    "link" => $url.'/scheda_pai/'];
                 array_push($testo ,$riga);
             }
         }
@@ -55,6 +60,7 @@ class MailerGenerator
     }
     private function creaTestoEmailChiuseConRinnovo($testo, $schede): array
     {
+        $console = $this->params->get('app.ws_sdmanager_console_id');
         if ($schede != null) {
             for ($i = 0; $i < count($schede); $i++) {
                 $riga = [
@@ -65,7 +71,7 @@ class MailerGenerator
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "motivazione" => $schede[$i]->getIdChiusuraServizio()->getConclusioni(),
                     "stato" => $schede[$i]->getCurrentPlace(),
-                    "link" => 'https://demo.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin'];
+                    "link" => 'https://'.$console.'.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin'];
                 array_push($testo ,$riga);
             }
         }
@@ -75,6 +81,7 @@ class MailerGenerator
 
     public function EmailAdmin()
     {
+        $url = $this->params->get('app.site_url');
         $img = file_get_contents(
             "/app/public//image/logoCoop.jpg"
         );
@@ -119,6 +126,7 @@ class MailerGenerator
                         "schedeChiuse" => $schedeChiuse,
                         "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
                         "image64" =>$image64,
+                        "url" => $url,
                     ]);
 
 
@@ -129,6 +137,7 @@ class MailerGenerator
 
     public function EmailOperatore()
     {
+        $url = $this->params->get('app.site_url');
         $img = file_get_contents(
             "/app/public//image/logoCoop.jpg"
         );
@@ -168,7 +177,7 @@ class MailerGenerator
                         "data_fine" => $arraySchedeApprovate[$j]->getDataFine()->format('d-m-Y'),
                         "assistito" => $arraySchedeApprovate[$j]->getNomeAssistito() . "  " . $arraySchedeApprovate[$j]->getCognomeAssistito(),
                         "stato" => $arraySchedeApprovate[$j]->getCurrentPlace(),
-                        "link" => 'http://localhost:54001/scadenzario/'];
+                        "link" => $url.'/scadenzario/'];
                     array_push($descrizioneSchedeApprovate ,$riga);
                 }
             }
@@ -327,6 +336,7 @@ class MailerGenerator
                         'testoAttiva1' => $testoAttiva1,
                         'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
                         "image64" =>$image64,
+                        "url" => $url,
                     ]);
 
 

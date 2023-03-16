@@ -11,6 +11,7 @@ parameters:
     app.ws_sdmanager_api_assistiti: '%env(resolve:WS_SDMANAGER_API_ASSISTITI)%'
     app.ws_sdmanager_api_operatori: '%env(resolve:WS_SDMANAGER_API_OPERATORI)%'
     app.testing_password_user: '%env(resolve:TESTING_PASSWORD_USER)%'
+    app.site_url: '%env(resolve:SITE_URL)%'
 
 services:
     # default configuration for services in *this* file
