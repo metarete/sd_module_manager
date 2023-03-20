@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pagina Principale
+{% block title %}Bacheca
 {% endblock %}
 
 {% block body %}
@@ -52,7 +52,13 @@
 						<h5 class="card-title">Schede Pai</h5>
 						<div class="row justify-content-md-center">
 							<div class="col-md-auto">
-								<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+								{% if totaleSchede == 0 %}
+									<h3 class="fw-normal">
+										<span id="percentualeNuove">Nessun dato disponibile</span><span></span>
+									</h3>
+								{% else %}
+									<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+								{% endif %}
 							</div>
 						</div>
 						<div class="row text-center">

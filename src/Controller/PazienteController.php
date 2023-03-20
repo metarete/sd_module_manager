@@ -12,20 +12,42 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/paziente')]
 class PazienteController extends AbstractController
 {
-    #[Route('/', name: 'app_paziente_index', methods: ['GET'])]
-    public function index(PazienteRepository $pazienteRepository): Response
+    #[Route('/{page}', name: 'app_paziente_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
+    public function index(Request $request, PazienteRepository $pazienteRepository, int $page = 1): Response
     {
+        $pazientes = null;
+        $numeroPazientiVisibiliPerPagina = $request->request->get('filtro_numero_pazienti');
+        if ($numeroPazientiVisibiliPerPagina == null)
+            $pazientiPerPagina = 10;
+        else
+            $pazientiPerPagina = $numeroPazientiVisibiliPerPagina;
+
+        $offset = $pazientiPerPagina * $page - $pazientiPerPagina;
+
+
+        $pazientes = $pazienteRepository->findBy([], array('id' => 'DESC'), $pazientiPerPagina, $offset);
+
+         //calcolo pagine per paginatore
+         $totalePazienti = $pazienteRepository->contaPazienti();
+         $pagineTotali = ceil($totalePazienti / $pazientiPerPagina);
+         
+ 
+         if ($pagineTotali == 0)
+             $pagineTotali = 1;
+
         return $this->render('paziente/index.html.twig', [
-            'pazientes' => $pazienteRepository->findAll(),
+            'pazientes' => $pazientes,
+            'pagina' => $page,
+            'pagine_totali' => $pagineTotali,
+            'pazienti_per_pagina' => $pazientiPerPagina,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_paziente_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_paziente_show', methods: ['GET'])]
     public function show(Paziente $paziente): Response
     {
         return $this->render('paziente/show.html.twig', [
             'paziente' => $paziente,
         ]);
     }
-
 }

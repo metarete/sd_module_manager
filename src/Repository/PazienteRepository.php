@@ -38,7 +38,7 @@ class PazienteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function contaSchede(): int
+    public function contaPazienti(): int
     {
         return $this->createQueryBuilder('s')
         ->select('count(s.id)')

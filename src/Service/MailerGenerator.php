@@ -82,6 +82,7 @@ class MailerGenerator
     public function EmailAdmin()
     {
         $url = $this->params->get('app.site_url');
+        $sender = $this->params->get('app.mailer_notification_sender');
         $img = file_get_contents(
             "/app/public//image/logoCoop.jpg"
         );
@@ -114,7 +115,7 @@ class MailerGenerator
 
 
             $email = (new TemplatedEmail())
-                ->from('tecnico@metarete.it')
+                ->from($sender)
                 ->to($stringaMail)
                 ->subject('Email per admin')
                 ->htmlTemplate("/email_admin.html.twig")
@@ -138,6 +139,7 @@ class MailerGenerator
     public function EmailOperatore()
     {
         $url = $this->params->get('app.site_url');
+        $sender = $this->params->get('app.mailer_notification_sender');
         $img = file_get_contents(
             "/app/public//image/logoCoop.jpg"
         );
@@ -322,7 +324,7 @@ class MailerGenerator
                 $stringaMail = implode(", ", $stringaMail);
                 $testoEmailOperatori = "/email_operatori.html.twig";
                 $email = (new TemplatedEmail())
-                    ->from('tecnico@metarete.it')
+                    ->from($sender)
                     ->to($stringaMail)
                     ->subject('Email per operatori')
                     ->htmlTemplate($testoEmailOperatori)

@@ -6,6 +6,22 @@
 {% block body %}
 	<h1><i class="bi bi-people"></i> Operatori</h1>
 
+	<div class="b-example-divider"></div>
+	<form action="{{ path('app_user_index')}}" method="POST" id="my_form">
+		<nav class="navbar navbar-expand">
+			<div class="container-fluid">
+				<div class="col-md-2">
+					<p class="h6">Operatori per pagina</p>
+					<select class=" d-inline form-select" name='filtro_numero_users' onchange="this.form.submit()">
+						<option {% if users_per_pagina == 0 %} selected {% endif %} value="10">10</option>
+						<option {% if users_per_pagina == 20 %} selected {% endif %} value="20">20</option>
+						<option {% if users_per_pagina == 50 %} selected {% endif %} value="50">50</option>
+					</select>
+				</div>
+			</div>
+		</nav>
+	</form>
+
 	<div class="no-more-tables">
 		<table class="col-sm-12  table-striped table-condensed cf">
 			<thead>
@@ -58,4 +74,19 @@
 
 	<div class="pb-2 mb-4"></div>
 
+	<div class="pb-2 mb-4"></div>
+
+<nav aria-label="Page navigation example">
+   <ul class="pagination justify-content-center">
+       <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_user_index') }}'; document.getElementById('my_form').submit();"><<</a></li>
+        <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_user_index', {'page':pagina-1}) }}'; document.getElementById('my_form').submit();"><</a></li>
+    {% for i in 1..pagine_totali %}
+        {% if i <= pagina + 1 and i >= pagina - 1 %}
+            <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_user_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
+        {% endif %}
+    {% endfor %}
+    <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_user_index', {'page':pagina+1}) }}'; document.getElementById('my_form').submit();">></a></li>
+      <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_user_index', {'page':pagine_totali}) }}'; document.getElementById('my_form').submit();">>></a></li>
+  </ul>
+</nav>
 {% endblock %}

@@ -12,6 +12,7 @@ parameters:
     app.ws_sdmanager_api_operatori: '%env(resolve:WS_SDMANAGER_API_OPERATORI)%'
     app.testing_password_user: '%env(resolve:TESTING_PASSWORD_USER)%'
     app.site_url: '%env(resolve:SITE_URL)%'
+    app.mailer_notification_sender: '%env(resolve:MAILER_NOTIFICATION_SENDER)%'
 
 services:
     # default configuration for services in *this* file

@@ -15,7 +15,7 @@ class ElencoSchedeController extends AbstractController
 {
     private $entityManager;
 
-    public function __construct( EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
@@ -23,7 +23,7 @@ class ElencoSchedeController extends AbstractController
     #[Route('/bacheca', name: 'app_bacheca')]
     public function index(): Response
     {
-        $user= $this-> getUser();
+        $user = $this->getUser();
 
         $operatoriRepository = $this->entityManager->getRepository(User::class);
         $pazientiRepository = $this->entityManager->getRepository(Paziente::class);
@@ -38,13 +38,23 @@ class ElencoSchedeController extends AbstractController
         $totaleSchede = count($schedePaiRepository->findAll());
         $totaleOperatori = count($operatoriRepository->findAll());
         $totalePazienti = count($pazientiRepository->findAll());
-        $percentualeNuove = (int)(($schedeNuove/$totaleSchede) * 100);
-        $percentualeApprovate = (int)(($schedeApprovate/$totaleSchede) * 100);
-        $percentualeAttive = (int)(($schedeAttive/$totaleSchede) * 100);
-        $percentualeInAttesa = (int)(($schedeInAttesa/$totaleSchede) * 100);
-        $percentualeChiuse = (int)(($schedeChiuse/$totaleSchede) * 100);
-        $percentualeChiuseConRinnovo = (int)(($schedeChiuseConRinnovo/$totaleSchede) * 100);
-        
+        if ($totaleSchede == 0) {
+            $percentualeNuove = 0;
+            $percentualeApprovate = 0;
+            $percentualeAttive = 0;
+            $percentualeInAttesa = 0;
+            $percentualeChiuse = 0;
+            $percentualeChiuseConRinnovo = 0;
+        } else {
+
+
+            $percentualeNuove = (int)(($schedeNuove / $totaleSchede) * 100);
+            $percentualeApprovate = (int)(($schedeApprovate / $totaleSchede) * 100);
+            $percentualeAttive = (int)(($schedeAttive / $totaleSchede) * 100);
+            $percentualeInAttesa = (int)(($schedeInAttesa / $totaleSchede) * 100);
+            $percentualeChiuse = (int)(($schedeChiuse / $totaleSchede) * 100);
+            $percentualeChiuseConRinnovo = (int)(($schedeChiuseConRinnovo / $totaleSchede) * 100);
+        }
         return $this->render('bacheca/index.html.twig', [
             'controller_name' => 'ElencoSchedeController',
             'user' => $user,
@@ -63,7 +73,7 @@ class ElencoSchedeController extends AbstractController
             'percentualeInAttesa' => $percentualeInAttesa,
             'percentualeChiuse' => $percentualeChiuse,
             'percentualeChiuseConRinnovo' => $percentualeChiuseConRinnovo,
-                   
+
         ]);
     }
 }
