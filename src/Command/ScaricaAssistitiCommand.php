@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'app:scarica-assistiti',
+    description: 'comando che scarica tramite API gli assistiti da SD manager',
 )]
 class ScaricaAssistitiCommand extends Command
 {

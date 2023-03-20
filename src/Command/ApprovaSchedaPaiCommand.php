@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'app:approva-scheda-pai',
-    
+    description: 'Simulazione approvazione da parte della regione della scheda pai',
 )]
 class ApprovaSchedaPaiCommand extends Command
 {

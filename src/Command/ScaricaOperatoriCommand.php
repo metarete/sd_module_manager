@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'app:scarica-operatori',
+    description: 'comando che scarica tramite API gli operatori da SD manager',
 )]
 class ScaricaOperatoriCommand extends Command
 {

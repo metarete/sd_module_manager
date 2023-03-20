@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'app:email',
+    description: 'comando di invio email a tutti gli operatori',
 )]
 class EmailCommand extends Command
 {

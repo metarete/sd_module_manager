@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 #[AsCommand(
     name: 'app:email:test',
+    description: 'comando di test che verifica il funzionamento del mailer con una mail di prova',
 )]
 class EmailCommandTest extends Command
 {
@@ -31,7 +32,7 @@ class EmailCommandTest extends Command
     {
         $this
             ->setHelp('Questo comando serve a inviare una mail di test per verificare il funzionamento del mailer. Inserire la mail del destinatario di test come parametro')
-            ->addArgument('mail', InputArgument::REQUIRED, 'mail')
+            ->addArgument('mail', InputArgument::REQUIRED, 'Recipient mail')
             ;
     }
 

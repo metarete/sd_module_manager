@@ -16,6 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'app:crea-operatore',
+    description: 'comando di creazione utente',
 )]
 class CreaOperatoreCommand extends Command
 {

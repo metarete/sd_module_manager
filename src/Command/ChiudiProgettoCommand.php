@@ -14,7 +14,7 @@ use DateTime;
 
 #[AsCommand(
     name: 'app:chiudi-progetto',
-    
+    description: 'comando che verifica se i progetti sono scaduti e li setta nello stato in_attesa_di_chiusura',
 )]
 class ChiudiProgettoCommand extends Command
 {

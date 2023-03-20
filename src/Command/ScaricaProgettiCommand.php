@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'app:scarica-progetti',
+    description: 'comando che scarica tramite API i progetti da SD manager',
 )]
 class ScaricaProgettiCommand extends Command
 {
