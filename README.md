@@ -54,3 +54,14 @@ http://localhost:54001/
 Gli utenti di SD Manager potranno entrare (una volta fatto il sync) dando la stessa username e password che usano per l'app.
 
 __NOTA__: SD Madule Manager può essere utilizzato solo in combinazione con il backend di SD Manager (https://sdmanager.it), per il quale occorrono le chiavi API
+
+## Cron
+
+Dovranno essere attivati i seguenti comandi a cron:
+
+* app:chiudi-progetto: verifica se ci sono Schede PAI associate a un Progetto scaduto e setta lo stato in 'In attesa di schiusura'
+* app:scarica-assistiti: invoca le API di SD Manager per scaricare/aggiornare la lista degli Assistiti
+* app:scarica-operatori: invoca le API di SD Manager per scaricare/aggiornare la lista degli Operatori
+* app:scarica-progetti: invoca le API di SD Manager per scaricare/aggiornare la lista dei Progetti (con il flag "Richiese Scheda PAI" attivo)
+* app:email: invia la mail di riepilogo giornaliera con le attività richieste da ciascun tipo di Operatore
+
