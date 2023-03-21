@@ -394,7 +394,7 @@ class SchedaPAIController extends AbstractController
     public function generatePdf(SchedaPAI $schedaPAI)
     {
         //data creazione pdf
-        $dataCreazione = date("d/m/Y");
+        $dataCreazione = date("d-m-Y");
 
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
@@ -467,9 +467,10 @@ class SchedaPAIController extends AbstractController
 
         // Render the HTML as PDF
         $dompdf->render();
+        $dompdf->addInfo('Title', "Scheda-PAI-di-".$assistito->getNome()."-".$assistito->getCognome()."-".$dataCreazione);
 
         // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("SchedaPai.pdf", [
+        $dompdf->stream("Scheda-PAI-di-".$assistito->getNome()."-".$assistito->getCognome()."-".$dataCreazione."-"."pdf", [
             "Attachment" => false
         ]);
     }

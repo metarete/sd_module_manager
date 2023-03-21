@@ -19,7 +19,7 @@ class MailerGenerator
     {
         $this->mailer = $mailer;
         $this->entityManager = $entityManager;
-        $this->params= $params;
+        $this->params = $params;
     }
 
     private function creaTestoEmailNuove($testo, $schede): array
@@ -34,8 +34,9 @@ class MailerGenerator
                     "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "stato" => $schede[$i]->getCurrentPlace(),
-                    "link" => $url.'/scheda_pai/'];
-                array_push($testo ,$riga);
+                    "link" => $url . '/scheda_pai/'
+                ];
+                array_push($testo, $riga);
             }
         }
         return $testo;
@@ -52,8 +53,9 @@ class MailerGenerator
                     "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "stato" => $schede[$i]->getCurrentPlace(),
-                    "link" => $url.'/scheda_pai/'];
-                array_push($testo ,$riga);
+                    "link" => $url . '/scheda_pai/'
+                ];
+                array_push($testo, $riga);
             }
         }
         return $testo;
@@ -71,8 +73,9 @@ class MailerGenerator
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "motivazione" => $schede[$i]->getIdChiusuraServizio()->getConclusioni(),
                     "stato" => $schede[$i]->getCurrentPlace(),
-                    "link" => 'https://'.$console.'.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin'];
-                array_push($testo ,$riga);
+                    "link" => 'https://' . $console . '.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin'
+                ];
+                array_push($testo, $riga);
             }
         }
         return $testo;
@@ -100,7 +103,7 @@ class MailerGenerator
         $testoEmailNuove = $this->creaTestoEmailNuove($testoEmailNuove, $schedeNuove);
         $testoEmailChiuse = $this->creaTestoEmailChiuse($testoEmailChiuse, $schedeChiuse);
         $testoEmailChiuseConRinnovo = $this->creaTestoEmailChiuseConRinnovo($testoEmailChiuseConRinnovo, $schedeChiuseConRinnovo);
-        
+
         for ($i = 0; $i < count($utenti); $i++) {
             $roles = $utenti[$i]->getRoles();
             if ($roles[0] == 'ROLE_ADMIN') {
@@ -113,12 +116,16 @@ class MailerGenerator
             $stringaMail = $mail[0];
             $stringaMail = implode(", ", $stringaMail);
 
+            if ($schedeNuove == null && $schedeChiuse == null && $schedeChiuseConRinnovo == null) {
+                //non c'è nulla da fare. non mando la mail
+            } else {
 
-            $email = (new TemplatedEmail())
-                ->from($sender)
-                ->to($stringaMail)
-                ->subject('Email per admin')
-                ->htmlTemplate("/email_admin.html.twig")
+
+                $email = (new TemplatedEmail())
+                    ->from($sender)
+                    ->to($stringaMail)
+                    ->subject('Email per admin')
+                    ->htmlTemplate("/email_admin.html.twig")
                     ->context([
                         "testoEmailNuove" => $testoEmailNuove,
                         "testoEmailChiuse" => $testoEmailChiuse,
@@ -126,13 +133,14 @@ class MailerGenerator
                         "schedeNuove" =>  $schedeNuove,
                         "schedeChiuse" => $schedeChiuse,
                         "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
-                        "image64" =>$image64,
+                        "image64" => $image64,
                         "url" => $url,
                     ]);
 
 
 
-            $this->mailer->send($email);
+                $this->mailer->send($email);
+            }
         }
     }
 
@@ -179,8 +187,9 @@ class MailerGenerator
                         "data_fine" => $arraySchedeApprovate[$j]->getDataFine()->format('d-m-Y'),
                         "assistito" => $arraySchedeApprovate[$j]->getNomeAssistito() . "  " . $arraySchedeApprovate[$j]->getCognomeAssistito(),
                         "stato" => $arraySchedeApprovate[$j]->getCurrentPlace(),
-                        "link" => $url.'/scadenzario/'];
-                    array_push($descrizioneSchedeApprovate ,$riga);
+                        "link" => $url . '/scadenzario/'
+                    ];
+                    array_push($descrizioneSchedeApprovate, $riga);
                 }
             }
             for ($t = 0; $t < count($arraySchedeAttive); $t++) {
@@ -223,7 +232,7 @@ class MailerGenerator
                         array_push($descrizioneValutazioneProfessionale, $riga);
                     }
 
-                    $riga = [ 
+                    $riga = [
                         "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d-m-Y'),
                         "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d-m-Y'),
@@ -243,39 +252,44 @@ class MailerGenerator
                     $arraySchedeAttive[$t]->setSpmsqNumberToday();
                     $arraySchedeAttive[$t]->setCorrectSpmsqNumberToday();
                     $arraySchedeAttive[$t]->setTinettiNumberToday();
-                    $arraySchedeAttive[$t]->setCorrectTinettiNumberToday(); 
+                    $arraySchedeAttive[$t]->setCorrectTinettiNumberToday();
                     $arraySchedeAttive[$t]->setVasNumberToday();
                     $arraySchedeAttive[$t]->setCorrectVasNumberToday();
                     $arraySchedeAttive[$t]->setLesioniNumberToday();
                     $arraySchedeAttive[$t]->setCorrectLesioniNumberToday();
-                    
+
                     if ($arraySchedeAttive[$t]->getBarthelNumberToday() <= $arraySchedeAttive[$t]->getCorrectBarthelNumberToday() && $arraySchedeAttive[$t]->isAbilitaBarthel() == true) {
                         $flagRitardi = true;
                         $riga["barthel"] = 'si';
                         //$numeroBarthelInRitardo =  (int)($arraySchedeAttive[$t]->getNumeroBarthelCorretto()/($arraySchedeAttive[$t]->getNumeroBarthelCorretto()- $arraySchedeAttive[$t]->getNumeroBarthelAdOggi()));
                         //$descrizioneRitardi = $descrizioneRitardi .'-Barthel =>  '  . '<a href=' . 'http://localhost:54001/barthel/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Barthel</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getBradenNumberToday() <= $arraySchedeAttive[$t]->getCorrectBradenNumberToday() && $arraySchedeAttive[$t]->isAbilitaBraden() == true) {
+                    }
+                    if ($arraySchedeAttive[$t]->getBradenNumberToday() <= $arraySchedeAttive[$t]->getCorrectBradenNumberToday() && $arraySchedeAttive[$t]->isAbilitaBraden() == true) {
                         $flagRitardi = true;
                         $riga["braden"] = 'si';
                         //$descrizioneRitardi = $descrizioneRitardi .'-Braden =>  '  . '<a href=' . 'http://localhost:54001/braden/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Braden</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getSpmsqNumberToday() <= $arraySchedeAttive[$t]->getCorrectSpmsqNumberToday() && $arraySchedeAttive[$t]->isAbilitaSpmsq() == true) {
+                    }
+                    if ($arraySchedeAttive[$t]->getSpmsqNumberToday() <= $arraySchedeAttive[$t]->getCorrectSpmsqNumberToday() && $arraySchedeAttive[$t]->isAbilitaSpmsq() == true) {
                         $flagRitardi = true;
                         $riga["spmsq"] = 'si';
                         //$descrizioneRitardi = $descrizioneRitardi .'-Spmsq =>  ' . '<a href=' . 'http://localhost:54001/spmsq/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Spmsq</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getTinettiNumberToday() <= $arraySchedeAttive[$t]->getCorrectTinettiNumberToday() && $arraySchedeAttive[$t]->isAbilitaTinetti() == true) {
+                    }
+                    if ($arraySchedeAttive[$t]->getTinettiNumberToday() <= $arraySchedeAttive[$t]->getCorrectTinettiNumberToday() && $arraySchedeAttive[$t]->isAbilitaTinetti() == true) {
                         $flagRitardi = true;
                         $riga["tinetti"] = 'si';
                         //$descrizioneRitardi = $descrizioneRitardi .'-Tinetti =>  ' . '<a href=' . 'http://localhost:54001/tinetti/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Tinetti</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getVasNumberToday() <= $arraySchedeAttive[$t]->getCorrectVasNumberToday() && $arraySchedeAttive[$t]->isAbilitaVas() == true) {
+                    }
+                    if ($arraySchedeAttive[$t]->getVasNumberToday() <= $arraySchedeAttive[$t]->getCorrectVasNumberToday() && $arraySchedeAttive[$t]->isAbilitaVas() == true) {
                         $flagRitardi = true;
                         $riga["vas"] = 'si';
                         //$descrizioneRitardi = $descrizioneRitardi .'-Vas =>  ' . '<a href=' . 'http://localhost:54001/vas/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Vas</a>'.'<br>';
-                    } if ($arraySchedeAttive[$t]->getLesioniNumberToday() <= $arraySchedeAttive[$t]->getCorrectLesioniNumberToday() && $arraySchedeAttive[$t]->isAbilitaLesioni() == true) {
+                    }
+                    if ($arraySchedeAttive[$t]->getLesioniNumberToday() <= $arraySchedeAttive[$t]->getCorrectLesioniNumberToday() && $arraySchedeAttive[$t]->isAbilitaLesioni() == true) {
                         $flagRitardi = true;
                         $riga["lesioni"] = 'si';
                         //$descrizioneRitardi = $descrizioneRitardi .'-Lesioni =>  ' . '<a href=' . 'http://localhost:54001/lesioni/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Lesioni</a>'.'<br>';
                     }
-                    if($riga["barthel"] == 'si' || $riga["braden"] == 'si' || $riga["spmsq"] == 'si' || $riga["tinetti"] == 'si' || $riga["vas"] == 'si' || $riga["lesioni"] == 'si'){
+                    if ($riga["barthel"] == 'si' || $riga["braden"] == 'si' || $riga["spmsq"] == 'si' || $riga["tinetti"] == 'si' || $riga["vas"] == 'si' || $riga["lesioni"] == 'si') {
                         array_push($descrizioneRitardi, $riga);
                     }
                 }
@@ -337,7 +351,7 @@ class MailerGenerator
                         'descrizioneSchedeDaChiudere' => $descrizioneSchedeDaChiudere,
                         'testoAttiva1' => $testoAttiva1,
                         'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
-                        "image64" =>$image64,
+                        "image64" => $image64,
                         "url" => $url,
                     ]);
 
