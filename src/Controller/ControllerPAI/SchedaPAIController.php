@@ -424,13 +424,13 @@ class SchedaPAIController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);
 
         $img = file_get_contents(
-            "/app/public/image/logo.jpeg"
+            __DIR__ . "/../../../public/image/logo.jpeg"
         );
         $imgTitle = file_get_contents(
-            "/app/public/image/PAI.jpg"
+            __DIR__ . "/../../../public/image/PAI.jpg"
         );
         $imgLogoMetarete = file_get_contents(
-            "/app/public/image/logo-metarete.png"
+            __DIR__ . "/../../../public/image/logo-metarete.png"
         );
         $image64 = base64_encode($img);
         $image64Title = base64_encode($imgTitle);

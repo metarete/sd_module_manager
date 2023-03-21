@@ -84,7 +84,7 @@ class MailerGenerator
         $url = $this->params->get('app.site_url');
         $sender = $this->params->get('app.mailer_notification_sender');
         $img = file_get_contents(
-            "/app/public//image/logoCoop.jpg"
+            __DIR__ . "/../../public/image/logoCoop.jpg"
         );
         $image64 = base64_encode($img);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
@@ -141,7 +141,7 @@ class MailerGenerator
         $url = $this->params->get('app.site_url');
         $sender = $this->params->get('app.mailer_notification_sender');
         $img = file_get_contents(
-            "/app/public//image/logoCoop.jpg"
+            __DIR__ . "/../../public/image/logoCoop.jpg"
         );
         $image64 = base64_encode($img);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
