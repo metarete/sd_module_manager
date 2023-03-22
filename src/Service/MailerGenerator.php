@@ -173,7 +173,24 @@ class MailerGenerator
         $img = file_get_contents(
             __DIR__ . "/../../public/image/logoCoop.jpg"
         );
-        $image64 = base64_encode($img);
+        $logoCoop = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/calendar-day-solid.png"
+        );
+        $calendarIcon = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/09461c6c-3517-429e-99a2-64810982a104.png"
+        );
+        $separatoreTop = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/next_1.png"
+        );
+        $frecciaLink = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/bottom_rounded_15.png"
+        );
+        $separatoreDown = base64_encode($img);
+        
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $arraySchedeApprovate = $schedaPAIRepository->findByState('approvata');
@@ -355,10 +372,11 @@ class MailerGenerator
             if ($flagSchedaApprovata == false && $flagRitardi == false && $flagSchedeDaChiudere == false && $flagValutazioneProfessionale == false) {
                 //non invio l'email. l'operatore non ha nulla da fare.
             } else {
+                $operatore = $userRepository->findOneById($idOperatore);
                 $mail = $userRepository->findEmailById($idOperatore);
                 $stringaMail = $mail[0];
                 $stringaMail = implode(", ", $stringaMail);
-                $testoEmailOperatori = "/email_operatori.html.twig";
+                $testoEmailOperatori = "/email_operatori_1.html.twig";
                 $email = (new TemplatedEmail())
                     ->from($sender)
                     ->to($stringaMail)
@@ -373,8 +391,13 @@ class MailerGenerator
                         'descrizioneSchedeDaChiudere' => $descrizioneSchedeDaChiudere,
                         'testoAttiva1' => $testoAttiva1,
                         'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
-                        "image64" => $image64,
+                        "logoCoop" => $logoCoop,
+                        "calendarIcon" => $calendarIcon,
+                        "separatoreTop" => $separatoreTop,
+                        "frecciaLink" => $frecciaLink,
+                        "separatoreDown" => $separatoreDown,
                         "url" => $url,
+                        "operatore" => $operatore
                     ]);
 
 
