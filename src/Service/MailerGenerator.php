@@ -376,7 +376,7 @@ class MailerGenerator
                 $mail = $userRepository->findEmailById($idOperatore);
                 $stringaMail = $mail[0];
                 $stringaMail = implode(", ", $stringaMail);
-                $testoEmailOperatori = "/email_operatori_1.html.twig";
+                $testoEmailOperatori = "/email_operatori.html.twig";
                 $email = (new TemplatedEmail())
                     ->from($sender)
                     ->to($stringaMail)

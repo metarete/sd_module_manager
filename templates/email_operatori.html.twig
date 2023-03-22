@@ -1,281 +1,1638 @@
-<html>
+<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+
 	<head>
+		<title></title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+		<meta
+		content="width=device-width, initial-scale=1.0" name="viewport"/>
+		<!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]-->
 		<style>
-
-			div {
-				background-color: white;
-			}
-			h1,
-			h4,
-			h3 {
-				color: black;
-				text-align: left;
-				padding: 10px;
+			* {
+				box-sizing: border-box;
 			}
 
-			.tabella {
-				font-family: Arial, Helvetica, sans-serif;
-				border-collapse: collapse;
-				width: 100%;
-
+			body {
+				margin: 0;
+				padding: 0;
 			}
 
-			.tabella td,
-			.tabella th {
-				border: 1px solid #ddd;
-				padding: 8px;
-				width: 50%;
-				font-size: x-large
+			a[x-apple-data-detectors] {
+				color: inherit !important;
+				text-decoration: inherit !important;
 			}
 
-			.tabella tr:nth-child(even) {
-				background-color: #f2f2f2;
+			#MessageViewBody a {
+				color: inherit;
+				text-decoration: none;
 			}
 
-			.tabella tr:hover {
-				background-color: #ddd;
+			p {
+				line-height: inherit
 			}
 
-			.tabella th {
-				padding: 12px 50px;
-				text-align: left;
-				background-color: #31363c;
-				color: white;
+			.desktop_hide,
+			.desktop_hide table {
+				mso-hide: all;
+				display: none;
+				max-height: 0;
+				overflow: hidden;
 			}
-			.blog-footer {
-				padding: 2.5rem;
-				color: white;
-				text-align: center;
-				background-color: #31363c;
-				border-top: 0.05rem solid #e5e5e5;
-				display: flex;
+
+			.image_block img+div {
+				display: none;
 			}
-			.blog-footer .left {
-				flex: 1;
-				text-align: left;
-				padding: 10px;
-				background-color: #31363c;
-			}
-			.blog-footer .right {
-				padding-right: 10px;
-				background-color: #31363c;
-			}
-			.navbar-mobile {
-				display: flex;
-				background-color: #31363c;
-				min-height: var(--ct-topbar-height);
-				margin-left: var(--ct-leftbar-width);
-				color: white;
+
+			@media(max-width:640px) {
+				.desktop_hide table.icons-inner {
+					display: inline-block !important;
+				}
+
+				.icons-inner {
+					text-align: center;
+				}
+
+				.icons-inner td {
+					margin: 0 auto;
+				}
+
+				.image_block img.big,
+				.row-content {
+					width: 100% !important;
+				}
+
+				.mobile_hide {
+					display: none;
+				}
+
+				.stack .column {
+					width: 100%;
+					display: block;
+				}
+
+				.mobile_hide {
+					min-height: 0;
+					max-height: 0;
+					max-width: 0;
+					overflow: hidden;
+					font-size: 0;
+				}
+
+				.desktop_hide,
+				.desktop_hide table {
+					display: table !important;
+					max-height: none !important;
+				}
 			}
 		</style>
 	</head>
-	<body>
-		<div>
-			<nav class="navbar navbar-mobile">
-				<ul class="nav row-1 cols-12 gap-3">
-					<a style="font-size:60px;padding-left:15px;">Module Manager</a>
-				</ul>
-			</nav>
-			{% if testoApprovata1 != '' %}
-				<h3>{{testoApprovata1}}<br></h3>
-				<h3>Schede Pai da attivare:
-					<br></h3>
-				<div style="overflow-x: auto; padding: 10px">
-					{% for d in descrizioneSchedeApprovate %}
-						<br>
-						<table class='tabella'>
-							<tr>
-								<th>Nome Progetto</th>
-								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
-							</tr>
-							<tr>
-								<th>Data Inizio</th>
-								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-							</tr>
-							<tr>
-								<th>Data Fine</th>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-							</tr>
-							<tr>
-								<th>Assistito</th>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-							</tr>
-							<tr>
-								<th>Stato</th>
-								<td data-title='Stato'>{{ d.stato}}</td>
-							</tr>
-							<tr>
-								<th>Configura</th>
-								<td data-title='Configura'>
-									<a href="{{url}}/scheda_pai/app_scadenzario_index/{{d.id}}/edit">configura</a>
-								</td>
-							</tr>
-							<tr>
-								<th>Compila Valutazione Generale</th>
-								<td data-title='Valutazione generale'>
-									<a href='{{url}}/valutazione_generale/app_scadenzario_index/new?id_pai={{d.id}}'>compila_valutazione</a>
-								</td>
 
-							</tr>
+	<body style="background-color: #f0f0f0; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
+		<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0;" width="100%">
+			<tbody>
+				<tr>
+					<td>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #dfdfdf; background-size: auto;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto; color: #333; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="5" cellspacing="0" class="heading_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad">
+																	<h1 style="margin: 0; color: #000000; direction: ltr; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: left; margin-top: 0; margin-bottom: 0;">
+																		<span class="tinyMce-placeholder">Module
+																																																								Manager</span>
+																	</h1>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
 						</table>
-					{% endfor %}
-				</div>
-			{% endif %}
-
-			{% if testoRitardi1 != '' %}
-				<h3>{{testoRitardi1}}<br></h3>
-				<h3>Schede con dei ritardi sulla compilazione scale di valutazione:
-					<br></h3>
-				<div style="overflow-x: auto; padding: 10px">
-					{% for d in descrizioneRitardi %}
-						<br>
-						<table class='tabella'>
-							<tr>
-								<th>Nome Progetto</th>
-								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
-							</tr>
-							<tr>
-								<th>Data Inizio</th>
-								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-							</tr>
-							<tr>
-								<th>Data Fine</th>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-							</tr>
-							<tr>
-								<th>Assistito</th>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-							</tr>
-							<tr>
-								<th>Barthel in ritardo</th>
-								<td data-title='Barthel'>{{ d.barthel}}</td>
-							</tr>
-							<tr>
-								<th>Braden in ritardo</th>
-								<td data-title='Braden'>{{ d.braden}}</td>
-							</tr>
-							<tr>
-								<th>SPMSQ in ritardo</th>
-								<td data-title='Spmsq'>{{ d.spmsq}}</td>
-							</tr>
-							<tr>
-								<th>Tinetti in ritardo</th>
-								<td data-title='Tinetti'>{{ d.tinetti}}</td>
-							</tr>
-							<tr>
-								<th>VAS in ritardo</th>
-								<td data-title='Vas'>{{ d.vas}}</td>
-							</tr>
-							<tr>
-								<th>Lesioni in ritardo</th>
-								<td data-title='Lesioni'>{{ d.lesioni}}</td>
-							</tr>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #dfdfdf; background-size: auto;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto; color: #333; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad">
+																	<div align="center" class="alignment">
+																		<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																			<tr>
+																				<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 3px solid #a3a3a3;">
+																					<span></span>
+																				</td>
+																			</tr>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
 						</table>
-					{% endfor %}
-				</div>
-			{% endif %}
-
-			{% if testoChiusura1 != '' %}
-				<h3>Schede pai di progetti scaduti in attesa di chisura:
-					<br></h3>
-				<div style="overflow-x: auto; padding: 10px">
-					{% for d in descrizioneSchedeDaChiudere %}
-						<br>
-						<table class='tabella'>
-							<tr>
-								<th>Nome Progetto</th>
-								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
-							</tr>
-							<tr>
-								<th>Data Inizio</th>
-								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-							</tr>
-							<tr>
-								<th>Data Fine</th>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-							</tr>
-							<tr>
-								<th>Assistito</th>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-							</tr>
-							<tr>
-								<th>Stato</th>
-								<td data-title='Stato'>In Attesa Di Chiusura</td>
-							</tr>
-
-							<tr>
-								<th>Chiudi</th>
-								<td data-title='Chiudi'>
-									<a href="{{url}}/scheda_pai/app_scadenzario_index/chiusura_scheda/{{d.id}}">chiudi</a>
-								</td>
-							</tr>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #dfdfdf; background-size: auto;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-top: 10px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+														<table border="0" cellpadding="0" cellspacing="0" class="icons_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad" style="vertical-align: middle; color: #000000; font-family: inherit; font-size: 14px; text-align: center;">
+																	<table align="center" cellpadding="0" cellspacing="0" class="alignment" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																		<tr>
+																			<td style="vertical-align: middle; text-align: center; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px;">
+																				<img align="center" class="icon" height="128" src="data:image/png;base64, {{calendarIcon}}" style="display: block; height: auto; margin: 0 auto; border: 0;" width="128"/></td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+														</table>
+													</td>
+													<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="75%">
+														<table border="0" cellpadding="0" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+															<tr>
+																<td class="pad" style="padding-left:60px;padding-right:60px;padding-top:10px;">
+																	<div style="font-family: sans-serif">
+																		<div class="" style="font-size: 12px; font-family: 'Oswald', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; mso-line-height-alt: 21.6px; color: #FFFFFF; line-height: 1.8;">
+																			<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 25.2px;">
+																				<span style="color:#0000ff;">
+																					<span style="font-size:34px;">
+																						<span style="font-size:34px;color:#0028dc;">Scadenzario per
+																						</span>
+																						<strong>
+																							<span style="font-size:34px;">
+																								<span style="font-size:34px;">
+																									<span style="font-size:34px;">
+																										<span style="color:#0028dc;">
+																											<span style="font-size:34px;">{{operatore.name}}
+																												{{operatore.surname}}
+																											</span>
+																										</span>
+																									</span>
+																								</span>
+																							</span>
+																						</strong>
+																					</span>
+																				</span>
+																			</p>
+																			<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21.6px;"></p>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
 						</table>
-					{% endfor %}
-				</div>
-			{% endif %}
-
-			{% if testoAttiva1 != '' %}
-				<h3>{{testoAttiva1}}<br></h3>
-				<h3>Schede con valutazioni professionali mancanti:<br></h3>
-				<div style="overflow-x: auto; padding: 10px">
-					{% for d in descrizioneValutazioneProfessionale %}
-						<br>
-						<table class='tabella'>
-							<tr>
-								<th>Nome Progetto</th>
-								<td data-title='Nome Progetto'>{{d.nome_progetto}}</td>
-							</tr>
-							<tr>
-								<th>Data Inizio</th>
-								<td data-title='Data Inizio'>{{d.data_inizio}}</td>
-							</tr>
-							<tr>
-								<th>Data Fine</th>
-								<td data-title='Data Fine'>{{d.data_fine}}</td>
-							</tr>
-							<tr>
-								<th>Assistito</th>
-								<td data-title='Assistito'>{{ d.assistito}}</td>
-							</tr>
-							<tr>
-								<th>Valutazioni Mancanti</th>
-								<td data-title='Valutazioni Mancante'>{{d.valore}}</td>
-							</tr>
-							<tr>
-								<th>Compila Valutazione Professionale</th>
-								<td data-title='Compila Valutazione Professionale'>
-									<a href="{{url}}/valutazione_figura_professionale/app_scadenzario_index/new?id_pai={{d.id}}">compila</a>
-								</td>
-							</tr>
-
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-radius: 0; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<div class="spacer_block block-1" style="height:10px;line-height:10px;font-size:1px;"></div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
 						</table>
-					{% endfor %}
-				</div>
-			{% endif %}
-			<div class="pb-2 mb-4"></div>
-			<h3>
-				<a href="{{url}}/scheda_pai">Vai all'elenco schede</a>
-			</h3>
-			<div class="pb-2 mb-4"></div>
-		</div>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-5" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
+																	<div align="center" class="alignment" style="line-height:10px"><img class="big" src="data:image/png;base64, {{separatoreTop}}" style="display: block; height: auto; border: 0; width: 620px; max-width: 100%;" width="620"/></div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						{% if testoApprovata1 != '' %}
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+															<table border="0" cellpadding="0" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad" style="padding-bottom:5px;padding-left:40px;padding-right:40px;padding-top:5px;">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-family: 'Oswald', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; mso-line-height-alt: 18px; color: #56B500; line-height: 1.5;">
+																				<p style="margin: 0; text-align: center; font-size: 12px; mso-line-height-alt: 36px;">
+																					<span style="font-size:24px;color:#0028dc;">
+																						<strong>Schede PAI da attivare</strong>
+																					</span>
+																				</p>
+                                                                                <p>
+                                                                                <h3>{{testoApprovata1}}<br></h3>
+                                                                                </p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-7" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #5d5f5b; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Progetto</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Assistito</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Data
+																																																																		inizio / fine</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Configura</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-5" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Compila valutazione generale</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							{% for d in descrizioneSchedeApprovate %}
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="5" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						<strong>
+																							<span style="color:#999999;font-size:14px;">{{d.nome_progetto}}</span>
+																						</strong>
+																					</p>
 
-		{% block foot %}
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.assistito}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															 <td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					    {{d.data_inizio}}
+																						-
+																						{{d.data_fine}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					    <a href="{{url}}/scheda_pai/app_scadenzario_index/{{d.id}}/edit">configura</a>
+                                                                                    </p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-5" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					    <a href='{{url}}/valutazione_generale/app_scadenzario_index/new?id_pai={{d.id}}'>compila_valutazione</a>
+                                                                                    </p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
 
-			<footer class="blog-footer">
-				<div class="left">
-					<br>
-					Module Manager è un servizio di Metarete Srl<br>
-					<a href="" style="color:white;">Privacy</a>
-					<a href="" style="color:white;">Cookie</a>
-					<a href="" style="color:white;">About</a>
-				</div>
-				<div class="right">
-					<figure class="figure">
-						<img src="data:image/png;base64, {{logoCoop}}" height="80px;">
-					</figure>
-				</div>
-			</footer>
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-9" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #F5F5F5; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; background-color: #F5F5F5; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+																<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div align="center" class="alignment">
+																				<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																					<tr>
+																						<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																							<span></span>
+																						</td>
+																					</tr>
+																				</table>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							{% endfor %}
+						{% endif %}
 
-		{% endblock %}
+
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-15" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad">
+																	<div align="left" class="alignment">
+																		<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																			<tr>
+																				<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																					<span></span>
+																				</td>
+																			</tr>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+                        {% if testoRitardi1 != "" %}
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+															<table border="0" cellpadding="0" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad" style="padding-bottom:5px;padding-left:40px;padding-right:40px;padding-top:5px;">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-family: 'Oswald', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; mso-line-height-alt: 18px; color: #56B500; line-height: 1.5;">
+																				<p style="margin: 0; text-align: center; font-size: 12px; mso-line-height-alt: 36px;">
+																					<span style="font-size:24px;color:#0028dc;">
+																						<strong>Schede con dei ritardi sulla compilazione scale di valutazione</strong>
+																					</span>
+																				</p>
+                                                                                <p>
+                                                                                    <h3>{{testoRitardi1}}<br></h3>
+                                                                                </p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-7" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #5d5f5b; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Progetto</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Assistito</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Data
+																																																																		inizio / fine</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Barthel in ritardo</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-5" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Braden in ritardo</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-6" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>SPMSQ in ritardo</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-7" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Tinetti in ritardo</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-8" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>VAS in ritardo</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-9" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Lesioni in ritardo</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							{% for d in descrizioneRitardi %}
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="5" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						<strong>
+																							<span style="color:#999999;font-size:14px;">{{d.nome_progetto}}</span>
+																						</strong>
+																					</p>
+
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.assistito}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.data_inizio}}
+																						-
+																						{{d.data_fine}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.barthel}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-5" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.braden}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-6" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.spmsq}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-7" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.tinetti}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-8" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.vas}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            <td class="column column-9" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="11.1%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.lesioni}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-9" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #F5F5F5; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; background-color: #F5F5F5; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+																<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div align="center" class="alignment">
+																				<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																					<tr>
+																						<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																							<span></span>
+																						</td>
+																					</tr>
+																				</table>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							{% endfor %}
+						{% endif %}
+
+
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-15" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad">
+																	<div align="left" class="alignment">
+																		<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																			<tr>
+																				<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																					<span></span>
+																				</td>
+																			</tr>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+                        {% if testoChiusura1 != "" %}
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+															<table border="0" cellpadding="0" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad" style="padding-bottom:5px;padding-left:40px;padding-right:40px;padding-top:5px;">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-family: 'Oswald', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; mso-line-height-alt: 18px; color: #56B500; line-height: 1.5;">
+																				<p style="margin: 0; text-align: center; font-size: 12px; mso-line-height-alt: 36px;">
+																					<span style="font-size:24px;color:#0028dc;">
+																						<strong>Schede PAI di progetti scaduti in attesa di chiusura</strong>
+																					</span>
+																				</p>
+                                                                                
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-7" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #5d5f5b; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Progetto</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Assistito</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Data inizio / fine</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px;" width="25%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Chiudi</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							{% for d in descrizioneSchedeDaChiudere %}
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+																<table border="0" cellpadding="5" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						<strong>
+																							<span style="color:#999999;font-size:14px;">{{d.nome_progetto}}</span>
+																						</strong>
+																					</p>
+
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.assistito}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.data_inizio}}
+																						-
+																						{{d.data_fine}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            
+                                                            <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="25%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p> <a href="{{url}}/scheda_pai/app_scadenzario_index/chiusura_scheda/{{d.id}}">chiudi</a></p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-9" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #F5F5F5; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; background-color: #F5F5F5; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+																<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div align="center" class="alignment">
+																				<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																					<tr>
+																						<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																							<span></span>
+																						</td>
+																					</tr>
+																				</table>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							{% endfor %}
+						{% endif %}
+
+
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-15" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad">
+																	<div align="left" class="alignment">
+																		<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																			<tr>
+																				<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																					<span></span>
+																				</td>
+																			</tr>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+                        {% if testoAttiva1 != "" %}
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+															<table border="0" cellpadding="0" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad" style="padding-bottom:5px;padding-left:40px;padding-right:40px;padding-top:5px;">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-family: 'Oswald', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size: 12px; mso-line-height-alt: 18px; color: #56B500; line-height: 1.5;">
+																				<p style="margin: 0; text-align: center; font-size: 12px; mso-line-height-alt: 36px;">
+																					<span style="font-size:24px;color:#0028dc;">
+																						<strong>Schede con valutazioni professionali mancanti</strong>
+																					</span>
+																				</p>
+                                                                                <p>
+                                                                                    <h3>{{testoAttiva1}}<br></h3>
+                                                                                </p>
+                                                                                
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-7" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+								<tbody>
+									<tr>
+										<td>
+											<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #5d5f5b; background-size: auto; color: #000000; width: 620px;" width="620">
+												<tbody>
+													<tr>
+														<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Progetto</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Assistito</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Data inizio / fine</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                        <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Valutazioni mancanti</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+                                                         <td class="column column-5" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #5A5353; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px;" width="20%">
+															<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																<tr>
+																	<td class="pad">
+																		<div style="font-family: sans-serif">
+																			<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
+																				<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																					<span style="font-size:13px;">
+																						<strong>Compila valutazione professionale</strong>
+																					</span>
+																				</p>
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							{% for d in descrizioneValutazioneProfessionale %}
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="5" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						<strong>
+																							<span style="color:#999999;font-size:14px;">{{d.nome_progetto}}</span>
+																						</strong>
+																					</p>
+
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.assistito}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="column column-3" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;">
+																						{{d.data_inizio}}
+																						-
+																						{{d.data_fine}}</p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                            
+                                                            <td class="column column-4" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p>{{d.valore}}
+                                                                                    </p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+                                                             <td class="column column-5" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; border-right: 1px solid #DFDFDF; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-bottom: 0px; border-left: 0px;" width="20%">
+																<table border="0" cellpadding="15" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div style="font-family: sans-serif">
+																				<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																					<p><a href="{{url}}/valutazione_figura_professionale/app_scadenzario_index/new?id_pai={{d.id}}">compila</a></p>
+																				</div>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-9" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+									<tbody>
+										<tr>
+											<td>
+												<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #F5F5F5; color: #000000; width: 620px;" width="620">
+													<tbody>
+														<tr>
+															<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; background-color: #F5F5F5; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+																<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																	<tr>
+																		<td class="pad">
+																			<div align="center" class="alignment">
+																				<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																					<tr>
+																						<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																							<span></span>
+																						</td>
+																					</tr>
+																				</table>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							{% endfor %}
+						{% endif %}
+
+
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-15" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-image: url('images/groovepaper_1.png'); background-position: top center; background-repeat: repeat;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad">
+																	<div align="left" class="alignment">
+																		<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+																			<tr>
+																				<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #DFDFDF;">
+																					<span></span>
+																				</td>
+																			</tr>
+																		</table>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-16" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0; background-size: auto;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; background-size: auto; color: #333; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-left: 35px; padding-right: 25px; padding-top: 1px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="66.66666666666667%">
+														<table border="0" cellpadding="0" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+															<tr>
+																<td class="pad" style="padding-left:10px;padding-right:15px;">
+																	<div style="font-family: sans-serif">
+																		<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																			<p style="margin: 0; font-size: 14px; mso-line-height-alt: 16.8px;">
+																				<span style="color:#0028dc;">
+																				</span>
+																			</p>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+													<td class="column column-2" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 15px; padding-right: 35px; padding-top: 7px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="33.333333333333336%">
+														<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad" style="padding-right:10px;padding-top:5px;width:100%;padding-left:0px;">
+																	
+                                                                </td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-17" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+															<tr>
+																<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
+																	<div align="center" class="alignment" style="line-height:10px"><img alt="Image" class="big" src="data:image/png;base64, {{separatoreDown}}" style="display: block; height: auto; border: 0; width: 620px; max-width: 100%;" title="Image" width="620"/></div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-18" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f0f0f0;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-radius: 0; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<div class="spacer_block block-1" style="height:10px;line-height:10px;font-size:1px;"></div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-19" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #dfdfdf; background-size: auto;" width="100%">
+							<tbody>
+								<tr>
+									<td>
+										<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto; color: #000000; width: 620px;" width="620">
+											<tbody>
+												<tr>
+													<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 15px; padding-top: 15px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+														<table border="0" cellpadding="10" cellspacing="0" class="text_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+															<tr>
+																<td class="pad">
+																	<div style="font-family: sans-serif">
+																		<div class="" style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																			<p style="margin: 0; font-size: 12px; text-align: center; mso-line-height-alt: 14.399999999999999px;">
+																				<strong>Module Manager è un servizio di
+																					<span style="color:#0028dc;">Metarete</span>
+																				</strong>
+																			</p>
+																			
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- End -->
 	</body>
+
 </html>
