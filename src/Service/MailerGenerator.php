@@ -89,7 +89,23 @@ class MailerGenerator
         $img = file_get_contents(
             __DIR__ . "/../../public/image/logoCoop.jpg"
         );
-        $image64 = base64_encode($img);
+        $logoCoop = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/calendar-day-solid.png"
+        );
+        $calendarIcon = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/09461c6c-3517-429e-99a2-64810982a104.png"
+        );
+        $separatoreTop = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/next_1.png"
+        );
+        $frecciaLink = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/bottom_rounded_15.png"
+        );
+        $separatoreDown = base64_encode($img);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $schedeNuove = $schedaPAIRepository->findByState('nuova');
@@ -111,6 +127,7 @@ class MailerGenerator
             }
         }
         for ($j = 0; $j < count($admin); $j++) {
+            $operatore = $admin[$j];
             $id = $admin[$j]->getId();
             $mail = $userRepository->findEmailById($id);
             $stringaMail = $mail[0];
@@ -133,8 +150,13 @@ class MailerGenerator
                         "schedeNuove" =>  $schedeNuove,
                         "schedeChiuse" => $schedeChiuse,
                         "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
-                        "image64" => $image64,
+                        "logoCoop" => $logoCoop,
+                        "calendarIcon" => $calendarIcon,
+                        "separatoreTop" => $separatoreTop,
+                        "frecciaLink" => $frecciaLink,
+                        "separatoreDown" => $separatoreDown,
                         "url" => $url,
+                        "operatore" => $operatore
                     ]);
 
 
