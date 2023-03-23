@@ -24,7 +24,18 @@ Aggiornare node_modules
 
 ```
 $ yarn install
+```
+
+e successivamente ricostruire gli asset pubblici, in sviluppo:
+
+```
 $ yarn dev
+```
+
+o in produzione:
+
+```
+$ yarn build
 ```
 
 Nel caso in cui non si riesca a compilare con yarn: togliere i doppi apici alla prima riga nel file bootstrap-icons.scss (v. commento nel file "./node_modules/bootstrap-icons/font/bootstrap-icons.scss") e rilanciare yarn
