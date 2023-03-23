@@ -18,7 +18,17 @@
 				</th>
 
 				<td>
-					{{ valutazione_figura_professionale.tipoOperatore }}
+					{% if  valutazione_figura_professionale.tipoOperatore == "INF" %}
+					Infermiere
+					{% elseif  valutazione_figura_professionale.tipoOperatore == "TDR" %}
+					Terapista della riabilitazione
+					{% elseif  valutazione_figura_professionale.tipoOperatore == "LOG" %}
+					Logopedista
+					{% elseif  valutazione_figura_professionale.tipoOperatore == "ASA" %}
+					Ausiliario socio assistenziale
+					{% else %}
+					Operatore socio sanitario
+					{% endif %}
 				</td>
 			</tr>
 			<tr>

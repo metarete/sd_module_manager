@@ -7,111 +7,117 @@
 			<th>
 				Data inizio progetto
 			</th>
-		
+
 			<td>
 				{{ scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d-m-Y') : ''}}
-				
+
 			</td>
 		</tr>
 		<tr>
 			<th>
 				Data fine progetto
 			</th>
-		
+
 			<td>
 				{{ scheda_pai.dataFine ? scheda_pai.dataFine|date('d-m-Y') : ''}}
-				
+
 			</td>
 		</tr>
-		<tr>
-			<th>
-				Frequenza scale Barthel
-			</th>
-		
-			<td>
-				{% if scheda_pai.abilitaBarthel == true %}
+		{% if scheda_pai.abilitaBarthel == true %}
+			<tr>
+				<th>
+					Frequenza scale Barthel
+				</th>
+
+				<td>
+
 					Compilazione scala barthel ogni
-						{{ scheda_pai.frequenzaBarthel}}
-						giorni
-				{% else %}
-					Scala barthel non disponibile
-				{% endif %}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Frequenza scale Braden
-			</th>
-		
-			<td>
-				{% if scheda_pai.abilitaBraden == true %}
+					{{ scheda_pai.frequenzaBarthel}}
+					giorni
+
+
+				</td>
+			</tr>
+		{% endif %}
+		{% if scheda_pai.abilitaBraden == true %}
+			<tr>
+				<th>
+					Frequenza scale Braden
+				</th>
+
+				<td>
+
 					Compilazione scala braden ogni
-						{{ scheda_pai.frequenzaBraden}}
-						giorni
-				{% else %}
-					Scala braden non disponibile
-				{% endif %}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Frequenza scale SPMSQ
-			</th>
-		
-			<td>
-				{% if scheda_pai.abilitaSpmsq == true %}
+					{{ scheda_pai.frequenzaBraden}}
+					giorni
+
+
+				</td>
+			</tr>
+		{% endif %}
+		{% if scheda_pai.abilitaSpmsq == true %}
+			<tr>
+				<th>
+					Frequenza scale SPMSQ
+				</th>
+
+				<td>
+
 					Compilazione scala SPMSQ ogni
-						{{ scheda_pai.frequenzaSpmsq}}
-						giorni
-				{% else %}
-					Scala SPMSQ non disponibile
-				{% endif %}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Frequenza scale Tinetti
-			</th>
-		
-			<td>
-				{% if scheda_pai.abilitaTinetti == true %}
+					{{ scheda_pai.frequenzaSpmsq}}
+					giorni
+
+
+				</td>
+			</tr>
+		{% endif %}
+		{% if scheda_pai.abilitaTinetti == true %}
+			<tr>
+				<th>
+					Frequenza scale Tinetti
+				</th>
+
+				<td>
+
 					Compilazione scala Tinetti ogni
-						{{ scheda_pai.frequenzaTinetti}}
-						giorni
-				{% else %}
-					Scala Tinetti non disponibile
-				{% endif %}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Frequenza scale VAS
-			</th>
-		
-			<td>
-				{% if scheda_pai.abilitaVas == true %}
+					{{ scheda_pai.frequenzaTinetti}}
+					giorni
+
+
+				</td>
+			</tr>
+		{% endif %}
+		{% if scheda_pai.abilitaVas == true %}
+			<tr>
+				<th>
+					Frequenza scale VAS
+				</th>
+
+				<td>
+
 					Compilazione scala VAS ogni
-						{{ scheda_pai.frequenzaVas}}
-						giorni
-				{% else %}
-					Scala VAS non disponibile
-				{% endif %}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Frequenza scale Lesioni
-			</th>
-		
-			<td>
-				{% if scheda_pai.abilitaLesioni == true %}
+					{{ scheda_pai.frequenzaVas}}
+					giorni
+
+
+				</td>
+			</tr>
+		{% endif %}
+		{% if scheda_pai.abilitaLesioni == true %}
+			<tr>
+				<th>
+					Frequenza scale Lesioni
+				</th>
+
+				<td>
+
 					Compilazione scala Lesioni ogni
-						{{ scheda_pai.frequenzaLesioni}}
-						giorni
-				{% else %}
-					Scala Lesioni non disponibile
-				{% endif %}
-			</td>
-		</tr>
+					{{ scheda_pai.frequenzaLesioni}}
+					giorni
+
+
+				</td>
+			</tr>
+		{% endif %}
 	</tbody>
 </table>

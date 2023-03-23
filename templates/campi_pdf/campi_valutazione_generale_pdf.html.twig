@@ -144,12 +144,14 @@
 				<td>
 
 					{% if bisogni is empty %}
-						<li>
-							Nessun bisogno</li>
+						
+							Nessun bisogno
 					{% else %}
+						<ul>
 						{% for i in 0..bisogni|length-1 %}
 							<li>{{ bisogni[i] }}</li>
 						{% endfor %}
+						</ul>
 					{% endif %}
 
 				</td>
@@ -162,12 +164,14 @@
 				<td>
 
 					{% if altra_tipologia_assistenza is empty %}
-						<li>
-							Nessuna altra tipologia di assistenza</li>
+						
+							Nessuna altra tipologia di assistenza
 					{% else %}
+						<ul>
 						{% for i in 0..altra_tipologia_assistenza|length-1 %}
 							<li>{{ altra_tipologia_assistenza[i] }}</li>
 						{% endfor %}
+						</ul>
 					{% endif %}
 
 				</td>

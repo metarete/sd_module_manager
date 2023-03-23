@@ -98,7 +98,6 @@
 				margin: auto;
 				width: 20%;
 			}
-			
 		</style>
 	</head>
 	<body>
@@ -118,9 +117,9 @@
 					{{assistito.provincia}}
 				</div>
 			</header>
-			
+
 			<footer>
-				
+
 				<div class="right">
 					<figure class="figure">
 						<img src="data:image/png;base64, {{image64}}" height="50px;">
@@ -147,94 +146,98 @@
 
 			<div style="page-break-before: always;"></div>
 
-			<h3>Valutazione Generale</h3>
+
 			{% if valutazione_generale is empty %}
-				<h4>Nessuna scheda di valutazione generale</h4>
-			{% else %}
-				{{ include('campi_pdf/campi_valutazione_generale_pdf.html.twig') }}
+
+				{% else %}
+					<h3>Valutazione Generale</h3>
+					{{ include('campi_pdf/campi_valutazione_generale_pdf.html.twig') }}
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>Valutazione Figura Professionale</h3>
+
+
 			{% if valutazioni_figura_professionale is empty %}
-				<h4>Nessuna scheda di valutazione professionale</h4>
-			{% else %}
-				{% for valutazione_figura_professionale in valutazioni_figura_professionale %}
-					{{ include('campi_pdf/campi_valutazione_figura_professionale_pdf.html.twig') }}
-					<br>
-				{% endfor %}
+
+				{% else %}
+					<h3>Valutazione Figura Professionale</h3>
+					{% for valutazione_figura_professionale in valutazioni_figura_professionale %}
+						{{ include('campi_pdf/campi_valutazione_figura_professionale_pdf.html.twig') }}
+						<br>
+					{% endfor %}
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>Barthel</h3>
+
 			{% if barthels is empty %}
-				<h4>Nessuna scheda di valutazione barthel</h4>
-			{% else %}
-
-				{{ include('campi_pdf/campi_barthel_pdf.html.twig') }}
-				<br>
-
+				{% else %}
+					<h3>Barthel</h3>
+					{{ include('campi_pdf/campi_barthel_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>Braden</h3>
+
+
 			{% if bradens is empty %}
-				<h4>Nessuna scheda di valutazione braden</h4>
-			{% else %}
 
-				{{ include('campi_pdf/campi_braden_pdf.html.twig') }}
-				<br>
-
+				{% else %}
+					<h3>Braden</h3>
+					{{ include('campi_pdf/campi_braden_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>SPMSQ</h3>
+
+
 			{% if spmsqs is empty %}
-				<h4>Nessuna scheda di valutazione spmsq</h4>
-			{% else %}
 
-				{{ include('campi_pdf/campi_spmsq_pdf.html.twig') }}
-				<br>
-
+				{% else %}
+					<h3>SPMSQ</h3>
+					{{ include('campi_pdf/campi_spmsq_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>Tinetti</h3>
+
+
 			{% if tinettis is empty %}
-				<h4>Nessuna scheda di valutazione tinetti</h4>
-			{% else %}
 
-				{{ include('campi_pdf/campi_tinetti_pdf.html.twig') }}
-				<br>
-
+				{% else %}
+					<h3>Tinetti</h3>
+					{{ include('campi_pdf/campi_tinetti_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>Vas</h3>
+
+
 			{% if vass is empty %}
-				<h4>Nessuna scheda di valutazione vas</h4>
-			{% else %}
 
-				{{ include('campi_pdf/campi_vas_pdf.html.twig') }}
-				<br>
-
+				{% else %}
+					<h3>Vas</h3>
+					{{ include('campi_pdf/campi_vas_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>Lesioni</h3>
+
+
 			{% if lesionis is empty %}
-				<h4>Nessuna scheda di valutazione lesioni</h4>
-			{% else %}
 
-				{{ include('campi_pdf/campi_lesioni_pdf.html.twig') }}
-				<br>
-
+				{% else %}
+					<h3>Lesioni</h3>
+					{{ include('campi_pdf/campi_lesioni_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
 			{% endif %}
-			<div style="page-break-before: always;"></div>
-			<h3>Parere MMG</h3>
+
+
 			{% if parere_mmg is empty %}
-				<h4>Nessun parere mmg</h4>
-			{% else %}
-				{{ include('campi_pdf/campi_parere_mmg_pdf.html.twig') }}
+
+				{% else %}
+					<h3>Parere MMG</h3>
+					{{ include('campi_pdf/campi_parere_mmg_pdf.html.twig') }}
 			{% endif %}
-			<h3>Chiusura Servizio</h3>
+
 			{% if chiusura_servizio is empty %}
-				<h4>Nessuna chiusura servizio</h4>
-			{% else %}
-				{{ include('campi_pdf/campi_chiusura_servizio_pdf.html.twig') }}
+
+				{% else %}
+					<h3>Chiusura Servizio</h3>
+					{{ include('campi_pdf/campi_chiusura_servizio_pdf.html.twig') }}
 			{% endif %}
 
 		{% endblock %}
