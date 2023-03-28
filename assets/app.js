@@ -38,6 +38,7 @@ window.darkMode = function (elemento) {
   localStorage.setItem("theme", theme);
 }
 $(function() {
+  //tema dark
   const currentTheme = localStorage.getItem("theme");
   var el = document.getElementById("dark-mode-mobile");
   var el2 = document.getElementById("dark-mode");
@@ -46,6 +47,19 @@ $(function() {
       $(el).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
       $(el2).find('i').toggleClass('bi-moon-fill bi-brightness-high-fill ');
   }
+  //scheda barthel
+  $('#barthel_form_deambulazioneValida').on('change', function(e){
+    var valoreDeambulazione = $(this).val();
+    var selettore = $('#barthel_form_usoCarrozzina');
+    if(valoreDeambulazione != 0){
+      selettore.prop('disabled', 'disabled');
+      
+    }
+    else {
+      selettore.prop('disabled', false);
+    }
+
+  });
 });
 //grafico schede
 var percentualeNuove = $("#percentualeNuove").text();
@@ -64,7 +78,7 @@ var barColors = [
   "#dc3545",
   "#fd7e14",
 ];
-
+if(typeof Chart !== 'undefined'){ 
 new Chart("myChart", {
   type: "doughnut",
   data: {
@@ -79,5 +93,6 @@ new Chart("myChart", {
     }]
   },
 });
+}
 
 
