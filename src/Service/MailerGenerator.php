@@ -106,6 +106,18 @@ class MailerGenerator
             __DIR__ . "/../../public/image/bottom_rounded_15.png"
         );
         $separatoreDown = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/marker-solid.png"
+        );
+        $immagineNuove = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/circle-xmark-solid.png"
+        );
+        $immagineChiuse = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/registered-solid.png"
+        );
+        $immagineChiuseConRinnovo = base64_encode($img);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $schedeNuove = $schedaPAIRepository->findByState('nuova');
@@ -155,6 +167,9 @@ class MailerGenerator
                         "separatoreTop" => $separatoreTop,
                         "frecciaLink" => $frecciaLink,
                         "separatoreDown" => $separatoreDown,
+                        "immagineNuove" => $immagineNuove,
+                        "immagineChiuse" => $immagineChiuse,
+                        "immagineChiuseConRinnovo" => $immagineChiuseConRinnovo,
                         "url" => $url,
                         "operatore" => $operatore
                     ]);
@@ -190,6 +205,26 @@ class MailerGenerator
             __DIR__ . "/../../public/image/bottom_rounded_15.png"
         );
         $separatoreDown = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/logoCoop.jpg"
+        );
+        $logoCoop = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/circle-check-solid.png"
+        );
+        $immagineAttive = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/stopwatch-solid.png"
+        );
+        $immagineScaleRitardi = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/user-doctor-solid.png"
+        );
+        $immagineValutazioni = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/hourglass-start-solid.png"
+        );
+        $immagineScadute = base64_encode($img);
         
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
@@ -396,6 +431,10 @@ class MailerGenerator
                         "separatoreTop" => $separatoreTop,
                         "frecciaLink" => $frecciaLink,
                         "separatoreDown" => $separatoreDown,
+                        "immagineAttive" => $immagineAttive,
+                        "immagineScaleRitardi" => $immagineScaleRitardi,
+                        "immagineValutazioni" => $immagineValutazioni,
+                        "immagineScadute" => $immagineScadute,
                         "url" => $url,
                         "operatore" => $operatore
                     ]);

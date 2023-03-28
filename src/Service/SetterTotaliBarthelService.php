@@ -28,9 +28,9 @@ Class SetterTotaliBarthelService
         $scale = $barthel->getScale();
         $deambulazioneValida = $barthel->getDeambulazioneValida();
         $usoCarrozzina = $barthel->getUsoCarrozzina();
-        $deambulazione = $barthel->isDeambulazione();
+        //$deambulazione = $barthel->isDeambulazione();
         $totale = 0;
-        if($deambulazione == true){
+        if($deambulazioneValida != 0){
             $totale = $totaleValutazioneFunzionale + $trasferimentoLettoSedia + $scale + $deambulazioneValida;
         }
         else{

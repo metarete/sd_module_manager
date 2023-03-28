@@ -100,7 +100,7 @@
 								<tr>
 									<th>Deambulazione</th>
 									{% for barthel in barthels %}
-										{% if barthel.deambulazione == true %}
+										{% if barthel.deambulazioneValida != 0 %}
 											<td>{{ barthel.deambulazioneValida}}</td>
 										{% else %}
 											<td>/</td>
@@ -110,7 +110,7 @@
 								<tr>
 									<th>Uso carrozzina</th>
 									{% for barthel in barthels %}
-										{% if barthel.deambulazione == false %}
+										{% if barthel.deambulazioneValida == 0 %}
 											<td>{{ barthel.usoCarrozzina}}</td>
 										{% else %}
 											<td>/</td>
@@ -290,7 +290,7 @@
 								{% for barthel in barthels %}
 									<tr>
 										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
-										{% if barthel.deambulazione == true %}
+										{% if barthel.deambulazioneValida != 0 %}
 											<td>{{ barthel.deambulazioneValida}}</td>
 										{% else %}
 											<td>/</td>
@@ -305,7 +305,7 @@
 								{% for barthel in barthels %}
 									<tr>
 										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
-										{% if barthel.deambulazione == false %}
+										{% if barthel.deambulazioneValida == 0 %}
 											<td>{{ barthel.usoCarrozzina}}</td>
 										{% else %}
 											<td>/</td>

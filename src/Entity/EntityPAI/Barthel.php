@@ -51,8 +51,8 @@ class Barthel
     #[ORM\Column(type: 'integer')]
     private $scale;
 
-    #[ORM\Column(type: 'boolean')]
-    private $deambulazione;
+    //#[ORM\Column(type: 'boolean')]
+    //private $deambulazione;
 
     #[ORM\Column(type: 'integer')]
     private $deambulazioneValida;
@@ -209,7 +209,7 @@ class Barthel
         return $this;
     }
 
-    public function isDeambulazione(): ?bool
+    /*public function isDeambulazione(): ?bool
     {
         return $this->deambulazione;
     }
@@ -220,7 +220,7 @@ class Barthel
 
         return $this;
     }
-
+    */
     public function getDeambulazioneValida(): ?int
     {
         return $this->deambulazioneValida;
@@ -232,7 +232,7 @@ class Barthel
 
         return $this;
     }
-
+    
     public function getUsoCarrozzina(): ?int
     {
         return $this->usoCarrozzina;

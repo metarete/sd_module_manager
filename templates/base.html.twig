@@ -58,12 +58,12 @@
 											<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}" style="margin:20px;">
 												<i class="bi bi-key"></i>
 												Modifica Password</a>
-											<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" style="margin:20px;">
-												<i class="bi bi-box-arrow-left"></i>
-												Logout</a>
 											<a class="button nav-link px-1 text-white" id="dark-mode-mobile" type="checkbox" onclick="window.darkMode(this)" style="margin:20px;">
 												<i class="bi bi-moon-fill"></i>
 												Tema</a>
+											<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" style="margin:20px;">
+												<i class="bi bi-box-arrow-left"></i>
+												Logout</a>
 										</div>
 									</div>
 								</div>
@@ -74,6 +74,9 @@
 							</li>
 							<li>
 								<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;">Sincronizza</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="{{ path('app_scadenzario_index') }}" style="margin:20px;">Scadenzario</a>
 							</li>
 							<li class="nav-item">
 								<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>

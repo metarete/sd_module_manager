@@ -71,8 +71,7 @@ class SDManagerClientApiService
             $content = [];
             return $content;
         }
-        $content = $response->getContent();
-        // $content = '{"id":521583, "name":"symfony-docs", ...}'
+       
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 
@@ -91,8 +90,7 @@ class SDManagerClientApiService
             $content = [];
             return $content;
         }
-        $content = $response->getContent();
-        // $content = '{"id":521583, "name":"symfony-docs", ...}'
+       
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 
@@ -111,8 +109,7 @@ class SDManagerClientApiService
             $content = [];
             return $content;
         }
-        $content = $response->getContent();
-        // $content = '{"id":521583, "name":"symfony-docs", ...}'
+        
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 

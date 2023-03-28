@@ -55,7 +55,7 @@ class BarthelFormType extends AbstractType
             ->add('scale', ChoiceType::class,[
                 'choices' => $votiBarthel010Choices
             ])
-            ->add('deambulazione')
+            //->add('deambulazione')
             ->add('deambulazioneValida', ChoiceType::class,[
                 'choices' => $votiBarthel015Choices
             ])
