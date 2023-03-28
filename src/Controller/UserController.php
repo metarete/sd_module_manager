@@ -25,7 +25,7 @@ class UserController extends AbstractController
         $offset = $usersPerPagina * $page - $usersPerPagina;
 
 
-        $userss = $userRepository->findBy([], array('id' => 'DESC'), $usersPerPagina, $offset);
+        $users = $userRepository->findBy([], array('id' => 'DESC'), $usersPerPagina, $offset);
 
          //calcolo pagine per paginatore
          $totaleUsers = $userRepository->contaOperatori();
@@ -35,7 +35,7 @@ class UserController extends AbstractController
          if ($pagineTotali == 0)
              $pagineTotali = 1;
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $users,
             'pagina' => $page,
             'pagine_totali' => $pagineTotali,
             'users_per_pagina' => $usersPerPagina,

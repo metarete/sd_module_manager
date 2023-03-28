@@ -29,7 +29,7 @@
 								<tr>
 									<td></td>
 									{% for s_p_m_s_q in spmsqs %}
-										<th data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</th>
+										<th data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</th>
 									{% endfor %}
 								</tr>
 							</thead>
@@ -245,7 +245,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.giornoOggi == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -263,7 +263,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.giornoSettimana == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -281,7 +281,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.posto == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -299,7 +299,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.indirizzo == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -317,7 +317,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.anni == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -335,7 +335,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.dataNascita == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -353,7 +353,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.presidenteAttuale == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -371,7 +371,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.presidentePrecedente == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -389,7 +389,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.cognomeMadre == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -407,7 +407,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if s_p_m_s_q.sottrazione == false %}
 											<td>
 												<i class="bi bi-check-circle-fill" style="color:green"></i>
@@ -425,7 +425,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 
 										<th data-title='Totale errori'>
 											{{s_p_m_s_q.totale}}
@@ -439,7 +439,7 @@
 								</tr>
 								{% for s_p_m_s_q in spmsqs %}
 									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
 										<th>{{ s_p_m_s_q.operatore.name }}
 											{{s_p_m_s_q.operatore.surname}}
 											<br>

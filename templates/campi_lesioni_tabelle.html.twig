@@ -30,7 +30,7 @@
 								<tr>
 									<th></th>
 									{% for lesioni in lesionis %}
-										<th data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</th>
+										<th data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</th>
 									{% endfor %}
 								</tr>
 							</thead>
@@ -140,7 +140,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<td>{{lesioni.tipologiaLesione}}</td>
 									</tr>
 								{% endfor %}
@@ -150,7 +150,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<td>{{lesioni.numeroSedeLesione}}</td>
 									</tr>
 								{% endfor %}
@@ -160,7 +160,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<td>{{lesioni.gradoLesione}}</td>
 									</tr>
 								{% endfor %}
@@ -170,7 +170,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<td>{{lesioni.condizioneLesione}}</td>
 									</tr>
 								{% endfor %}
@@ -180,7 +180,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<td>{{lesioni.bordiLesione}}</td>
 									</tr>
 								{% endfor %}
@@ -190,7 +190,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<td>{{lesioni.cutePerilesionale}}</td>
 									</tr>
 								{% endfor %}
@@ -200,7 +200,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<td>{{lesioni.noteSullaLesione}}</td>
 									</tr>
 								{% endfor %}
@@ -210,7 +210,7 @@
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
-										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d-m-Y') : ''}}</td>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
 										<th>{{ lesioni.operatore.name }}
 											{{lesioni.operatore.surname}}
 											<br>

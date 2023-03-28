@@ -68,13 +68,9 @@ class SchedaPAIController extends AbstractController
         //filtri
         $stato = $request->request->get('filtro_stato');
         $operatore = $request->request->get('filtro_operatore');
-        $lista = $userRepository->findAllUsername();
         $numeroSchedeVisibiliPerPagina = $request->request->get('filtro_numero_schede');
-        $listaUsername = [];
-        for ($i = 0; $i < count($lista); $i++) {
-            $listaUsername[$i] = $lista[$i]['username'];
-        }
-
+        $listaOperatori = $userRepository->findAll();
+        
         //calcolo tabella
         $schedaPais = null;
 
@@ -85,20 +81,20 @@ class SchedaPAIController extends AbstractController
 
         $offset = $schedePerPagina * $page - $schedePerPagina;
 
+        //applicazione filtri
 
-        if ($ruoloUser[0] == "ROLE_ADMIN") {
-            if ($stato == null || $stato == "") {
-                if ($operatore == '' || $operatore == null || $operatore == 'tutti')
-                    $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
-                else
-                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, null, $schedePerPagina, $page);
-            } else {
-                if ($operatore == '' || $operatore == null || $operatore == 'tutti')
-                    $schedaPais = $schedaPAIRepository->selectStatoSchedePai($stato, $page, $schedePerPagina);
-                else
-                    $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, $stato, $schedePerPagina, $page);
-            }
+        if ($stato == null || $stato == "") {
+            if ($operatore == '' || $operatore == null || $operatore == 'tutti')
+                $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
+            else
+                $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, null, $schedePerPagina, $page);
+        } else {
+            if ($operatore == '' || $operatore == null || $operatore == 'tutti')
+                $schedaPais = $schedaPAIRepository->selectStatoSchedePai($stato, $page, $schedePerPagina);
+            else
+                $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, $stato, $schedePerPagina, $page);
         }
+
 
 
 
@@ -147,28 +143,24 @@ class SchedaPAIController extends AbstractController
                 'Successo',
                 'Sincronizzazione completata con successo!'
             );
-        }
-        elseif($alertSincronizzazione == 'errore'){
+        } elseif ($alertSincronizzazione == 'errore') {
             $this->addFlash(
                 'Fallimento',
                 'Sincronizzazione fallita!'
             );
-        }
-        elseif($alertSincronizzazione == 'chiusuraFallita'){
+        } elseif ($alertSincronizzazione == 'chiusuraFallita') {
             $this->addFlash(
                 'Fallimento',
                 'Chiusura Fallita! Per chiudere una scheda è necessario aver compilato tutte le
                 scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale 
                 per operatore coinvolto'
             );
-        }
-        elseif($alertSincronizzazione == 'chiusuraCompletata'){
+        } elseif ($alertSincronizzazione == 'chiusuraCompletata') {
             $this->addFlash(
                 'Successo',
                 'Chiusura Completata con successo!'
             );
-        }
-        elseif($alertSincronizzazione == 'approvazioneFallita'){
+        } elseif ($alertSincronizzazione == 'approvazioneFallita') {
             $this->addFlash(
                 'Fallimento',
                 'Impossibile approvare la scheda. Per approvare la scheda è necessario impostare un
@@ -176,7 +168,7 @@ class SchedaPAIController extends AbstractController
             );
         }
         $session->set('alertSincronizzazione', '');
-        
+
         return $this->render('scheda_pai/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,
@@ -186,7 +178,7 @@ class SchedaPAIController extends AbstractController
             'stato' => $stato,
             'user' => $user,
             'assistiti' => $assistiti,
-            'listaUsername' => $listaUsername,
+            'listaOperatori' => $listaOperatori,
             'pathName' => $pathName
         ]);
     }
@@ -467,10 +459,10 @@ class SchedaPAIController extends AbstractController
 
         // Render the HTML as PDF
         $dompdf->render();
-        $dompdf->addInfo('Title', "Scheda-PAI-di-".$assistito->getNome()."-".$assistito->getCognome()."-".$dataCreazione);
+        $dompdf->addInfo('Title', "Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione);
 
         // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("Scheda-PAI-di-".$assistito->getNome()."-".$assistito->getCognome()."-".$dataCreazione."-"."pdf", [
+        $dompdf->stream("Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione . "-" . "pdf", [
             "Attachment" => false
         ]);
     }
@@ -556,35 +548,35 @@ class SchedaPAIController extends AbstractController
         $dataFine = date('d-m-Y', strtotime('+3 month'));
 
         $this->SdManagerClientApiService->sincAssistiti();
-        if($this->SdManagerClientApiService->getCodiceResponseAssistiti()!= 200){
+        if ($this->SdManagerClientApiService->getCodiceResponseAssistiti() != 200) {
             $session->set('alertSincronizzazione', 'errore');
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         $this->SdManagerClientApiService->sincOperatori();
-        if($this->SdManagerClientApiService->getCodiceResponseOperatori()!= 200){
+        if ($this->SdManagerClientApiService->getCodiceResponseOperatori() != 200) {
             $session->set('alertSincronizzazione', 'errore');
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         $this->SdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
-        if($this->SdManagerClientApiService->getCodiceResponseProgetti()!= 200){
+        if ($this->SdManagerClientApiService->getCodiceResponseProgetti() != 200) {
             $session->set('alertSincronizzazione', 'errore');
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
-        
+
         $session->set('alertSincronizzazione', 'completata');
 
         return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/approva_scheda_pai/{id}', name: 'app_scheda_pai_approva', methods: ['GET'])]
-    public function approva(Request $request , SchedaPAI $schedaPAI, string $pathName)
+    public function approva(Request $request, SchedaPAI $schedaPAI, string $pathName)
     {
         $this->approvaSchedaService->approva($schedaPAI);
-        if($schedaPAI->getIdOperatorePrincipale()==null){
+        if ($schedaPAI->getIdOperatorePrincipale() == null) {
             $session = $request->getSession();
             $session->set('alertSincronizzazione', 'approvazioneFallita');
         }
-        
+
         return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
     }
 }

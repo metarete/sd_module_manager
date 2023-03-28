@@ -43,10 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $surname;
 
+    #[ORM\Column(type: 'string')]
+    private $cf;
+
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $password;
 
     #[ORM\Column(type: 'boolean')]
@@ -162,6 +165,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->surname = $surname;
         
         return $this;
+    }
+
+    public function setCf(string $cf): self
+    {
+        $this->cf = $cf;
+        
+        return $this;
+    }
+
+    public function getCf(): ?string
+    {
+        return $this->cf;
     }
 
     /**

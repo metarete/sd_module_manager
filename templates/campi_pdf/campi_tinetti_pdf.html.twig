@@ -29,7 +29,7 @@
                             <tr>
                                 <th></th>
 								{% for tinetti in tinettis %}                                  
-									<th data-title='Data Valutazione'>{{tinetti.dataValutazione ? tinetti.dataValutazione|date('d-m-Y') : ''}}</th>
+									<th data-title='Data Valutazione'>{{tinetti.dataValutazione ? tinetti.dataValutazione|date('d/m/Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>

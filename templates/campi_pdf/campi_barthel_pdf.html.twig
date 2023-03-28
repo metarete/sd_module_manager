@@ -29,7 +29,7 @@
 							<tr>
 								<td></td>
 								{% for barthel in barthels %}
-									<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</th>
+									<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>

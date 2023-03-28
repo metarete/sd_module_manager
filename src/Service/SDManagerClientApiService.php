@@ -8,14 +8,12 @@ use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\Paziente;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class SDManagerClientApiService
 {
     private $client;
     private $entityManager;
-    private $userPasswordHasher;
     private $params;
 
     private $codiceResponseProgetti;
@@ -25,11 +23,10 @@ class SDManagerClientApiService
     private $numeroProgettiScaricati = 0;
     private $numeroProgettiAggiornati = 0;
 
-    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, ParameterBagInterface $params)
+    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, ParameterBagInterface $params)
     {
         $this->client = $client;
         $this->entityManager = $entityManager;
-        $this->userPasswordHasher = $userPasswordHasher;
         $this->params = $params;
     }
 
@@ -116,16 +113,71 @@ class SDManagerClientApiService
         return $content;
     }
 
+    
+    /*
+        funzione per sincronizzare con Sd manager gli operatori
+        
+    */
+
     public function sincOperatori()
     {
-        $pass = $this->params->get('app.testing_password_user');
-
+       
+        
+        //tramite API ottengo gli operatori da Sd manager
         $utenti = $this->getOperatori();
+
         if($this->codiceResponseOperatori != 200){
             return;
         }
-         
+        //ottengo il repository degli utenti in locale
         $userRepository = $this->entityManager->getRepository(User::class);
+
+
+        //faccio passare tutti gli utenti scaricati
+        for ($i = 0; $i < count($utenti); $i++) {
+            //verifico che l'utente ha lo username
+            if(empty($utenti[$i]['username'])){
+                //lo salto. non ha lo username
+            }
+            else{
+                if(empty($utenti[$i]['emails'])){
+                    //lo salto. non ha la mail
+                }
+                else{
+                    //ha tutto. controllo se c'è gia
+                    if($userRepository->findOneByUsername($utenti[$i]['username']) == null){
+                        //utente nuovo. 
+                        //controllo se esiste un utente che ha la stessa mail di questo nuovo utente
+                        if ($userRepository->findOneByEmail($utenti[$i]['emails'][0]['email'])== null){
+                            //non esiste. creo l'utente
+                            $utente = new User;
+                            $utente->setEmail($utenti[$i]['emails'][0]['email']);
+                            $utente->setName($utenti[$i]['nome']);
+                            $utente->setSurname($utenti[$i]['cognome']);
+                            $utente->setCf($utenti[$i]['cf']);
+                            $role[0] = 'ROLE_USER';
+                            $utente->setRoles($role);
+                            $utente->setUsername($utenti[$i]['username']);
+                            $utente->setSdManagerOperatore(true);
+
+                            $userRepository->add($utente, true);
+                        }
+                        else {
+                            //ho già un utente con questa mail. lo salto
+                        }
+                    }
+                    else{
+                        //utente che ho gia. aggiorno i dati
+                        $email = $utenti[$i]['emails'][0]['email'];
+                        $userRepository->updateUserByUsername($utenti[$i]['username'], $utenti[$i]['nome'], $utenti[$i]['cognome'], $utenti[$i]['cf'], $email);
+                    }
+                }
+            }
+        }
+        
+        
+
+        /*
         //faccio passare tutti gli utenti scaricati
         for ($i = 0; $i < count($utenti); $i++) {
             $userUtente = $utenti[$i]['username'];
@@ -138,15 +190,9 @@ class SDManagerClientApiService
                     //se l'email non è già stata assegnata ad un altro utente registro il nuovo utente
                     if ($userRepository->findOneByEmail($email) == null) {
                         $utente->setEmail($email);
-                        $password = $pass;
-                        $hashedPassword = $this->userPasswordHasher->hashPassword(
-                            $utente,
-                            $password
-                        );
-
-                        $utente->setPassword($hashedPassword);
                         $utente->setName($utenti[$i]['nome']);
                         $utente->setSurname($utenti[$i]['cognome']);
+                        $utente->setCf($utenti[$i]['cf']);
                         $role[0] = 'ROLE_USER';
                         $utente->setRoles($role);
                         $utente->setUsername($userUtente);
@@ -159,9 +205,10 @@ class SDManagerClientApiService
             } else if (!empty($utenti[$i]['emails'])){
                 //altro if controllo mail
                 $email = $utenti[$i]['emails'][0]['email'];
-                $userRepository->updateUserByUsername($userUtente, $utenti[$i]['nome'], $utenti[$i]['cognome'], $email);
+                $userRepository->updateUserByUsername($userUtente, $utenti[$i]['nome'], $utenti[$i]['cognome'], $utenti[$i]['cf'],$email);
             }
         }
+        */
     }
 
     public function sincProgetti(string $dataInizio, string $dataFine)

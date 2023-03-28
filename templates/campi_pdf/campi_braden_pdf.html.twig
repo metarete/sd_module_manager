@@ -28,7 +28,7 @@
 							<tr>
 								<td></td>
 								{% for braden in bradens %}
-									<th data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</th>
+									<th data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>

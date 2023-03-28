@@ -29,7 +29,7 @@
 							<tr>
 								<td></td>
 								{% for s_p_m_s_q in spmsqs %}
-									<th data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d-m-Y') : ''}}</th>
+									<th data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</th>
 								{% endfor %}
 							</tr>
 						</thead>

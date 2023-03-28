@@ -43,10 +43,8 @@
 						<td data-title='Ruolo'>
 							{% if user.roles[0] == "ROLE_ADMIN" %}
 								Admin
-							{% elseif user.roles[0] == "ROLE_USER" %}
+							{% else %}
 								Utente
-							{% elseif user.roles[0] == "ROLE_GESTORE" %}
-								Gestore
 							{% endif %}
 						</td>
 						<td data-title='Operazioni'>

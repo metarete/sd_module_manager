@@ -30,8 +30,8 @@ class MailerGenerator
                 $riga = [
                     "id" => $schede[$i]->getId(),
                     "nome_progetto" => $schede[$i]->getNomeProgetto(),
-                    "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
-                    "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "stato" => $schede[$i]->getCurrentPlace(),
                     "link" => $url . '/scheda_pai/'
@@ -49,8 +49,8 @@ class MailerGenerator
                 $riga = [
                     "id" => $schede[$i]->getId(),
                     "nome_progetto" => $schede[$i]->getNomeProgetto(),
-                    "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
-                    "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "stato" => $schede[$i]->getCurrentPlace(),
                     "link" => $url . '/scheda_pai/'
@@ -68,8 +68,8 @@ class MailerGenerator
                 $riga = [
                     "id" => $schede[$i]->getId(),
                     "nome_progetto" => $schede[$i]->getNomeProgetto(),
-                    "data_inizio" => $schede[$i]->getDataInizio()->format('d-m-Y'),
-                    "data_fine" => $schede[$i]->getDataFine()->format('d-m-Y'),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
                     "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
                     "motivazione" => $schede[$i]->getIdChiusuraServizio()->getConclusioni(),
                     "stato" => $schede[$i]->getCurrentPlace(),
@@ -257,8 +257,8 @@ class MailerGenerator
                     $riga = [
                         "id" => $arraySchedeApprovate[$j]->getId(),
                         "nome_progetto" => $arraySchedeApprovate[$j]->getNomeProgetto(),
-                        "data_inizio" => $arraySchedeApprovate[$j]->getDataInizio()->format('d-m-Y'),
-                        "data_fine" => $arraySchedeApprovate[$j]->getDataFine()->format('d-m-Y'),
+                        "data_inizio" => $arraySchedeApprovate[$j]->getDataInizio()->format('d/m/Y'),
+                        "data_fine" => $arraySchedeApprovate[$j]->getDataFine()->format('d/m/Y'),
                         "assistito" => $arraySchedeApprovate[$j]->getNomeAssistito() . "  " . $arraySchedeApprovate[$j]->getCognomeAssistito(),
                         "stato" => $arraySchedeApprovate[$j]->getCurrentPlace(),
                         "link" => $url . '/scadenzario/'
@@ -298,8 +298,8 @@ class MailerGenerator
                         $riga = [
                             "id" => $arraySchedeAttive[$t]->getId(),
                             "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
-                            "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d-m-Y'),
-                            "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d-m-Y'),
+                            "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d/m/Y'),
+                            "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d/m/Y'),
                             "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
                             "valore" => $valore,
                         ];
@@ -308,8 +308,8 @@ class MailerGenerator
 
                     $riga = [
                         "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
-                        "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d-m-Y'),
-                        "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d-m-Y'),
+                        "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d/m/Y'),
+                        "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d/m/Y'),
                         "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
                         "barthel" => "Nessuna",
                         "braden" => "Nessuna",
@@ -375,8 +375,8 @@ class MailerGenerator
                     $riga = [
                         "id" => $arraySchedeInAttesaDiChiusura[$z]->getId(),
                         "nome_progetto" => $arraySchedeInAttesaDiChiusura[$z]->getNomeProgetto(),
-                        "data_inizio" => $arraySchedeInAttesaDiChiusura[$z]->getDataInizio()->format('d-m-Y'),
-                        "data_fine" => $arraySchedeInAttesaDiChiusura[$z]->getDataFine()->format('d-m-Y'),
+                        "data_inizio" => $arraySchedeInAttesaDiChiusura[$z]->getDataInizio()->format('d/m/Y'),
+                        "data_fine" => $arraySchedeInAttesaDiChiusura[$z]->getDataFine()->format('d/m/Y'),
                         "assistito" => $arraySchedeInAttesaDiChiusura[$z]->getNomeAssistito() . "  " . $arraySchedeInAttesaDiChiusura[$z]->getCognomeAssistito(),
                         "stato" => $arraySchedeInAttesaDiChiusura[$z]->getCurrentPlace(),
                     ];

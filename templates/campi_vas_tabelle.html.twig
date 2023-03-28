@@ -30,7 +30,7 @@
 								<tr>
 									<th></th>
 									{% for va in vass %}
-										<th data-title='Data Valutazione'>{{va.data ? va.data|date('d-m-Y') : ''}}</th>
+										<th data-title='Data Valutazione'>{{va.data ? va.data|date('d/m/Y') : ''}}</th>
 									{% endfor %}
 								</tr>
 							</thead>
@@ -128,7 +128,7 @@
 								</tr>
 								{% for va in vass %}
 									<tr>
-										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d/m/Y') : ''}}</td>
 										<td>{{va.base2}}</td>
 									</tr>
 								{% endfor %}
@@ -138,7 +138,7 @@
 								</tr>
 								{% for va in vass %}
 									<tr>
-										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d/m/Y') : ''}}</td>
 										<td>{{va.pz}}</td>
 									</tr>
 								{% endfor %}
@@ -148,7 +148,7 @@
 								</tr>
 								{% for va in vass %}
 									<tr>
-										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d/m/Y') : ''}}</td>
 										<td>{{va.esito}}</td>
 									</tr>
 								{% endfor %}
@@ -158,7 +158,7 @@
 								</tr>
 								{% for va in vass %}
 									<tr>
-										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d/m/Y') : ''}}</td>
 										<td>{{va.farmaci ? 'Si' : 'No'}}</td>
 									</tr>
 								{% endfor %}
@@ -168,7 +168,7 @@
 								</tr>
 								{% for va in vass %}
 									<tr>
-										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d/m/Y') : ''}}</td>
 										<td>{{va.altro ? 'Si' : 'No'}}</td>
 									</tr>
 								{% endfor %}
@@ -178,7 +178,7 @@
 								</tr>
 								{% for va in vass %}
 									<tr>
-										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{va.data ? va.data|date('d/m/Y') : ''}}</td>
 										<th>{{ va.operatore.name }}
 											{{va.operatore.surname}}
 											<br>

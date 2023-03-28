@@ -37,8 +37,8 @@
         <p class="h6">Filtro Operatore</p>
         <select class="d-inline form-select" name='filtro_operatore' onchange="this.form.submit()">
                 <option {% if operatore == '' %}selected{% endif %} value="">Tutti</option>
-                {% for userInLista in listaUsername %}
-                    <option {% if operatore == userInLista %}selected{% endif %} >{{userInLista}}</option>
+                {% for userInLista in listaOperatori %}
+                    <option {% if operatore == userInLista.username %}selected{% endif %} value="{{userInLista.username}}" >{{userInLista.name}} {{userInLista.surname}} : {{userInLista.cf}}</option>
                 {% endfor %}
         </select>
         </div>
@@ -109,8 +109,8 @@
 				</td>
                 <td data-title='Id'>{{ scheda_pai.id }}</td>
                 <td data-title='Nome Progetto'>{{scheda_pai.nomeProgetto}}</td>
-                <td data-title='Data Inizio'>{{ scheda_pai.dataInizio|date('d-m-Y') }} </td>
-                <td data-title='Data Fine'>{{ scheda_pai.dataFine|date('d-m-Y')}} </td>
+                <td data-title='Data Inizio'>{{ scheda_pai.dataInizio|date('d/m/Y') }} </td>
+                <td data-title='Data Fine'>{{ scheda_pai.dataFine|date('d/m/Y')}} </td>
                 <td data-title='Assistito'>
                 {% for i in assistiti %}
                  {% if i.idSdManager == scheda_pai.idAssistito %}

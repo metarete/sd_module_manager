@@ -30,7 +30,7 @@
 								<tr>
 									<td></td>
 									{% for barthel in barthels %}
-										<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</th>
+										<th data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</th>
 									{% endfor %}
 								</tr>
 							</thead>
@@ -189,7 +189,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.alimentazione}}</td>
 									</tr>
 								{% endfor %}
@@ -199,7 +199,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.bagnoDoccia}}</td>
 									</tr>
 								{% endfor %}
@@ -209,7 +209,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.igienePersonale}}</td>
 									</tr>
 								{% endfor %}
@@ -219,7 +219,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.abbigliamento}}</td>
 									</tr>
 								{% endfor %}
@@ -229,7 +229,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.continenzaIntestinale}}</td>
 									</tr>
 								{% endfor %}
@@ -239,7 +239,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.continenzaUrinaria}}</td>
 									</tr>
 								{% endfor %}
@@ -249,7 +249,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.toilet}}</td>
 									</tr>
 								{% endfor %}
@@ -259,7 +259,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<th>{{ barthel.totaleValutazioneFunzionale}}</th>
 									</tr>
 								{% endfor %}
@@ -269,7 +269,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.trasferimentoLettoSedia}}</td>
 									</tr>
 								{% endfor %}
@@ -279,7 +279,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ barthel.scale}}</td>
 									</tr>
 								{% endfor %}
@@ -289,7 +289,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if barthel.deambulazioneValida != 0 %}
 											<td>{{ barthel.deambulazioneValida}}</td>
 										{% else %}
@@ -304,7 +304,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										{% if barthel.deambulazioneValida == 0 %}
 											<td>{{ barthel.usoCarrozzina}}</td>
 										{% else %}
@@ -319,7 +319,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<th>{{ barthel.totale}}/100</th>
 									</tr>
 								{% endfor %}
@@ -329,7 +329,7 @@
 								</tr>
 								{% for barthel in barthels %}
 									<tr>
-										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
 										<th>{{ barthel.operatore.name }}
 											{{barthel.operatore.surname}}
 											<br>

@@ -129,16 +129,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     }
 
-    public function updateUserByUsername($username, $nome, $cognome, $email): void
+    public function updateUserByUsername($username, $nome, $cognome, $cf,$email): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
         ->update(null, null)
         ->set('u.name', ':nome')
         ->set('u.surname', ':cognome')
+        ->set('u.cf', ':cf')
         ->set('u.email', ':email')
         ->where('u.username = :username')
         ->setParameter('nome', $nome)
         ->setParameter('cognome', $cognome)
+        ->setParameter('cf', $cf)
         ->setParameter('email', $email)
         ->setParameter('username', $username)
         ->getQuery()

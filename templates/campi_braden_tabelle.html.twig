@@ -30,7 +30,7 @@
 								<tr>
 									<td></td>
 									{% for braden in bradens %}
-										<th data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</th>
+										<th data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</th>
 									{% endfor %}
 								</tr>
 							</thead>
@@ -142,7 +142,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ braden.percezioneSensoriale}}</td>
 									</tr>
 								{% endfor %}
@@ -152,7 +152,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ braden.umidita}}</td>
 									</tr>
 								{% endfor %}
@@ -162,7 +162,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ braden.attivita}}</td>
 									</tr>
 								{% endfor %}
@@ -172,7 +172,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ braden.mobilita}}</td>
 									</tr>
 								{% endfor %}
@@ -182,7 +182,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ braden.nutrizione}}</td>
 									</tr>
 								{% endfor %}
@@ -192,7 +192,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<td>{{ braden.frizioneScivolamento}}</td>
 									</tr>
 								{% endfor %}
@@ -202,7 +202,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<th>{{ braden.totale}}</th>
 									</tr>
 								{% endfor %}
@@ -212,7 +212,7 @@
 								</tr>
 								{% for braden in bradens %}
 									<tr>
-										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d-m-Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
 										<th>{{ braden.operatore.name }}
 											{{braden.operatore.surname}}
 											<br>
