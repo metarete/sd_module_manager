@@ -27,6 +27,9 @@ class VasController extends AbstractController
     #[Route('/delete/{id}', name: 'app_vas_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Vas $va, VasRepository $vasRepository): Response
     {
+        $post = $va->getSchedaPAI();
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+
         $metodo = $request->getMethod();
         if ($metodo == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $va->getId(), $request->request->get('_token'))) {
@@ -45,12 +48,18 @@ class VasController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_vas_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $vas = new Vas();
-        $form = $this->createForm(VasFormType::class, $vas);
-        $form->handleRequest($request);
         $id_pai = $request->query->get('id_pai');
         $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $SchedaPAIRepository->find($id_pai);
+
+        $post = $schedaPai;
+        $this->denyAccessUnlessGranted('crea_vas', $post);
+
+
+        $vas = new Vas();
+        $form = $this->createForm(VasFormType::class, $vas);
+        $form->handleRequest($request);
+        
         if (!$schedaPai) {
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -89,6 +98,9 @@ class VasController extends AbstractController
     #[Route('/{id}/edit', name: 'app_vas_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Vas $va, VasRepository $vasRepository): Response
     {
+        $post = $va->getSchedaPAI();
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+
         $form = $this->createForm(VasFormType::class, $va);
         $form->handleRequest($request);
 

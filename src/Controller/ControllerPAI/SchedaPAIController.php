@@ -252,6 +252,10 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/show/{id}', name: 'app_scheda_pai_show', methods: ['GET'])]
     public function show(SchedaPAI $schedaPAI, string $pathName): Response
     {
+        $post = $schedaPAI;
+        $this->denyAccessUnlessGranted('visualizza_scheda_completa', $post);
+
+
         //assistiti
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $assistiti = $assistitiRepository->findAll();
@@ -302,6 +306,9 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/{id}/edit/', name: 'app_scheda_pai_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository, string $pathName): Response
     {
+        $post = $schedaPAI;
+        $this->denyAccessUnlessGranted('configura', $post);
+
         $form = $this->createForm(SchedaPAIType::class, $schedaPAI);
         $form->handleRequest($request);
 
@@ -372,6 +379,8 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/delete/{id}', name: 'app_scheda_pai_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository, string $pathName): Response
     {
+        $post = $schedaPAI;
+        $this->denyAccessUnlessGranted('elimina', $post);
 
         if ($this->isCsrfTokenValid('delete' . $schedaPAI->getId(), $request->get('_token'))) {
 
@@ -484,6 +493,9 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/chiusura_scheda/{id}', name: 'app_scheda_pai_chiusura', methods: ['GET'])]
     public function chiudiScheda(SchedaPAI $schedaPAI, string $pathName, Request $request): Response
     {
+        $post = $schedaPAI;
+        $this->denyAccessUnlessGranted('chiudi', $post);
+
         $idScheda = $schedaPAI->getId();
         $barthelRepository = $this->entityManager->getRepository(Barthel::class);
         $bradenRepository = $this->entityManager->getRepository(Braden::class);
@@ -571,6 +583,9 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/approva_scheda_pai/{id}', name: 'app_scheda_pai_approva', methods: ['GET'])]
     public function approva(Request $request, SchedaPAI $schedaPAI, string $pathName)
     {
+        $post = $schedaPAI;
+        $this->denyAccessUnlessGranted('approva', $post);
+
         $this->approvaSchedaService->approva($schedaPAI);
         if ($schedaPAI->getIdOperatorePrincipale() == null) {
             $session = $request->getSession();

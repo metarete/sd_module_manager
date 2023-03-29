@@ -218,7 +218,7 @@ class MailerGenerator
         );
         $immagineScaleRitardi = base64_encode($img);
         $img = file_get_contents(
-            __DIR__ . "/../../public/image/user-doctor-solid.png"
+            __DIR__ . "/../../public/image/admin/user-doctor-solid.png"
         );
         $immagineValutazioni = base64_encode($img);
         $img = file_get_contents(

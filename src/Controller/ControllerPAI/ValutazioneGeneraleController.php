@@ -38,6 +38,8 @@ class ValutazioneGeneraleController extends AbstractController
     #[Route('/delete/{id}', name: 'app_valutazione_generale_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, ValutazioneGenerale $valutazioneGenerale, ValutazioneGeneraleRepository $valutazioneGeneraleRepository): Response
     {
+        $post = $valutazioneGenerale->getSchedaPAI();
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
 
         $idSchedaPai = $valutazioneGenerale->getSchedaPAI()->getId();
         $schedePaiRepository = $this->entityManager->getRepository(SchedaPAI::class);
@@ -66,12 +68,17 @@ class ValutazioneGeneraleController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_valutazione_generale_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $valutazioneGenerale = new ValutazioneGenerale();
-        $form = $this->createForm(ValutazioneGeneraleFormType::class, $valutazioneGenerale);
-        $form->handleRequest($request);
         $id_pai = $request->query->get('id_pai');
         $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $SchedaPAIRepository->find($id_pai);
+
+        $post = $schedaPai;
+        $this->denyAccessUnlessGranted('crea_valutazione_generale', $post);
+
+        $valutazioneGenerale = new ValutazioneGenerale();
+        $form = $this->createForm(ValutazioneGeneraleFormType::class, $valutazioneGenerale);
+        $form->handleRequest($request);
+        
         if (!$schedaPai) {
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -121,6 +128,9 @@ class ValutazioneGeneraleController extends AbstractController
     #[Route('/{id}/edit', name: 'app_valutazione_generale_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ValutazioneGenerale $valutazioneGenerale, ValutazioneGeneraleRepository $valutazioneGeneraleRepository): Response
     {
+        $post = $valutazioneGenerale->getSchedaPAI();
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+
         $form = $this->createForm(ValutazioneGeneraleFormType::class, $valutazioneGenerale);
         $form->handleRequest($request);
 

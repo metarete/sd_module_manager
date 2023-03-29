@@ -116,6 +116,11 @@ class ScadenzarioController extends AbstractController
              );
          }
          $session->set('alertSincronizzazione', '');
+
+        //calcolo condizioni per disabilitare e attivare funzionalità 
+
+
+
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,

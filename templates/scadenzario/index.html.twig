@@ -113,31 +113,53 @@
 											<li>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a>
 											</li>
+											{% if user.roles[0] == 'ROLE_ADMIN' %}
 											<li>
-												<a class="dropdown-item 
-												{% if user.roles[0] == 'ROLE_ADMIN' %}
-
-												{% else %}
-													{% if user.username != scheda_pai.idOperatorePrincipale.username %}
-														disabled
-													{% endif %}
-												{% endif %}" 
-												href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Configura</a>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Configura</a>
 											</li>
+											{% else %}
+												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
+													<li>
+														<a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Configura</a>
+													</li>
+												{% endif %}
+											{% endif %}
+											{% if scheda_pai.currentPlace == 'nuova'%}
 											<li>
-												<li><a class="dropdown-item {% if scheda_pai.currentPlace != 'nuova'%}disabled{% endif %}" {% if scheda_pai.idOperatorePrincipale == null %} {% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva</a></li>
+												<li><a class="dropdown-item" {% if scheda_pai.idOperatorePrincipale == null %} {% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva</a></li>
 											</li>
+											{% endif %}
+											{% if user.roles[0] == 'ROLE_ADMIN' %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina</a>
 											</li>
+											{% else %}
+												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
+												<li>
+													<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina</a>
+												</li>
+												{% endif %}
+											{% endif %}
+											{% if user.roles[0] == 'ROLE_ADMIN' %}
 											<li>
 												<a class="dropdown-item {% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi</a>
 											</li>
-        
+											{% else %}
+												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
+												<li>
+													<a class="dropdown-item {% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi</a>
+												</li>
+												{% endif %}
+											{% endif %}
 											<li><hr class="dropdown-divider"></li>
+											{% if scheda_pai.currentPlace != 'approvata' or user.username != scheda_pai.idOperatorePrincipale.username %}
+											{% else %}
 											<li>
-												<a class="dropdown-item {% if scheda_pai.currentPlace != 'approvata' or user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Generale</a>
+												<a class="dropdown-item" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Generale</a>
 											</li>
+											{% endif %}
+
+											
 											<li>
 												<a class="dropdown-item {% if scheda_pai.currentPlace != 'attiva' %}disabled{% endif %}" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
 											</li>

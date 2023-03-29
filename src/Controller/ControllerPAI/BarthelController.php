@@ -27,6 +27,9 @@ class BarthelController extends AbstractController
     #[Route('/delete/{id}', name: 'app_barthel_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Barthel $barthel, BarthelRepository $barthelRepository): Response
     {
+        $post = $barthel->getSchedaPAI();
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+
         $metodo = $request->getMethod();
         if ($metodo == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $barthel->getId(), $request->request->get('_token'))) {
@@ -45,12 +48,17 @@ class BarthelController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_barthel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $barthel = new Barthel();
-        $form = $this->createForm(BarthelFormType::class, $barthel);
-        $form->handleRequest($request);
         $id_pai = $request->query->get('id_pai');
         $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $SchedaPAIRepository->find($id_pai);
+
+        $post = $schedaPai;
+        $this->denyAccessUnlessGranted('crea_barthel', $post);
+
+        $barthel = new Barthel();
+        $form = $this->createForm(BarthelFormType::class, $barthel);
+        $form->handleRequest($request);
+        
         if (!$schedaPai) {
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -88,6 +96,9 @@ class BarthelController extends AbstractController
     #[Route('/{id}/edit', name: 'app_barthel_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Barthel $barthel, BarthelRepository $barthelRepository): Response
     {
+        $post = $barthel->getSchedaPAI();
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+
         $form = $this->createForm(BarthelFormType::class, $barthel);
         $form->handleRequest($request);
 

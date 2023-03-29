@@ -27,6 +27,8 @@ class LesioniController extends AbstractController
     #[Route('/delete/{id}', name: 'app_lesioni_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Lesioni $lesioni, LesioniRepository $lesioniRepository): Response
     {
+        $post = $lesioni->getSchedaPAI();
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
 
         $metodo = $request->getMethod();
         if ($metodo == 'POST') {
@@ -47,12 +49,18 @@ class LesioniController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_lesioni_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $lesioni = new Lesioni();
-        $form = $this->createForm(LesioniFormType::class, $lesioni);
-        $form->handleRequest($request);
         $id_pai = $request->query->get('id_pai');
         $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $SchedaPAIRepository->find($id_pai);
+
+        $post = $schedaPai;
+        $this->denyAccessUnlessGranted('crea_lesioni', $post);
+
+
+        $lesioni = new Lesioni();
+        $form = $this->createForm(LesioniFormType::class, $lesioni);
+        $form->handleRequest($request);
+        
         if (!$schedaPai) {
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -90,6 +98,9 @@ class LesioniController extends AbstractController
     #[Route('/{id}/edit', name: 'app_lesioni_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Lesioni $lesioni, LesioniRepository $lesioniRepository): Response
     {
+        $post = $lesioni->getSchedaPAI();
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+
         $form = $this->createForm(LesioniFormType::class, $lesioni);
         $form->handleRequest($request);
 

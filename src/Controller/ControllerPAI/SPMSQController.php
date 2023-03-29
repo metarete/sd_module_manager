@@ -27,6 +27,9 @@ class SPMSQController extends AbstractController
     #[Route('/delete/{id}', name: 'app_s_p_m_s_q_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, SPMSQ $sPMSQ, SPMSQRepository $sPMSQRepository): Response
     {
+        $post = $sPMSQ->getSchedaPAI();
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+
         $metodo = $request->getMethod();
         if ($metodo == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $sPMSQ->getId(), $request->request->get('_token'))) {
@@ -46,12 +49,18 @@ class SPMSQController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_s_p_m_s_q_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $sPMSQ = new SPMSQ();
-        $form = $this->createForm(SPMSQFormType::class, $sPMSQ);
-        $form->handleRequest($request);
         $id_pai = $request->query->get('id_pai');
         $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $SchedaPAIRepository->find($id_pai);
+
+        $post = $schedaPai;
+        $this->denyAccessUnlessGranted('crea_spmsq', $post);
+
+
+        $sPMSQ = new SPMSQ();
+        $form = $this->createForm(SPMSQFormType::class, $sPMSQ);
+        $form->handleRequest($request);
+        
         if (!$schedaPai) {
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -90,6 +99,9 @@ class SPMSQController extends AbstractController
     #[Route('/{id}/edit', name: 'app_s_p_m_s_q_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, SPMSQ $sPMSQ, SPMSQRepository $sPMSQRepository): Response
     {
+        $post = $sPMSQ->getSchedaPAI();
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+
         $form = $this->createForm(SPMSQFormType::class, $sPMSQ);
         $form->handleRequest($request);
 

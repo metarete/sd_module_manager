@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
 
-class ElencoSchedeController extends AbstractController
+class BachecaController extends AbstractController
 {
     private $entityManager;
 
@@ -20,7 +20,7 @@ class ElencoSchedeController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/bacheca', name: 'app_bacheca')]
+    #[Route('/admin/bacheca', name: 'app_bacheca')]
     public function index(): Response
     {
         $user = $this->getUser();
@@ -56,7 +56,7 @@ class ElencoSchedeController extends AbstractController
             $percentualeChiuseConRinnovo = (int)(($schedeChiuseConRinnovo / $totaleSchede) * 100);
         }
         return $this->render('bacheca/index.html.twig', [
-            'controller_name' => 'ElencoSchedeController',
+            'controller_name' => 'BachecaController',
             'user' => $user,
             'schedeNuove' => $schedeNuove,
             'schedeApprovate' => $schedeApprovate,
