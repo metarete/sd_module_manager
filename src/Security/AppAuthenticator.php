@@ -101,9 +101,9 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
           //  return new RedirectResponse($targetPath);
         //}
         $user = $this->security->getUser();
-        $role = $user->getRoles();
+        $roles = $user->getRoles();
         
-        if($role[0]=='ROLE_ADMIN')
+        if(in_array("ROLE_ADMIN", $roles))
             return new RedirectResponse($this->urlGenerator->generate('app_scheda_pai_index'));
         else
             return new RedirectResponse($this->urlGenerator->generate('app_scadenzario_index'));

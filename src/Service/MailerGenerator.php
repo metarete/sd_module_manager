@@ -134,7 +134,7 @@ class MailerGenerator
 
         for ($i = 0; $i < count($utenti); $i++) {
             $roles = $utenti[$i]->getRoles();
-            if ($roles[0] == 'ROLE_ADMIN') {
+            if (in_array("ROLE_ADMIN", $roles)) {
                 array_push($admin, $utenti[$i]);
             }
         }

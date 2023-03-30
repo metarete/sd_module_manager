@@ -155,8 +155,8 @@ class SDManagerClientApiService
                             $utente->setName($utenti[$i]['nome']);
                             $utente->setSurname($utenti[$i]['cognome']);
                             $utente->setCf($utenti[$i]['cf']);
-                            $role[0] = 'ROLE_USER';
-                            $utente->setRoles($role);
+                            $roles[0] = 'ROLE_USER';
+                            $utente->setRoles($roles);
                             $utente->setUsername($utenti[$i]['username']);
                             $utente->setSdManagerOperatore(true);
 
@@ -174,41 +174,6 @@ class SDManagerClientApiService
                 }
             }
         }
-        
-        
-
-        /*
-        //faccio passare tutti gli utenti scaricati
-        for ($i = 0; $i < count($utenti); $i++) {
-            $userUtente = $utenti[$i]['username'];
-            // se è nuovo lo creo
-            if ($userRepository->findOneByUsername($userUtente) == null) {
-                $utente = new User;
-                //se c'è l'email su SD manager proseguo
-                if (!empty($utenti[$i]['emails'])) {
-                    $email = $utenti[$i]['emails'][0]['email'];
-                    //se l'email non è già stata assegnata ad un altro utente registro il nuovo utente
-                    if ($userRepository->findOneByEmail($email) == null) {
-                        $utente->setEmail($email);
-                        $utente->setName($utenti[$i]['nome']);
-                        $utente->setSurname($utenti[$i]['cognome']);
-                        $utente->setCf($utenti[$i]['cf']);
-                        $role[0] = 'ROLE_USER';
-                        $utente->setRoles($role);
-                        $utente->setUsername($userUtente);
-                        $utente->setSdManagerOperatore(true);
-
-                        $userRepository->add($utente, true);
-                    }
-                }
-                //se c'è già e ha la mail aggiorno la mail
-            } else if (!empty($utenti[$i]['emails'])){
-                //altro if controllo mail
-                $email = $utenti[$i]['emails'][0]['email'];
-                $userRepository->updateUserByUsername($userUtente, $utenti[$i]['nome'], $utenti[$i]['cognome'], $utenti[$i]['cf'],$email);
-            }
-        }
-        */
     }
 
     public function sincProgetti(string $dataInizio, string $dataFine)

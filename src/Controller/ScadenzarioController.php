@@ -37,7 +37,7 @@ class ScadenzarioController extends AbstractController
 
 
         //parametri per calcolo tabella
-        $ruoloUser = $user->getRoles();
+        $roles = $user->getRoles();
         $idUser = $user->getId();
         //filtri
         $numeroSchedeVisibiliPerPagina = 200;
@@ -51,12 +51,12 @@ class ScadenzarioController extends AbstractController
         $offset = $schedePerPagina * $page - $schedePerPagina;
 
 
-        if ($ruoloUser[0] == "ROLE_ADMIN") {
+        if (in_array("ROLE_ADMIN", $roles)) {
            
             $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'ASC'), $schedePerPagina, $offset);
                 
         }
-        else if ($ruoloUser[0] == "ROLE_USER") {
+        else {
             $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page); 
         }
         
@@ -65,20 +65,7 @@ class ScadenzarioController extends AbstractController
         
 
          //calcolo valori delle schede per le scadenze delle scale -> nel listener
-        /*for($i=0; $i<count($schedaPais); $i++){
-            $schedaPais[$i]->setBarthelNumberToday();
-            $schedaPais[$i]->setCorrectBarthelNumberToday();
-            $schedaPais[$i]->setBradenNumberToday();
-            $schedaPais[$i]->setCorrectBradenNumberToday();
-            $schedaPais[$i]->setSpmsqNumberToday();
-            $schedaPais[$i]->setCorrectSpmsqNumberToday();
-            $schedaPais[$i]->setTinettiNumberToday();
-            $schedaPais[$i]->setCorrectTinettiNumberToday();
-            $schedaPais[$i]->setVasNumberToday();
-            $schedaPais[$i]->setCorrectVasNumberToday();
-            $schedaPais[$i]->setLesioniNumberToday();
-            $schedaPais[$i]->setCorrectLesioniNumberToday();
-        }*/
+        
          //alert
          $session = $request->getSession();
          $alertSincronizzazione = $session->get('alertSincronizzazione');
@@ -117,9 +104,7 @@ class ScadenzarioController extends AbstractController
          }
          $session->set('alertSincronizzazione', '');
 
-        //calcolo condizioni per disabilitare e attivare funzionalità 
-
-
+        
 
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
@@ -127,7 +112,8 @@ class ScadenzarioController extends AbstractController
             'schede_per_pagina' => $schedePerPagina,
             'user' => $user,
             'assistiti' => $assistiti,
-            'pathName' => $pathName
+            'pathName' => $pathName,
+            
             
         ]);
     }

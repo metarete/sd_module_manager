@@ -60,10 +60,8 @@ class SchedaPAIController extends AbstractController
         //controllo login
         $user = $this->getUser();
 
-
-
         //parametri per calcolo tabella
-        $ruoloUser = $user->getRoles();
+        $roles = $user->getRoles();
         $idUser = $user->getId();
         //filtri
         $stato = $request->request->get('filtro_stato');
@@ -96,20 +94,8 @@ class SchedaPAIController extends AbstractController
         }
 
 
-
-
-
-        /*else if ($ruoloUser[0] == "ROLE_USER") {
-            if ($stato == null || $stato == "") {
-                $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $ordinamentoId, $schedePerPagina, $page);
-            } else {
-                $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, $stato, $ordinamentoId, $schedePerPagina, $page);
-            }
-        }*/
-
-
         //calcolo pagine per paginatore
-        $totaleSchede = $schedaPAIRepository->contaSchedePai($ruoloUser[0], $idUser, $stato);
+        $totaleSchede = $schedaPAIRepository->contaSchedePai($roles[0], $idUser, $stato);
         $pagineTotali = ceil($totaleSchede / $schedePerPagina);
 
         if ($pagineTotali == 0)
@@ -120,20 +106,6 @@ class SchedaPAIController extends AbstractController
 
         //calcolo valori delle schede per le scadenze delle scale -> nel listener
 
-        /*for($i=0; $i<count($schedaPais); $i++){
-            $schedaPais[$i]->setBarthelNumberToday();
-            $schedaPais[$i]->setCorrectBarthelNumberToday();
-            $schedaPais[$i]->setBradenNumberToday();
-            $schedaPais[$i]->setCorrectBradenNumberToday();
-            $schedaPais[$i]->setSpmsqNumberToday();
-            $schedaPais[$i]->setCorrectSpmsqNumberToday();
-            $schedaPais[$i]->setTinettiNumberToday();
-            $schedaPais[$i]->setCorrectTinettiNumberToday();
-            $schedaPais[$i]->setVasNumberToday();
-            $schedaPais[$i]->setCorrectVasNumberToday();
-            $schedaPais[$i]->setLesioniNumberToday();
-            $schedaPais[$i]->setCorrectLesioniNumberToday();
-        }*/
 
         //alert
         $session = $request->getSession();

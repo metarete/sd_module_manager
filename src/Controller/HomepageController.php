@@ -15,11 +15,12 @@ class HomepageController extends AbstractController
             return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
         else{
-            $ruoloUser = $user->getRoles();
-            if($ruoloUser[0] == "ROLE_USER")
-                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
-            else
+            $roles = $user->getRoles();
+            if(in_array("ROLE_ADMIN", $roles))
                 return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+            else
+                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+                
         }
     }
     

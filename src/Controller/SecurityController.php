@@ -13,8 +13,8 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            $role = $this->getUser()->getRoles();
-            if($role[0]=="ROLE_ADMIN")
+            $roles = $this->getUser()->getRoles();
+            if(in_array("ROLE_ADMIN", $roles))
                 return $this->redirectToRoute('app_scheda_pai_index');
             else
                 return $this->redirectToRoute('app_scadenzario_index');

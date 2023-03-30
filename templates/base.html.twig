@@ -72,24 +72,39 @@
 							<li class="nav-item">
 								<a class="nav-link active" aria-current="page" href="https://demo.sdmanager.it/index.phtml" style="margin:20px;">SD Manager</a>
 							</li>
+							{% if "ROLE_ADMIN" not in app.user.roles %}
+							{% else %}
 							<li>
-								<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;">Sincronizza</a>
+								<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;">Sincronizza</a>
 							</li>
+							{% endif %}
 							<li class="nav-item">
 								<a class="nav-link active" aria-current="page" href="{{ path('app_scadenzario_index') }}" style="margin:20px;">Scadenzario</a>
 							</li>
+							{% if "ROLE_ADMIN" not in app.user.roles %}
+							{% else %}
 							<li class="nav-item">
-								<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>
+								<a  class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>
 							</li>
+							{% endif %}
+							{% if "ROLE_ADMIN" not in app.user.roles %}
+							{% else %}
 							<li class="nav-item">
-								<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}" style="margin:20px;">Schede Pai</a>
+								<a class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}" style="margin:20px;">Schede Pai</a>
 							</li>
+							{% endif %}
+							{% if "ROLE_ADMIN" not in app.user.roles %}
+							{% else %}
 							<li class="nav-item">
-								<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
+								<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
 							</li>
+							{% endif %}
+							{% if "ROLE_ADMIN" not in app.user.roles %}
+							{% else %}
 							<li class="nav-item">
-								<a {% if app.user.roles[0] == 'ROLE_USER' %} class="invisible" {% endif %} class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
+								<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
 							</li>
+							{% endif %}
 							<li class="nav-divider"></li>
 						</ul>
 					</div>

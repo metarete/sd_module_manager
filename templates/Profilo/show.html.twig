@@ -65,13 +65,11 @@
 								</tr>
 								<td>
 									<p class="card-title">
-										{% if user.roles[0] == "ROLE_ADMIN" %}
+										{% if "ROLE_ADMIN" in user.roles %}
 											Admin
-										{% elseif user.roles[0] == "ROLE_USER" %}
+										{% else %}
 											Utente
-										{% elseif user.roles[0] == "ROLE_GESTORE" %}
-											Gestore
-										{% endif %}
+										{% endif %}										
 									</p>
 								</td>
 							</tr>

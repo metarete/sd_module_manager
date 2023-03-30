@@ -30,6 +30,8 @@
 					<th>Nome/Cognome</th>
 					<th>Username</th>
 					<th>Ruolo</th>
+					<th>Tipo Operatore</th>
+					<th>Stato</th>
 					<th>Operazioni</th>
 				</tr>
 			</thead>
@@ -41,16 +43,36 @@
 							{{ user.surname }}</td>
 						<td data-title='Username'>{{ user.username }}</td>
 						<td data-title='Ruolo'>
-							{% if user.roles[0] == "ROLE_ADMIN" %}
+							{% if "ROLE_ADMIN" in user.roles %}
 								Admin
 							{% else %}
 								Utente
 							{% endif %}
 						</td>
+						<td data-title='Tipo Operatore'>
+							{% if user.sdManagerOperatore == true %}
+								Operatore di SD Manager
+							{% else %}
+								Operatore Locale
+							{% endif %}
+						</td>
+						<td data-title='Stato'></td>
 						<td data-title='Operazioni'>
-							<a href="{{ path('app_user_show', {'id': user.id}) }}" type="button" class="btn btn-primary">
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+									Apri
+								</button>
+							<ul class="dropdown-menu">
+							<a class="dropdown-item"  href="{{ path('app_user_show', {'id': user.id}) }}">
 								<i class="bi bi-clipboard2"></i>
 								Visualizza</a>
+							{% if user.sdManagerOperatore == false %}
+							<a class="dropdown-item"  href="{{ path('app_user_edit', {'id': user.id}) }}">
+								<i class="bi bi-pencil-square"></i>
+								Modifica</a>
+							{% endif %}						
+							</ul>
+							</div>
 						</td>
 					</tr>
 				{% else %}
