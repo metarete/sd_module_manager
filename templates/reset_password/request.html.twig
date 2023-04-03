@@ -9,18 +9,18 @@
     {% for flash_error in app.flashes('reset_password_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <h1>Reset your password</h1>
+    <h1>Resetta la tua password</h1>
 
     {{ form_start(requestForm) }}
         {{ form_row(requestForm.email) }}
         <div>
             <small>
-                Enter your email address and we will send you a
-                link to reset your password.
+                Inserisci il tuo indirizzo email e ti invieremo un
+                link per reimpostare la password.
             </small>
         </div>
 
-        <button class="btn btn-primary">Send password reset email</button>
+        <button class="btn btn-primary">Invia e-mail per reimpostare la password</button>
     {{ form_end(requestForm) }}
 {% endblock %}
 {% block foot %}

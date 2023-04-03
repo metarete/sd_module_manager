@@ -27,11 +27,16 @@
 	</div>
 </div>
 <div class="row">
+	<label for="inputPassword" class="form-label">Password nuova</label>
 	<div class="col">
-		{{ form_label(form.roles) }}
-		{% for ruolo in form.roles %}
-			{{ form_widget(ruolo) }}
-		{% endfor %}
+		<input type="password" class="form-control" id="inputPassword2" name='password_nuova'>
+	</div>
+</div>
+<br>
+<div class="row">
+	<label for="inputPassword" class="form-label">Conferma Password</label>
+	<div class="col">
+		<input type="password" class="form-control" id="inputPassword3" name='conferma_password'>
 	</div>
 </div>
 <br>

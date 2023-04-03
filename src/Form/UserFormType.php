@@ -6,7 +6,6 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UserFormType extends AbstractType
 {
@@ -15,23 +14,25 @@ class UserFormType extends AbstractType
         
         $builder
             ->add('name', null, [
-                'label' => 'Nome'
+                'label' => 'Nome',
+                
             ])
             ->add('surname', null, [
-                'label' => 'Cognome'
+                'label' => 'Cognome',
+                
             ])
             ->add('email', null, [
-                'label' => 'Email'
+                'label' => 'Email',
+                
             ])
             ->add('username', null, [
                 'label' => 'Username'
             ])
             ->add('cf', null, [
-                'label' => 'Codice Fiscale'
+                'label' => 'Codice fiscale',
+                
             ])
-            ->add('roles', CollectionType::class,[
-                'label' => 'Ruolo'
-            ])
+            
         ;
     }
 

@@ -50,4 +50,6 @@ class PazienteController extends AbstractController
             'paziente' => $paziente,
         ]);
     }
+
+    
 }

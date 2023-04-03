@@ -9,10 +9,52 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/admin/user')]
 class UserController extends AbstractController
 {
+    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserFormType::class, $user);
+        $form->handleRequest($request);
+
+        $passwordNuova = $request->get('password_nuova');
+        $confermaPassword = $request->get('conferma_password');
+
+        
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($passwordNuova == null && $confermaPassword == null){
+                $roles[0] = "ROLE_USER";
+                $user->setRoles($roles);
+                $userRepository->add($user, true);
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else if($passwordNuova == $confermaPassword){
+                $roles[0] = "ROLE_USER";
+                $user->setRoles($roles);
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    $passwordNuova
+                );
+                $user->setPassword($hashedPassword);
+                $userRepository->add($user, true);
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else{
+                return new Response('Le password non coincidono');
+            }
+        }
+
+        return $this->renderForm('user/new.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+    
     #[Route('/{page}', name: 'app_user_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
     public function index(Request $request, UserRepository $userRepository, int $page = 1): Response
     {
@@ -28,13 +70,13 @@ class UserController extends AbstractController
 
         $users = $userRepository->findBy([], array('id' => 'DESC'), $usersPerPagina, $offset);
 
-         //calcolo pagine per paginatore
-         $totaleUsers = $userRepository->contaOperatori();
-         $pagineTotali = ceil($totaleUsers / $usersPerPagina);
+        //calcolo pagine per paginatore
+        $totaleUsers = $userRepository->contaOperatori();
+        $pagineTotali = ceil($totaleUsers / $usersPerPagina);
          
  
-         if ($pagineTotali == 0)
-             $pagineTotali = 1;
+        if ($pagineTotali == 0)
+            $pagineTotali = 1;
         return $this->render('user/index.html.twig', [
             'users' => $users,
             'pagina' => $page,
@@ -52,15 +94,34 @@ class UserController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->add($user, true);
+        $passwordNuova = $request->get('password_nuova');
+        $confermaPassword = $request->get('conferma_password');
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($passwordNuova == null && $confermaPassword == null){
+                $userRepository->add($user, true);
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else if($passwordNuova == $confermaPassword){
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    $passwordNuova
+                );
+                $user->setPassword($hashedPassword);
+                $userRepository->add($user, true);
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
+            else{
+                return new Response('Le password non coincidono');
+            }
+            
+
+            
         }
 
         return $this->renderForm('user/edit.html.twig', [
@@ -69,6 +130,29 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/promuovi_admin/{id}', name: 'app_user_promuovi_admin', methods: ['GET', 'POST'])]
+    public function promuoviAdmin(User $user, UserRepository $userRepository): Response
+    {
+
+        $roles[0] = "ROLE_ADMIN";
+        $user->setRoles($roles);
+        $userRepository->add($user, true);
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/rendi_user/{id}', name: 'app_user_rendi_user', methods: ['GET', 'POST'])]
+    public function rendiUser(User $user, UserRepository $userRepository): Response
+    {
+
+        $roles[0] = "ROLE_USER";
+        $user->setRoles($roles);
+        $userRepository->add($user, true);
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+   
     
 
 }
