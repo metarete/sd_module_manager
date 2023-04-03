@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,22 +16,22 @@ class UserFormType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Nome',
-                
+                'empty_data' => '',
             ])
             ->add('surname', null, [
                 'label' => 'Cognome',
-                
+                'empty_data' => '',
             ])
-            ->add('email', null, [
+            ->add('email', EmailType::class, [
                 'label' => 'Email',
-                
+                'empty_data' => '',
             ])
             ->add('username', null, [
                 'label' => 'Username'
             ])
             ->add('cf', null, [
                 'label' => 'Codice fiscale',
-                
+                'empty_data' => '',
             ])
             
         ;

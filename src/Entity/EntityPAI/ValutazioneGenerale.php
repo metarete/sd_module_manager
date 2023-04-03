@@ -30,6 +30,7 @@ class ValutazioneGenerale
     private $rischio_infettivo;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private $diagnosi;
 
     #[ORM\Column(type:"Valutazione", nullable:false)]

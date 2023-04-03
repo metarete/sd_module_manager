@@ -108,7 +108,8 @@ class ValutazioneGeneraleFormType extends AbstractType
                 'choices' => $disturbiChoices
             ])
             ->add('diagnosi', TextareaType::class, [
-                'attr' => array('style' => 'height:100px')
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
             ])
             
             ->add('broncoaspirazione',CheckboxType::class, [

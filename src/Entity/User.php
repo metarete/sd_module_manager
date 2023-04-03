@@ -16,10 +16,10 @@ use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
 use App\Entity\EntityPAI\ValutazioneGenerale;
 use App\Entity\EntityPAI\Vas;
 use Doctrine\Common\Collections\Collection;
-use App\Form\FormPAI\ChiusuraServizioFormType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
@@ -32,18 +32,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180)]
+    #[Assert\NotBlank]
     private $email;
 
     #[ORM\Column(type: 'string', length: 180, nullable: true)]
     private $username = null;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private $name;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private $surname;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private $cf;
 
     #[ORM\Column(type: 'json')]
