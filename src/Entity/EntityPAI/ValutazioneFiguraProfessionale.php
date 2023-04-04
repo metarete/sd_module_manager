@@ -18,12 +18,15 @@ class ValutazioneFiguraProfessionale
     private $id;
 
     #[ORM\Column(type:"TipoOperatore", nullable:false)]
+    #[Assert\NotBlank]
     private $tipoOperatore;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private $diagnosiProfessionale;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private $obbiettiviDaRaggiungere;
 
     #[ORM\Column(type: 'text')]

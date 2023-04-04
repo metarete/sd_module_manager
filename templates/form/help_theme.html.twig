@@ -1,0 +1,27 @@
+{# templates/form/help_theme.html.twig #}
+{% block form_help -%}
+{%- if help is not empty -%}
+	<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#help_{{ id }}" role="button" aria-expanded="false" aria-controls="help_{{ id }}"></a>
+	<div class='row'>
+		<div class='col'>
+			<div id='help_{{ id }}' class='collapse collapse-info'>
+				{%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' help-text')|trim}) -%}
+				<p id="{{ id }}_help" {% with { attr: help_attr } %} {{ block('attributes') }} {% endwith %}>
+					{%- if translation_domain is same as(false) -%}
+						{%- if help_html is same as(false) -%}
+							{{- help -}}
+						{%- else -%}
+							{{- help|raw -}}
+						{%- endif -%}
+					{%- else -%}
+						{%- if help_html is same as(false) -%}
+							{{- help|trans(help_translation_parameters, translation_domain) -}}
+						{%- else -%}
+							{{- help|trans(help_translation_parameters, translation_domain)|raw -}}
+						{%- endif -%}
+					{%- endif -%}
+				</p>
+			</div>
+		</div>
+	</div>
+{%- endif -%}{%- endblock form_help %}

@@ -22,12 +22,15 @@ class Vas
     private $data;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private $base2;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private $pz;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private $esito;
 
     #[ORM\Column(type: 'boolean', nullable: true)]

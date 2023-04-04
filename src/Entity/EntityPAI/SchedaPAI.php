@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SchedaPAIRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SchedaPAIRepository::class)]
@@ -104,6 +103,9 @@ class SchedaPAI
 
     #[ORM\OneToMany(mappedBy: 'schedaPAI', targetEntity: Lesioni::class, cascade: ['persist', 'remove'])]
     private Collection $idLesioni;
+
+    #[ORM\OneToMany(mappedBy: 'schedaPAI', targetEntity: Painad::class, cascade: ['persist', 'remove'])]
+    private $idPainad;
 
     #[ORM\Column(type: 'string')]
     private $currentPlace = 'nuova';
@@ -676,6 +678,36 @@ class SchedaPAI
             // set the owning side to null (unless already changed)
             if ($idLesioni->getSchedaPAI() === $this) {
                 $idLesioni->setSchedaPAI(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Painad>
+     */
+    public function getIdPainad(): Collection
+    {
+        return $this->idPainad;
+    }
+
+    public function addIdPainad(Painad $idPainad): self
+    {
+        if (!$this->idPainad->contains($idPainad)) {
+            $this->idPainad->add($idPainad);
+            $idPainad->setSchedaPAI($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdPainad(Painad $idPainad): self
+    {
+        if ($this->idPainad->removeElement($idPainad)) {
+            // set the owning side to null (unless already changed)
+            if ($idPainad->getSchedaPAI() === $this) {
+                $idPainad->setSchedaPAI(null);
             }
         }
 

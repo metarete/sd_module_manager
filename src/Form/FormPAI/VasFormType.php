@@ -24,14 +24,17 @@ class VasFormType extends AbstractType
                 'empty_data' => 0,
             ])
             ->add('base2', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $votiRilevazioneVasChoices,
                 'label' => 'Rilevazione del dolore prima del trattamento',
             ])
             ->add('pz', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $votiRilevazioneVasChoices,
                 'label' => 'Rilevazione del dolore durante il trattamento',
             ])
             ->add('esito', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $votiRilevazioneVasChoices,
                 'label' => 'Rilevazione  del dolore a fine trattamento',
             ])

@@ -26,22 +26,63 @@ class BradenFormType extends AbstractType
                 'empty_data' => 0,
             ])
             ->add('percezioneSensoriale', ChoiceType::class,[
-                'choices' => $votiBraden14Choices
+                'placeholder' => '',
+                'choices' => $votiBraden14Choices,
+                'help' => "-4: Non limitata.
+                            <br>-3: Leggermente Limitata.
+                            <br>-2: Molto Limitata.
+                            <br>-1: Completamente Limitata.
+                            ",
+                'help_html' => true
             ])
             ->add('umidita', ChoiceType::class,[
-                'choices' => $votiBraden14Choices
+                'placeholder' => '',
+                'choices' => $votiBraden14Choices,
+                'help' => "-4: Raramente bagnato.
+                            <br>-3: Occasionalmente bagnato.
+                            <br>-2: Spesso bagnato.
+                            <br>-1: Costantemente bagnato.
+                ",
+                'help_html' => true
             ])
             ->add('attivita', ChoiceType::class,[
-                'choices' => $votiBraden14Choices
+                'placeholder' => '',
+                'choices' => $votiBraden14Choices,
+                'help' => "-4: Cammina frequentemente.
+                            <br>-3: Cammina occasionalmente.
+                            <br>-2: In poltrona.
+                            <br>-1: Completamente allettato.
+                ",
+                'help_html' => true
             ])
             ->add('mobilita', ChoiceType::class,[
-                'choices' => $votiBraden14Choices
+                'placeholder' => '',
+                'choices' => $votiBraden14Choices,
+                'help' => "-4: Limitazioni assenti.
+                            <br>-3: Parzialmente limitato.
+                            <br>-2: Molto limitato.
+                            <br>-1: Completamente immobile.
+                ",
+                'help_html' => true
             ])
             ->add('nutrizione', ChoiceType::class,[
-                'choices' => $votiBraden14Choices
+                'placeholder' => '',
+                'choices' => $votiBraden14Choices,
+                'help' => "-4: Eccellente.
+                            <br>-3: Adeguata.
+                            <br>-2: Probabilmente inadeguata.
+                            <br>-1: Molto povera.
+                ",
+                'help_html' => true
             ])
             ->add('frizioneScivolamento', ChoiceType::class,[
-                'choices' => $votiBraden13Choices
+                'placeholder' => '',
+                'choices' => $votiBraden13Choices,
+                'help' => "-3: Senza problemi apparenti.
+                            <br>-2: Problema potenziale.
+                            <br>-1: Problema.
+                ",
+                'help_html' => true
             ])
             
         ;

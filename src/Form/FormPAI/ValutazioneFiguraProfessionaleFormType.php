@@ -24,7 +24,8 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'empty_data' => 0,
             ])
             ->add('tipoOperatore', ChoiceType::class, [
-                'choices' => $operatoreChoices
+                'choices' => $operatoreChoices,
+                'placeholder' => '',
             ])
             ->add('diagnosiProfessionale', TextareaType::class, [
                 'attr' => array('style' => 'height:100px'),

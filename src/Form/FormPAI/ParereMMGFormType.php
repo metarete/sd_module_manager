@@ -18,7 +18,10 @@ class ParereMMGFormType extends AbstractType
                 'choices'  => [
                     'favorevole' => 'Favorevole',
                     'contrario' => 'Contrario',
-                ]])
+                ],
+                'placeholder' => ''
+            ])
+                
             ->add('descrizione', TextareaType::class, [
                 'attr' => array('style' => 'height:100px')
             ])

@@ -59,6 +59,10 @@ class SPMSQFormType extends AbstractType
                 'label'    => 'Errori nel calcolo: Sottragga da 20 tre e poi ancora fino in fondo',
                 'required' => false,
             ])
+            ->add('nonSomministrabilePerPatologia', CheckboxType::class, [
+                'label'    => 'Non somministrabile per patologia',
+                'required' => false,
+            ])
             
             ->add('salva', SubmitType::class, ['label' => 'Salva'])
         ;

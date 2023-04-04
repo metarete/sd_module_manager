@@ -22,42 +22,53 @@ class Barthel
     private $dataValutazione;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $alimentazione;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $bagnoDoccia;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $igienePersonale;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $abbigliamento;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $continenzaIntestinale;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $continenzaUrinaria;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $toilet;
 
     #[ORM\Column(type: 'integer',  nullable: true)]
     private $totaleValutazioneFunzionale;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $trasferimentoLettoSedia;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $scale;
 
     //#[ORM\Column(type: 'boolean')]
     //private $deambulazione;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $deambulazioneValida;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $usoCarrozzina;
 
     #[ORM\Column(type: 'integer', nullable: true)]

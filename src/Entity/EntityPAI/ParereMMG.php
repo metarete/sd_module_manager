@@ -5,6 +5,7 @@ namespace App\Entity\EntityPAI;
 use App\Entity\User;
 use App\Repository\ParereMMGRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: ParereMMGRepository::class)]
@@ -18,9 +19,11 @@ class ParereMMG
     private $id;
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
     private $parere;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private $descrizione;
 
     #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idParereMmg',  cascade: ['persist'])]

@@ -1,3 +1,5 @@
+{% form_theme form 'form/help_theme.html.twig' %}
+
 {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
 
 <div class="row">
@@ -9,235 +11,142 @@
 	<h4>Equilibrio</h4>
 </div>
 <div class="row">
-	<div class="col col-lg-2">
-		{{ form_label(form.equilibrioSeduto) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaEquilibrioSeduto" role="button" aria-expanded="false" aria-controls="legendaEquilibrioSeduto"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaEquilibrioSeduto" class="collapse collapse-info">
-			-0: 
-			Si inclina o scivola dalla sedia.
-			<br>-1: 
-			E' stabile, sicuro.
-		</div>
+		{{ form_label(form.equilibrioSeduto) }}
+		{{ form_help(form.equilibrioSeduto) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.equilibrioSeduto) }}
+		{{ form_errors(form.equilibrioSeduto) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-2">
-		{{ form_label(form.sedia) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaSedia" role="button" aria-expanded="false" aria-controls="legendaSedia"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaSedia" class="collapse collapse-info">
-			-0: 
-			E' incapace senza aiuto.
-			<br>-1: 
-			Deve aiutarsi con le braccia.
-			<br>-2: 
-			Si alza senza aiutarsi con le braccia.
-		</div>
+		{{ form_label(form.sedia) }}
+		{{ form_help(form.sedia) }}
 	</div>
 </div>
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.sedia) }}
+		{{ form_errors(form.sedia) }}
 	</div>
 </div>
 <br>
 
 <div class="row">
-	<div class="col col-lg-2">
-		{{ form_label(form.alzarsi) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaAlzarsi" role="button" aria-expanded="false" aria-controls="legendaAlzarsi"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaAlzarsi" class="collapse collapse-info">
-			-0: 
-			E’ incapace senza aiuto
-			<br>-1: 
-			Capace ma richiede più di un tentativo
-			<br>-2: 
-			Capace al primo tentativo
-		</div>
+		{{ form_label(form.alzarsi) }}
+		{{ form_help(form.alzarsi) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.alzarsi) }}
+		{{ form_errors(form.alzarsi) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-2">
-		{{ form_label(form.stazioneEretta) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaStazioneEretta" role="button" aria-expanded="false" aria-controls="legendaStazioneEretta"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaStazioneEretta" class="collapse collapse-info">
-			-0: 
-			Instabile (vacilla, muove i piedi, oscilla il tronco)
-			<br>-1: 
-			Stabile grazie all’ausilio di un bastone o altri ausili
-			<br>-2: 
-			Stabile senza ausili per il cammino
-		</div>
+		{{ form_label(form.stazioneEretta) }}
+		{{ form_help(form.stazioneEretta) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.stazioneEretta) }}
+		{{ form_errors(form.stazioneEretta) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.stazioneErettaProlungata) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaStazioneErettaProlungata" role="button" aria-expanded="false" aria-controls="legendaStazioneErettaProlungata"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaStazioneErettaProlungata" class="collapse collapse-info">
-			-0: 
-			Instabile (vacilla, muove i piedi, oscilla il tronco)
-			<br>-1: 
-			Stabile ma a base larga (malleoli mediali dist. > 10 cm)
-			<br>-2: 
-			Stabile a base stretta senza supporti
-		</div>
+		{{ form_label(form.stazioneErettaProlungata) }}
+		{{ form_help(form.stazioneErettaProlungata) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.stazioneErettaProlungata) }}
+		{{ form_errors(form.stazioneErettaProlungata) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.romberg) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaRomberg" role="button" aria-expanded="false" aria-controls="legendaRomberg"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaRomberg" class="collapse collapse-info">
-			-0: 
-			Instabile
-			<br>-1: 
-			Stabile
-		</div>
+		{{ form_label(form.romberg) }}
+		{{ form_help(form.romberg) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.romberg) }}
+		{{ form_errors(form.romberg) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.rombergSensibilizzato) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaRombergSensibilizzato" role="button" aria-expanded="false" aria-controls="legendaRombergSensibilizzato"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaRombergSensibilizzato" class="collapse collapse-info">
-			-0: 
-			Incomincia a cadere
-			<br>-1: 
-			Oscilla ma si riprende da solo
-			<br>-2: 
-			Stabile
-		</div>
+		{{ form_label(form.rombergSensibilizzato) }}
+		{{ form_help(form.rombergSensibilizzato) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.rombergSensibilizzato) }}
+		{{ form_errors(form.rombergSensibilizzato) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.girarsi1) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaGirarsi1" role="button" aria-expanded="false" aria-controls="legendaGirarsi1"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaGirarsi1" class="collapse collapse-info">
-			-0: 
-			A passi discontinui
-			<br>-1: 
-			A passi continui
-		</div>
+		{{ form_label(form.girarsi1) }}
+		{{ form_help(form.girarsi1) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.girarsi1) }}
+		{{ form_errors(form.girarsi1) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.girarsi2) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaGirarsi2" role="button" aria-expanded="false" aria-controls="legendaGirarsi2"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaGirarsi2" class="collapse collapse-info">
-			-0: 
-			Instabile (si aggrappa, oscilla)
-			<br>-1: 
-			Stabile
-		</div>
+		{{ form_label(form.girarsi2) }}
+		{{ form_help(form.girarsi2) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.girarsi2) }}
+		{{ form_errors(form.girarsi2) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.sedersi) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaSedersi" role="button" aria-expanded="false" aria-controls="legendaSedersi"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaSedersi" class="collapse collapse-info">
-			-0: 
-			Insicuro (sbaglia la distanza, cade sulla sedia)
-			<br>-1: 
-			Usa le braccia o ha un movimento discontinuo
-			<br>-2: 
-			Sicuro, movimenti continui
-		</div>
+		{{ form_label(form.sedersi) }}
+		{{ form_help(form.sedersi) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.sedersi) }}
+		{{ form_errors(form.sedersi) }}
 	</div>
 </div>
 <br>
@@ -247,233 +156,145 @@
 	<h4>Andatura</h4>
 </div>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.inizioDeambulazione) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaInizioDeambulazione" role="button" aria-expanded="false" aria-controls="legendaInizioDeambulazione"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaInizioDeambulazione" class="collapse collapse-info">
-			-0: 
-			Una certa esitazione o più tentativi
-			<br>-1: 
-			Nessuna esitazione
-		</div>
+		{{ form_label(form.inizioDeambulazione) }}
+		{{ form_help(form.inizioDeambulazione) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.inizioDeambulazione) }}
+		{{ form_errors(form.inizioDeambulazione) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.piedeDx) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaPiedeDx" role="button" aria-expanded="false" aria-controls="legendaPiedeDx"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaPiedeDx" class="collapse collapse-info">
-			-0: 
-			Durante il passo il piede dx non supera il sx
-			<br>-1: 
-			Il piede dx supera il sx
-		</div>
+		{{ form_label(form.piedeDx) }}
+		{{ form_help(form.piedeDx) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.piedeDx) }}
+		{{ form_errors(form.piedeDx) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.piedeDx2) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaPiedeDx2" role="button" aria-expanded="false" aria-controls="legendaPiedeDx2"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaPiedeDx2" class="collapse collapse-info">
-			-0: 
-			Il piede dx non si alza completamente dal pavimento
-			<br>-1: 
-			Il piede dx si alza completamente dal pavimento
-		</div>
+		{{ form_label(form.piedeDx2) }}
+		{{ form_help(form.piedeDx2) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.piedeDx2) }}
+		{{ form_errors(form.piedeDx2) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.piedeSx) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaPiedeSx" role="button" aria-expanded="false" aria-controls="legendaPiedeSx"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaPiedeSx" class="collapse collapse-info">
-			-0: 
-			Durante il passo il piede sx non supera il dx
-			<br>-1: 
-			Il piede sx supera il dx
-		</div>
+		{{ form_label(form.piedeSx) }}
+		{{ form_help(form.piedeSx) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.piedeSx) }}
+		{{ form_errors(form.piedeSx) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.piedeSx2) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaPiedeSx2" role="button" aria-expanded="false" aria-controls="legendaPiedeSx2"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaPiedeSx2" class="collapse collapse-info">
-			-0: 
-			Il piede sx non si alza completamento dal pavimento
-			<br>-1: 
-			Il piede sx si alza completamento dal pavimento
-		</div>
+		{{ form_label(form.piedeSx2) }}
+		{{ form_help(form.piedeSx2) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.piedeSx2) }}
+		{{ form_errors(form.piedeSx2) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.simmetriaPasso) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaSimmetriaPasso" role="button" aria-expanded="false" aria-controls="legendaSimmetriaPasso"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaSimmetriaPasso" class="collapse collapse-info">
-			-0: 
-					Il passo dx e sx non sembrano uguali
-					<br>-1: 
-					Il passo dx e sx sembrano uguali
-		</div>
+		{{ form_label(form.simmetriaPasso) }}
+		{{ form_help(form.simmetriaPasso) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.simmetriaPasso) }}
+		{{ form_errors(form.simmetriaPasso) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.continuitaPasso) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaContinuitaPasso" role="button" aria-expanded="false" aria-controls="legendaContinuitaPasso"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaContinuitaPasso" class="collapse collapse-info">
-			 
-				-0: 
-					Interrotto o discontinuo
-					<br>-1: 
-					Continuo
-		</div>
+		{{ form_label(form.continuitaPasso) }}
+		{{ form_help(form.continuitaPasso) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.continuitaPasso) }}
+		{{ form_errors(form.continuitaPasso) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.traiettoria) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaTraiettoria" role="button" aria-expanded="false" aria-controls="legendaTraiettoria"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaTraiettoria" class="collapse collapse-info">
-			-0: 
-					Marcata deviazione
-					<br>-1: 
-					Lieve o modesta deviazione o uso di ausili
-					<br>-2: 
-					Assenza di deviazione o uso di ausili
-		</div>
+		{{ form_label(form.traiettoria) }}
+		{{ form_help(form.traiettoria) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.traiettoria) }}
+		{{ form_errors(form.traiettoria) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.tronco) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaTronco" role="button" aria-expanded="false" aria-controls="legendaTronco"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaTronco" class="collapse collapse-info">
-			-0: 
-					Marcata oscillazione o uso di ausili
-					<br>-1: 
-					Nessuna oscillazione ma flessione di gambe, ginocchia schiena o allargamento delle braccia durante il cammino
-					<br>-2: 
-					Nessuna oscillazione, flessione o uso di ausili
-		</div>
+		{{ form_label(form.tronco) }}
+		{{ form_help(form.tronco) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.tronco) }}
+		{{ form_errors(form.tronco) }}
 	</div>
 </div>
 <br>
 <div class="row">
-	<div class="col col-lg-3">
-		{{ form_label(form.cammino) }}
-		<a class="bi bi-eye" style="color:#1E90FF;" data-bs-toggle="collapse" href="#legendaCammino" role="button" aria-expanded="false" aria-controls="legendaCammino"></a>
-	</div>
-</div>
-<div class="row">
 	<div class="col">
-		<div id="legendaCammino" class="collapse collapse-info">
-			-0: 
-					I talloni sono separati
-					<br>-1: 
-					I talloni quasi si toccano durante il cammino
-		</div>
+		{{ form_label(form.cammino) }}
+		{{ form_help(form.cammino) }}
 	</div>
 </div>
+
 <div class="row">
 	<div class="col">
 		{{ form_widget(form.cammino) }}
+		{{ form_errors(form.cammino) }}
 	</div>
 </div>
 <br>
-
-
-
 
 <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
 {{ form_end(form) }}

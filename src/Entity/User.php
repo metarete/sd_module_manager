@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use App\Entity\EntityPAI\ParereMMG;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\EntityPAI\ChiusuraServizio;
+use App\Entity\EntityPAI\Painad;
 use App\Entity\EntityPAI\SPMSQ;
 use App\Entity\EntityPAI\Tinetti;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
@@ -57,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    private $stato;
 
     #[ORM\OneToMany(mappedBy: 'idOperatorePrincipale', targetEntity: SchedaPAI::class)]
     private $principaleSchedaPai;
@@ -100,6 +101,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OnetoMany(mappedBy: 'autoreTinetti', targetEntity: Tinetti::class)]
     private $idTinetti;
+
+    #[ORM\OnetoMany(mappedBy: 'autorePainad', targetEntity: Painad::class)]
+    private $idPainad;
 
     #[ORM\OnetoMany(mappedBy: 'autoreValutazioneProfessionale', targetEntity: ValutazioneFiguraProfessionale::class)]
     private $idValutazioneFiguraProfessionale;
@@ -227,6 +231,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isStato(): bool
+    {
+        return $this->stato;
+    }
+
+    public function setStato(bool $stato): self
+    {
+        $this->stato = $stato;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -234,18 +250,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
     }
 
      /**
@@ -549,6 +553,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->idTinetti->contains($idTinetti)) {
             $this->idTinetti[] = $idTinetti;
+            
+        }
+
+        return $this;
+    }
+
+      /**
+     * @return Collection<int, Painad>
+     */
+    public function getIdPainad(): Collection
+    {
+        return $this->idPainad;
+    }
+
+    public function addIdPainad(Painad $idPainad): self
+    {
+        if (!$this->idPainad->contains($idPainad)) {
+            $this->idPainad[] = $idPainad;
             
         }
 

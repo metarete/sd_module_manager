@@ -22,66 +22,86 @@ class Tinetti
     private $dataValutazione;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $equilibrioSeduto;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $sedia;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $alzarsi;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $stazioneEretta;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $stazioneErettaProlungata;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $romberg;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $rombergSensibilizzato;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $girarsi1;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $girarsi2;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $sedersi;
 
     #[ORM\Column(type: 'integer')]
     private $totaleEquilibrio = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $inizioDeambulazione;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $piedeDx;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $piedeDx2;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $piedeSx;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $piedeSx2;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $simmetriaPasso;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $continuitaPasso;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $traiettoria;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $tronco;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $cammino;
 
     #[ORM\Column(type: 'integer')]

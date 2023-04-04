@@ -18,21 +18,27 @@ class Braden
     private $id;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $percezioneSensoriale;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $umidita;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $attivita;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $mobilita;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $nutrizione;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
     private $frizioneScivolamento;
 
     #[ORM\Column(type: 'date')]

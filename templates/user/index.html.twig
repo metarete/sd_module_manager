@@ -56,7 +56,13 @@
 								Operatore Locale
 							{% endif %}
 						</td>
-						<td data-title='Stato'></td>
+						<td data-title='Stato'>
+							{% if user.stato == true %}
+								<span class="badge bg-success">Attivo</span>
+							{% else %}
+								<span class="badge bg-danger">Non Attivo</span>
+							{% endif %}
+						</td>
 						<td data-title='Operazioni'>
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -80,7 +86,15 @@
 							<a class="dropdown-item"  href="{{ path('app_user_rendi_user', {'id': user.id}) }}">
 								<i class="bi bi-pencil-square"></i>
 								Rendi Utente</a>
-							{% endif %}					
+							{% endif %}		
+							{% if user.sdManagerOperatore == false and user.stato == false %}
+							<a class="dropdown-item"  href="{{ path('app_user_attiva', {'id': user.id}) }}">
+								<i class="bi bi-check-circle-fill" style="color:green"></i> Attiva operatore</a>
+							{% endif %}
+							{% if user.sdManagerOperatore == false and user.stato == true %}
+							<a class="dropdown-item"  href="{{ path('app_user_disattiva', {'id': user.id}) }}">
+								<i class="bi bi-x-circle-fill" style="color:red"></i> Disattiva operatore</a>
+							{% endif %}
 							</ul>
 							</div>
 						</td>

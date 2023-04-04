@@ -23,21 +23,27 @@ class Lesioni
     private ?\DateTimeInterface $dataRivalutazioniSettimanali = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $tipologiaLesione = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'integer', length: 255)]
+    #[Assert\NotBlank]
     private ?string $numeroSedeLesione = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $gradoLesione = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $condizioneLesione = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $bordiLesione = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $cutePerilesionale = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -81,12 +87,12 @@ class Lesioni
         return $this;
     }
 
-    public function getNumeroSedeLesione(): ?string
+    public function getNumeroSedeLesione(): ?int
     {
         return $this->numeroSedeLesione;
     }
 
-    public function setNumeroSedeLesione(string $numeroSedeLesione): self
+    public function setNumeroSedeLesione(int $numeroSedeLesione): self
     {
         $this->numeroSedeLesione = $numeroSedeLesione;
 

@@ -18,6 +18,7 @@ class ChiusuraServizio
     private $id;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
     private $conclusioni;
 
     #[ORM\Column(type: 'date')]

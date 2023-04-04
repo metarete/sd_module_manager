@@ -30,12 +30,14 @@ class UserController extends AbstractController
             if($passwordNuova == null && $confermaPassword == null){
                 $roles[0] = "ROLE_USER";
                 $user->setRoles($roles);
+                $user->setStato(true);
                 $userRepository->add($user, true);
                 return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
             }
             else if($passwordNuova == $confermaPassword){
                 $roles[0] = "ROLE_USER";
                 $user->setRoles($roles);
+                $user->setStato(true);
                 $hashedPassword = $passwordHasher->hashPassword(
                     $user,
                     $passwordNuova
@@ -147,6 +149,24 @@ class UserController extends AbstractController
 
         $roles[0] = "ROLE_USER";
         $user->setRoles($roles);
+        $userRepository->add($user, true);
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/attiva/{id}', name: 'app_user_attiva', methods: ['GET', 'POST'])]
+    public function attiva(User $user, UserRepository $userRepository): Response
+    {
+        $user->setStato(true);
+        $userRepository->add($user, true);
+
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/disattiva/{id}', name: 'app_user_disattiva', methods: ['GET', 'POST'])]
+    public function disattiva(User $user, UserRepository $userRepository): Response
+    {
+        $user->setStato(false);
         $userRepository->add($user, true);
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);

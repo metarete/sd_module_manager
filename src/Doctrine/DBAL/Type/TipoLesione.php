@@ -12,6 +12,6 @@ class TipoLesione extends EnumType
     // mantenere allineate con workflow
     protected $values = array(
         'Principale' => 'Principale',
-        'Secondaria' => 'Secondaria',
+        
     );
 }

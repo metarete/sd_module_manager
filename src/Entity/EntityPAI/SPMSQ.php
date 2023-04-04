@@ -54,6 +54,9 @@ class SPMSQ
     #[ORM\Column(type: 'integer')]
     private $totale =0;
 
+    #[ORM\Column(type: 'boolean')]
+    private $nonSomministrabilePerPatologia;
+
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idSpmsq')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
@@ -196,6 +199,18 @@ class SPMSQ
     public function setSottrazione(bool $sottrazione): self
     {
         $this->sottrazione = $sottrazione;
+
+        return $this;
+    }
+
+    public function isNonSomministrabilePerPatologia(): ?bool
+    {
+        return $this->nonSomministrabilePerPatologia;
+    }
+
+    public function setNonSomministrabilePerPatologia(bool $nonSomministrabilePerPatologia): self
+    {
+        $this->nonSomministrabilePerPatologia = $nonSomministrabilePerPatologia;
 
         return $this;
     }

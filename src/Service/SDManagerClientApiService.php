@@ -132,7 +132,7 @@ class SDManagerClientApiService
         //ottengo il repository degli utenti in locale
         $userRepository = $this->entityManager->getRepository(User::class);
 
-
+        
         //faccio passare tutti gli utenti scaricati
         for ($i = 0; $i < count($utenti); $i++) {
             //verifico che l'utente ha lo username
@@ -159,6 +159,14 @@ class SDManagerClientApiService
                             $utente->setRoles($roles);
                             $utente->setUsername($utenti[$i]['username']);
                             $utente->setSdManagerOperatore(true);
+                            $statoScaricato = $utenti[$i]['stato'];
+                            if($statoScaricato == '1'){
+                                $stato = true;
+                            }
+                            else{
+                                $stato = false;
+                            }
+                            $utente->setStato($stato);
 
                             $userRepository->add($utente, true);
                         }
@@ -168,8 +176,15 @@ class SDManagerClientApiService
                     }
                     else{
                         //utente che ho gia. aggiorno i dati
+                        $statoScaricato = $utenti[$i]['stato'];
+                        if($statoScaricato == '1'){
+                            $stato = true;
+                        }
+                        else{
+                            $stato = false;
+                        }
                         $email = $utenti[$i]['emails'][0]['email'];
-                        $userRepository->updateUserByUsername($utenti[$i]['username'], $utenti[$i]['nome'], $utenti[$i]['cognome'], $utenti[$i]['cf'], $email);
+                        $userRepository->updateUserByUsername($utenti[$i]['username'], $utenti[$i]['nome'], $utenti[$i]['cognome'], $utenti[$i]['cf'], $email, $stato);
                     }
                 }
             }

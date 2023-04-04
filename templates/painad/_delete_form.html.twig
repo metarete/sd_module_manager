@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_painad_delete', {'id': painad.id}) }}" onsubmit="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ painad.id) }}">
+    <button class="btn btn-danger">Elimina</button>
+</form>

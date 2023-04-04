@@ -36,21 +36,26 @@ class LesioniFormType extends AbstractType
                 'empty_data' => 0,  
             ])
             ->add('tipologiaLesione', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $tipoLesioneChoices
             ])
             ->add('numeroSedeLesione',null,[
                 'empty_data' => 0,
             ])
             ->add('gradoLesione', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $gradoLesioneChoices
             ])
             ->add('condizioneLesione', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $condizioneLesioneChoices
             ])
             ->add('bordiLesione', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $bordiLesioneChoices
             ])
             ->add('cutePerilesionale', ChoiceType::class,[
+                'placeholder' => '',
                 'choices' => $cuteChoices
             ])
             ->add('noteSullaLesione', TextareaType::class, [

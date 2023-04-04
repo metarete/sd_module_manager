@@ -61,11 +61,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         $isSDManagerUser = false;
         if (0 !== count($violations)) {
             // si tratta di uno username
-            $user = $userRepo->findOneBy(['username' => $email, 'sdManagerOperatore' => true]);
+            $user = $userRepo->findOneBy(['username' => $email, 'sdManagerOperatore' => true, 'stato' => true]);
             if ($user) $isSDManagerUser = true;
         } else {
             // si tratta di una mail
-            $user = $userRepo->findOneBy(['email' => $email, 'sdManagerOperatore' => false]);
+            $user = $userRepo->findOneBy(['email' => $email, 'sdManagerOperatore' => false, 'stato' => true]);
         }
 
         if ($user) {

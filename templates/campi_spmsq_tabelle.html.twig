@@ -37,438 +37,595 @@
 								<tr>
 									<th>Che giorno è oggi?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.giornoOggi == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.giornoOggi == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Che giorno della settimana è?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.giornoSettimana == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.giornoSettimana == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Come si chiama questo posto?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.posto == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.posto == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Qual è il suo indirizzo?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.indirizzo == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.indirizzo == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Quanti anni ha?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.anni == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.anni == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Quando è nato?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.dataNascita == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.dataNascita == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Chi è il Presidente della Repubblica?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.presidenteAttuale == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.presidenteAttuale == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Chi era il Presidente precedente?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.presidentePrecedente == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.presidentePrecedente == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Qual è il cognome da ragazza si sua madre?</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.cognomeMadre == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.cognomeMadre == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
 									{% for s_p_m_s_q in spmsqs %}
-										{% if s_p_m_s_q.sottrazione == false %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
 											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
+												<i class="bi bi-dash-circle-fill" style="color:grey"></i>
 											</td>
 										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
+											{% if s_p_m_s_q.sottrazione == false %}
+												<td>
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												</td>
+											{% else %}
+												<td>
+													<i class="bi bi-x-circle-fill" style="color:red"></i>
+												</td>
+											{% endif %}
 										{% endif %}
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Totale errori</th>
 									{% for s_p_m_s_q in spmsqs %}
-										<td>
-											<strong>{{s_p_m_s_q.totale}}</td>
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+											<td>
+												<strong>/</td>
+											{% else %}
+												<td>
+													<strong>{{s_p_m_s_q.totale}}</td>
+												{% endif %}
+
+											{% endfor %}
+										</tr>
+									</tr>
+								</tr>
+								<tr>
+									<th>Non somministrabile per patologia</th>
+									{% for s_p_m_s_q in spmsqs %}
+										{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+											<td>
+												<i class="bi bi-check-circle-fill" style="color:green"></i>
+											</td>
+										{% else %}
+											<td>
+												<strong>/</td>
+											{% endif %}
+
 										{% endfor %}
 									</tr>
 								</tr>
-								<tr>
-									<th></th>
-									{% for s_p_m_s_q in spmsqs %}
-										<td><br></td>
-									{% endfor %}
-								</tr>
-								<tr>
-									<th>Operatore</th>
-									{% for s_p_m_s_q in spmsqs %}
-										<td>{{ s_p_m_s_q.operatore.name }}
-											{{s_p_m_s_q.operatore.surname}}</td>
-									{% endfor %}
-								</tr>
-								<tr>
-									<th></th>
-									{% for s_p_m_s_q in spmsqs %}
+							</tbody>
+						</tr>
+						<tr>
+							<th></th>
+							{% for s_p_m_s_q in spmsqs %}
+								<td><br></td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<th>Operatore</th>
+							{% for s_p_m_s_q in spmsqs %}
+								<td>{{ s_p_m_s_q.operatore.name }}
+									{{s_p_m_s_q.operatore.surname}}</td>
+							{% endfor %}
+						</tr>
+						<tr>
+							<th></th>
+							{% for s_p_m_s_q in spmsqs %}
+								<td>
+									<p class="card-title" id="totale" style="border-bottom-style: none;">
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+												Apri
+											</button>
+											<ul class="dropdown-menu">
+												<li>
+													<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_edit', {'id': s_p_m_s_q.id}) }}">
+														<i class="bi bi-pencil-square"></i>
+														Modifica</a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_delete', {'id': s_p_m_s_q.id, '_token': csrf_token('delete' ~ s_p_m_s_q.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+														<i class="bi bi-trash3"></i>Cancella</a>
+												</li>
+											</ul>
+										</div>
+									</p>
+								</td>
+							{% endfor %}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div></div></div><div class="visualizzazione-mobile"><div class="container-fluid text-center">
+<div class="row">
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+				<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+					<thead class="cf"></thead>
+					<thead></thead>
+					<tbody>
+						<tr>
+							<th>Che giorno è oggi?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.giornoOggi == false %}
 										<td>
-											<p class="card-title" id="totale" style="border-bottom-style: none;">
-												<div class="btn-group" role="group">
-													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-														Apri
-													</button>
-													<ul class="dropdown-menu">
-														<li>
-															<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_edit', {'id': s_p_m_s_q.id}) }}">
-																<i class="bi bi-pencil-square"></i>
-																Modifica</a>
-														</li>
-														<li>
-															<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_delete', {'id': s_p_m_s_q.id, '_token': csrf_token('delete' ~ s_p_m_s_q.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-																<i class="bi bi-trash3"></i>Cancella</a>
-														</li>
-													</ul>
-												</div>
-											</p>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
 										</td>
-									{% endfor %}
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Che giorno è della settimana?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.giornoSettimana == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Come si chiama questo posto?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.posto == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Qual è il suo indirizzo?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.indirizzo == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Quanti anni ha?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.anni == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Quando è nato?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.dataNascita == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Chi è il presidente della Repubblica?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.presidenteAttuale == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Che era il Presidente precedente?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.presidentePrecedente == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Qual è il cognome da ragazza di  sua madre?</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.cognomeMadre == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+									<td>
+										<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+									</td>
+								{% else %}
+									{% if s_p_m_s_q.sottrazione == false %}
+										<td>
+											<i class="bi bi-check-circle-fill" style="color:green"></i>
+										</td>
+									{% else %}
+										<td>
+											<i class="bi bi-x-circle-fill" style="color:red"></i>
+										</td>
+									{% endif %}
+								{% endif %}
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Totale errori</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+
+								<th data-title='Totale errori'>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										/
+									{% else %}
+										{{s_p_m_s_q.totale}}
+									{% endif %}
+								</th>
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Non somministrabile per patologia</th>
+							<td></td>
+
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								<th data-title='Non somministrabile per patologia'>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<i class="bi bi-check-circle-fill" style="color:green"></i>
+									{% else %}
+										/
+									{% endif %}
+								</th>
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>Operatore</th>
+							<td></td>
+						</tr>
+						{% for s_p_m_s_q in spmsqs %}
+							<tr>
+								<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
+								<th>{{ s_p_m_s_q.operatore.name }}
+									{{s_p_m_s_q.operatore.surname}}
+									<br>
+									<p class="card-title" id="totale" style="border-bottom-style: none;">
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+												Apri
+											</button>
+											<ul class="dropdown-menu">
+												<li>
+													<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_edit', {'id': s_p_m_s_q.id}) }}">
+														<i class="bi bi-pencil-square"></i>
+														Modifica</a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_delete', {'id': s_p_m_s_q.id, '_token': csrf_token('delete' ~ s_p_m_s_q.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+														<i class="bi bi-trash3"></i>Cancella</a>
+												</li>
+											</ul>
+										</div>
+									</p>
+								</th>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
 		</div>
 	</div>
-</div>
-
-<div class="visualizzazione-mobile">
-	<div class="container-fluid text-center">
-		<div class="row">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
-							<thead class="cf"></thead>
-							<thead></thead>
-							<tbody>
-								<tr>
-									<th>Che giorno è oggi?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.giornoOggi == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Che giorno è della settimana?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.giornoSettimana == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Come si chiama questo posto?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.posto == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Qual è il suo indirizzo?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.indirizzo == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Quanti anni ha?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.anni == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Quando è nato?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.dataNascita == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Chi è il presidente della Repubblica?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.presidenteAttuale == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Che era il Presidente precedente?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.presidentePrecedente == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Qual è il cognome da ragazza di  sua madre?</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.cognomeMadre == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										{% if s_p_m_s_q.sottrazione == false %}
-											<td>
-												<i class="bi bi-check-circle-fill" style="color:green"></i>
-											</td>
-										{% else %}
-											<td>
-												<i class="bi bi-x-circle-fill" style="color:red"></i>
-											</td>
-										{% endif %}
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Totale errori</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-
-										<th data-title='Totale errori'>
-											{{s_p_m_s_q.totale}}
-										</th>
-
-									</tr>
-								{% endfor %}
-								<tr>
-									<th>Operatore</th>
-									<td></td>
-								</tr>
-								{% for s_p_m_s_q in spmsqs %}
-									<tr>
-										<td data-title='Data Valutazione'>{{s_p_m_s_q.dataValutazione ? s_p_m_s_q.dataValutazione|date('d/m/Y') : ''}}</td>
-										<th>{{ s_p_m_s_q.operatore.name }}
-											{{s_p_m_s_q.operatore.surname}}
-											<br>
-											<p class="card-title" id="totale" style="border-bottom-style: none;">
-												<div class="btn-group" role="group">
-													<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-														Apri
-													</button>
-													<ul class="dropdown-menu">
-														<li>
-															<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_edit', {'id': s_p_m_s_q.id}) }}">
-																<i class="bi bi-pencil-square"></i>
-																Modifica</a>
-														</li>
-														<li>
-															<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_delete', {'id': s_p_m_s_q.id, '_token': csrf_token('delete' ~ s_p_m_s_q.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-																<i class="bi bi-trash3"></i>Cancella</a>
-														</li>
-													</ul>
-												</div>
-											</p>
-										</th>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+</div></div></div></div>

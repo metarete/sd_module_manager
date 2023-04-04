@@ -54,7 +54,6 @@ class CreaOperatoreCommand extends Command
         $cognome = $input->getArgument('cognome');
         $password = $input->getArgument('password');
         $role[0] = $input->getArgument('role');
-        $isVerified = true;
         $email = $input->getArgument('email');
         $username = $input->getArgument('username');
 
@@ -67,7 +66,7 @@ class CreaOperatoreCommand extends Command
         $user -> setSurname($cognome);
         $user -> setPassword($hashedPassword);
         $user -> setRoles($role);
-        $user -> setIsVerified($isVerified);
+        $user-> setStato(false);
         $user -> setEmail($email);
         $user -> setUsername($username);
         $userRepository->add($user, true);

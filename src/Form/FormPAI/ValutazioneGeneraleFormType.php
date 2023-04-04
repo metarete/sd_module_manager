@@ -44,22 +44,26 @@ class ValutazioneGeneraleFormType extends AbstractType
                 'empty_data' => 0,
             ])
             ->add('tipologia_valutazione', ChoiceType::class,[
-                'choices' => $valutazioneChoices
+                'choices' => $valutazioneChoices,
+                'placeholder' => '',
             ])
             
             ->add('n_componenti_nucleo_abitativo')
             ->add('panf', ChoiceType::class,[
                 'choices' => $panfChoices,
+                'placeholder' => '',
                 'label' => 'Presenza Assistente Non Famigliare'
             ])
             
             ->add('fanf', ChoiceType::class,[
                 'choices' => $fanfChoices,
+                'placeholder' => '',
                 'label' => 'Frequenza Assistente Non Famigliare'
             ])
             
             ->add('iss', ChoiceType::class,[
                 'choices' => $issChoices,
+                'placeholder' => '',
                 'label' => 'Indicatore Supporto Sociale'
             ])
             
@@ -81,31 +85,38 @@ class ValutazioneGeneraleFormType extends AbstractType
             ->add('contributoCaregiver')
 
             ->add('uso_servizi_igenici', ChoiceType::class,[
-                'choices' => $autonomiaChoices
+                'choices' => $autonomiaChoices,
+                'placeholder' => '',
             ])
             
             ->add('abbigliamento', ChoiceType::class,[
-                'choices' => $autonomiaChoices
+                'choices' => $autonomiaChoices,
+                'placeholder' => '',
             ])
             
             ->add('alimentazione', ChoiceType::class,[
-                'choices' => $autonomiaChoices
+                'choices' => $autonomiaChoices,
+                'placeholder' => '',
             ])
             
             ->add('indicatore_deambulazione', ChoiceType::class,[
-                'choices' => $autonomiaChoices
+                'choices' => $autonomiaChoices,
+                'placeholder' => '',
             ])
             
             ->add('igene_personale', ChoiceType::class,[
-                'choices' => $autonomiaChoices
+                'choices' => $autonomiaChoices,
+                'placeholder' => '',
             ])
             
             ->add('rischio_infettivo')
             ->add('cognitivita',ChoiceType::class,[
-                'choices' => $disturbiChoices
+                'choices' => $disturbiChoices,
+                'placeholder' => '',
             ])
             ->add('comportamento', ChoiceType::class,[
-                'choices' => $disturbiChoices
+                'choices' => $disturbiChoices,
+                'placeholder' => '',
             ])
             ->add('diagnosi', TextareaType::class, [
                 'attr' => array('style' => 'height:100px'),

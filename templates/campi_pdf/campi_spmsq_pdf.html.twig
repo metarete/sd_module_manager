@@ -15,7 +15,6 @@
 			border-bottom-style: solid;
 			padding-bottom: 8px
 		}
-		
 	</style>
 {% endblock %}
 <div class="container-fluid text-center">
@@ -37,69 +36,129 @@
 							<tr>
 								<th>Che giorno è oggi?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.giornoOggi ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.giornoOggi ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Che giorno della settimana è?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.giornoSettimana ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.giornoSettimana ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Come si chiama questo posto?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.posto ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.posto ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Qual è il suo indirizzo?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.indirizzo ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.indirizzo ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Quanti anni ha?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.anni ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.anni ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Quando è nato?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.dataNascita ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.dataNascita ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Chi è il Presidente della Repubblica?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.presidenteAttuale ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.presidenteAttuale ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Chi era il Presidente precedente?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.presidentePrecedente ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.presidentePrecedente ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Qual è il cognome da ragazza si sua madre?</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.cognomeMadre ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.cognomeMadre ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>{{ s_p_m_s_q.sottrazione ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>/</td>
+									{% else %}
+										<td>{{ s_p_m_s_q.sottrazione ? 'Risposta errata' : 'Risposta corretta'}}</td>
+									{% endif %}
 								{% endfor %}
 							</tr>
 							<tr>
 								<th>Totale errori</th>
 								{% for s_p_m_s_q in spmsqs %}
-									<td>
-										<strong>{{s_p_m_s_q.totale}}</td>
-									{% endfor %}
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>
+											<strong>/</td>
+										{% else %}
+											<td>
+												<strong>{{s_p_m_s_q.totale}}</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+								</tr>
+							</tr>
+							<tr>
+								<th>Non somministrabile per patologia</th>
+								{% for s_p_m_s_q in spmsqs %}
+									{% if s_p_m_s_q.nonSomministrabilePerPatologia == true %}
+										<td>
+											<strong>Paziente impossibilitato a sostenere la visita</td>
+										{% else %}
+											<td>
+												<strong>/</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
 								</tr>
 							</tr>
 							<tr>
