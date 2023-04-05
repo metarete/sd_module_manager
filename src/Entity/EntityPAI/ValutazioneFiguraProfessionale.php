@@ -5,7 +5,10 @@ namespace App\Entity\EntityPAI;
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntityPAI\SchedaPAI;
+use App\Entity\Obiettivi;
 use App\Repository\ValutazioneFiguraProfessionaleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ValutazioneFiguraProfessionaleRepository::class)]
@@ -25,9 +28,8 @@ class ValutazioneFiguraProfessionale
     #[Assert\NotBlank]
     private $diagnosiProfessionale;
 
-    #[ORM\Column(type: 'text')]
-    #[Assert\NotBlank]
-    private $obbiettiviDaRaggiungere;
+    #[ORM\ManyToMany(targetEntity: Obiettivi::class, inversedBy: 'valutazioneFiguraProfessionale')]
+    private $obiettivi;
 
     #[ORM\Column(type: 'text')]
     private $tipoEFrequenza;
@@ -44,6 +46,11 @@ class ValutazioneFiguraProfessionale
 
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idValutazioneFiguraProfessionale')]
     private $autoreValutazioneProfessionale;
+
+    public function __construct()
+    {
+        $this->obiettivi = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,18 +77,6 @@ class ValutazioneFiguraProfessionale
     public function setDiagnosiProfessionale(string $diagnosiProfessionale): self
     {
         $this->diagnosiProfessionale = $diagnosiProfessionale;
-
-        return $this;
-    }
-
-    public function getObbiettiviDaRaggiungere(): ?string
-    {
-        return $this->obbiettiviDaRaggiungere;
-    }
-
-    public function setObbiettiviDaRaggiungere(string $obbiettiviDaRaggiungere): self
-    {
-        $this->obbiettiviDaRaggiungere = $obbiettiviDaRaggiungere;
 
         return $this;
     }
@@ -141,6 +136,33 @@ class ValutazioneFiguraProfessionale
     public function setOperatore(?User $autoreValutazioneProfessionale): self
     {
         $this->autoreValutazioneProfessionale = $autoreValutazioneProfessionale;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Obiettivi>
+     */
+    public function getObiettivi(): Collection
+    {
+        return $this->obiettivi;
+    }
+
+    public function addObiettivi(Obiettivi $obiettivi): self
+    {
+        if (!$this->obiettivi->contains($obiettivi)) {
+            $this->obiettivi[] = $obiettivi;
+        }
+
+        return $this;
+    }
+
+    public function removeObiettivi(Obiettivi $obiettivi): self
+    {
+        if ($this->obiettivi->removeElement($obiettivi)) {
+            // set the owning side to null (unless already changed)
+
+        }
 
         return $this;
     }

@@ -105,6 +105,12 @@
 								<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
 							</li>
 							{% endif %}
+							{% if "ROLE_ADMIN" not in app.user.roles %}
+							{% else %}
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="{{ path('app_obiettivi_index') }}" style="margin:20px;">Obiettivi</a>
+							</li>
+							{% endif %}
 							<li class="nav-divider"></li>
 						</ul>
 					</div>

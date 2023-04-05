@@ -7,9 +7,11 @@ use App\Doctrine\DBAL\Type\TipoOperatore;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
+use App\Entity\Obiettivi;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ValutazioneFiguraProfessionaleFormType extends AbstractType
 {
@@ -31,9 +33,15 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'attr' => array('style' => 'height:100px'),
                 'empty_data' => '',
             ])
-            ->add('obbiettiviDaRaggiungere', TextareaType::class, [
-                'attr' => array('style' => 'height:100px'),
-                'empty_data' => '',
+            ->add('obiettivi', EntityType::class,[
+                'class'=> Obiettivi::class,
+                'choice_label' => function (Obiettivi $obiettivi) {
+                    if($obiettivi->isStato() == true)
+                    return $obiettivi->getTitolo();},
+                'label' => 'Obiettivi da raggiungere',
+                'multiple'=> true,
+                'required'   => false,
+                'autocomplete' => true,
             ])
             ->add('tipoEFrequenza', TextareaType::class, [
                 'attr' => array('style' => 'height:100px'),

@@ -119,5 +119,21 @@
 				</td>
 			</tr>
 		{% endif %}
+		{% if scheda_pai.abilitaPainad == true %}
+			<tr>
+				<th>
+					Frequenza scale Painad
+				</th>
+
+				<td>
+
+					Compilazione scala Painad ogni
+					{{ scheda_pai.frequenzaPainad}}
+					giorni
+
+
+				</td>
+			</tr>
+		{% endif %}
 	</tbody>
 </table>

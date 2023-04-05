@@ -56,10 +56,14 @@
 
 				<td>
 
-					{% if valutazione_figura_professionale.obbiettiviDaRaggiungere is empty %}
+					{% if valutazione_figura_professionale.obiettivi is empty %}
 						Nessuno
 					{% else %}
-						{{ valutazione_figura_professionale.obbiettiviDaRaggiungere }}
+						<ul>
+						{% for i in valutazione_figura_professionale.obiettivi %}
+							<li>{{ i.descrizione }}</li>
+						{% endfor %}
+						</ul>
 					{% endif %}
 
 				</td>

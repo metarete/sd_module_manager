@@ -81,11 +81,13 @@
 								</tr>
 								<tr>
 									<td>
-										<p class="card-title">
-											{% if valutazione_figura_professionale.obbiettiviDaRaggiungere is empty %}
+										<p class="card-title" style="border-bottom-style: none;">
+											{% if valutazione_figura_professionale.obiettivi is empty %}
 												Nessuno
 											{% else %}
-												{{ valutazione_figura_professionale.obbiettiviDaRaggiungere }}
+												{% for i in valutazione_figura_professionale.obiettivi %}
+													<li>{{ i.descrizione }}</li>
+												{% endfor %}
 											{% endif %}
 										</p>
 									</td>

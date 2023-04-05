@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuovi Obiettivi{% endblock %}
+
+{% block body %}
+    <h1><i class="bi bi-pen"></i> Crea nuovi obiettivi</h1>
+
+    {{ include('obiettivi/_form.html.twig') }}
+
+    <a class="btn btn-danger" href="{{ path('app_obiettivi_index') }}">Annulla</a>
+{% endblock %}
