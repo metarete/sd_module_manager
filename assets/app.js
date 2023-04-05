@@ -51,15 +51,23 @@ $(function() {
   $('#barthel_form_deambulazioneValida').on('change', function(e){
     var valoreDeambulazione = $(this).val();
     var selettore = $('#barthel_form_usoCarrozzina');
-    if(valoreDeambulazione != 0){
+    if(valoreDeambulazione != 0 || valoreDeambulazione == ''){
       selettore.prop('disabled', 'disabled');
       
     }
     else {
       selettore.prop('disabled', false);
     }
-
   });
+  if($('#barthel_form_deambulazioneValida')
+  && ($('#barthel_form_deambulazioneValida').val() != 0
+  || $('#barthel_form_deambulazioneValida').val() == '')){
+    var selettore = $('#barthel_form_usoCarrozzina');
+    if(selettore){
+      selettore.prop('disabled', 'disabled');
+    }
+
+  }
 });
 //grafico schede
 var percentualeNuove = $("#percentualeNuove").text();
