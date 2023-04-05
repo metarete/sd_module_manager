@@ -49,6 +49,8 @@ class CheckSchedePai implements EventSubscriberInterface
         $entity->setCorrectVasNumberToday();
         $entity->setLesioniNumberToday();
         $entity->setCorrectLesioniNumberToday();
+        $entity->setPainadNumberToday();
+        $entity->setCorrectPainadNumberToday();
         
     }
 
@@ -87,7 +89,8 @@ class CheckSchedePai implements EventSubscriberInterface
         $entity->setCorrectVasNumberToday();
         $entity->setLesioniNumberToday();
         $entity->setCorrectLesioniNumberToday();
-        
+        $entity->setPainadNumberToday();
+        $entity->setCorrectPainadNumberToday();
     }
 
 }

@@ -225,6 +225,15 @@
 					<div style="page-break-before: always;"></div>
 			{% endif %}
 
+			{% if painads is empty %}
+
+				{% else %}
+					<h3>Painad</h3>
+					{{ include('campi_pdf/campi_painad_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
+			{% endif %}
+
 
 			{% if parere_mmg is empty %}
 

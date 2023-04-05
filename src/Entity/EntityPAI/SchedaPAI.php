@@ -136,6 +136,9 @@ class SchedaPAI
     #[ORM\Column(type: 'boolean')]
     private $abilitaLesioni = false;
 
+    #[ORM\Column(type: 'boolean')]
+    private $abilitaPainad = false;
+
     #[ORM\Column(type: 'integer')]
     private $numeroBarthelCorretto = 0;
 
@@ -155,6 +158,9 @@ class SchedaPAI
     private $numeroLesioniCorretto = 0;
 
     #[ORM\Column(type: 'integer')]
+    private $numeroPainadCorretto = 0;
+
+    #[ORM\Column(type: 'integer')]
     private $frequenzaBarthel = 0;
 
     #[ORM\Column(type: 'integer')]
@@ -172,6 +178,9 @@ class SchedaPAI
     #[ORM\Column(type: 'integer')]
     private $frequenzaLesioni = 0;
 
+    #[ORM\Column(type: 'integer')]
+    private $frequenzaPainad = 0;
+
    //attributi non mappati
     private $barthelNumberToday = 0;
     private $bradenNumberToday = 0;
@@ -179,12 +188,14 @@ class SchedaPAI
     private $tinettiNumberToday = 0;
     private $vasNumberToday = 0;
     private $lesioniNumberToday = 0;
+    private $painadNumberToday = 0;
     private $correctBarthelNumberToday = 0;
     private $correctBradenNumberToday = 0;
     private $correctSpmsqNumberToday = 0;
     private $correctTinettiNumberToday = 0;
     private $correctVasNumberToday = 0;
     private $correctLesioniNumberToday = 0;
+    private $correctPainadNumberToday = 0;
 
     
 
@@ -202,6 +213,7 @@ class SchedaPAI
         $this->idTinetti = new ArrayCollection();
         $this->idVas = new ArrayCollection();
         $this->idLesioni = new ArrayCollection();
+        $this->idPainad = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -803,6 +815,18 @@ class SchedaPAI
         return $this;
     }
 
+    public function isAbilitaPainad(): ?bool
+    {
+        return $this->abilitaPainad;
+    }
+
+    public function setAbilitaPainad(bool $abilitaPainad): self
+    {
+        $this->abilitaPainad = $abilitaPainad;
+
+        return $this;
+    }
+
     public function getNumeroBarthelCorretto(): ?int
     {
         return $this->numeroBarthelCorretto;
@@ -866,6 +890,17 @@ class SchedaPAI
     public function setNumeroLesioniCorretto(int $numeroLesioniCorretto): self
     {
         $this->numeroLesioniCorretto = $numeroLesioniCorretto;
+        return $this;
+    }
+
+    public function getNumeroPainadCorretto(): ?int
+    {
+        return $this->numeroPainadCorretto;
+    }
+
+    public function setNumeroPainadCorretto(int $numeroPainadCorretto): self
+    {
+        $this->numeroPainadCorretto = $numeroPainadCorretto;
         return $this;
     }
 
@@ -941,6 +976,18 @@ class SchedaPAI
         return $this;
     }
 
+    public function getFrequenzaPainad(): ?int
+    {
+        return $this->frequenzaPainad;
+    }
+
+    public function setFrequenzaPainad(int $frequenzaPainad): self
+    {
+        $this->frequenzaPainad = $frequenzaPainad;
+
+        return $this;
+    }
+
 
      // attributi non mappati
     public function getBarthelNumberToday(): ?int
@@ -1005,6 +1052,17 @@ class SchedaPAI
     public function setLesioniNumberToday(): ?self
     {
         $this->lesioniNumberToday = count($this->getIdLesioni());
+        return $this;
+    }
+
+    public function getPainadNumberToday(): ?int
+    {
+        return $this->painadNumberToday;
+    }
+
+    public function setPainadNumberToday(): ?self
+    {
+        $this->painadNumberToday = count($this->getIdPainad());
         return $this;
     }
 
@@ -1156,6 +1214,31 @@ class SchedaPAI
             $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
         }
         $this->correctLesioniNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaLesioni());
+        return $this;
+    }
+
+    public function getCorrectPainadNumberToday(): ?int
+    {
+        return $this->correctPainadNumberToday;
+    }
+
+    public function setCorrectPainadNumberToday(): ?self
+    {
+        if($this->getFrequenzaPainad() == 0){
+            return null;
+        }
+        if($this->isAbilitaPainad() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
+        $this->correctPainadNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaPainad());
         return $this;
     }
 }

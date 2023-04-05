@@ -218,7 +218,7 @@ class MailerGenerator
         );
         $immagineScaleRitardi = base64_encode($img);
         $img = file_get_contents(
-            __DIR__ . "/../../public/image/admin/user-doctor-solid.png"
+            __DIR__ . "/../../public/image/user-doctor-solid.png"
         );
         $immagineValutazioni = base64_encode($img);
         $img = file_get_contents(
@@ -317,6 +317,7 @@ class MailerGenerator
                         "tinetti" => "Nessuna",
                         "vas" => "Nessuna",
                         "lesioni" => "Nessuna",
+                        "painad" => "Nessuna",
                     ];
 
                     $arraySchedeAttive[$t]->setBarthelNumberToday();
@@ -331,6 +332,8 @@ class MailerGenerator
                     $arraySchedeAttive[$t]->setCorrectVasNumberToday();
                     $arraySchedeAttive[$t]->setLesioniNumberToday();
                     $arraySchedeAttive[$t]->setCorrectLesioniNumberToday();
+                    $arraySchedeAttive[$t]->setPainadNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectPainadNumberToday();
 
                     if ($arraySchedeAttive[$t]->getBarthelNumberToday() <= $arraySchedeAttive[$t]->getCorrectBarthelNumberToday() && $arraySchedeAttive[$t]->isAbilitaBarthel() == true) {
                         $flagRitardi = true;
@@ -363,7 +366,11 @@ class MailerGenerator
                         $riga["lesioni"] = 'si';
                         //$descrizioneRitardi = $descrizioneRitardi .'-Lesioni =>  ' . '<a href=' . 'http://localhost:54001/lesioni/app_scheda_pai_index/new?id_pai='.$arraySchedeAttive[$t]->getId().'>Crea scala Lesioni</a>'.'<br>';
                     }
-                    if ($riga["barthel"] == 'si' || $riga["braden"] == 'si' || $riga["spmsq"] == 'si' || $riga["tinetti"] == 'si' || $riga["vas"] == 'si' || $riga["lesioni"] == 'si') {
+                    if ($arraySchedeAttive[$t]->getPainadNumberToday() <= $arraySchedeAttive[$t]->getCorrectPainadNumberToday() && $arraySchedeAttive[$t]->isAbilitaPainad() == true) {
+                        $flagRitardi = true;
+                        $riga["painad"] = 'si';
+                    }
+                    if ($riga["barthel"] == 'si' || $riga["braden"] == 'si' || $riga["spmsq"] == 'si' || $riga["tinetti"] == 'si' || $riga["vas"] == 'si' || $riga["lesioni"] == 'si'|| $riga["painad"] == 'si') {
                         array_push($descrizioneRitardi, $riga);
                     }
                 }

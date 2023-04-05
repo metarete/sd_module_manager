@@ -247,6 +247,15 @@
 									{% endif %}
 								</td>
 							</tr>
+							<tr>
+								<td>
+									{% if scheda_pai.abilitaPainad == true %}
+										<p class="card-title">Compilazione scala Painad ogni {{ scheda_pai.frequenzaPainad}} giorni</p>
+									{% else %}
+										<p class="card-title">Scala Painad non disponibile</p>
+									{% endif %}
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

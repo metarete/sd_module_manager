@@ -210,6 +210,26 @@
 		{{ include('campi_lesioni_tabelle.html.twig') }}
 	{% endif %}
 	<div class="pb-2 mb-4"></div>
+	<div class="h3 pb-2 mb-4 ">
+		<div class="row">
+			<div class="col col-lg-10">
+				<div class="h3 pb-2 mb-4 ">
+					Painad
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaPainad == false %}disabled{% endif %}" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+					<i class="bi bi-plus-circle"></i>
+					Nuova</a>
+			</div>
+		</div>
+	</div>
+	{% if painads is empty %}
+		<h6>Nessuna scheda di valutazione painad</h6>
+	{% else %}
+		{{ include('campi_painad_tabelle.html.twig') }}
+	{% endif %}
+	<div class="pb-2 mb-4"></div>
 	<div class="row">
 		<div class="col col-lg-10">
 			<div class="h3 pb-2 mb-4 ">

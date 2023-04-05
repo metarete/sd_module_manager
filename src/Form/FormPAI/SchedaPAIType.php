@@ -107,6 +107,10 @@ class SchedaPAIType extends AbstractType
             ->add('frequenzaLesioni',null,[
                 'empty_data' => 0,
             ])
+            ->add('abilitaPainad')
+            ->add('frequenzaPainad',null,[
+                'empty_data' => 0,
+            ])
             ->add('salva', SubmitType::class, ['label' => 'Salva'])
             ->add('salvaEApprova', SubmitType::class, [
                 'label' => 'Salva e approva',

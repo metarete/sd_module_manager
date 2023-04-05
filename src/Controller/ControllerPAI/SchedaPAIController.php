@@ -11,6 +11,7 @@ use App\Entity\EntityPAI\SPMSQ;
 use App\Entity\EntityPAI\Braden;
 use App\Entity\EntityPAI\Barthel;
 use App\Entity\EntityPAI\Lesioni;
+use App\Entity\EntityPAI\Painad;
 use App\Entity\EntityPAI\Tinetti;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Form\FormPAI\SchedaPAIType;
@@ -176,6 +177,7 @@ class SchedaPAIController extends AbstractController
             $frequenzaTinetti = $schedaPAI->getFrequenzaTinetti();
             $frequenzaVas = $schedaPAI->getFrequenzaVas();
             $frequenzaLesioni = $schedaPAI->getFrequenzaLesioni();
+            $frequenzaPainad = $schedaPAI->getFrequenzaPainad();
             $dataInizio = $schedaPAI->getDataInizio();
             $dataFine = $schedaPAI->getDataFine();
             $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
@@ -203,6 +205,10 @@ class SchedaPAIController extends AbstractController
                 $numeroLesioniCorretto = 0;
             } else
                 $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni);
+            if ($frequenzaPainad == 0) {
+                $numeroPainadCorretto = 0;
+            } else
+                $numeroPainadCorretto = (int)($numeroGiorniTotali / $frequenzaPainad);
 
             $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
             $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
@@ -210,6 +216,7 @@ class SchedaPAIController extends AbstractController
             $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
             $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
             $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
+            $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
             $schedaPAIRepository->add($schedaPAI, true);
 
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
@@ -243,6 +250,7 @@ class SchedaPAIController extends AbstractController
         $tinetti = $schedaPAI->getIdTinetti();
         $vas = $schedaPAI->getIdVas();
         $lesioni = $schedaPAI->getIdLesioni();
+        $painad = $schedaPAI->getIdPainad();
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
         $variabileTest = 1;
         $altraTipologiaAssistenza = [];
@@ -264,6 +272,7 @@ class SchedaPAIController extends AbstractController
             'tinettis' => $tinetti,
             'vass' => $vas,
             'lesionis' => $lesioni,
+            'painads' => $painad,
             'chiusura_servizio' => $chiusuraServizio,
             'variabileTest' => $variabileTest,
             'assistito' => $assistito,
@@ -292,6 +301,7 @@ class SchedaPAIController extends AbstractController
             $frequenzaTinetti = $schedaPAI->getFrequenzaTinetti();
             $frequenzaVas = $schedaPAI->getFrequenzaVas();
             $frequenzaLesioni = $schedaPAI->getFrequenzaLesioni();
+            $frequenzaPainad = $schedaPAI->getFrequenzaPainad();
             $dataInizio = $schedaPAI->getDataInizio();
             $dataFine = $schedaPAI->getDataFine();
             $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
@@ -319,6 +329,10 @@ class SchedaPAIController extends AbstractController
                 $numeroLesioniCorretto = 0;
             } else
                 $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni);
+            if ($frequenzaPainad == 0) {
+                $numeroPainadCorretto = 0;
+            } else
+                $numeroPainadCorretto = (int)($numeroGiorniTotali / $frequenzaPainad);
 
             $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
             $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
@@ -326,6 +340,7 @@ class SchedaPAIController extends AbstractController
             $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
             $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
             $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
+            $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
 
             if ($form->getClickedButton() && 'salvaEApprova' === $form->getClickedButton()->getName()) {
                 $schedaPAI->setCurrentPlace('approvata');
@@ -379,6 +394,7 @@ class SchedaPAIController extends AbstractController
         $tinetti = $schedaPAI->getIdTinetti();
         $vas = $schedaPAI->getIdVas();
         $lesioni = $schedaPAI->getIdLesioni();
+        $painad = $schedaPAI->getIdPainad();
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
         $idAssistito = $schedaPAI->getIdAssistito();
         $assistito = $assistitiRepository->findOneById($idAssistito);
@@ -421,6 +437,7 @@ class SchedaPAIController extends AbstractController
             'tinettis' => $tinetti,
             'vass' => $vas,
             'lesionis' => $lesioni,
+            'painads' => $painad,
             'chiusura_servizio' => $chiusuraServizio,
             'variabileTest' => $variabileTest,
             'assistito' => $assistito,
@@ -475,6 +492,7 @@ class SchedaPAIController extends AbstractController
         $tinettiRepository = $this->entityManager->getRepository(Tinetti::class);
         $vasRepository = $this->entityManager->getRepository(Vas::class);
         $lesioniRepository = $this->entityManager->getRepository(Lesioni::class);
+        $painadRepository = $this->entityManager->getRepository(Painad::class);
         $numeroBarthelPresenti = $barthelRepository->findByBarthelPerScheda($idScheda);
         $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto();
         $numeroBradenPresenti = $bradenRepository->findByBradenPerScheda($idScheda);
@@ -487,6 +505,8 @@ class SchedaPAIController extends AbstractController
         $numeroVasCorretto = $schedaPAI->getNumeroVasCorretto();
         $numeroLesioniPresenti = $lesioniRepository->findByLesioniPerScheda($idScheda);
         $numeroLesioniCorretto = $schedaPAI->getNumeroLesioniCorretto();
+        $numeroPainadPresenti = $painadRepository->findByPainadPerScheda($idScheda);
+        $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto();
         $numeroOperatoriInf = count($schedaPAI->getidOperatoreSecondarioInf());
         $numeroOperatoriTdr = count($schedaPAI->getidOperatoreSecondarioTdr());
         $numeroOperatoriLog = count($schedaPAI->getidOperatoreSecondarioLog());
@@ -496,7 +516,7 @@ class SchedaPAIController extends AbstractController
         $numeroValutazioniProfessionali = count($schedaPAI->getIdValutazioneFiguraProfessionale());
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
 
-        if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
+        if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $numeroPainadPresenti == $numeroPainadCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
             if ($chiusuraServizio->getRinnovo() == false) {
                 $schedaPAI->setCurrentPlace('chiusa');
                 $session = $request->getSession();

@@ -1,0 +1,93 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+
+<div class="container-fluid text-center">
+	<div class="row">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+						<thead class="cf"></thead>
+						<thead>
+							<tr>
+								<td></td>
+								{% for painad in painads %}
+									<th data-title='Data Valutazione'>{{painad.dataValutazione ? painad.dataValutazione|date('d/m/Y') : ''}}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>Respiro</th>
+								{% for painad in painads %}
+									<td>{{painad.respiro}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Vocalizzazione</th>
+								{% for painad in painads %}
+									<td>{{painad.vocalizzazione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Espressione facciale</th>
+								{% for painad in painads %}
+									<td>{{painad.espressioneFacciale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Linguaggio del corpo</th>
+								{% for painad in painads %}
+									<td>{{painad.linguaggioDelCorpo}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Consolabilità</th>
+								{% for painad in painads %}
+									<td>{{painad.consolabilita}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Totale</th>
+								{% for painad in painads %}
+									<td><strong>{{painad.totale}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th></th>
+								{% for painad in painads %}
+									<td><br></td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Operatore</th>
+								{% for painad in painads %}
+									<td>{{ painad.operatore.name }}
+										{{painad.operatore.surname}}</td>
+								{% endfor %}
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,3 +1,5 @@
+{% form_theme form 'form/help_theme.html.twig' %}
+
 {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
 
 <div class="row">
@@ -5,7 +7,71 @@
 		{{ form_row(form.dataValutazione) }}
 	</div>
 </div>
+<div class="row">
+	<div class="col ">
+		{{ form_label(form.respiro) }}	
+		{{ form_help(form.respiro) }}
+	</div>
+</div>
 
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.respiro) }}
+		{{form_errors(form.respiro)}}
+	</div>
+</div>
+<div class="row">
+	<div class="col ">
+		{{ form_label(form.vocalizzazione) }}	
+		{{ form_help(form.vocalizzazione) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.vocalizzazione) }}
+		{{form_errors(form.vocalizzazione)}}
+	</div>
+</div>
+<div class="row">
+	<div class="col ">
+		{{ form_label(form.espressioneFacciale) }}	
+		{{ form_help(form.espressioneFacciale) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.espressioneFacciale) }}
+		{{form_errors(form.espressioneFacciale)}}
+	</div>
+</div>
+<div class="row">
+	<div class="col ">
+		{{ form_label(form.linguaggioDelCorpo) }}	
+		{{ form_help(form.linguaggioDelCorpo) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.linguaggioDelCorpo) }}
+		{{form_errors(form.linguaggioDelCorpo)}}
+	</div>
+</div>
+<div class="row">
+	<div class="col ">
+		{{ form_label(form.consolabilita) }}	
+		{{ form_help(form.consolabilita) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.consolabilita) }}
+		{{form_errors(form.consolabilita)}}
+	</div>
+</div>
 <br>
-<button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+
 {{ form_end(form) }}

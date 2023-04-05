@@ -27,6 +27,7 @@ class VoterPermessiUtente extends Voter
     const CREA_TINETTI = "crea_tinetti";
     const CREA_VAS = "crea_vas";
     const CREA_LESIONI = "crea_lesioni";
+    const CREA_PAINAD = "crea_painad";
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -50,6 +51,7 @@ class VoterPermessiUtente extends Voter
             self::CREA_TINETTI,
             self::CREA_VAS,
             self::CREA_LESIONI,
+            self::CREA_PAINAD,
 
         ])) {
 
@@ -96,6 +98,7 @@ class VoterPermessiUtente extends Voter
             self::CREA_TINETTI => $this->canCreaTinetti($schedaPai, $user),
             self::CREA_VAS => $this->canCreaVas($schedaPai, $user),
             self::CREA_LESIONI => $this->canCreaLesioni($schedaPai, $user),
+            self::CREA_PAINAD => $this->canCreaPainad($schedaPai, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
     }
@@ -355,6 +358,19 @@ class VoterPermessiUtente extends Voter
         //verifico che sia abilitata la possibilità di creare la scheda
 
         if ($schedaPAI->isAbilitaLesioni() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+
+            return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
+        } else {
+            return false;
+        }
+    }
+
+    private function canCreaPainad(SchedaPAI $schedaPAI, User $user): bool
+    {
+
+        //verifico che sia abilitata la possibilità di creare la scheda
+
+        if ($schedaPAI->isAbilitaPainad() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {

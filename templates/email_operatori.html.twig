@@ -344,7 +344,7 @@
 																		<div class style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
 																			<p style="margin: 0; font-size: 16px; text-align: left; mso-line-height-alt: 19.2px;">
 																				<span style="font-size:13px;">
-																					<em>{{d.data_inizio}}/{{d.data_fine}}</em>
+																					<em>{{d.data_inizio}} {{d.data_fine}}</em>
 																				</span>
 																			</p>
 																		</div>
@@ -481,7 +481,7 @@
 																		<div class style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
 																			<p style="margin: 0; font-size: 16px; text-align: left; mso-line-height-alt: 19.2px;">
 																				<span style="font-size:13px;">
-																					<em>{{d.data_inizio}}/{{d.data_fine}}</em>
+																					<em>{{d.data_inizio}}  {{d.data_fine}}</em>
 																				</span>
 																			</p>
 																		</div>
@@ -597,6 +597,22 @@
 															</tr>
 														</table>
 														{% endif %}
+														{% if d.painad == 'si' %}
+														<table class="text_block block-9" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+															<tr>
+																<td class="pad" style="padding-bottom:10px;padding-left:10px;padding-right:10px;">
+																	<div style="font-family: sans-serif">
+																		<div class style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
+																			<p style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 14.399999999999999px;">
+																				<span style="font-size:13px;">Painad in ritardo
+																				</span>
+																			</p>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														</table>
+														{% endif %}
 													</td>
 												</tr>
 											</tbody>
@@ -691,7 +707,7 @@
 																		<div class style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
 																			<p style="margin: 0; font-size: 16px; text-align: left; mso-line-height-alt: 19.2px;">
 																				<span style="font-size:13px;">
-																					<em>{{d.data_inizio}}/{{d.data_fine}}</em>
+																					<em>{{d.data_inizio}} {{d.data_fine}}</em>
 																				</span>
 																			</p>
 																		</div>
@@ -822,7 +838,7 @@
 																		<div class style="font-size: 12px; font-family: 'Oxygen', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
 																			<p style="margin: 0; font-size: 16px; text-align: left; mso-line-height-alt: 19.2px;">
 																				<span style="font-size:13px;">
-																					<em>{{d.data_inizio}}/{{d.data_fine}}</em>
+																					<em>{{d.data_inizio}} {{d.data_fine}}</em>
 																				</span>
 																			</p>
 																		</div>

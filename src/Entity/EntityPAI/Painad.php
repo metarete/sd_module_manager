@@ -21,6 +21,29 @@ class Painad
     #[Assert\Type(\DateTime::class)]
     private $dataValutazione;
 
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    private $respiro;
+
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    private $vocalizzazione;
+
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    private $espressioneFacciale;
+
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    private $linguaggioDelCorpo;
+
+    #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    private $consolabilita;
+
+    #[ORM\Column(type: 'integer')]
+    private $totale = 0;
+
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idPainad')]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
@@ -43,6 +66,78 @@ class Painad
     public function setDataValutazione(\DateTimeInterface $dataValutazione): self
     {
         $this->dataValutazione = $dataValutazione;
+
+        return $this;
+    }
+
+    public function getRespiro(): ?int
+    {
+        return $this->respiro;
+    }
+
+    public function setRespiro(int $respiro): self
+    {
+        $this->respiro = $respiro;
+
+        return $this;
+    }
+
+    public function getVocalizzazione(): ?int
+    {
+        return $this->vocalizzazione;
+    }
+
+    public function setVocalizzazione(int $vocalizzazione): self
+    {
+        $this->vocalizzazione = $vocalizzazione;
+
+        return $this;
+    }
+
+    public function getEspressioneFacciale(): ?int
+    {
+        return $this->espressioneFacciale;
+    }
+
+    public function setEspressioneFacciale(int $espressioneFacciale): self
+    {
+        $this->espressioneFacciale = $espressioneFacciale;
+
+        return $this;
+    }
+
+    public function getLinguaggioDelCorpo(): ?int
+    {
+        return $this->linguaggioDelCorpo;
+    }
+
+    public function setLinguaggioDelCorpo(int $linguaggioDelCorpo): self
+    {
+        $this->linguaggioDelCorpo = $linguaggioDelCorpo;
+
+        return $this;
+    }
+
+    public function getConsolabilita(): ?int
+    {
+        return $this->consolabilita;
+    }
+
+    public function setConsolabilita(int $consolabilita): self
+    {
+        $this->consolabilita = $consolabilita;
+
+        return $this;
+    }
+
+    public function getTotale(): ?int
+    {
+        return $this->totale;
+    }
+
+    public function setTotale(int $totale): self
+    {
+        $this->totale = $totale;
 
         return $this;
     }

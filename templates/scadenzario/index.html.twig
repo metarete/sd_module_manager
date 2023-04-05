@@ -39,6 +39,7 @@
                 		<th>TIN</th>
                 		<th>PVA</th>
                 		<th>LES</th>
+						<th>PAI</th>
 						<th>Operazioni</th>
 						
 					</tr>
@@ -53,6 +54,7 @@
                 		<th></th>
                 		<th></th>
                 		<th></th>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -104,7 +106,8 @@
                 				<td data-title='TIN' {% if scheda_pai.abilitaTinetti == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.tinettiNumberToday < scheda_pai.correctTinettiNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.tinettiNumberToday}} / {{scheda_pai.numeroTinettiCorretto}} </td>
                 				<td data-title='PVA' {% if scheda_pai.abilitaVas == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.vasNumberToday < scheda_pai.correctVasNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.vasNumberToday}} / {{scheda_pai.numeroVasCorretto}}</td>
                 				<td data-title='LES' {% if scheda_pai.abilitaLesioni == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.lesioniNumberToday < scheda_pai.correctLesioniNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.lesioniNumberToday}} / {{scheda_pai.numeroLesioniCorretto}}</td>
-                				<td data-title='Operazioni'>
+                				<td data-title='PAI' {% if scheda_pai.abilitaPainad == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.painadNumberToday < scheda_pai.correctPainadNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.painadNumberToday}} / {{scheda_pai.numeroPainadCorretto}}</td>
+								<td data-title='Operazioni'>
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 											Apri
@@ -269,6 +272,13 @@
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Lesioni</a>
+											</li>
+											{% endif %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% elseif scheda_pai.abilitaPainad == false %}
+											{% else %}
+											<li>
+												<a class="dropdown-item" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Painad</a>
 											</li>
 											{% endif %}
 											<li><hr class="dropdown-divider"></li>
