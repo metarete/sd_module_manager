@@ -5,50 +5,29 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Form\UserFormType;
+use App\Form\UserFormEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 #[Route('/admin/user')]
 class UserController extends AbstractController
 {
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
-        $passwordNuova = $request->get('password_nuova');
-        $confermaPassword = $request->get('conferma_password');
-
-        
-
         if ($form->isSubmitted() && $form->isValid()) {
-            if($passwordNuova == null && $confermaPassword == null){
-                $roles[0] = "ROLE_USER";
-                $user->setRoles($roles);
-                $user->setStato(true);
-                $userRepository->add($user, true);
-                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else if($passwordNuova == $confermaPassword){
-                $roles[0] = "ROLE_USER";
-                $user->setRoles($roles);
-                $user->setStato(true);
-                $hashedPassword = $passwordHasher->hashPassword(
-                    $user,
-                    $passwordNuova
-                );
-                $user->setPassword($hashedPassword);
-                $userRepository->add($user, true);
-                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else{
-                return new Response('Le password non coincidono');
-            }
+            $roles[0] = "ROLE_USER";
+            $user->setRoles($roles);
+            $user->setStato(true);
+            $userRepository->add($user, true);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/new.html.twig', [
@@ -96,34 +75,14 @@ class UserController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
-        $form = $this->createForm(UserFormType::class, $user);
+        $form = $this->createForm(UserFormEditType::class, $user);
         $form->handleRequest($request);
 
-        $passwordNuova = $request->get('password_nuova');
-        $confermaPassword = $request->get('conferma_password');
-
         if ($form->isSubmitted() && $form->isValid()) {
-            if($passwordNuova == null && $confermaPassword == null){
-                $userRepository->add($user, true);
-                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else if($passwordNuova == $confermaPassword){
-                $hashedPassword = $passwordHasher->hashPassword(
-                    $user,
-                    $passwordNuova
-                );
-                $user->setPassword($hashedPassword);
-                $userRepository->add($user, true);
-                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-            }
-            else{
-                return new Response('Le password non coincidono');
-            }
-            
-
-            
+            $userRepository->add($user, true);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);    
         }
 
         return $this->renderForm('user/edit.html.twig', [
