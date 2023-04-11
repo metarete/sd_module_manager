@@ -21,8 +21,6 @@ class ChiusuraServizioFormType extends AbstractType
             ->add('conclusioni', TextareaType::class, [
                 'attr' => array('style' => 'height:100px'),
             ])
-            
-            ->add('rinnovo')
         ;
     }
 

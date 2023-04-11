@@ -264,7 +264,7 @@ class VoterPermessiUtente extends Voter
 
     private function canCreaValutazioneGenerale(SchedaPAI $schedaPAI, User $user): bool
     {
-        if ($schedaPAI->getCurrentPlace() == "approvata" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura"){
+        if ($schedaPAI->getCurrentPlace() == "approvata" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica" ){
             return $this->checkPrincipale($schedaPAI, $user);
         }
         else{
@@ -274,7 +274,7 @@ class VoterPermessiUtente extends Voter
 
     private function canCreaValutazioneFiguraProfessionale(SchedaPAI $schedaPAI, User $user): bool
     {
-        if ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura"){
+        if ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica"){
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         }
         else{
@@ -284,7 +284,7 @@ class VoterPermessiUtente extends Voter
 
     private function canCreaParereMmg(SchedaPAI $schedaPAI, User $user): bool
     {
-        if ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura"){
+        if ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica"){
             return $this->checkPrincipale($schedaPAI, $user);
         }
         else{
@@ -294,7 +294,7 @@ class VoterPermessiUtente extends Voter
 
     private function canCreaChiusuraServizio(SchedaPAI $schedaPAI, User $user): bool
     {
-        if ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura"){
+        if ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica"){
             return $this->checkRuoloPrincipale($schedaPAI, $user);
         }
         else{
@@ -308,7 +308,7 @@ class VoterPermessiUtente extends Voter
 
         //verifico che sia abilitata la possibilità di creare la scheda
 
-        if ($schedaPAI->isAbilitaBarthel() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+        if ($schedaPAI->isAbilitaBarthel() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {
@@ -321,7 +321,7 @@ class VoterPermessiUtente extends Voter
 
         //verifico che sia abilitata la possibilità di creare la scheda
 
-        if ($schedaPAI->isAbilitaBraden() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+        if ($schedaPAI->isAbilitaBraden() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {
@@ -334,7 +334,7 @@ class VoterPermessiUtente extends Voter
 
         //verifico che sia abilitata la possibilità di creare la scheda
 
-        if ($schedaPAI->isAbilitaSpmsq() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+        if ($schedaPAI->isAbilitaSpmsq() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {
@@ -347,7 +347,7 @@ class VoterPermessiUtente extends Voter
 
         //verifico che sia abilitata la possibilità di creare la scheda
 
-        if ($schedaPAI->isAbilitaTinetti() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+        if ($schedaPAI->isAbilitaTinetti() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {
@@ -360,7 +360,7 @@ class VoterPermessiUtente extends Voter
 
         //verifico che sia abilitata la possibilità di creare la scheda
 
-        if ($schedaPAI->isAbilitaVas() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+        if ($schedaPAI->isAbilitaVas() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {
@@ -373,7 +373,7 @@ class VoterPermessiUtente extends Voter
 
         //verifico che sia abilitata la possibilità di creare la scheda
 
-        if ($schedaPAI->isAbilitaLesioni() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+        if ($schedaPAI->isAbilitaLesioni() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {
@@ -386,7 +386,7 @@ class VoterPermessiUtente extends Voter
 
         //verifico che sia abilitata la possibilità di creare la scheda
 
-        if ($schedaPAI->isAbilitaPainad() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura")) {
+        if ($schedaPAI->isAbilitaPainad() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkOperatoriPrincipaliSecondari($schedaPAI, $user);
         } else {

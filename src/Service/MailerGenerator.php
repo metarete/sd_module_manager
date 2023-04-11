@@ -230,14 +230,18 @@ class MailerGenerator
         $userRepository = $this->entityManager->getRepository(User::class);
         $arraySchedeApprovate = $schedaPAIRepository->findByState('approvata');
         $arraySchedeAttive = $schedaPAIRepository->findByState('attiva');
+        $arraySchedeVerifica = $schedaPAIRepository->findByState('verifica');
+        $arraySchedeInAttesaDiChiusuraConRinnovo = $schedaPAIRepository->findByState('in_attesa_di_chiusura_con_rinnovo');
         $arraySchedeInAttesaDiChiusura = $schedaPAIRepository->findByState('in_attesa_di_chiusura');
+        $arraySchedeAttive = array_merge($arraySchedeAttive, $arraySchedeInAttesaDiChiusura, $arraySchedeInAttesaDiChiusuraConRinnovo, $arraySchedeVerifica);
+        $arraySchedeInAttesaDiChiusura = array_merge($arraySchedeInAttesaDiChiusura, $arraySchedeInAttesaDiChiusuraConRinnovo);
         $arrayOperatori = $userRepository->findAll();
         $testoApprovata = '
         Attiva le scale seguenti in cui sei assegnato come operatore principale: abilita le scale di valutazione, imposta la frequenza di compilazione e compila la valutazione generale.';
         $testoRitardi = '
         Ci sono delle schede di valutazione in ritardo rispetto alla frequenza stabilita.';
         $testoChiusura = '
-        Le seguenti schede necessitano di chiusura poichè scadute. Compilare le scale mancanti se necessario e la chiusura del servizio.';
+        Le seguenti schede necessitano di chiusura poichè in scadenza a breve. Compilare le scale mancanti se necessario e la chiusura del servizio.';
         $testoAttiva = '
         Le seguenti schede attive hanno delle schede di valutazione professionale mancanti; compilarle al più presto.';
         for ($i = 0; $i < count($arrayOperatori); $i++) {

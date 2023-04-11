@@ -56,7 +56,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' %}disabled{% endif %}" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>
@@ -77,7 +77,7 @@
 			</div>
 		</div>
 		<div class="col col-lg-2">
-			<a class="btn btn-primary {% if not parere_mmg is empty %} disabled {% endif %} {% if scheda_pai.currentPlace != 'attiva' or user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+			<a class="btn btn-primary {% if not parere_mmg is empty %} disabled {% endif %} {% if scheda_pai.currentPlace == 'nuova' or scheda_pai.currentPlace == 'approvata' or scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' or user.username != scheda_pai.idOperatorePrincipale.username %}disabled{% endif %}" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 				<i class="bi bi-plus-circle"></i>
 				Nuova</a>
 		</div>
@@ -96,7 +96,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBarthel == false %}disabled{% endif %}" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBarthel == false %}disabled{% endif %}" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>
@@ -116,7 +116,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBraden == false %}disabled{% endif %}" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaBraden == false %}disabled{% endif %}" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>
@@ -136,7 +136,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaSpmsq == false %}disabled{% endif %}" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaSpmsq == false %}disabled{% endif %}" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>
@@ -158,7 +158,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaTinetti == false %}disabled{% endif %}" href="{{ path('app_tinetti_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaTinetti == false %}disabled{% endif %}" href="{{ path('app_tinetti_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>
@@ -178,7 +178,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaVas == false %}disabled{% endif %}" href="{{ path('app_vas_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaVas == false %}disabled{% endif %}" href="{{ path('app_vas_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>
@@ -198,7 +198,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaLesioni == false %}disabled{% endif %}" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaLesioni == false %}disabled{% endif %}" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>
@@ -218,7 +218,7 @@
 				</div>
 			</div>
 			<div class="col col-lg-2">
-				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaPainad == false %}disabled{% endif %}" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+				<a class="btn btn-primary {% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}disabled{% elseif scheda_pai.abilitaPainad == false %}disabled{% endif %}" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 					<i class="bi bi-plus-circle"></i>
 					Nuova</a>
 			</div>

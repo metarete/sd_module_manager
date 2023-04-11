@@ -25,9 +25,6 @@ class ChiusuraServizio
     #[Assert\Type(\DateTime::class)]
     private $dataValutazione;
 
-    #[ORM\Column(type: 'boolean')]
-    private $rinnovo = false;
-
     #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idChiusuraServizio',  cascade: ['persist'])]
     private $schedaPAI;
 
@@ -38,18 +35,6 @@ class ChiusuraServizio
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getRinnovo(): ?bool
-    {
-        return $this->rinnovo;
-    }
-
-    public function setRinnovo(bool $rinnovo): self
-    {
-        $this->rinnovo = $rinnovo;
-
-        return $this;
     }
 
     public function getConclusioni(): ?string
