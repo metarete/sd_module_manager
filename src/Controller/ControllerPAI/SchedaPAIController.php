@@ -128,6 +128,13 @@ class SchedaPAIController extends AbstractController
                 scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale 
                 per operatore coinvolto'
             );
+        } elseif ($alertSincronizzazione == 'chiusuraFallitaPerStato') {
+            $this->addFlash(
+                'Fallimento',
+                'Chiusura Fallita! Per chiudere una scheda è necessario averla verificata e 
+                aver scelto se rinnovarla o non rinnovarla. Controlla se la scheda si trova nello 
+                stato in attesa di chiusura o in attesa di chiusura con rinnovo'
+            );
         } elseif ($alertSincronizzazione == 'chiusuraCompletata') {
             $this->addFlash(
                 'Successo',
@@ -184,7 +191,7 @@ class SchedaPAIController extends AbstractController
             if ($frequenzaBarthel == 0) {
                 $numeroBarthelCorretto = 0;
             } else
-                $numeroBarthelCorretto = (int)($numeroGiorniTotali / $frequenzaBarthel);
+                $numeroBarthelCorretto = (int)(($numeroGiorniTotali / $frequenzaBarthel));
             if ($frequenzaBraden == 0) {
                 $numeroBradenCorretto = 0;
             } else
@@ -517,16 +524,24 @@ class SchedaPAIController extends AbstractController
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
 
         if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $numeroPainadPresenti == $numeroPainadCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
-            if ($chiusuraServizio->getRinnovo() == false) {
+            if ($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura") {
                 $schedaPAI->setCurrentPlace('chiusa');
                 $session = $request->getSession();
                 $session->set('alertSincronizzazione', 'chiusuraCompletata');
                 $this->entityManager->flush();
-            } else {
+            } else if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo") {
                 $schedaPAI->setCurrentPlace('chiusa_con_rinnovo');
                 $session = $request->getSession();
                 $session->set('alertSincronizzazione', 'chiusuraCompletata');
                 $this->entityManager->flush();
+            }
+            else{
+                $session = $request->getSession();
+                $session->set('alertSincronizzazione', 'chiusuraFallitaPerStato');
+                if ($pathName == 'app_scadenzario_index') {
+                    return $this->redirectToRoute('app_scadenzario_index', []);
+                } else
+                    return $this->redirectToRoute('app_scheda_pai_index', []);
             }
         } else {
             //alert fallimento chiusura
@@ -584,6 +599,103 @@ class SchedaPAIController extends AbstractController
             $session->set('alertSincronizzazione', 'approvazioneFallita');
         }
 
+        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{pathName}/rinnova_scheda_pai/{id}', name: 'app_scheda_pai_rinnova', methods: ['GET'])]
+    public function rinnova(SchedaPAI $schedaPAI, string $pathName)
+    {
+        $post = $schedaPAI;
+        $this->denyAccessUnlessGranted('rinnovare', $post);
+        $schedaPAI->setCurrentPlace("in_attesa_di_chiusura_con_rinnovo");
+        $this->entityManager->flush();
+    
+        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{pathName}/non_rinnovare_scheda_pai/{id}', name: 'app_scheda_pai_non_rinnovare', methods: ['GET'])]
+    public function nonRinnovare(SchedaPAI $schedaPAI, string $pathName)
+    {
+        $post = $schedaPAI;
+        $this->denyAccessUnlessGranted('non_rinnovare', $post);
+        $schedaPAI->setCurrentPlace("in_attesa_di_chiusura");
+        if($schedaPAI->isAbilitaBarthel()== true){
+            $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto()+1;
+            $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
+        }
+        if($schedaPAI->isAbilitaBraden()== true){
+            $numeroBradenCorretto = $schedaPAI->getNumeroBradenCorretto()+1;
+            $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
+        }
+        if($schedaPAI->isAbilitaSpmsq()== true){
+            $numeroSpmsqCorretto = $schedaPAI->getNumeroSpmsqCorretto()+1;
+            $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
+        }
+        if($schedaPAI->isAbilitaTinetti()== true){
+            $numeroTinettiCorretto = $schedaPAI->getNumeroTinettiCorretto()+1;
+            $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
+        }
+        if($schedaPAI->isAbilitaVas()== true){
+            $numeroVasCorretto = $schedaPAI->getNumeroVasCorretto()+1;
+            $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
+        }
+        if($schedaPAI->isAbilitaLesioni()== true){
+            $numeroLesioniCorretto = $schedaPAI->getNumeroLesioniCorretto()+1;
+            $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
+        }
+        if($schedaPAI->isAbilitaPainad()== true){
+            $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto()+1;
+            $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
+        }
+        $this->entityManager->flush();
+    
+        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{pathName}/torna_al_verifica_scheda_pai/{id}', name: 'app_scheda_pai_torna_al_verifica', methods: ['GET'])]
+    public function tornaInVerifica(SchedaPAI $schedaPAI, string $pathName)
+    {
+        
+        if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura"){
+            if($schedaPAI->isAbilitaBarthel()== true){
+                $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto()-1;
+                $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
+            }
+            if($schedaPAI->isAbilitaBraden()== true){
+                $numeroBradenCorretto = $schedaPAI->getNumeroBradenCorretto()-1;
+                $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
+            }
+            if($schedaPAI->isAbilitaSpmsq()== true){
+                $numeroSpmsqCorretto = $schedaPAI->getNumeroSpmsqCorretto()-1;
+                $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
+            }
+            if($schedaPAI->isAbilitaTinetti()== true){
+                $numeroTinettiCorretto = $schedaPAI->getNumeroTinettiCorretto()-1;
+                $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
+            }
+            if($schedaPAI->isAbilitaVas()== true){
+                $numeroVasCorretto = $schedaPAI->getNumeroVasCorretto()-1;
+                $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
+            }
+            if($schedaPAI->isAbilitaLesioni()== true){
+                $numeroLesioniCorretto = $schedaPAI->getNumeroLesioniCorretto()-1;
+                $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
+            }
+            if($schedaPAI->isAbilitaPainad()== true){
+                $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto()-1;
+                $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
+            }
+            $schedaPAI->setCurrentPlace("verifica");
+        }
+        else if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo"){
+            $schedaPAI->setCurrentPlace("verifica");
+        }
+        else{
+            // non fa nulla
+        }
+        
+        $this->entityManager->flush();
+    
         return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
     }
 }

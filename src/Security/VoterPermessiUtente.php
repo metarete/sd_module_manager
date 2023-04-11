@@ -14,6 +14,8 @@ class VoterPermessiUtente extends Voter
     const APPROVA = "approva";
     const ELIMINA = "elimina";
     const CHIUDI = "chiudi";
+    const NON_RINNOVARE = "non_rinnovare";
+    const RINNOVARE = "rinnovare";
     const VISUALIZZA_DATI_ASSISTITO = "visualizza_dati_assistito";
     const MODIFICA_SCALA_VALUTAZIONE = "modifica_scala_valutazione";
     const ELIMINA_SCALA_VALUTAZIONE = "elimina_scala_valutazione";
@@ -38,6 +40,8 @@ class VoterPermessiUtente extends Voter
             self::APPROVA,
             self::ELIMINA,
             self::CHIUDI,
+            self::NON_RINNOVARE,
+            self::RINNOVARE,
             self::VISUALIZZA_DATI_ASSISTITO,
             self::MODIFICA_SCALA_VALUTAZIONE,
             self::ELIMINA_SCALA_VALUTAZIONE,
@@ -85,6 +89,8 @@ class VoterPermessiUtente extends Voter
             self::APPROVA => $this->canApprova($schedaPai, $user),
             self::ELIMINA => $this->canElimina($schedaPai, $user),
             self::CHIUDI => $this->canChiudi($schedaPai, $user),
+            self::NON_RINNOVARE => $this->canNonRinnovare($schedaPai, $user),
+            self::RINNOVARE => $this->canRinnovare($schedaPai, $user),
             self::VISUALIZZA_DATI_ASSISTITO => $this->canVisualizzaDatiAssistito($schedaPai, $user),
             self::MODIFICA_SCALA_VALUTAZIONE => $this->canModificaScalaValutazione($schedaPai, $user),
             self::ELIMINA_SCALA_VALUTAZIONE => $this->canEliminaScalaValutazione($schedaPai, $user),
@@ -217,6 +223,16 @@ class VoterPermessiUtente extends Voter
     }
 
     private function canChiudi(SchedaPAI $schedaPAI, User $user): bool
+    {
+        return $this->checkRuoloPrincipale($schedaPAI, $user);
+    }
+
+    private function canNonRinnovare(SchedaPAI $schedaPAI, User $user): bool
+    {
+        return $this->checkRuoloPrincipale($schedaPAI, $user);
+    }
+
+    private function canRinnovare(SchedaPAI $schedaPAI, User $user): bool
     {
         return $this->checkRuoloPrincipale($schedaPAI, $user);
     }

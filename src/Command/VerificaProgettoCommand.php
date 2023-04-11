@@ -10,16 +10,17 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use DateTime;
+use DateInterval;
 
 
 #[AsCommand(
-    name: 'app:chiudi-progetto',
-    description: 'comando che verifica se i progetti sono scaduti e li setta nello stato in_attesa_di_chiusura',
+    name: 'app:verifica',
+    description: 'comando che controlla se i progetti scadono tra 7 giorni e li setta nello stato verifica',
 )]
-class ChiudiProgettoCommand extends Command
+class VerificaProgettoCommand extends Command
 {
     private $entityManager;
-    protected static $defaultDescription = 'Chiusura dei progetti.';
+    protected static $defaultDescription = 'Verifica dei progetti.';
     
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -31,7 +32,7 @@ class ChiudiProgettoCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setHelp('Questo comando serve a impostare lo stato delle schede in attesa di chiusura se hanno superato la data di scadenza.');
+            ->setHelp('Questo comando serve a impostare lo stato delle schede in verifica se tra 7 giorni scadono.');
 
     }
 
@@ -39,17 +40,19 @@ class ChiudiProgettoCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $dataOggi = new DateTime('now');
+        $interval = new DateInterval('P6D');
+        $dataDiCheck = $dataOggi->add($interval);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataOggi, 'currentPlace' => 'attiva']);
+        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
 
         for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('in_attesa_di_chiusura');
+        $schedaPais[$i]->setCurrentPlace('verifica');
         
         $this->entityManager->flush();
 
 
 
-        $io->success('Comando completato. Tutte le schede che hanno superato la data di chiusura sono in stato attesa di chiusura.');
+        $io->success('Comando completato. Tutte le schede che hanno la scadenza tra 7 giorni sono in stato verifica.');
 
         return Command::SUCCESS;
     }

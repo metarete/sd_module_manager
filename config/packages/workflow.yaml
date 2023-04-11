@@ -15,7 +15,9 @@ framework:
                 nuova: ~
                 approvata: ~
                 attiva: ~
+                verifica: ~
                 in_attesa_di_chiusura: ~
+                in_attesa_di_chiusura_con_rinnovo: ~
                 chiusa: ~
                 chiusa_con_rinnovo: ~
             transitions:
@@ -25,19 +27,28 @@ framework:
                 attiva:
                     from: approvata
                     to:   attiva
-                attendi1:
+                verifica:
                     from: attiva
+                    to:   verifica
+                attendi_chiusura:
+                    from: verifica
                     to:   in_attesa_di_chiusura
-                attendi2:
-                    from: approvata
-                    to: in_attesa_di_chiusura
+                attendi_chiusura_con_rinnovo:
+                    from: verifica
+                    to:   in_attesa_di_chiusura_con_rinnovo
                 chiudi:
                     from: in_attesa_di_chiusura
                     to: chiusa
                 chiudi_e_rinnova:
-                    from: in_attesa_di_chiusura
+                    from: in_attesa_di_chiusura_con_rinnovo
                     to: chiusa_con_rinnovo
                 approva_per_cancellazione:
                     from: attiva
                     to: approvata
+                verifica_per_errore1:
+                    from: in_attesa_di_chiusura
+                    to:   verifica
+                verifica_per_errore2:
+                    from: in_attesa_di_chiusura_con_rinnovo
+                    to:   verifica
                 

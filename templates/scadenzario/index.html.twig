@@ -85,15 +85,19 @@
 										{% endif %}
 									{% endfor %}
 								</td>
-								<td data-title='Stato'><span class="badge {% if scheda_pai.currentPlace == 'approvata' %} bg-pink {% elseif scheda_pai.currentPlace == 'attiva' %} bg-success {% elseif scheda_pai.currentPlace == 'nuova' %} bg-purple {% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura' %} bg-warning {% elseif scheda_pai.currentPlace == 'chiusa' %} bg-danger{% elseif scheda_pai.currentPlace == 'chiusa_con_rinnovo' %} bg-orange {% endif %}">
+								<td data-title='Stato'><span class="badge {% if scheda_pai.currentPlace == 'approvata' %} bg-pink {% elseif scheda_pai.currentPlace == 'attiva' %} bg-success {% elseif scheda_pai.currentPlace == 'verifica' %} bg-brown {% elseif scheda_pai.currentPlace == 'nuova' %} bg-purple {% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura' %} bg-warning {% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' %} bg-blue {% elseif scheda_pai.currentPlace == 'chiusa' %} bg-danger{% elseif scheda_pai.currentPlace == 'chiusa_con_rinnovo' %} bg-orange {% endif %}">
 								{% if scheda_pai.currentPlace == 'approvata'%}
 									Approvata
 								{% elseif scheda_pai.currentPlace == 'attiva'%}
 									Attiva
 								{% elseif scheda_pai.currentPlace == 'nuova'%}
 									Nuova
+								{% elseif scheda_pai.currentPlace == 'verifica'%}
+									Verifica
 								{% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura'%}
 									In Attesa Di Chiusura
+								{% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo'%}
+									In Attesa Di Chiusura Con Rinnovo
 								{% elseif scheda_pai.currentPlace == 'chiusa'%}
 									Chiusa
 								{% elseif scheda_pai.currentPlace == 'chiusa_con_rinnovo'%}
@@ -160,6 +164,46 @@
 													{% endif %}
 												{% endif %}
 											{% endif %}
+											{% if "ROLE_ADMIN" in user.roles %}
+												{% if scheda_pai.currentPlace != 'verifica' %}
+												{% else %}
+												<li>
+													<a class="dropdown-item" href="{{ path('app_scheda_pai_rinnova', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Rinnova</a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="{{ path('app_scheda_pai_non_rinnovare', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Non rinnovare</a>
+												</li>
+												{% endif %}
+											{% else %}
+												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
+													{% if scheda_pai.currentPlace != 'verifica' %}
+													{% else %}
+													<li>
+													<a class="dropdown-item" href="{{ path('app_scheda_pai_rinnova', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Rinnova</a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="{{ path('app_scheda_pai_non_rinnovare', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Non rinnovare</a>
+												</li>
+													{% endif %}
+												{% endif %}
+											{% endif %}
+											{% if "ROLE_ADMIN" in user.roles %}
+												{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura' or scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' %}
+													<li>
+													<a class="dropdown-item" href="{{ path('app_scheda_pai_torna_al_verifica', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Torna in verifica</a>
+												</li>
+												{% else %}                          
+												{% endif %}
+											{% else %}
+												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
+													{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura' or scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' %}
+													<li>
+														<a class="dropdown-item" href="{{ path('app_scheda_pai_torna_al_verifica', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Torna in verifica</a>
+													</li>
+													{% else %}                          
+													{% endif %}
+												{% endif %}
+											{% endif %}
 											<li><hr class="dropdown-divider"></li>
 											{% if scheda_pai.currentPlace != 'approvata' or user.username != scheda_pai.idOperatorePrincipale.username %}
 											{% else %}
@@ -167,7 +211,7 @@
 												<a class="dropdown-item" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Generale</a>
 											</li>
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo'  %}
 											{% else %}
 												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
 													<li>
@@ -211,70 +255,70 @@
 													{% endfor %}
 												{% endif %}
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' or user.username != scheda_pai.idOperatorePrincipale.username %}
+											{% if scheda_pai.currentPlace == 'nuova' or scheda_pai.currentPlace == 'approvata' or scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' or user.username != scheda_pai.idOperatorePrincipale.username %}
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Parere MMG</a>
 											</li>
 											{% endif %}
 											{% if "ROLE_ADMIN" in user.roles %}
-												{% if scheda_pai.currentPlace == 'attiva' or scheda_pai.currentPlace == 'in_attesa_di_chiusura' %}
+												{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' or scheda_pai.currentPlace == 'in_attesa_di_chiusura' %}
 												<li>
 													<a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Chiusura servizio</a>
 												</li>
 												{% endif %}
 											{% else %}
 												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-													{% if scheda_pai.currentPlace == 'attiva' or scheda_pai.currentPlace == 'in_attesa_di_chiusura' %}
+													{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' or scheda_pai.currentPlace == 'in_attesa_di_chiusura' %}
 														<li>
 															<a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Chiusura servizio</a>
 														</li>
 													{% endif %}
 												{% endif %}
 											{% endif %} 
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
 											{% elseif scheda_pai.abilitaBarthel == false %}
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Barthel</a>
 											</li>
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
 											{% elseif scheda_pai.abilitaBraden == false %}
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Braden</a>
 											</li>
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
 											{% elseif scheda_pai.abilitaSpmsq == false %}
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> SPMSQ</a>
 											</li>
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
 											{% elseif scheda_pai.abilitaTinetti == false %}
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_tinetti_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Tinetti</a>
 											</li>
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
 											{% elseif scheda_pai.abilitaVas == false %}
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_vas_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Vas</a>
 											</li>
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
 											{% elseif scheda_pai.abilitaLesioni == false %}
 											{% else %}
 											<li>
 												<a class="dropdown-item" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Lesioni</a>
 											</li>
 											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' %}
+											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
 											{% elseif scheda_pai.abilitaPainad == false %}
 											{% else %}
 											<li>

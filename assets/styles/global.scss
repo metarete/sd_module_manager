@@ -1,8 +1,10 @@
 // customize some Bootstrap variables
 $primary: darken(#428bca, 20%);
-$orange: #fd7e14;
 $purple: #6f42c1;
 $pink: #d63384;
+$brown: #8B4513;
+$blue: #1E90FF;
+$orange: #fd7e14;
 $grey: #747273;
 
 
@@ -225,6 +227,14 @@ body #scheda_pai table tr td {
 
     .badge.bg-pink {
         background-color: $pink;
+    }
+
+    .badge.bg-brown {
+        background-color: $brown;
+    }
+
+    .badge.bg-blue {
+        background-color: $blue;
     }
 
     &.text-grey {
