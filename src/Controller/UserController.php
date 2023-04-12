@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
 
 
 #[Route('/admin/user')]
@@ -37,7 +39,7 @@ class UserController extends AbstractController
     }
     
     #[Route('/{page}', name: 'app_user_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
-    public function index(Request $request, UserRepository $userRepository, int $page = 1): Response
+    public function index(Request $request, UserRepository $userRepository, ParameterBagInterface $params, int $page = 1): Response
     {
         $users = null;
         $numeroUsersVisibiliPerPagina = $request->request->get('filtro_numero_users');
@@ -55,7 +57,10 @@ class UserController extends AbstractController
         $totaleUsers = $userRepository->contaOperatori();
         $pagineTotali = ceil($totaleUsers / $usersPerPagina);
          
- 
+        //url per impersonificazione
+        $url = $params->get('app.site_url');
+        $url = $url .'/scadenzario?_switch_user=';
+
         if ($pagineTotali == 0)
             $pagineTotali = 1;
         return $this->render('user/index.html.twig', [
@@ -63,6 +68,7 @@ class UserController extends AbstractController
             'pagina' => $page,
             'pagine_totali' => $pagineTotali,
             'users_per_pagina' => $usersPerPagina,
+            'url' => $url,
         ]);
     }
 

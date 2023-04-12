@@ -111,6 +111,11 @@
 								<a class="nav-link active" aria-current="page" href="{{ path('app_obiettivi_index') }}" style="margin:20px;">Obiettivi</a>
 							</li>
 							{% endif %}
+							{% if is_granted('IS_IMPERSONATOR') %}
+							<li class="nav-item">
+    							<a class="nav-link active" aria-current="page" href="{{ impersonation_exit_path(path('app_user_index') ) }}" style="margin:20px;">Esci dall'impersonificazione</a>
+							</li>
+							{% endif %}
 							<li class="nav-divider"></li>
 						</ul>
 					</div>

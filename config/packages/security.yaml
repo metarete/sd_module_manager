@@ -30,7 +30,7 @@ security:
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
@@ -51,6 +51,8 @@ security:
          - { path: ^/vas/, roles: [ROLE_ADMIN, ROLE_USER]}
          - { path: ^/lesioni/, roles: [ROLE_ADMIN, ROLE_USER]}
          - { path: ^/scheda_pai, roles: ROLE_ADMIN}
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_ALLOWED_TO_SWITCH
         
 
 when@test:
