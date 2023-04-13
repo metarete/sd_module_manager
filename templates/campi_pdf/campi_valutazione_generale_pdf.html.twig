@@ -182,7 +182,17 @@
 				</th>
 			
 				<td>
-					{{ valutazione_generale.diagnosi }}
+
+					{% if valutazione_generale.diagnosi is empty %}
+						Nessuno
+					{% else %}
+						<ul>
+						{% for i in valutazione_generale.diagnosi %}
+							<li>{{ i.descrizione }}</li>
+						{% endfor %}
+						</ul>
+					{% endif %}
+
 				</td>
 			</tr>
 		</tbody>

@@ -55,6 +55,12 @@ $ php bin/console app:crea-operatore nome cognome ruolo
 
 Il ruolo va scelto tra ROLE_USER e ROLE_ADMIN
 
+Inserire nel database tutta la lista delle diagnosi con il comando
+
+```
+php bin/console app:inserisci-lista-diagnosi
+```
+
 Accedere all'applicativo all'indirizzo:
 
 ```
@@ -70,7 +76,7 @@ __NOTA__: SD Madule Manager può essere utilizzato solo in combinazione con il b
 
 Dovranno essere attivati i seguenti comandi a cron:
 
-* app:chiudi-progetto: verifica se ci sono Schede PAI associate a un Progetto scaduto e setta lo stato in 'In attesa di schiusura'
+* app:verifica: verifica se ci sono Schede PAI associate a un Progetto in scadenza tra 7 giorni e setta lo stato in 'verifica'
 * app:scarica-assistiti: invoca le API di SD Manager per scaricare/aggiornare la lista degli Assistiti
 * app:scarica-operatori: invoca le API di SD Manager per scaricare/aggiornare la lista degli Operatori
 * app:scarica-progetti: invoca le API di SD Manager per scaricare/aggiornare la lista dei Progetti (con il flag "Richiese Scheda PAI" attivo)

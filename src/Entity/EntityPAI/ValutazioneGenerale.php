@@ -3,8 +3,11 @@
 namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
+use App\Entity\Diagnosi;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ValutazioneGeneraleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ValutazioneGeneraleRepository::class)]
@@ -29,8 +32,7 @@ class ValutazioneGenerale
     #[ORM\Column(type: 'boolean')]
     private $rischio_infettivo;
 
-    #[ORM\Column(type: 'string')]
-    #[Assert\NotBlank]
+    #[ORM\ManyToMany(targetEntity: Diagnosi::class, inversedBy: 'valutazioneGenerale')]
     private $diagnosi;
 
     #[ORM\Column(type:"Valutazione", nullable:false)]
@@ -202,7 +204,7 @@ class ValutazioneGenerale
 
     public function __construct()
     {
-        
+        $this->diagnosi = new ArrayCollection();
         
     }
 
@@ -247,14 +249,29 @@ class ValutazioneGenerale
         return $this;
     }
 
-    public function getDiagnosi(): ?string
+   /**
+     * @return Collection<int, Diagnosi>
+     */
+    public function getDiagnosi(): Collection
     {
         return $this->diagnosi;
     }
 
-    public function setDiagnosi(string $diagnosi): self
+    public function addDiagnosi(Diagnosi $diagnosi): self
     {
-        $this->diagnosi = $diagnosi;
+        if (!$this->diagnosi->contains($diagnosi)) {
+            $this->diagnosi[] = $diagnosi;
+        }
+
+        return $this;
+    }
+
+    public function removeDiagnosi(Diagnosi $diagnosi): self
+    {
+        if ($this->diagnosi->removeElement($diagnosi)) {
+            // set the owning side to null (unless already changed)
+
+        }
 
         return $this;
     }

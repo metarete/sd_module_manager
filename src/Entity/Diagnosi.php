@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
+use App\Entity\EntityPAI\ValutazioneGenerale;
 use App\Repository\DiagnosiRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,6 +26,9 @@ class Diagnosi
 
     #[ORM\ManyToMany(mappedBy: 'diagnosi', targetEntity: ValutazioneFiguraProfessionale::class)]
     private $valutazioneFiguraProfessionale;
+
+    #[ORM\ManyToMany(mappedBy: 'diagnosi', targetEntity: ValutazioneGenerale::class)]
+    private $valutazioneGenerale;
 
     public function getId(): ?int
     {
@@ -76,6 +80,34 @@ class Diagnosi
     public function removeValutazioneFiguraProfessionale(ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale): self
     {
         if ($this->valutazioneFiguraProfessionale->removeElement($valutazioneFiguraProfessionale)) {
+            // set the owning side to null (unless already changed)
+           
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ValutazioneGenerale>
+     */
+    public function getValutazioneGenerale()
+    {
+        return $this->valutazioneGenerale;
+    }
+
+    public function addValutazioneGenerale(ValutazioneGenerale $valutazioneGenerale): self
+    {
+        if (!$this->valutazioneGenerale->contains($valutazioneGenerale)) {
+            $this->valutazioneGenerale[] = $valutazioneGenerale;
+            
+        }
+
+        return $this;
+    }
+
+    public function removeValutazioneGenerale(ValutazioneGenerale $valutazioneGenerale): self
+    {
+        if ($this->valutazioneGenerale->removeElement($valutazioneGenerale)) {
             // set the owning side to null (unless already changed)
            
         }
