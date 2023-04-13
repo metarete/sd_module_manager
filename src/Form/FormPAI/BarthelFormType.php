@@ -182,7 +182,7 @@ class BarthelFormType extends AbstractType
                             ",
                 'help_html' => true
             ])
-            //->add('deambulazione')
+            
             ->add('deambulazioneValida', ChoiceType::class, [
                 'placeholder' => '',
                 'choices' => $votiBarthel015Choices,

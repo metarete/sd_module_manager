@@ -42,11 +42,21 @@
 			</tr>
 			<tr>
 				<th>
-					Diagnosi Professionale
+					Diagnosi professionale
 				</th>
 
 				<td>
-					{{ valutazione_figura_professionale.diagnosiProfessionale }}
+
+					{% if valutazione_figura_professionale.diagnosi is empty %}
+						Nessuno
+					{% else %}
+						<ul>
+						{% for i in valutazione_figura_professionale.diagnosi %}
+							<li>{{ i.descrizione }}</li>
+						{% endfor %}
+						</ul>
+					{% endif %}
+
 				</td>
 			</tr>
 			<tr>

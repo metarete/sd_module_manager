@@ -53,7 +53,7 @@ $(function() {
     var selettore = $('#barthel_form_usoCarrozzina');
     if(valoreDeambulazione != 0 || valoreDeambulazione == ''){
       selettore.prop('disabled', 'disabled');
-      
+      selettore.prop('required', false);
     }
     else {
       selettore.prop('disabled', false);

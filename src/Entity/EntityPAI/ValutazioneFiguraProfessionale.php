@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\Obiettivi;
+use App\Entity\Diagnosi;
 use App\Repository\ValutazioneFiguraProfessionaleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,9 +25,8 @@ class ValutazioneFiguraProfessionale
     #[Assert\NotBlank]
     private $tipoOperatore;
 
-    #[ORM\Column(type: 'text')]
-    #[Assert\NotBlank]
-    private $diagnosiProfessionale;
+    #[ORM\ManyToMany(targetEntity: Diagnosi::class, inversedBy: 'valutazioneFiguraProfessionale')]
+    private $diagnosi;
 
     #[ORM\ManyToMany(targetEntity: Obiettivi::class, inversedBy: 'valutazioneFiguraProfessionale')]
     private $obiettivi;
@@ -50,6 +50,7 @@ class ValutazioneFiguraProfessionale
     public function __construct()
     {
         $this->obiettivi = new ArrayCollection();
+        $this->diagnosi = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,18 +67,6 @@ class ValutazioneFiguraProfessionale
     {
         $this->tipoOperatore = $tipoOperatore;
         
-        return $this;
-    }
-
-    public function getDiagnosiProfessionale(): ?string
-    {
-        return $this->diagnosiProfessionale;
-    }
-
-    public function setDiagnosiProfessionale(string $diagnosiProfessionale): self
-    {
-        $this->diagnosiProfessionale = $diagnosiProfessionale;
-
         return $this;
     }
 
@@ -160,6 +149,33 @@ class ValutazioneFiguraProfessionale
     public function removeObiettivi(Obiettivi $obiettivi): self
     {
         if ($this->obiettivi->removeElement($obiettivi)) {
+            // set the owning side to null (unless already changed)
+
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Diagnosi>
+     */
+    public function getDiagnosi(): Collection
+    {
+        return $this->diagnosi;
+    }
+
+    public function addDiagnosi(Diagnosi $diagnosi): self
+    {
+        if (!$this->diagnosi->contains($diagnosi)) {
+            $this->diagnosi[] = $diagnosi;
+        }
+
+        return $this;
+    }
+
+    public function removeDiagnosi(Diagnosi $diagnosi): self
+    {
+        if ($this->diagnosi->removeElement($diagnosi)) {
             // set the owning side to null (unless already changed)
 
         }

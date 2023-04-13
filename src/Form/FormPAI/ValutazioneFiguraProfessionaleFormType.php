@@ -4,6 +4,7 @@ namespace App\Form\FormPAI;
 
 use Symfony\Component\Form\AbstractType;
 use App\Doctrine\DBAL\Type\TipoOperatore;
+use App\Entity\Diagnosi;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
@@ -29,9 +30,14 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'choices' => $operatoreChoices,
                 'placeholder' => '',
             ])
-            ->add('diagnosiProfessionale', TextareaType::class, [
-                'attr' => array('style' => 'height:100px'),
-                'empty_data' => '',
+            ->add('diagnosi', EntityType::class,[
+                'class'=> Diagnosi::class,
+                'choice_label' => function (Diagnosi $diagnosi) {
+                    return $diagnosi->getDescrizione();},
+                'label' => 'Diagnosi professionale',
+                'multiple'=> true,
+                'required'   => false,
+                'autocomplete' => true,
             ])
             ->add('obiettivi', EntityType::class,[
                 'class'=> Obiettivi::class,

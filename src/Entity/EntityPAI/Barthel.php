@@ -67,8 +67,7 @@ class Barthel
     #[Assert\NotBlank]
     private $deambulazioneValida;
 
-    #[ORM\Column(type: 'integer')]
-    #[Assert\NotBlank]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $usoCarrozzina;
 
     #[ORM\Column(type: 'integer', nullable: true)]
