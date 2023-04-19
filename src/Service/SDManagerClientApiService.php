@@ -223,8 +223,10 @@ class SDManagerClientApiService
                 } else {
                     //se c'è già 
                     $schedaPai = $schedaPAIRepository->findOneByProgetto($idProgetto);
+                    $dataFine->format('d-m-Y');
+                    $schedaPai->getDataFine()->format('d-m-Y');
                     //se è stata spostata in avanti la data di fine ed era in stato di attesa di chiusura lo riattivo
-                    if($dataFine > $schedaPai->getDataFine() && $dataFine > date("d-m-Y") && $schedaPai->getCurrentPlace()=='in_attesa_di_chiusura'){
+                    if($dataFine->format('d-m-Y') > $schedaPai->getDataFine()->format('d-m-Y') && $dataFine > date("d-m-Y") && ($schedaPai->getCurrentPlace()=='in_attesa_di_chiusura' || $schedaPai->getCurrentPlace()=='in_attesa_di_chiusura_con_rinnovo') ){
                         $statoAttivo = 'attiva';
                         $schedaPAIRepository->riattivaSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoAttivo);
                         $this->numeroProgettiAggiornati++;

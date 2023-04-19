@@ -39,10 +39,58 @@ class VerificaProgettoCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $dataOggi = new DateTime('now');
+        $interval = new DateInterval('P7D');
+        $dataDiCheck = $dataOggi->add($interval);
+        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
+        
+        for($i =0; $i<count($schedaPais); $i++)
+        $schedaPais[$i]->setCurrentPlace('verifica');
+
         $dataOggi = new DateTime('now');
         $interval = new DateInterval('P6D');
         $dataDiCheck = $dataOggi->add($interval);
-        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
+        
+        for($i =0; $i<count($schedaPais); $i++)
+        $schedaPais[$i]->setCurrentPlace('verifica');
+
+        $dataOggi = new DateTime('now');
+        $interval = new DateInterval('P5D');
+        $dataDiCheck = $dataOggi->add($interval);
+        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
+        
+        for($i =0; $i<count($schedaPais); $i++)
+        $schedaPais[$i]->setCurrentPlace('verifica');
+        
+        $dataOggi = new DateTime('now');
+        $interval = new DateInterval('P4D');
+        $dataDiCheck = $dataOggi->add($interval);
+        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
+
+        for($i =0; $i<count($schedaPais); $i++)
+        $schedaPais[$i]->setCurrentPlace('verifica');
+
+        $dataOggi = new DateTime('now');
+        $interval = new DateInterval('P3D');
+        $dataDiCheck = $dataOggi->add($interval);
+        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
+
+        for($i =0; $i<count($schedaPais); $i++)
+        $schedaPais[$i]->setCurrentPlace('verifica');
+
+        $dataOggi = new DateTime('now');
+        $interval = new DateInterval('P2D');
+        $dataDiCheck = $dataOggi->add($interval);
+        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
+
+        for($i =0; $i<count($schedaPais); $i++)
+        $schedaPais[$i]->setCurrentPlace('verifica');
+
+        $dataOggi = new DateTime('now');
+        $interval = new DateInterval('P1D');
+        $dataDiCheck = $dataOggi->add($interval);
         $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
 
         for($i =0; $i<count($schedaPais); $i++)
@@ -52,7 +100,7 @@ class VerificaProgettoCommand extends Command
 
 
 
-        $io->success('Comando completato. Tutte le schede che hanno la scadenza tra 7 giorni sono in stato verifica.');
+        $io->success('Comando completato. Tutte le schede che hanno la scadenza fino a 7 giorni  sono in stato verifica.');
 
         return Command::SUCCESS;
     }
