@@ -47,6 +47,14 @@ class DiagnosiRepository extends ServiceEntityRepository
 
     }
 
+    public function deleteAll(){
+
+        $query = $this->createQueryBuilder('e')
+                 ->delete()
+                 ->getQuery()
+                 ->execute();
+        return $query;
+    }
     //    /**
     //     * @return Diagnosi[] Returns an array of Diagnosi objects
     //     */

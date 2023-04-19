@@ -37,6 +37,7 @@ class InserisciListaDiagnosiCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         //salvo in array i due campi del file
+        
         $row = 1;
         $array = [];
         if (($handle = fopen("/app/public/file/lista_diagnosi.csv", "r")) !== FALSE) {
@@ -54,7 +55,8 @@ class InserisciListaDiagnosiCommand extends Command
             $diagnosi = new Diagnosi();
             $diagnosi->setCodice($array[$c][0]);
             $diagnosi->setDescrizione($array[$c][1]);
-            $this->diagnosiRepository->add($diagnosi, true);
+            if($this->diagnosiRepository->findOneBy(["codice" => $diagnosi->getCodice()])== null)
+                $this->diagnosiRepository->add($diagnosi, true);
         }
         
         
