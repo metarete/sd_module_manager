@@ -40,7 +40,7 @@ class InserisciListaDiagnosiCommand extends Command
         
         $row = 1;
         $array = [];
-        if (($handle = fopen("/app/public/file/lista_diagnosi.csv", "r")) !== FALSE) {
+        if (($handle = fopen(__DIR__ . "/../../public/file/lista_diagnosi.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 $num = count($data);
                 for ($c = 0; $c < $num; $c++) {
