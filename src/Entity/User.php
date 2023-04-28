@@ -115,6 +115,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OnetoMany(mappedBy: 'autoreVas', targetEntity: Vas::class)]
     private $idVas;
 
+    //#[ORM\Column(type: 'string', nullable: true)]
+    private $plainPassword2;
+
     public function __construct()
     {
         $this->principaleSchedaPai = new ArrayCollection();
@@ -228,6 +231,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPlainpassword2(): string
+    {
+        return $this->plainPassword2;
+    }
+
+    public function setPlainpassword2(string $plainPassword2): self
+    {
+        $this->plainPassword2 = $plainPassword2;
 
         return $this;
     }
