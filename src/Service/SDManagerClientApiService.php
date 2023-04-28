@@ -155,6 +155,7 @@ class SDManagerClientApiService
                             $utente->setName($utenti[$i]['nome']);
                             $utente->setSurname($utenti[$i]['cognome']);
                             $utente->setCf($utenti[$i]['cf']);
+                            $utente->setPassword("");
                             $roles[0] = 'ROLE_USER';
                             $utente->setRoles($roles);
                             $utente->setUsername($utenti[$i]['username']);
