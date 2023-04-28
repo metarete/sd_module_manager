@@ -122,7 +122,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
                 ->getResult();
         
     }
-    public function findStatoUsernameSchedePai(string $username, string $stato = null, int $schedePerPagina = null, int $page = null): array
+    public function findStatoIdSchedePai(string $id, string $stato = null, int $schedePerPagina = null, int $page = null): array
     {
         $qb = $this->createQueryBuilder('s')
 
@@ -132,13 +132,13 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->leftJoin('s.idOperatoreSecondarioLog', 's3')
         ->leftJoin('s.idOperatoreSecondarioAsa', 's4')
         ->leftJoin('s.idOperatoreSecondarioOss', 's5')
-        ->Where('s0.username = :username')
-        ->orWhere('s1.username = :username')
-        ->orWhere('s2.username = :username')
-        ->orWhere('s3.username = :username')
-        ->orWhere('s4.username = :username')
-        ->orWhere('s5.username = :username')
-        ->setParameter('username', $username);
+        ->Where('s0.id = :id')
+        ->orWhere('s1.id = :id')
+        ->orWhere('s2.id = :id')
+        ->orWhere('s3.id = :id')
+        ->orWhere('s4.id = :id')
+        ->orWhere('s5.id = :id')
+        ->setParameter('id', $id);
 
 
         if($stato != null){

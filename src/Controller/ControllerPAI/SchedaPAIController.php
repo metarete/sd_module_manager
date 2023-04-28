@@ -86,12 +86,12 @@ class SchedaPAIController extends AbstractController
             if ($operatore == '' || $operatore == null || $operatore == 'tutti')
                 $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
             else
-                $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, null, $schedePerPagina, $page);
+                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($operatore, null, $schedePerPagina, $page);
         } else {
             if ($operatore == '' || $operatore == null || $operatore == 'tutti')
                 $schedaPais = $schedaPAIRepository->selectStatoSchedePai($stato, $page, $schedePerPagina);
             else
-                $schedaPais = $schedaPAIRepository->findStatoUsernameSchedePai($operatore, $stato, $schedePerPagina, $page);
+                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($operatore, $stato, $schedePerPagina, $page);
         }
 
 
