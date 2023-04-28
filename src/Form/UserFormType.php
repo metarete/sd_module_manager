@@ -30,9 +30,6 @@ class UserFormType extends AbstractType
                 'label' => 'Email',
                 'empty_data' => '',
             ])
-            ->add('username', null, [
-                'label' => 'Username'
-            ])
             ->add('cf', null, [
                 'label' => 'Codice fiscale',
                 'empty_data' => '',

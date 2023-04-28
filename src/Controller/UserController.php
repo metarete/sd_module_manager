@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Form\UserFormType;
 use App\Form\UserFormEditType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
@@ -18,16 +19,23 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class UserController extends AbstractController
 {
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $roles[0] = "ROLE_USER";
+            $user = $form->getData();
+            $hashedPassword = $userPasswordHasher->hashPassword(
+                $user,
+                $form->get('password')->getData()
+            );
+            $user->setPassword($hashedPassword);
+            $roles[0] = "ROLE_ADMIN";
             $user->setRoles($roles);
             $user->setStato(true);
+            $user->setUsername("");
             $userRepository->add($user, true);
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
