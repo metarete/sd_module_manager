@@ -35,6 +35,7 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'choice_label' => function (Diagnosi $diagnosi) {
                     return $diagnosi->getDescrizione();},
                 'label' => 'Diagnosi professionale',
+                'help' => 'Classificazione secondo standard ICD-9-CM',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,

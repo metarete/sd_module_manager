@@ -43,6 +43,7 @@
 										{{user.surname}}</p>
 								</td>
 							</tr>
+							{% if user.username != "" %}
 							<tr>
 								<th>
 									<h5 class="card-text">Username</h5>
@@ -54,6 +55,7 @@
 									</p>
 								</td>
 							</tr>
+							{% endif %}
 							<tr>
 								<th>
 									<h5 class="card-text">Email</h5>
@@ -72,7 +74,12 @@
 								<tr>
 								</tr>
 								<td>
-									<p class="card-title">{{ user.roles[0] }}
+									<p class="card-title">
+									{% if user.roles[0]=="ROLE_ADMIN" %}
+										Admin
+									{% else %}
+										Utente
+									{% endif %}
 									</p>
 								</td>
 							</tr>

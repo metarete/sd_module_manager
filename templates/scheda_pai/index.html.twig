@@ -134,7 +134,7 @@
 				{% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura'%}
 					In Attesa Di Chiusura
                 {% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo'%}
-					In Attesa Di Chiusura Con Rinnovo
+					In Attesa Di Chiusura <br>Con Rinnovo
 				{% elseif scheda_pai.currentPlace == 'chiusa'%}
 					Chiusa
 				{% elseif scheda_pai.currentPlace == 'chiusa_con_rinnovo'%}
@@ -480,20 +480,15 @@
 
 <div class="pb-2 mb-4"></div>
 
-<a href="{{ path('app_bacheca') }}" type="button" class="btn btn-secondary">
-	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewbox="0 0 16 16">
-		<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-	</svg>
-	Torna indietro</a> 
-
-<div class="pb-2 mb-4"></div>
 
 <nav aria-label="Page navigation example">
    <ul class="pagination justify-content-center">
        <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index') }}'; document.getElementById('my_form').submit();"><<</a></li>
         <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':pagina-1}) }}'; document.getElementById('my_form').submit();"><</a></li>
     {% for i in 1..pagine_totali %}
-        {% if i <= pagina + 1 and i >= pagina - 1 %}
+        {% if i == pagina %}
+            <li class="page-item active"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
+        {% elseif i <= pagina + 5 and i >= pagina - 1 %}
             <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
         {% endif %}
     {% endfor %}

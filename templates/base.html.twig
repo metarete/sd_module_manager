@@ -17,7 +17,7 @@
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
-		
+
 	</head>
 	<body>
 		{% block header %}
@@ -30,9 +30,11 @@
 						</nav>
 					</li>
 				</ul>
-				<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-					<i class="bi bi-list" style="font-size:25px;"></i>
-				</button>
+				<ul class="nav row-1 cols-12 gap-3">
+					<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+						<i class="bi bi-list" style="font-size:25px;"></i>
+					</button>
+				</ul>
 				<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
 					<div class="offcanvas-header">
 						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menù</h5>
@@ -42,6 +44,21 @@
 						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 							<li class="accordion accordion-flush" id="accordionFlushExample">
 								<div class="accordion-item accordion-navbar">
+									<div class"account" style="text-align:center">
+										<i class="bi bi-person-circle" style="font-size:50px;text-align:center"></i>
+										<h5 style="color:white;font-size:15px;">{{app.user.name}} {{app.user.surname}}</h5>
+										<h5 style="color:white;font-size:15px;">
+										{% if "ROLE_ADMIN" in app.user.roles %}
+											Admin
+										{% else %}
+											Utente
+										{% endif %}
+										</h5>
+										{% if is_granted('IS_IMPERSONATOR') %}
+											<h5 style="color:yellow;font-size:15px;">Impersonificazione attiva</h5>
+										{% endif %}
+									</div>
+									<br>
 									<h2 class="accordion-header accordion-navbar" id="flush-headingOne">
 										<button class="accordion-button accordion-navbar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
 											Profilo
@@ -70,51 +87,51 @@
 							</li>
 							<li class="nav-divider"></li>
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="https://demo.sdmanager.it/index.phtml" style="margin:20px;">SD Manager</a>
+								<a class="nav-link active" aria-current="page" href="https://demo.sdmanager.it/index.phtml" target="_blank" style="margin:20px;">SD Manager <i class="bi bi-box-arrow-up-right"></i></a>
 							</li>
 							{% if "ROLE_ADMIN" not in app.user.roles %}
-							{% else %}
-							<li>
-								<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;">Sincronizza</a>
-							</li>
+								{% else %}
+									<li>
+										<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;">Sincronizza</a>
+									</li>
 							{% endif %}
 							<li class="nav-item">
 								<a class="nav-link active" aria-current="page" href="{{ path('app_scadenzario_index') }}" style="margin:20px;">Scadenzario</a>
 							</li>
 							{% if "ROLE_ADMIN" not in app.user.roles %}
-							{% else %}
-							<li class="nav-item">
-								<a  class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>
-							</li>
+								{% else %}
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>
+									</li>
 							{% endif %}
 							{% if "ROLE_ADMIN" not in app.user.roles %}
-							{% else %}
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}" style="margin:20px;">Schede Pai</a>
-							</li>
+								{% else %}
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}" style="margin:20px;">Schede Pai</a>
+									</li>
 							{% endif %}
 							{% if "ROLE_ADMIN" not in app.user.roles %}
-							{% else %}
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
-							</li>
+								{% else %}
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
+									</li>
 							{% endif %}
 							{% if "ROLE_ADMIN" not in app.user.roles %}
-							{% else %}
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
-							</li>
+								{% else %}
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
+									</li>
 							{% endif %}
 							{% if "ROLE_ADMIN" not in app.user.roles %}
-							{% else %}
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('app_obiettivi_index') }}" style="margin:20px;">Obiettivi</a>
-							</li>
+								{% else %}
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ path('app_obiettivi_index') }}" style="margin:20px;">Obiettivi</a>
+									</li>
 							{% endif %}
 							{% if is_granted('IS_IMPERSONATOR') %}
-							<li class="nav-item">
-    							<a class="nav-link active" aria-current="page" href="{{ impersonation_exit_path(path('app_user_index') ) }}" style="margin:20px;">Esci dall'impersonificazione</a>
-							</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ impersonation_exit_path(path('app_user_index') ) }}" style="margin:20px;">Esci dall'impersonificazione</a>
+								</li>
 							{% endif %}
 							<li class="nav-divider"></li>
 						</ul>
@@ -129,15 +146,19 @@
 {% block body %}{% endblock %}
 {% block foot %}
 	<footer class="blog-footer">
-	<div class="left">
-		Module Manager è un servizio di Metarete Srl<br>
-			<a href="">Privacy</a> | 
-			<a href="">Cookie</a> | 
-			<a href="">About</a> | 
-			Versione 1.0.0RC8 <strong>beta</strong>
-	</div>
-	<div class="right">
-		<img src="/image/logoCoop.jpg"  alt="Immagine coop" style="height:80px;">
-	</div>
+		<div class="left">
+			Module Manager è un servizio di Metarete Srl<br>
+			<a href="">Privacy</a>
+			|
+			<a href="">Cookie</a>
+			|
+			<a href="">About</a>
+			| 
+						Versione 1.0.0RC8
+			<strong>beta</strong>
+		</div>
+		<div class="right">
+			<img src="/image/logoCoop.jpg" alt="Immagine coop" style="height:80px;">
+		</div>
 	</footer>
 {% endblock %}

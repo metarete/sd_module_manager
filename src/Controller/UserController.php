@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserFormType;
 use App\Form\UserFormEditType;
+use App\Form\ChangePasswordFormType;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,6 +104,35 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form,
         ]);
+    }
+    #[Route('/edit_password/{id}', name: 'app_user_password', methods: ['GET', 'POST'])]
+    public function editPassword(Request $request, User $user, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
+    {
+        $form = $this->createForm(ChangePasswordFormType::class, $user);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $passwordNuova = $form->get('plainPassword')->getData();
+            
+            
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    $passwordNuova
+                );
+                
+                $user->setPassword($hashedPassword);
+                $userRepository->add($user, true);
+            
+            
+            return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('Profilo/editPassword.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    
     }
 
     #[Route('/promuovi_admin/{id}', name: 'app_user_promuovi_admin', methods: ['GET', 'POST'])]

@@ -215,15 +215,14 @@
 	<div class="pb-2 mb-4"></div>
 </div>
 <div class="row">
-	<div class="col">
+	<div class="col col-1">
 		{{ form_row(form.salva) }}
 	</div>
-</div>
-<div class="row">
-	<div class="col">
+	<div class="col col-2">
 		{% if scheda_pai.idOperatorePrincipale == null or scheda_pai.currentPlace != "nuova"%}
 			{{ form_row(form.salvaEApprova, { 'attr':{'disabled':'disabled'}}) }}
 		{% endif %}
 	</div>
 </div>
+
 {{ form_end(form) }}

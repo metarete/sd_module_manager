@@ -38,10 +38,11 @@ class CreaOperatoreCommand extends Command
             ->setHelp('Questo comando serve a creare un utente admin o user. Inserire in questo ordine i parametri: nome cognome ruolo(scegliere tra ROLE_USER e ROLE_ADMIN) email password e username.')
             ->addArgument('nome', InputArgument::REQUIRED, 'nome')
             ->addArgument('cognome', InputArgument::REQUIRED, 'cognome')
+            ->addArgument('codice fiscale',InputArgument::REQUIRED,'codice fiscale' )
             ->addArgument('role',InputArgument::REQUIRED,'ruolo = scegli tra ROLE_USER e ROLE_ADMIN' )
             ->addArgument('email', InputArgument::REQUIRED, 'email')
             ->addArgument('password', InputArgument::REQUIRED, 'password')
-            ->addArgument('username',InputArgument::REQUIRED, 'username = scegli un username unico' )
+            ->addArgument('username',InputArgument::OPTIONAL, 'username = scegli un username unico' )
         ;
     }
 
@@ -52,6 +53,7 @@ class CreaOperatoreCommand extends Command
         $user = new User();
         $nome = $input->getArgument('nome');
         $cognome = $input->getArgument('cognome');
+        $cf = $input->getArgument('codice fiscale');
         $password = $input->getArgument('password');
         $role[0] = $input->getArgument('role');
         $email = $input->getArgument('email');
@@ -62,17 +64,22 @@ class CreaOperatoreCommand extends Command
             $password
         );
 
-        $user -> setName($nome);
-        $user -> setSurname($cognome);
-        $user -> setPassword($hashedPassword);
-        $user -> setRoles($role);
-        $user-> setStato(false);
-        $user -> setEmail($email);
-        $user -> setUsername($username);
+        $user->setName($nome);
+        $user->setSurname($cognome);
+        $user->setCf($cf);
+        $user->setPassword($hashedPassword);
+        $user->setRoles($role);
+        $user->setStato(false);
+        $user->setEmail($email);
+        if($username != null){
+            $user->setUsername($username);
+        }
+        
         $userRepository->add($user, true);
         
         $output->writeln('Nome: '.$input->getArgument('nome'));
         $output->writeln('Cognome: '.$input->getArgument('cognome'));
+        $output->writeln('Codice Fiscale: '.$input->getArgument('codice fiscale'));
         $output->writeln('Ruolo: '.$input->getArgument('role'));
         $output->writeln('Email: '.$input->getArgument('email'));
         $output->writeln('Username: '.$input->getArgument('username'));
