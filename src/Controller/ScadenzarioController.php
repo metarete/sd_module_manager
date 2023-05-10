@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Paziente;
 use App\Entity\EntityPAI\SchedaPAI;
+use App\Twig\FiltroColoriScadenzario;
+use App\Twig\FiltroDropdownScadenzario;
+use App\Twig\FiltroNomiStatiScadenzario;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,18 +18,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ScadenzarioController extends AbstractController
 {
     private $entityManager;
+    private $filtroColoriScadenzario;
+    private $filtroNomiStatiScadenzario;
+    private $filtroDropdownScadenzario;
 
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario)
     {
         $this->entityManager = $entityManager;
+        $this->filtroColoriScadenzario = $filtroColoriScadenzario;
+        $this->filtroNomiStatiScadenzario = $filtroNomiStatiScadenzario;
+        $this->filtroDropdownScadenzario = $filtroDropdownScadenzario;
     }
 
 
     #[Route('/{page}', name: 'app_scadenzario_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
-    public function index( Request $request, int $page = 1 ): Response
+    public function index(Request $request, int $page = 1): Response
     {
-        
+
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         //assistiti
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
@@ -40,81 +48,96 @@ class ScadenzarioController extends AbstractController
         $roles = $user->getRoles();
         $idUser = $user->getId();
         //filtri
-        $numeroSchedeVisibiliPerPagina = 200;
+        $numeroSchedeVisibiliPerPagina = $request->request->get('filtro_numero_schede_scadenzario');
 
 
         //calcolo tabella
         $schedaPais = null;
 
-        $schedePerPagina = $numeroSchedeVisibiliPerPagina;
+        if ($numeroSchedeVisibiliPerPagina == null)
+            $schedePerPagina = 10;
+        else
+            $schedePerPagina = $numeroSchedeVisibiliPerPagina;
 
         $offset = $schedePerPagina * $page - $schedePerPagina;
 
+        //calcolo pagine per paginatore
+        $totaleSchede = $schedaPAIRepository->contaSchedePai($roles[0], $idUser, null);
+        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
+
+        if ($pagineTotali == 0)
+            $pagineTotali = 1;
+
 
         if (in_array("ROLE_ADMIN", $roles)) {
-           
-            $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'ASC'), $schedePerPagina, $offset);
-                
+
+            $schedaPais = $schedaPAIRepository->findBy(['currentPlace' => ['nuova','attiva','approvata','verifica','in_attesa_di_chiusura', 'in_attesa_di_chiusura_con_rinnovo']], array('id' => 'DESC'), $schedePerPagina, $offset);
+        
+        } else {
+            $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page);
+            //tolgo le schede chiuse e chiuse con rinnovo
+            for($i=0; $i<count($schedaPais); $i++){
+                if($schedaPais[$i]->getCurrentPlace()=='chiusa' || $schedaPais[$i]->getCurrentPlace()== 'chiusa_con_rinnovo'){
+                    unset($schedaPais[$i]);
+                }
+            }
         }
-        else {
-            $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page); 
-        }
+        
+        
         
         //setto pagina di partenza
         $pathName = 'app_scadenzario_index';
-        
 
-         //calcolo valori delle schede per le scadenze delle scale -> nel listener
         
-         //alert
-         $session = $request->getSession();
-         $alertSincronizzazione = $session->get('alertSincronizzazione');
-         if ($alertSincronizzazione == 'completata') {
-             $this->addFlash(
-                 'Successo',
-                 'Sincronizzazione completata con successo!'
-             );
-         }
-         elseif($alertSincronizzazione == 'errore'){
-             $this->addFlash(
-                 'Fallimento',
-                 'Sincronizzazione fallita!'
-             );
-         }
-         elseif($alertSincronizzazione == 'chiusuraFallita'){
-             $this->addFlash(
-                 'Fallimento',
-                 'Chiusura Fallita! Per chiudere una scheda è necessario aver compilato tutte le
+        //calcolo valori delle schede per le scadenze delle scale -> nel listener
+
+        //alert
+        $session = $request->getSession();
+        $alertSincronizzazione = $session->get('alertSincronizzazione');
+        if ($alertSincronizzazione == 'completata') {
+            $this->addFlash(
+                'Successo',
+                'Sincronizzazione completata con successo!'
+            );
+        } elseif ($alertSincronizzazione == 'errore') {
+            $this->addFlash(
+                'Fallimento',
+                'Sincronizzazione fallita!'
+            );
+        } elseif ($alertSincronizzazione == 'chiusuraFallita') {
+            $this->addFlash(
+                'Fallimento',
+                'Chiusura Fallita! Per chiudere una scheda è necessario aver compilato tutte le
                  scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale 
                  per operatore coinvolto'
-             );
-         }
-         elseif($alertSincronizzazione == 'chiusuraCompletata'){
+            );
+        } elseif ($alertSincronizzazione == 'chiusuraCompletata') {
             $this->addFlash(
                 'Successo',
                 'Chiusura Completata con successo!'
             );
-        }
-         elseif($alertSincronizzazione == 'approvazioneFallita'){
-             $this->addFlash(
-                 'Fallimento',
-                 'Impossibile approvare la scheda. Per approvare la scheda è necessario impostare un
+        } elseif ($alertSincronizzazione == 'approvazioneFallita') {
+            $this->addFlash(
+                'Fallimento',
+                'Impossibile approvare la scheda. Per approvare la scheda è necessario impostare un
                  operatore principale andando in configura'
-             );
-         }
-         $session->set('alertSincronizzazione', '');
+            );
+        }
+        $session->set('alertSincronizzazione', '');
 
         
 
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,
+            'pagine_totali' => $pagineTotali,
             'schede_per_pagina' => $schedePerPagina,
             'user' => $user,
             'assistiti' => $assistiti,
             'pathName' => $pathName,
-            
-            
+            'filtroColoriScadenzario' => $this->filtroColoriScadenzario,
+            'filtroNomiStatiScadenzario' => $this->filtroNomiStatiScadenzario,
+            'filtroDropdownScadenzario' => $this->filtroDropdownScadenzario,
         ]);
     }
 }

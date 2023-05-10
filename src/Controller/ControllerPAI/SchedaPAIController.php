@@ -26,6 +26,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Twig\FiltroColoriScadenzario;
+use App\Twig\FiltroDropdownScadenzario;
+use App\Twig\FiltroNomiStatiScadenzario;
 
 
 #[Route('/scheda_pai')]
@@ -37,9 +40,12 @@ class SchedaPAIController extends AbstractController
     private $altraTipologiaAssistenzaService;
     private $bisogniService;
     private $approvaSchedaService;
+    private $filtroColoriScadenzario;
+    private $filtroNomiStatiScadenzario;
+    private $filtroDropdownScadenzario;
 
 
-    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService)
+    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario)
     {
         $this->workflow = $schedePaiCreatingStateMachine;
         $this->entityManager = $entityManager;
@@ -47,6 +53,9 @@ class SchedaPAIController extends AbstractController
         $this->altraTipologiaAssistenzaService = $altraTipologiaAssistenzaService;
         $this->bisogniService = $bisogniService;
         $this->approvaSchedaService = $approvaSchedaService;
+        $this->filtroColoriScadenzario = $filtroColoriScadenzario;
+        $this->filtroNomiStatiScadenzario = $filtroNomiStatiScadenzario;
+        $this->filtroDropdownScadenzario = $filtroDropdownScadenzario;
     }
 
 
@@ -159,7 +168,10 @@ class SchedaPAIController extends AbstractController
             'user' => $user,
             'assistiti' => $assistiti,
             'listaOperatori' => $listaOperatori,
-            'pathName' => $pathName
+            'pathName' => $pathName,
+            'filtroColoriScadenzario' => $this->filtroColoriScadenzario,
+            'filtroNomiStatiScadenzario' => $this->filtroNomiStatiScadenzario,
+            'filtroDropdownScadenzario' => $this->filtroDropdownScadenzario,
         ]);
     }
 

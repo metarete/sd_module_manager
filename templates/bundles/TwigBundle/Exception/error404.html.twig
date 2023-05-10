@@ -1,0 +1,11 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ops! Qualcosa non ha funzionato</h1>
+
+    <p>
+        Pagina non trovata.
+        Contatta il gestore del servizio Module Manager alla mail {{ app.request.server.get('MAIL_SERVIZIO_TECNICO') }} </a>.
+    </p>
+{% endblock %}

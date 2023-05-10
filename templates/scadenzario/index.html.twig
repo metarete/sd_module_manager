@@ -21,6 +21,22 @@
     	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     	</div>
 	{% endfor %}
+
+	<div class="b-example-divider"></div>
+<form action="{{ path('app_scadenzario_index')}}" method="POST" id="my_form">
+<nav class="navbar navbar-expand">
+    <div class="container-fluid">
+        <div class="col-md-2">
+        <p class="h6">Schede per pagina</p>
+        <select class=" d-inline form-select" name='filtro_numero_schede_scadenzario' onchange="this.form.submit()">
+                <option {% if schede_per_pagina == 0 %}selected{% endif %} value=10>10</option>
+                <option {% if schede_per_pagina == 20 %}selected{% endif %} value=20>20</option>
+                <option {% if schede_per_pagina == 50 %}selected{% endif %} value=50>50</option>
+        </select>
+		</div>
+	</div>
+</nav>
+</form>
 <div class="b-example-divider"></div>
 		<div class="no-more-tables">
 			<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
@@ -61,9 +77,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for scheda_pai in scheda_pais %}
-						{% if scheda_pai.currentPlace != "chiusa" and scheda_pai.currentPlace != "chiusa_con_rinnovo" %}
-							
+					{% for scheda_pai in scheda_pais %}		
 							<tr>
 								<td data-title='Espandi'>
 									<div class="bi bi-caret-down-fill" style="font-size:25px;"  data-bs-toggle="collapse" data-bs-target="#data{{scheda_pai.id}}" aria-expanded="false" aria-controls="data{{scheda_pai.id}}">
@@ -85,32 +99,16 @@
 										{% endif %}
 									{% endfor %}
 								</td>
-								<td data-title='Stato'><span class="badge {% if scheda_pai.currentPlace == 'approvata' %} bg-pink {% elseif scheda_pai.currentPlace == 'attiva' %} bg-success {% elseif scheda_pai.currentPlace == 'verifica' %} bg-brown {% elseif scheda_pai.currentPlace == 'nuova' %} bg-purple {% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura' %} bg-warning {% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' %} bg-blue {% elseif scheda_pai.currentPlace == 'chiusa' %} bg-danger{% elseif scheda_pai.currentPlace == 'chiusa_con_rinnovo' %} bg-orange {% endif %}">
-								{% if scheda_pai.currentPlace == 'approvata'%}
-									Approvata
-								{% elseif scheda_pai.currentPlace == 'attiva'%}
-									Attiva
-								{% elseif scheda_pai.currentPlace == 'nuova'%}
-									Nuova
-								{% elseif scheda_pai.currentPlace == 'verifica'%}
-									Verifica
-								{% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura'%}
-									In Attesa Di Chiusura
-								{% elseif scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo'%}
-									In Attesa Di Chiusura <br>Con Rinnovo
-								{% elseif scheda_pai.currentPlace == 'chiusa'%}
-									Chiusa
-								{% elseif scheda_pai.currentPlace == 'chiusa_con_rinnovo'%}
-									Chiusa Con rinnovo
-								{% endif %}
+								<td data-title='Stato'><span class='badge {{filtroNomiStatiScadenzario.filtroBadge(scheda_pai)}}'>
+								{{filtroNomiStatiScadenzario.filtroNomi(scheda_pai)}}
 								</span></td>
-                				<td data-title='BAR' {% if scheda_pai.abilitaBarthel == false %} class ='text-grey'  0 / 0 {% elseif scheda_pai.barthelNumberToday < scheda_pai.correctBarthelNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.barthelNumberToday}} / {{scheda_pai.numeroBarthelCorretto}} </td>
-                				<td data-title='BRA' {% if scheda_pai.abilitaBraden == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.bradenNumberToday < scheda_pai.correctBradenNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.bradenNumberToday}} / {{scheda_pai.numeroBradenCorretto}} </td>
-                				<td data-title='SPMS' {% if scheda_pai.abilitaSpmsq == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.spmsqNumberToday < scheda_pai.correctSpmsqNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.spmsqNumberToday}} / {{scheda_pai.numeroSpmsqCorretto}} </td>
-                				<td data-title='TIN' {% if scheda_pai.abilitaTinetti == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.tinettiNumberToday < scheda_pai.correctTinettiNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.tinettiNumberToday}} / {{scheda_pai.numeroTinettiCorretto}} </td>
-                				<td data-title='PVA' {% if scheda_pai.abilitaVas == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.vasNumberToday < scheda_pai.correctVasNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.vasNumberToday}} / {{scheda_pai.numeroVasCorretto}}</td>
-                				<td data-title='LES' {% if scheda_pai.abilitaLesioni == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.lesioniNumberToday < scheda_pai.correctLesioniNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.lesioniNumberToday}} / {{scheda_pai.numeroLesioniCorretto}}</td>
-                				<td data-title='PAI' {% if scheda_pai.abilitaPainad == false %} class = 'text-grey' 0 / 0 {% elseif scheda_pai.painadNumberToday < scheda_pai.correctPainadNumberToday %} class ='text-danger'{% else %}class = 'text-success'{% endif %} >{{scheda_pai.painadNumberToday}} / {{scheda_pai.numeroPainadCorretto}}</td>
+                				<td data-title='BAR' class = {{filtroColoriScadenzario.filtroColoriBarthel(scheda_pai)}}>{% if scheda_pai.abilitaBarthel %} {{scheda_pai.barthelNumberToday}} / {{scheda_pai.numeroBarthelCorretto}} {% else %} 0 / 0 {% endif %}</td>
+                				<td data-title='BRA' class = {{filtroColoriScadenzario.filtroColoriBraden(scheda_pai)}}>{% if scheda_pai.abilitaBraden %} {{scheda_pai.bradenNumberToday}} / {{scheda_pai.numeroBradenCorretto}} {% else %} 0 / 0 {% endif %}</td>
+                				<td data-title='SPMS'class = {{filtroColoriScadenzario.filtroColoriSpmsq(scheda_pai)}}>{% if scheda_pai.abilitaSpmsq %} {{scheda_pai.spmsqNumberToday}} / {{scheda_pai.numeroSpmsqCorretto}} {% else %} 0 / 0 {% endif %}</td>
+                				<td data-title='TIN' class = {{filtroColoriScadenzario.filtroColoriTinetti(scheda_pai)}}>{% if scheda_pai.abilitaTinetti %} {{scheda_pai.tinettiNumberToday}} / {{scheda_pai.numeroTinettiCorretto}} {% else %} 0 / 0 {% endif %}</td>
+                				<td data-title='PVA' class = {{filtroColoriScadenzario.filtroColoriVas(scheda_pai)}}>{% if scheda_pai.abilitaVas %} {{scheda_pai.vasNumberToday}} / {{scheda_pai.numeroVasCorretto}} {% else %} 0 / 0 {% endif %}</td>
+                				<td data-title='LES' class = {{filtroColoriScadenzario.filtroColoriLesioni(scheda_pai)}}>{% if scheda_pai.abilitaLesioni %} {{scheda_pai.lesioniNumberToday}} / {{scheda_pai.numeroLesioniCorretto}} {% else %} 0 / 0 {% endif %}</td>
+                				<td data-title='PAI' class = {{filtroColoriScadenzario.filtroColoriPainad(scheda_pai)}}>{% if scheda_pai.abilitaPainad %} {{scheda_pai.painadNumberToday}} / {{scheda_pai.numeroPainadCorretto}} {% else %} 0 / 0 {% endif %}</td>
 								<td data-title='Operazioni'>
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -120,211 +118,61 @@
 											<li>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a>
 											</li>
-											{% if "ROLE_ADMIN" in user.roles %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroConfigura(scheda_pai, user)}}>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Configura</a>
 											</li>
-											{% else %}
-												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-													<li>
-														<a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-pencil-square"></i> Configura</a>
-													</li>
-												{% endif %}
-											{% endif %}
-											{% if scheda_pai.currentPlace == 'nuova'%}
-											<li>
-												<a class="dropdown-item" {% if scheda_pai.idOperatorePrincipale == null %} {% endif %} href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva</a>
+											<li style={{filtroDropdownScadenzario.filtroApprova(scheda_pai, user)}}>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_approva', {'id': scheda_pai.id, 'pathName': pathName}) }}" ><i class="bi bi-key"></i> Approva</a>
 											</li>
-											{% endif %}
-											{% if "ROLE_ADMIN" in user.roles %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroDelete(scheda_pai, user)}}>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina</a>
 											</li>
-											{% else %}
-												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-												<li>
-													<a class="dropdown-item" href="{{ path('app_scheda_pai_delete', {'pathName' : pathName, 'id': scheda_pai.id,'_token': csrf_token('delete' ~ scheda_pai.id) }) }}" onclick="return confirm('Sei sicuro di voler eliminare la scheda?')"><i class="bi bi-trash3"></i> Elimina</a>
-												</li>
-												{% endif %}
-											{% endif %}
-											{% if "ROLE_ADMIN" in user.roles %}
-												{% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' or scheda_pai.currentPlace == 'nuova' or scheda_pai.currentPlace == 'approvata' %}
-												{% else %}
-												<li>
-													<a class="dropdown-item" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi</a>
-												</li>
-												{% endif %}
-											{% else %}
-												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-													{% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' or scheda_pai.currentPlace == 'nuova' or scheda_pai.currentPlace == 'approvata' %}
-													{% else %}
-														<li>
-															<a class="dropdown-item {% if scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' %}disabled{% endif %}" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi</a>
-														</li>
-													{% endif %}
-												{% endif %}
-											{% endif %}
-											{% if "ROLE_ADMIN" in user.roles %}
-												{% if scheda_pai.currentPlace != 'verifica' %}
-												{% else %}
-												<li>
-													<a class="dropdown-item" href="{{ path('app_scheda_pai_rinnova', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Rinnova</a>
-												</li>
-												<li>
-													<a class="dropdown-item" href="{{ path('app_scheda_pai_non_rinnovare', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Non rinnovare</a>
-												</li>
-												{% endif %}
-											{% else %}
-												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-													{% if scheda_pai.currentPlace != 'verifica' %}
-													{% else %}
-													<li>
-													<a class="dropdown-item" href="{{ path('app_scheda_pai_rinnova', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Rinnova</a>
-												</li>
-												<li>
-													<a class="dropdown-item" href="{{ path('app_scheda_pai_non_rinnovare', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Non rinnovare</a>
-												</li>
-													{% endif %}
-												{% endif %}
-											{% endif %}
-											{% if "ROLE_ADMIN" in user.roles %}
-												{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura' or scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' %}
-													<li>
-													<a class="dropdown-item" href="{{ path('app_scheda_pai_torna_al_verifica', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Torna in verifica</a>
-												</li>
-												{% else %}                          
-												{% endif %}
-											{% else %}
-												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-													{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura' or scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' %}
-													<li>
-														<a class="dropdown-item" href="{{ path('app_scheda_pai_torna_al_verifica', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Torna in verifica</a>
-													</li>
-													{% else %}                          
-													{% endif %}
-												{% endif %}
-											{% endif %}
+											<li style={{filtroDropdownScadenzario.filtroChiudi(scheda_pai, user)}}>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-lock"></i> Chiudi</a>
+											</li>
+											<li style={{filtroDropdownScadenzario.filtroRinnova(scheda_pai, user)}}>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_rinnova', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Rinnova</a>
+											</li>
+											<li style={{filtroDropdownScadenzario.filtroRinnova(scheda_pai, user)}}>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_non_rinnovare', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Non rinnovare</a>
+											</li>
+											<li style={{filtroDropdownScadenzario.filtroTornaAlVerifica(scheda_pai, user)}}>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_torna_al_verifica', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-exclamation-diamond"></i> Torna in verifica</a>
+											</li>
 											<li><hr class="dropdown-divider"></li>
-											{% if scheda_pai.currentPlace != 'approvata' or user.username != scheda_pai.idOperatorePrincipale.username %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroValutazioneGenerale(scheda_pai, user)}}>
 												<a class="dropdown-item" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Generale</a>
 											</li>
-											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'verifica' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo'  %}
-											{% else %}
-												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-													<li>
-														<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
-													</li>
-												{% else %}
-													{% for nome in scheda_pai.idOperatoreSecondarioInf %}
-														{% if nome.username == user.username %}
-															<li>
-																<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
-															</li>
-														{% endif %}
-													{% endfor %}
-													{% for nome in scheda_pai.idOperatoreSecondarioAsa %}
-														{% if nome.username == user.username %}
-															<li>
-																<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
-															</li>
-														{% endif %}
-													{% endfor %}
-													{% for nome in scheda_pai.idOperatoreSecondarioTdr %}
-														{% if nome.username == user.username %}
-															<li>
-																<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
-															</li>
-														{% endif %}
-													{% endfor %}
-													{% for nome in scheda_pai.idOperatoreSecondarioLog %}
-														{% if nome.username == user.username %}
-															<li>
-																<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
-															</li>
-														{% endif %}
-													{% endfor %}
-													{% for nome in scheda_pai.idOperatoreSecondarioOss %}
-														{% if nome.username == user.username %}
-															<li>
-																<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
-															</li>
-														{% endif %}
-													{% endfor %}
-												{% endif %}
-											{% endif %}
-											{% if scheda_pai.currentPlace == 'nuova' or scheda_pai.currentPlace == 'approvata' or scheda_pai.currentPlace == 'chiusa' or scheda_pai.currentPlace == 'chiusa_con_rinnovo' or user.username != scheda_pai.idOperatorePrincipale.username %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroValutazioneFiguraProfessionale(scheda_pai, user)}}>
+												<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
+											</li>
+											<li style={{filtroDropdownScadenzario.filtroParereMmg(scheda_pai, user)}}>
 												<a class="dropdown-item" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Parere MMG</a>
 											</li>
-											{% endif %}
-											{% if "ROLE_ADMIN" in user.roles %}
-												{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' or scheda_pai.currentPlace == 'in_attesa_di_chiusura' %}
-												<li>
-													<a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Chiusura servizio</a>
-												</li>
-												{% endif %}
-											{% else %}
-												{% if user.username == scheda_pai.idOperatorePrincipale.username %}
-													{% if scheda_pai.currentPlace == 'in_attesa_di_chiusura_con_rinnovo' or scheda_pai.currentPlace == 'in_attesa_di_chiusura' %}
-														<li>
-															<a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Chiusura servizio</a>
-														</li>
-													{% endif %}
-												{% endif %}
-											{% endif %} 
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
-											{% elseif scheda_pai.abilitaBarthel == false %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroChiusuraServizio(scheda_pai, user)}}>
+												<a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Chiusura servizio</a>
+											</li>
+											<li style={{filtroDropdownScadenzario.filtroBarthel(scheda_pai)}}>
 												<a class="dropdown-item" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Barthel</a>
 											</li>
-											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
-											{% elseif scheda_pai.abilitaBraden == false %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroBraden(scheda_pai)}}>
 												<a class="dropdown-item" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Braden</a>
 											</li>
-											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
-											{% elseif scheda_pai.abilitaSpmsq == false %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroSpmsq(scheda_pai)}}>
 												<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> SPMSQ</a>
 											</li>
-											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
-											{% elseif scheda_pai.abilitaTinetti == false %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroTinetti(scheda_pai)}}>
 												<a class="dropdown-item" href="{{ path('app_tinetti_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Tinetti</a>
 											</li>
-											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
-											{% elseif scheda_pai.abilitaVas == false %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroVas(scheda_pai)}}>
 												<a class="dropdown-item" href="{{ path('app_vas_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Vas</a>
 											</li>
-											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
-											{% elseif scheda_pai.abilitaLesioni == false %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroLesioni(scheda_pai)}}>
 												<a class="dropdown-item" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Lesioni</a>
 											</li>
-											{% endif %}
-											{% if scheda_pai.currentPlace != 'attiva' and scheda_pai.currentPlace != 'in_attesa_di_chiusura' and scheda_pai.currentPlace != 'in_attesa_di_chiusura_con_rinnovo' and scheda_pai.currentPlace != 'verifica' %}
-											{% elseif scheda_pai.abilitaPainad == false %}
-											{% else %}
-											<li>
+											<li style={{filtroDropdownScadenzario.filtroPainad(scheda_pai)}}>
 												<a class="dropdown-item" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName})}}"><i class="bi bi-pencil-square"></i> Painad</a>
 											</li>
-											{% endif %}
 											<li><hr class="dropdown-divider"></li>
 											<li>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_anagrafica_assistito', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Informazioni Assistito</a>
@@ -427,7 +275,7 @@
 									</div>
 								</td>
 							</tr>
-						{% endif %}
+						
 					{% else %}
 						<tr>
 							<td colspan="11">Nessuna scheda disponibile</td>
@@ -441,6 +289,23 @@
 
 		<div class="pb-2 mb-4"></div>
 
+		<nav aria-label="Page navigation example">
+   <ul class="pagination justify-content-center">
+       <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scadenzario_index') }}'; document.getElementById('my_form').submit();"><<</a></li>
+        <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scadenzario_index', {'page':pagina-1}) }}'; document.getElementById('my_form').submit();"><</a></li>
+    {% for i in 1..pagine_totali %}
+        {% if i == pagina %}
+            <li class="page-item active"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scadenzario_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
+        {% elseif i <= pagina + 5 and i >= pagina - 1 %}
+            <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scadenzario_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
+        {% endif %}
+    {% endfor %}
+    <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scadenzario_index', {'page':pagina+1}) }}'; document.getElementById('my_form').submit();">></a></li>
+      <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scadenzario_index', {'page':pagine_totali}) }}'; document.getElementById('my_form').submit();">>></a></li>
+  </ul>
+</nav>
+
+<div class="pb-2 mb-4"></div>
 
 
 	{% endblock %}

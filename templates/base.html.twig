@@ -21,7 +21,7 @@
 	</head>
 	<body>
 		{% block header %}
-
+		{% if app.user != null %}
 			<nav class="navbar navbar-mobile">
 				<ul class="nav row-1 cols-12 gap-3">
 					<li>
@@ -30,6 +30,7 @@
 						</nav>
 					</li>
 				</ul>
+				
 				<ul class="nav row-1 cols-12 gap-3">
 					<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
 						<i class="bi bi-list" style="font-size:25px;"></i>
@@ -137,8 +138,19 @@
 						</ul>
 					</div>
 				</div>
+				
 			</nav>
-
+		{% else %}
+			<nav class="navbar navbar-mobile">
+				<ul class="nav row-1 cols-12 gap-3">
+					<li>
+						<nav class="navbar navbar-dark">
+							<a class="navbar-brand" style="font-size:20px;padding-left:15px;">Module Manager</a>
+						</nav>
+					</li>
+				</ul>
+			</nav>
+		{% endif %}
 		</body>
 	</html>
 </div>{% endblock %}<div class="container-fluid">
