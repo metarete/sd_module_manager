@@ -21,6 +21,7 @@ use App\Service\SDManagerClientApiService;
 use App\Service\BisogniService;
 use App\Service\AltraTipologiaAssistenzaService;
 use App\Service\ApprovaSchedaService;
+use App\Service\SetterStatoVerificaSchedaPaiService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,9 +44,9 @@ class SchedaPAIController extends AbstractController
     private $filtroColoriScadenzario;
     private $filtroNomiStatiScadenzario;
     private $filtroDropdownScadenzario;
+    private $setterStatoVerificaSchedaPaiService;
 
-
-    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario)
+    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService)
     {
         $this->workflow = $schedePaiCreatingStateMachine;
         $this->entityManager = $entityManager;
@@ -56,6 +57,7 @@ class SchedaPAIController extends AbstractController
         $this->filtroColoriScadenzario = $filtroColoriScadenzario;
         $this->filtroNomiStatiScadenzario = $filtroNomiStatiScadenzario;
         $this->filtroDropdownScadenzario = $filtroDropdownScadenzario;
+        $this->setterStatoVerificaSchedaPaiService = $setterStatoVerificaSchedaPaiService;
     }
 
 
@@ -175,78 +177,6 @@ class SchedaPAIController extends AbstractController
         ]);
     }
 
-
-
-
-    #[Route('/new', name: 'app_scheda_pai_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SchedaPAIRepository $schedaPAIRepository): Response
-    {
-        $schedaPAI = new SchedaPAI();
-        $form = $this->createForm(SchedaPAIType::class, $schedaPAI);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $schedaPAI->setCurrentPlace('nuova');
-            if ($this->workflow->can($schedaPAI, 'approva')) {
-                $this->workflow->apply($schedaPAI, 'approva');
-            }
-            $frequenzaBarthel = $schedaPAI->getFrequenzaBarthel();
-            $frequenzaBraden = $schedaPAI->getFrequenzaBraden();
-            $frequenzaSpmsq = $schedaPAI->getFrequenzaSpmsq();
-            $frequenzaTinetti = $schedaPAI->getFrequenzaTinetti();
-            $frequenzaVas = $schedaPAI->getFrequenzaVas();
-            $frequenzaLesioni = $schedaPAI->getFrequenzaLesioni();
-            $frequenzaPainad = $schedaPAI->getFrequenzaPainad();
-            $dataInizio = $schedaPAI->getDataInizio();
-            $dataFine = $schedaPAI->getDataFine();
-            $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
-            if ($frequenzaBarthel == 0) {
-                $numeroBarthelCorretto = 0;
-            } else
-                $numeroBarthelCorretto = (int)(($numeroGiorniTotali / $frequenzaBarthel));
-            if ($frequenzaBraden == 0) {
-                $numeroBradenCorretto = 0;
-            } else
-                $numeroBradenCorretto = (int)($numeroGiorniTotali / $frequenzaBraden);
-            if ($frequenzaSpmsq == 0) {
-                $numeroSpmsqCorretto = 0;
-            } else
-                $numeroSpmsqCorretto = (int)($numeroGiorniTotali / $frequenzaSpmsq);
-            if ($frequenzaTinetti == 0) {
-                $numeroTinettiCorretto = 0;
-            } else
-                $numeroTinettiCorretto = (int)($numeroGiorniTotali / $frequenzaTinetti);
-            if ($frequenzaVas == 0) {
-                $numeroVasCorretto = 0;
-            } else
-                $numeroVasCorretto = (int)($numeroGiorniTotali / $frequenzaVas);
-            if ($frequenzaLesioni == 0) {
-                $numeroLesioniCorretto = 0;
-            } else
-                $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni);
-            if ($frequenzaPainad == 0) {
-                $numeroPainadCorretto = 0;
-            } else
-                $numeroPainadCorretto = (int)($numeroGiorniTotali / $frequenzaPainad);
-
-            $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
-            $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
-            $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
-            $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
-            $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
-            $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
-            $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
-            $schedaPAIRepository->add($schedaPAI, true);
-
-            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('scheda_pai/new.html.twig', [
-            'scheda_pai' => $schedaPAI,
-            'form' => $form,
-        ]);
-    }
-
     #[Route('/{pathName}/show/{id}', name: 'app_scheda_pai_show', methods: ['GET'])]
     public function show(SchedaPAI $schedaPAI, string $pathName): Response
     {
@@ -311,7 +241,7 @@ class SchedaPAIController extends AbstractController
 
         $form = $this->createForm(SchedaPAIType::class, $schedaPAI);
         $form->handleRequest($request);
-
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $frequenzaBarthel = $schedaPAI->getFrequenzaBarthel();
@@ -571,7 +501,7 @@ class SchedaPAIController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/sincronizza_progetti', name: 'app_scheda_pai_sincronizza', methods: ['GET'])]
-    public function sincronizza(Request $request)
+    public function sincronizza(Request $request, SchedaPAIRepository $schedaPAIRepository)
     {
         $session = $request->getSession();
 
@@ -593,6 +523,13 @@ class SchedaPAIController extends AbstractController
             $session->set('alertSincronizzazione', 'errore');
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        //ricalcolo del verifica dopo gli eventuali cambiamenti di data dei progetti
+        $schedaPais = $schedaPAIRepository->findBy([]);
+        for($i =0; $i<count($schedaPais); $i++){
+            $this->setterStatoVerificaSchedaPaiService->settaStatoVerifica($schedaPais[$i]);
+        }
+        $this->entityManager->flush();
 
         $session->set('alertSincronizzazione', 'completata');
 

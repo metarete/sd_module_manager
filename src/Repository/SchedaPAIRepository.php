@@ -200,7 +200,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
     public function updateSchedaByIdprogetto($idProgetto,$idAssistito, $dataInizio, $dataFine, $nomeProgetto): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
-        ->update(null, null)
+        ->update('App\Entity\EntityPAI\SchedaPAI', 'u')
         ->set('u.dataFine', ':dataFine')
         ->set('u.dataInizio', ':dataInizio')
         ->set('u.idAssistito', ':idAssistito')

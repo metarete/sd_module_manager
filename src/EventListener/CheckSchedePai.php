@@ -4,6 +4,7 @@ namespace App\EventListener;
 
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Service\SetterDatiSchedaPaiService;
+use App\Service\SetterValoriNonMappatiScaleSchedaPaiService;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
@@ -11,10 +12,12 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 class CheckSchedePai implements EventSubscriberInterface
 {
     private $setterDatiSchedePaiService;
+    private $setterValoriNonMappatiScaleSchedaPaiService;
 
-    public function __construct( SetterDatiSchedaPaiService $setterDatiSchedaPAiService)
+    public function __construct( SetterDatiSchedaPaiService $setterDatiSchedaPAiService, SetterValoriNonMappatiScaleSchedaPaiService $setterValoriNonMappatiScaleSchedaPaiService)
     {
        $this->setterDatiSchedePaiService = $setterDatiSchedaPAiService;
+       $this->setterValoriNonMappatiScaleSchedaPaiService = $setterValoriNonMappatiScaleSchedaPaiService;
     }
 
     public function getSubscribedEvents(): array
@@ -29,6 +32,8 @@ class CheckSchedePai implements EventSubscriberInterface
     public function postUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();
+        dump('postUpdate');
+        dump($entity);
 
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
@@ -37,20 +42,7 @@ class CheckSchedePai implements EventSubscriberInterface
         }
         $this->setterDatiSchedePaiService->settaDati($entity);
 
-        $entity->setBarthelNumberToday();
-        $entity->setCorrectBarthelNumberToday();
-        $entity->setBradenNumberToday();
-        $entity->setCorrectBradenNumberToday();
-        $entity->setSpmsqNumberToday();
-        $entity->setCorrectSpmsqNumberToday();
-        $entity->setTinettiNumberToday();
-        $entity->setCorrectTinettiNumberToday();
-        $entity->setVasNumberToday();
-        $entity->setCorrectVasNumberToday();
-        $entity->setLesioniNumberToday();
-        $entity->setCorrectLesioniNumberToday();
-        $entity->setPainadNumberToday();
-        $entity->setCorrectPainadNumberToday();
+        $this->setterValoriNonMappatiScaleSchedaPaiService->settaValoriScale($entity);
         
     }
 
@@ -69,28 +61,13 @@ class CheckSchedePai implements EventSubscriberInterface
     public function postLoad(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();
-
+        
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
         if (!$entity instanceof SchedaPAI) {
             return;
         }
-        
-
-        $entity->setBarthelNumberToday();
-        $entity->setCorrectBarthelNumberToday();
-        $entity->setBradenNumberToday();
-        $entity->setCorrectBradenNumberToday();
-        $entity->setSpmsqNumberToday();
-        $entity->setCorrectSpmsqNumberToday();
-        $entity->setTinettiNumberToday();
-        $entity->setCorrectTinettiNumberToday();
-        $entity->setVasNumberToday();
-        $entity->setCorrectVasNumberToday();
-        $entity->setLesioniNumberToday();
-        $entity->setCorrectLesioniNumberToday();
-        $entity->setPainadNumberToday();
-        $entity->setCorrectPainadNumberToday();
+        $this->setterValoriNonMappatiScaleSchedaPaiService->settaValoriScale($entity);
     }
 
 }

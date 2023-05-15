@@ -3,14 +3,14 @@
 namespace App\Command;
 
 use App\Entity\EntityPAI\SchedaPAI;
+use App\Service\SetterStatoVerificaSchedaPaiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use DateTime;
-use DateInterval;
+
 
 
 #[AsCommand(
@@ -20,11 +20,13 @@ use DateInterval;
 class VerificaProgettoCommand extends Command
 {
     private $entityManager;
+    private $setterStatoVerificaSchedaPaiService;
     protected static $defaultDescription = 'Verifica dei progetti.';
     
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService)
     {
         $this->entityManager = $entityManager;
+        $this->setterStatoVerificaSchedaPaiService = $setterStatoVerificaSchedaPaiService;
 
         parent::__construct();
     }
@@ -40,61 +42,12 @@ class VerificaProgettoCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $dataOggi = new DateTime('now');
-        $interval = new DateInterval('P7D');
-        $dataDiCheck = $dataOggi->add($interval);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
         
-        for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('verifica');
-
-        $dataOggi = new DateTime('now');
-        $interval = new DateInterval('P6D');
-        $dataDiCheck = $dataOggi->add($interval);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
         
-        for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('verifica');
-
-        $dataOggi = new DateTime('now');
-        $interval = new DateInterval('P5D');
-        $dataDiCheck = $dataOggi->add($interval);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
-        
-        for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('verifica');
-        
-        $dataOggi = new DateTime('now');
-        $interval = new DateInterval('P4D');
-        $dataDiCheck = $dataOggi->add($interval);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
-
-        for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('verifica');
-
-        $dataOggi = new DateTime('now');
-        $interval = new DateInterval('P3D');
-        $dataDiCheck = $dataOggi->add($interval);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
-
-        for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('verifica');
-
-        $dataOggi = new DateTime('now');
-        $interval = new DateInterval('P2D');
-        $dataDiCheck = $dataOggi->add($interval);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
-
-        for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('verifica');
-
-        $dataOggi = new DateTime('now');
-        $interval = new DateInterval('P1D');
-        $dataDiCheck = $dataOggi->add($interval);
-        $schedaPais = $schedaPAIRepository->findBy(['dataFine' =>$dataDiCheck, 'currentPlace' => 'attiva']);
-
-        for($i =0; $i<count($schedaPais); $i++)
-        $schedaPais[$i]->setCurrentPlace('verifica');
+        $schedaPais = $schedaPAIRepository->findBy([]);
+        for($i =0; $i<count($schedaPais); $i++){
+            $this->setterStatoVerificaSchedaPaiService->settaStatoVerifica($schedaPais[$i]);
+        }
         
         $this->entityManager->flush();
 

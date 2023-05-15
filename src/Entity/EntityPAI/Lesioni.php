@@ -26,9 +26,9 @@ class Lesioni
     #[Assert\NotBlank]
     private ?string $tipologiaLesione = null;
 
-    #[ORM\Column(type: 'integer', length: 255)]
+    #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank]
-    private ?string $numeroSedeLesione = null;
+    private $numeroSedeLesione = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]

@@ -60,7 +60,8 @@ class LesioniFormType extends AbstractType
             ])
             ->add('noteSullaLesione', TextareaType::class, [
                 'required' => false,
-                'attr' => array('style' => 'height:100px')
+                'attr' => array('style' => 'height:100px'),
+                'empty_data' => '',
             ])
         ;
     }

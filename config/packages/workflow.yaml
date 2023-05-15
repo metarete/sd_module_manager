@@ -47,8 +47,17 @@ framework:
                     to: approvata
                 verifica_per_errore1:
                     from: in_attesa_di_chiusura
-                    to:   verifica
+                    to: verifica
                 verifica_per_errore2:
                     from: in_attesa_di_chiusura_con_rinnovo
-                    to:   verifica
+                    to: verifica
+                attiva_per_cambio_dati1:
+                    from: in_attesa_di_chiusura
+                    to: attiva
+                attiva_per_cambio_dati2:
+                    from: in_attesa_di_chiusura_con_rinnovo
+                    to: attiva
+                attiva_per_cambio_dati3:
+                    from: verifica
+                    to: attiva
                 

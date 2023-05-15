@@ -102,7 +102,7 @@ class SchedaPAI
     private $idVas;
 
     #[ORM\OneToMany(mappedBy: 'schedaPAI', targetEntity: Lesioni::class, cascade: ['persist', 'remove'])]
-    private Collection $idLesioni;
+    private $idLesioni;
 
     #[ORM\OneToMany(mappedBy: 'schedaPAI', targetEntity: Painad::class, cascade: ['persist', 'remove'])]
     private $idPainad;

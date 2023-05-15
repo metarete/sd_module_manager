@@ -23,11 +23,16 @@ class SDManagerClientApiService
     private $numeroProgettiScaricati = 0;
     private $numeroProgettiAggiornati = 0;
 
-    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, ParameterBagInterface $params)
+    private $setterCambioStatiDopoSincronizzazioneService;
+    private $setterValoriNonMappatiScaleSchedaPaiService;
+
+    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, ParameterBagInterface $params, SetterCambioStatiDopoSincronizzazioneService $setterCambioStatiDopoSincronizzazioneService, SetterValoriNonMappatiScaleSchedaPaiService $setterValoriNonMappatiScaleSchedaPaiService)
     {
         $this->client = $client;
         $this->entityManager = $entityManager;
         $this->params = $params;
+        $this->setterCambioStatiDopoSincronizzazioneService = $setterCambioStatiDopoSincronizzazioneService;
+        $this->setterValoriNonMappatiScaleSchedaPaiService = $setterValoriNonMappatiScaleSchedaPaiService;
     }
 
     public function getCodiceResponseProgetti(): int
@@ -203,6 +208,7 @@ class SDManagerClientApiService
         //faccio passare i progetti scaricati uno ad uno
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
+            
             //se il progetto è attivo e deve avere la scheda pai
             if ($progetti[$i]['scheda_pai'] == 1 && $progetti[$i]['stato_progetto']=='ATTIVO') {
                 $dataInizio = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_inizio']);
@@ -224,19 +230,14 @@ class SDManagerClientApiService
                 } else {
                     //se c'è già 
                     $schedaPai = $schedaPAIRepository->findOneByProgetto($idProgetto);
+                    $dataInizio->format('d-m-Y');
                     $dataFine->format('d-m-Y');
-                    $schedaPai->getDataFine()->format('d-m-Y');
-                    //se è stata spostata in avanti la data di fine ed era in stato di attesa di chiusura lo riattivo
-                    if($dataFine->format('d-m-Y') > $schedaPai->getDataFine()->format('d-m-Y') && $dataFine > date("d-m-Y") && ($schedaPai->getCurrentPlace()=='in_attesa_di_chiusura' || $schedaPai->getCurrentPlace()=='in_attesa_di_chiusura_con_rinnovo') ){
-                        $statoAttivo = 'attiva';
-                        $schedaPAIRepository->riattivaSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoAttivo);
-                        $this->numeroProgettiAggiornati++;
-                    }
-                    //aggiorno i dati 
-                    else{
-                        $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto);
-                        $this->numeroProgettiAggiornati++;
-                    }
+                    
+                    //check per i cambiamenti di stato in base ai cambio data iniziale e finale
+                    $this->setterCambioStatiDopoSincronizzazioneService->settaCambioStati($dataInizio, $dataFine, $schedaPai);
+                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto);
+                    $this->setterValoriNonMappatiScaleSchedaPaiService->settaValoriScale($schedaPai);
+                    $this->numeroProgettiAggiornati++;                    
                 }
             }
         }

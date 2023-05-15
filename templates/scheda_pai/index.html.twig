@@ -49,7 +49,9 @@
                 <option {% if stato == 'nuova' %}selected{% endif %} value="nuova">Nuova</option>
                 <option {% if stato == 'attiva' %}selected{% endif %} value="attiva">Attiva</option>
                 <option {% if stato == 'approvata' %}selected{% endif %} value="approvata">Approvata</option>
+                <option {% if stato == 'verifica' %}selected{% endif %} value="verifica">Verifica</option>
                 <option {% if stato == 'in_attesa_di_chiusura' %}selected{% endif %} value="in_attesa_di_chiusura"> In attesa di chiusura</option>
+                <option {% if stato == 'in_attesa_di_chiusura_con_rinnovo' %}selected{% endif %} value="in_attesa_di_chiusura_con_rinnovo"> In attesa di chiusura con rinnovo</option>
                 <option {% if stato == 'chiusa' %}selected{% endif %} value="chiusa">Chiusa</option>
                 <option {% if stato == 'chiusa_con_rinnovo' %}selected{% endif %} value="chiusa_con_rinnovo">Chiusa con rinnovo</option>
         </select>
