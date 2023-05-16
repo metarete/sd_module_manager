@@ -80,6 +80,23 @@ class MailerGenerator
         }
         return $testo;
     }
+    private function creaTestoEmailVerifica($testo, $schede):array
+    {
+        if ($schede != null) {
+            for ($i = 0; $i < count($schede); $i++) {
+                $riga = [
+                    "id" => $schede[$i]->getId(),
+                    "nome_progetto" => $schede[$i]->getNomeProgetto(),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
+                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "stato" => $schede[$i]->getCurrentPlace(),
+                ];
+                array_push($testo, $riga);
+            }
+        }
+        return $testo;
+    }
 
 
     public function EmailAdmin()
@@ -118,19 +135,26 @@ class MailerGenerator
             __DIR__ . "/../../public/image/registered-solid.png"
         );
         $immagineChiuseConRinnovo = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/hourglass-start-solid-2.png"
+        );
+        $immagineVerifica = base64_encode($img);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $schedeNuove = $schedaPAIRepository->findByState('nuova');
         $schedeChiuse = $schedaPAIRepository->findByState('chiusa');
         $schedeChiuseConRinnovo = $schedaPAIRepository->findByState('chiusa_con_rinnovo');
+        $schedeInVerifica = $schedaPAIRepository->findByState('verifica');
         $utenti = $userRepository->findAll();
         $admin = [];
         $testoEmailNuove = [];
         $testoEmailChiuse = [];
         $testoEmailChiuseConRinnovo = [];
+        $testoEmailVerifica = [];
         $testoEmailNuove = $this->creaTestoEmailNuove($testoEmailNuove, $schedeNuove);
         $testoEmailChiuse = $this->creaTestoEmailChiuse($testoEmailChiuse, $schedeChiuse);
         $testoEmailChiuseConRinnovo = $this->creaTestoEmailChiuseConRinnovo($testoEmailChiuseConRinnovo, $schedeChiuseConRinnovo);
+        $testoEmailVerifica = $this->creaTestoEmailVerifica($testoEmailVerifica, $schedeInVerifica);
 
         for ($i = 0; $i < count($utenti); $i++) {
             $roles = $utenti[$i]->getRoles();
@@ -147,7 +171,9 @@ class MailerGenerator
 
             if ($schedeNuove == null && $schedeChiuse == null && $schedeChiuseConRinnovo == null) {
                 //non c'è nulla da fare. non mando la mail
-            } else {
+            } elseif($operatore->isStato() == false){
+                //operatore non attivo
+            }else {
 
 
                 $email = (new TemplatedEmail())
@@ -159,9 +185,11 @@ class MailerGenerator
                         "testoEmailNuove" => $testoEmailNuove,
                         "testoEmailChiuse" => $testoEmailChiuse,
                         "testoEmailChiuseConRinnovo" => $testoEmailChiuseConRinnovo,
+                        "testoEmailVerifica" => $testoEmailVerifica,
                         "schedeNuove" =>  $schedeNuove,
                         "schedeChiuse" => $schedeChiuse,
                         "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
+                        "schedeInVerifica" => $schedeInVerifica,
                         "logoCoop" => $logoCoop,
                         "calendarIcon" => $calendarIcon,
                         "separatoreTop" => $separatoreTop,
@@ -170,6 +198,7 @@ class MailerGenerator
                         "immagineNuove" => $immagineNuove,
                         "immagineChiuse" => $immagineChiuse,
                         "immagineChiuseConRinnovo" => $immagineChiuseConRinnovo,
+                        "immagineVerifica" => $immagineVerifica,
                         "url" => $url,
                         "operatore" => $operatore
                     ]);
@@ -225,6 +254,10 @@ class MailerGenerator
             __DIR__ . "/../../public/image/hourglass-start-solid.png"
         );
         $immagineScadute = base64_encode($img);
+        $img = file_get_contents(
+            __DIR__ . "/../../public/image/hourglass-start-solid-2.png"
+        );
+        $immagineVerifica = base64_encode($img);
         
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
@@ -241,9 +274,11 @@ class MailerGenerator
         $testoRitardi = '
         Ci sono delle schede di valutazione in ritardo rispetto alla frequenza stabilita.';
         $testoChiusura = '
-        Le seguenti schede necessitano di chiusura poichè in scadenza a breve. Compilare le scale mancanti se necessario e la chiusura del servizio.';
+        Le seguenti schede necessitano di chiusura poichè scadute o in attesa di chiusura. Compilare le scale mancanti se necessario e la chiusura del servizio.';
         $testoAttiva = '
         Le seguenti schede attive hanno delle schede di valutazione professionale mancanti; compilarle al più presto.';
+        $testoVerifica = '
+        Le seguenti schede scadono tra pochi giorni. Selezionare dalle operazioni se sarà necessario un rinnovo o una chiusura definitiva.';
         for ($i = 0; $i < count($arrayOperatori); $i++) {
             $idOperatore = $arrayOperatori[$i]->getId();
             $flagSchedaApprovata = false;
@@ -251,9 +286,11 @@ class MailerGenerator
             $descrizioneRitardi =  [];
             $descrizioneSchedeDaChiudere = [];
             $descrizioneValutazioneProfessionale = [];
+            $descrizioneSchedeVerifica = [];
             $flagRitardi = false;
             $flagSchedeDaChiudere = false;
             $flagValutazioneProfessionale = false;
+            $flagSchedeVerifica = false;
             for ($j = 0; $j < count($arraySchedeApprovate); $j++) {
                 $idOperatorePrincipale = $arraySchedeApprovate[$j]->getIdOperatorePrincipale()->getId();
                 if ($idOperatore == $idOperatorePrincipale) {
@@ -395,10 +432,29 @@ class MailerGenerator
                 }
             }
 
+
+            for ($a = 0; $a < count($arraySchedeVerifica); $a++) {
+                $idOperatorePrincipale = $arraySchedeVerifica[$a]->getIdOperatorePrincipale()->getId();
+                if ($idOperatore == $idOperatorePrincipale) {
+                    $flagSchedeVerifica = true;
+                    $riga = [
+                        "id" => $arraySchedeVerifica[$a]->getId(),
+                        "nome_progetto" => $arraySchedeVerifica[$a]->getNomeProgetto(),
+                        "data_inizio" => $arraySchedeVerifica[$a]->getDataInizio()->format('d/m/Y'),
+                        "data_fine" => $arraySchedeVerifica[$a]->getDataFine()->format('d/m/Y'),
+                        "assistito" => $arraySchedeVerifica[$a]->getNomeAssistito() . "  " . $arraySchedeVerifica[$a]->getCognomeAssistito(),
+                        "stato" => $arraySchedeVerifica[$a]->getCurrentPlace(),
+                    ];
+                    array_push($descrizioneSchedeVerifica, $riga);
+                }
+            }
+
+
             $testoApprovata1 = $testoApprovata;
             $testoRitardi1 = $testoRitardi;
             $testoChiusura1 = $testoChiusura;
             $testoAttiva1 = $testoAttiva;
+            $testoVerifica1 = $testoVerifica;
             if ($flagSchedaApprovata == false) {
                 $testoApprovata1 = '';
                 $descrizioneSchedeApprovate = [];
@@ -415,7 +471,11 @@ class MailerGenerator
                 $testoAttiva1 = '';
                 $descrizioneValutazioneProfessionale = [];
             }
-            if ($flagSchedaApprovata == false && $flagRitardi == false && $flagSchedeDaChiudere == false && $flagValutazioneProfessionale == false) {
+            if ($flagSchedeVerifica == false) {
+                $testoVerifica1 = '';
+                $descrizioneSchedeVerifica = [];
+            }
+            if ($flagSchedaApprovata == false && $flagRitardi == false && $flagSchedeDaChiudere == false && $flagValutazioneProfessionale == false && $flagSchedeVerifica == false) {
                 //non invio l'email. l'operatore non ha nulla da fare.
             } else {
                 $operatore = $userRepository->findOneById($idOperatore);
@@ -437,6 +497,8 @@ class MailerGenerator
                         'descrizioneSchedeDaChiudere' => $descrizioneSchedeDaChiudere,
                         'testoAttiva1' => $testoAttiva1,
                         'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
+                        'testoVerifica1' => $testoVerifica1,
+                        'descrizioneSchedeVerifica' => $descrizioneSchedeVerifica,
                         "logoCoop" => $logoCoop,
                         "calendarIcon" => $calendarIcon,
                         "separatoreTop" => $separatoreTop,
@@ -446,6 +508,7 @@ class MailerGenerator
                         "immagineScaleRitardi" => $immagineScaleRitardi,
                         "immagineValutazioni" => $immagineValutazioni,
                         "immagineScadute" => $immagineScadute,
+                        "immagineVerifica" => $immagineVerifica,
                         "url" => $url,
                         "operatore" => $operatore
                     ]);

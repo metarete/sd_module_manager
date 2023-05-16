@@ -42,7 +42,13 @@
 						
 						<td data-title='Nome/Cognome'>{{ user.name }}
 							{{ user.surname }}</td>
-						<td data-title='Username'>{{ user.username }}</td>
+						<td data-title='Username'>
+							{% if user.username == null %}
+							/
+							{% else %}
+							{{ user.username }}
+							{% endif %}
+						</td>
 						<td data-title='Email'>{{user.email}}</td>
 						<td data-title='Ruolo'>
 							{% if "ROLE_ADMIN" in user.roles %}
