@@ -21,6 +21,7 @@ use App\Service\SDManagerClientApiService;
 use App\Service\BisogniService;
 use App\Service\AltraTipologiaAssistenzaService;
 use App\Service\ApprovaSchedaService;
+use App\Service\SetterDatiSchedaPaiService;
 use App\Service\SetterStatoVerificaSchedaPaiService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,8 +46,9 @@ class SchedaPAIController extends AbstractController
     private $filtroNomiStatiScadenzario;
     private $filtroDropdownScadenzario;
     private $setterStatoVerificaSchedaPaiService;
+    private $setterDatiSchedaPaiService;
 
-    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService)
+    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, SetterDatiSchedaPaiService $setterDatiSchedaPaiService)
     {
         $this->workflow = $schedePaiCreatingStateMachine;
         $this->entityManager = $entityManager;
@@ -58,6 +60,7 @@ class SchedaPAIController extends AbstractController
         $this->filtroNomiStatiScadenzario = $filtroNomiStatiScadenzario;
         $this->filtroDropdownScadenzario = $filtroDropdownScadenzario;
         $this->setterStatoVerificaSchedaPaiService = $setterStatoVerificaSchedaPaiService;
+        $this->setterDatiSchedaPaiService = $setterDatiSchedaPaiService;
     }
 
 
@@ -244,52 +247,7 @@ class SchedaPAIController extends AbstractController
         
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $frequenzaBarthel = $schedaPAI->getFrequenzaBarthel();
-            $frequenzaBraden = $schedaPAI->getFrequenzaBraden();
-            $frequenzaSpmsq = $schedaPAI->getFrequenzaSpmsq();
-            $frequenzaTinetti = $schedaPAI->getFrequenzaTinetti();
-            $frequenzaVas = $schedaPAI->getFrequenzaVas();
-            $frequenzaLesioni = $schedaPAI->getFrequenzaLesioni();
-            $frequenzaPainad = $schedaPAI->getFrequenzaPainad();
-            $dataInizio = $schedaPAI->getDataInizio();
-            $dataFine = $schedaPAI->getDataFine();
-            $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
-            if ($frequenzaBarthel == 0) {
-                $numeroBarthelCorretto = 0;
-            } else
-                $numeroBarthelCorretto = (int)($numeroGiorniTotali / $frequenzaBarthel);
-            if ($frequenzaBraden == 0) {
-                $numeroBradenCorretto = 0;
-            } else
-                $numeroBradenCorretto = (int)($numeroGiorniTotali / $frequenzaBraden);
-            if ($frequenzaSpmsq == 0) {
-                $numeroSpmsqCorretto = 0;
-            } else
-                $numeroSpmsqCorretto = (int)($numeroGiorniTotali / $frequenzaSpmsq);
-            if ($frequenzaTinetti == 0) {
-                $numeroTinettiCorretto = 0;
-            } else
-                $numeroTinettiCorretto = (int)($numeroGiorniTotali / $frequenzaTinetti);
-            if ($frequenzaVas == 0) {
-                $numeroVasCorretto = 0;
-            } else
-                $numeroVasCorretto = (int)($numeroGiorniTotali / $frequenzaVas);
-            if ($frequenzaLesioni == 0) {
-                $numeroLesioniCorretto = 0;
-            } else
-                $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni);
-            if ($frequenzaPainad == 0) {
-                $numeroPainadCorretto = 0;
-            } else
-                $numeroPainadCorretto = (int)($numeroGiorniTotali / $frequenzaPainad);
-
-            $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
-            $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
-            $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
-            $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
-            $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
-            $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
-            $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
+            $this->setterDatiSchedaPaiService->settaDatiCompilazioneSchede($schedaPAI);
 
             if ($form->getClickedButton() && 'salvaEApprova' === $form->getClickedButton()->getName()) {
                 $schedaPAI->setCurrentPlace('approvata');
@@ -568,81 +526,17 @@ class SchedaPAIController extends AbstractController
         $post = $schedaPAI;
         $this->denyAccessUnlessGranted('non_rinnovare', $post);
         $schedaPAI->setCurrentPlace("in_attesa_di_chiusura");
-        if($schedaPAI->isAbilitaBarthel()== true){
-            $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto()+1;
-            $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
-        }
-        if($schedaPAI->isAbilitaBraden()== true){
-            $numeroBradenCorretto = $schedaPAI->getNumeroBradenCorretto()+1;
-            $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
-        }
-        if($schedaPAI->isAbilitaSpmsq()== true){
-            $numeroSpmsqCorretto = $schedaPAI->getNumeroSpmsqCorretto()+1;
-            $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
-        }
-        if($schedaPAI->isAbilitaTinetti()== true){
-            $numeroTinettiCorretto = $schedaPAI->getNumeroTinettiCorretto()+1;
-            $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
-        }
-        if($schedaPAI->isAbilitaVas()== true){
-            $numeroVasCorretto = $schedaPAI->getNumeroVasCorretto()+1;
-            $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
-        }
-        if($schedaPAI->isAbilitaLesioni()== true){
-            $numeroLesioniCorretto = $schedaPAI->getNumeroLesioniCorretto()+1;
-            $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
-        }
-        if($schedaPAI->isAbilitaPainad()== true){
-            $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto()+1;
-            $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
-        }
+        //il setter sistema il calcolo del totale scale
         $this->entityManager->flush();
-    
+        
         return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/torna_al_verifica_scheda_pai/{id}', name: 'app_scheda_pai_torna_al_verifica', methods: ['GET'])]
     public function tornaInVerifica(SchedaPAI $schedaPAI, string $pathName)
     {
-        
-        if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura"){
-            if($schedaPAI->isAbilitaBarthel()== true){
-                $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto()-1;
-                $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
-            }
-            if($schedaPAI->isAbilitaBraden()== true){
-                $numeroBradenCorretto = $schedaPAI->getNumeroBradenCorretto()-1;
-                $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
-            }
-            if($schedaPAI->isAbilitaSpmsq()== true){
-                $numeroSpmsqCorretto = $schedaPAI->getNumeroSpmsqCorretto()-1;
-                $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
-            }
-            if($schedaPAI->isAbilitaTinetti()== true){
-                $numeroTinettiCorretto = $schedaPAI->getNumeroTinettiCorretto()-1;
-                $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
-            }
-            if($schedaPAI->isAbilitaVas()== true){
-                $numeroVasCorretto = $schedaPAI->getNumeroVasCorretto()-1;
-                $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
-            }
-            if($schedaPAI->isAbilitaLesioni()== true){
-                $numeroLesioniCorretto = $schedaPAI->getNumeroLesioniCorretto()-1;
-                $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
-            }
-            if($schedaPAI->isAbilitaPainad()== true){
-                $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto()-1;
-                $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
-            }
-            $schedaPAI->setCurrentPlace("verifica");
-        }
-        else if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo"){
-            $schedaPAI->setCurrentPlace("verifica");
-        }
-        else{
-            // non fa nulla
-        }
-        
+        //il setter sistema il calcolo del totale scale
+        $schedaPAI->setCurrentPlace("verifica");
         $this->entityManager->flush();
     
         return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);

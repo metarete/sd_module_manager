@@ -24,15 +24,15 @@ class SDManagerClientApiService
     private $numeroProgettiAggiornati = 0;
 
     private $setterCambioStatiDopoSincronizzazioneService;
-    private $setterValoriNonMappatiScaleSchedaPaiService;
+    
 
-    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, ParameterBagInterface $params, SetterCambioStatiDopoSincronizzazioneService $setterCambioStatiDopoSincronizzazioneService, SetterValoriNonMappatiScaleSchedaPaiService $setterValoriNonMappatiScaleSchedaPaiService)
+    public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, ParameterBagInterface $params, SetterCambioStatiDopoSincronizzazioneService $setterCambioStatiDopoSincronizzazioneService)
     {
         $this->client = $client;
         $this->entityManager = $entityManager;
         $this->params = $params;
         $this->setterCambioStatiDopoSincronizzazioneService = $setterCambioStatiDopoSincronizzazioneService;
-        $this->setterValoriNonMappatiScaleSchedaPaiService = $setterValoriNonMappatiScaleSchedaPaiService;
+        
     }
 
     public function getCodiceResponseProgetti(): int
@@ -236,7 +236,7 @@ class SDManagerClientApiService
                     //check per i cambiamenti di stato in base ai cambio data iniziale e finale
                     $this->setterCambioStatiDopoSincronizzazioneService->settaCambioStati($dataInizio, $dataFine, $schedaPai);
                     $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto);
-                    $this->setterValoriNonMappatiScaleSchedaPaiService->settaValoriScale($schedaPai);
+                    
                     $this->numeroProgettiAggiornati++;                    
                 }
             }
