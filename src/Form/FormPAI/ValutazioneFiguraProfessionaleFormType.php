@@ -55,11 +55,7 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'required'   => false,
                 'empty_data' => '',
             ])
-            ->add('modalitaTempiMonitoraggio', TextareaType::class, [
-                'attr' => array('style' => 'height:100px'),
-                'required'   => false,
-                'empty_data' => '',
-            ]);
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

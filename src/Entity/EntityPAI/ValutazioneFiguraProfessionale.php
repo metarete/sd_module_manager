@@ -34,9 +34,6 @@ class ValutazioneFiguraProfessionale
     #[ORM\Column(type: 'text')]
     private $tipoEFrequenza;
 
-    #[ORM\Column(type: 'text')]
-    private $modalitaTempiMonitoraggio;
-
     #[ORM\Column(type: 'date')]
     #[Assert\Type(\DateTime::class)]
     private $dataValutazione;
@@ -78,18 +75,6 @@ class ValutazioneFiguraProfessionale
     public function setTipoEFrequenza(string $tipoEFrequenza): self
     {
         $this->tipoEFrequenza = $tipoEFrequenza;
-
-        return $this;
-    }
-
-    public function getModalitaTempiMonitoraggio(): ?string
-    {
-        return $this->modalitaTempiMonitoraggio;
-    }
-
-    public function setModalitaTempiMonitoraggio(string $modalitaTempiMonitoraggio): self
-    {
-        $this->modalitaTempiMonitoraggio = $modalitaTempiMonitoraggio;
 
         return $this;
     }
