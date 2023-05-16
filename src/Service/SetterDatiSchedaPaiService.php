@@ -93,7 +93,7 @@ Class SetterDatiSchedaPaiService
 
         //se non rinnovo la scheda aggiungo una valutazione finale per ogni scala
 
-        if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura"){
+        if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == 'chiusa'){
             if($schedaPAI->isAbilitaBarthel()== true){
                 $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto()+1;
                 $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
