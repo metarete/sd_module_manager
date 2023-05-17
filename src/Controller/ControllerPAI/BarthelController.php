@@ -104,7 +104,6 @@ class BarthelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $barthelRepository->add($barthel, true);
-
             return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
