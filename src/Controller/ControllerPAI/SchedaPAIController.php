@@ -36,7 +36,6 @@ use App\Twig\FiltroNomiStatiScadenzario;
 #[Route('/scheda_pai')]
 class SchedaPAIController extends AbstractController
 {
-    private $workflow;
     private $entityManager;
     private $SdManagerClientApiService;
     private $altraTipologiaAssistenzaService;
@@ -48,9 +47,8 @@ class SchedaPAIController extends AbstractController
     private $setterStatoVerificaSchedaPaiService;
     private $setterDatiSchedaPaiService;
 
-    public function __construct(WorkflowInterface $schedePaiCreatingStateMachine, EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, SetterDatiSchedaPaiService $setterDatiSchedaPaiService)
+    public function __construct( EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, SetterDatiSchedaPaiService $setterDatiSchedaPaiService)
     {
-        $this->workflow = $schedePaiCreatingStateMachine;
         $this->entityManager = $entityManager;
         $this->SdManagerClientApiService = $SdManagerClientApiService;
         $this->altraTipologiaAssistenzaService = $altraTipologiaAssistenzaService;
@@ -165,7 +163,7 @@ class SchedaPAIController extends AbstractController
 
         return $this->render('scheda_pai/index.html.twig', [
             'scheda_pais' => $schedaPais,
-            'pagina' => $page,
+            'page' => $page,
             'pagine_totali' => $pagineTotali,
             'schede_per_pagina' => $schedePerPagina,
             'operatore' => $operatore,

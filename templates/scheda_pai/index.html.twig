@@ -313,17 +313,17 @@
 
 <nav aria-label="Page navigation example">
    <ul class="pagination justify-content-center">
-       <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index') }}'; document.getElementById('my_form').submit();"><<</a></li>
-        <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':pagina-1}) }}'; document.getElementById('my_form').submit();"><</a></li>
+       <li class="page-item"><a class="page-link {% if page==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index') }}'; document.getElementById('my_form').submit();"><<</a></li>
+        <li class="page-item"><a class="page-link {% if page==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':page-1}) }}'; document.getElementById('my_form').submit();"><</a></li>
     {% for i in 1..pagine_totali %}
-        {% if i == pagina %}
+        {% if i == page %}
             <li class="page-item active"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
-        {% elseif i <= pagina + 5 and i >= pagina - 1 %}
+        {% elseif i <= page + 5 and i >= page - 1 %}
             <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
         {% endif %}
     {% endfor %}
-    <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':pagina+1}) }}'; document.getElementById('my_form').submit();">></a></li>
-      <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':pagine_totali}) }}'; document.getElementById('my_form').submit();">>></a></li>
+    <li class="page-item"><a class="page-link {% if page==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':page+1}) }}'; document.getElementById('my_form').submit();">></a></li>
+      <li class="page-item"><a class="page-link {% if page==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_scheda_pai_index', {'page':pagine_totali}) }}'; document.getElementById('my_form').submit();">>></a></li>
   </ul>
 </nav>
 
