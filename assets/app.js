@@ -74,15 +74,19 @@ var percentualeNuove = $("#percentualeNuove").text();
 var percentualeApprovate = $("#percentualeApprovate").text();
 var percentualeAttive = $("#percentualeAttive").text();
 var percentualeInAttesa = $("#percentualeInAttesa").text();
+var percentualeInAttesaConRinnovo = $("#percentualeInAttesaConRinnovo").text();
+var percentualeVerifica = $("#percentualeVerifica").text();
 var percentualeChiuse = $("#percentualeChiuse").text();
 var percentualeChiuseConRinnovo = $("#percentualeChiuseConRinnovo").text();
 
-var yValues = [percentualeNuove, percentualeApprovate, percentualeAttive, percentualeInAttesa, percentualeChiuse, percentualeChiuseConRinnovo];
+var yValues = [percentualeNuove, percentualeApprovate, percentualeAttive, percentualeInAttesa, percentualeInAttesaConRinnovo, percentualeVerifica, percentualeChiuse, percentualeChiuseConRinnovo];
 var barColors = [
   "#6f42c1",
   "#d63384",
   "#198754",
   "#ffc107",
+  "#1E90FF",
+  "#8B4513",
   "#dc3545",
   "#fd7e14",
 ];

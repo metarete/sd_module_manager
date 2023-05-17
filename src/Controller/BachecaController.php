@@ -33,6 +33,8 @@ class BachecaController extends AbstractController
         $schedeApprovate = count($schedePaiRepository->findByState("approvata"));
         $schedeAttive = count($schedePaiRepository->findByState("attiva"));
         $schedeInAttesa = count($schedePaiRepository->findByState("in_attesa_di_chiusura"));
+        $schedeInAttesaConRinnovo = count($schedePaiRepository->findByState("in_attesa_di_chiusura_con_rinnovo"));
+        $schedeVerifica = count($schedePaiRepository->findByState("verifica"));
         $schedeChiuse = count($schedePaiRepository->findByState("chiusa"));
         $schedeChiuseConRinnovo = count($schedePaiRepository->findByState("chiusa_con_rinnovo"));
         $totaleSchede = count($schedePaiRepository->findAll());
@@ -43,15 +45,17 @@ class BachecaController extends AbstractController
             $percentualeApprovate = 0;
             $percentualeAttive = 0;
             $percentualeInAttesa = 0;
+            $percentualeInAttesaConRinnovo = 0;
+            $percentualeVerifica = 0;
             $percentualeChiuse = 0;
             $percentualeChiuseConRinnovo = 0;
         } else {
-
-
             $percentualeNuove = (int)(($schedeNuove / $totaleSchede) * 100);
             $percentualeApprovate = (int)(($schedeApprovate / $totaleSchede) * 100);
             $percentualeAttive = (int)(($schedeAttive / $totaleSchede) * 100);
             $percentualeInAttesa = (int)(($schedeInAttesa / $totaleSchede) * 100);
+            $percentualeInAttesaConRinnovo = (int)(($schedeInAttesaConRinnovo / $totaleSchede) * 100);
+            $percentualeVerifica = (int)(($schedeVerifica / $totaleSchede) * 100);
             $percentualeChiuse = (int)(($schedeChiuse / $totaleSchede) * 100);
             $percentualeChiuseConRinnovo = (int)(($schedeChiuseConRinnovo / $totaleSchede) * 100);
         }
@@ -62,6 +66,8 @@ class BachecaController extends AbstractController
             'schedeApprovate' => $schedeApprovate,
             'schedeAttive' => $schedeAttive,
             'schedeInAttesa' => $schedeInAttesa,
+            'schedeInAttesaConRinnovo' => $schedeInAttesaConRinnovo,
+            'schedeVerifica' => $schedeVerifica,
             'schedeChiuse' => $schedeChiuse,
             'schedeChiuseConRinnovo' => $schedeChiuseConRinnovo,
             'totaleSchede' => $totaleSchede,
@@ -71,6 +77,8 @@ class BachecaController extends AbstractController
             'percentualeApprovate' => $percentualeApprovate,
             'percentualeAttive' => $percentualeAttive,
             'percentualeInAttesa' => $percentualeInAttesa,
+            'percentualeInAttesaConRinnovo' => $percentualeInAttesaConRinnovo,
+            'percentualeVerifica' => $percentualeVerifica,
             'percentualeChiuse' => $percentualeChiuse,
             'percentualeChiuseConRinnovo' => $percentualeChiuseConRinnovo,
 
