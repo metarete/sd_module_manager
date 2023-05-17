@@ -112,10 +112,19 @@ class SetterDropdownScadenzarioService
     {
         $style = null;
 
-        if ($schedaPAI->getCurrentPlace() != 'approvata' || $user->getUsername() != $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+        if ($schedaPAI->getCurrentPlace() == 'approvata'){
+            if($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                $style = ''; 
+            }
+            elseif(in_array("ROLE_ADMIN", $user->getRoles())){
+                $style = '';
+            }
+            else{
+                $style = 'display:none';  
+            }
+        }
+        else{
             $style = 'display:none'; 
-        } else {
-            $style = '';
         }
 
         return $style;
@@ -130,7 +139,11 @@ class SetterDropdownScadenzarioService
         }else{
             if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
                 $style = '';
-            }else{
+            }
+            elseif(in_array("ROLE_ADMIN", $user->getRoles())){
+                $style = '';
+            }
+            else{
                 for($i=0; $i<count($schedaPAI->getidOperatoreSecondarioInf()); $i++){
                     if ($schedaPAI->getidOperatoreSecondarioInf()[$i]->getUsername() == $user->getUsername())
                         return '';
@@ -161,10 +174,19 @@ class SetterDropdownScadenzarioService
     {
         $style = null;
 
-        if ($schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $user->getUsername() != $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+        if ($schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' ){
             $style = 'display:none';
-        }else{
-            $style = '';
+        }
+        else{
+            if(in_array("ROLE_ADMIN", $user->getRoles())){
+                $style = '';
+            }
+            elseif($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                $style = '';
+            }
+            else{
+                $style = 'display:none';
+            }
         }
         return $style;
     }
