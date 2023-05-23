@@ -237,6 +237,8 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/{id}/edit/', name: 'app_scheda_pai_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository, string $pathName): Response
     {
+        $page = $request->query->get('page');
+
         $post = $schedaPAI;
         $this->denyAccessUnlessGranted('configura', $post);
 
@@ -256,9 +258,9 @@ class SchedaPAIController extends AbstractController
 
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('scheda_pai/edit.html.twig', [
@@ -271,6 +273,8 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/delete/{id}', name: 'app_scheda_pai_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, SchedaPAI $schedaPAI, SchedaPAIRepository $schedaPAIRepository, string $pathName): Response
     {
+        $page = $request->query->get('page');
+
         $post = $schedaPAI;
         $this->denyAccessUnlessGranted('elimina', $post);
 
@@ -280,7 +284,7 @@ class SchedaPAIController extends AbstractController
         }
 
 
-        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/pdf/{id}', name: 'app_scheda_pai_pdf', methods: ['GET'])]
@@ -387,6 +391,8 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/chiusura_scheda/{id}', name: 'app_scheda_pai_chiusura', methods: ['GET'])]
     public function chiudiScheda(SchedaPAI $schedaPAI, string $pathName, Request $request): Response
     {
+        $page = $request->query->get('page');
+
         $post = $schedaPAI;
         $this->denyAccessUnlessGranted('chiudi', $post);
 
@@ -437,28 +443,30 @@ class SchedaPAIController extends AbstractController
                 $session = $request->getSession();
                 $session->set('alertSincronizzazione', 'chiusuraFallitaPerStato');
                 if ($pathName == 'app_scadenzario_index') {
-                    return $this->redirectToRoute('app_scadenzario_index', []);
+                    return $this->redirectToRoute('app_scadenzario_index', ['page' => $page]);
                 } else
-                    return $this->redirectToRoute('app_scheda_pai_index', []);
+                    return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page]);
             }
         } else {
             //alert fallimento chiusura
             $session = $request->getSession();
             $session->set('alertSincronizzazione', 'chiusuraFallita');
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', []);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page]);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', []);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page]);
         }
 
         if ($pathName == 'app_scadenzario_index') {
-            return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
         } else
-            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
     }
     #[Route('/sincronizza_progetti', name: 'app_scheda_pai_sincronizza', methods: ['GET'])]
     public function sincronizza(Request $request, SchedaPAIRepository $schedaPAIRepository)
     {
+        $page = $request->query->get('page');
+
         $session = $request->getSession();
 
         $dataInizio = date('d-m-Y', strtotime('-3 month'));
@@ -467,17 +475,17 @@ class SchedaPAIController extends AbstractController
         $this->SdManagerClientApiService->sincAssistiti();
         if ($this->SdManagerClientApiService->getCodiceResponseAssistiti() != 200) {
             $session->set('alertSincronizzazione', 'errore');
-            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scheda_pai_index', ['page'=> $page], Response::HTTP_SEE_OTHER);
         }
         $this->SdManagerClientApiService->sincOperatori();
         if ($this->SdManagerClientApiService->getCodiceResponseOperatori() != 200) {
             $session->set('alertSincronizzazione', 'errore');
-            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
         }
         $this->SdManagerClientApiService->sincProgetti($dataInizio, $dataFine);
         if ($this->SdManagerClientApiService->getCodiceResponseProgetti() != 200) {
             $session->set('alertSincronizzazione', 'errore');
-            return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
         }
 
         //ricalcolo del verifica dopo gli eventuali cambiamenti di data dei progetti
@@ -489,12 +497,14 @@ class SchedaPAIController extends AbstractController
 
         $session->set('alertSincronizzazione', 'completata');
 
-        return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/approva_scheda_pai/{id}', name: 'app_scheda_pai_approva', methods: ['GET'])]
     public function approva(Request $request, SchedaPAI $schedaPAI, string $pathName)
     {
+        $page = $request->query->get('page');
+
         $post = $schedaPAI;
         $this->denyAccessUnlessGranted('approva', $post);
 
@@ -504,39 +514,42 @@ class SchedaPAIController extends AbstractController
             $session->set('alertSincronizzazione', 'approvazioneFallita');
         }
 
-        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/rinnova_scheda_pai/{id}', name: 'app_scheda_pai_rinnova', methods: ['GET'])]
-    public function rinnova(SchedaPAI $schedaPAI, string $pathName)
+    public function rinnova(Request $request, SchedaPAI $schedaPAI, string $pathName)
     {
+        $page = $request->query->get('page');
         $post = $schedaPAI;
         $this->denyAccessUnlessGranted('rinnovare', $post);
         $schedaPAI->setCurrentPlace("in_attesa_di_chiusura_con_rinnovo");
         $this->entityManager->flush();
     
-        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/non_rinnovare_scheda_pai/{id}', name: 'app_scheda_pai_non_rinnovare', methods: ['GET'])]
-    public function nonRinnovare(SchedaPAI $schedaPAI, string $pathName)
+    public function nonRinnovare(Request $request, SchedaPAI $schedaPAI, string $pathName)
     {
+        $page = $request->query->get('page');
         $post = $schedaPAI;
         $this->denyAccessUnlessGranted('non_rinnovare', $post);
         $schedaPAI->setCurrentPlace("in_attesa_di_chiusura");
         //il setter sistema il calcolo del totale scale
         $this->entityManager->flush();
         
-        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/torna_al_verifica_scheda_pai/{id}', name: 'app_scheda_pai_torna_al_verifica', methods: ['GET'])]
-    public function tornaInVerifica(SchedaPAI $schedaPAI, string $pathName)
+    public function tornaInVerifica(Request $request, SchedaPAI $schedaPAI, string $pathName)
     {
+        $page = $request->query->get('page');
         //il setter sistema il calcolo del totale scale
         $schedaPAI->setCurrentPlace("verifica");
         $this->entityManager->flush();
     
-        return $this->redirectToRoute($pathName, [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 }

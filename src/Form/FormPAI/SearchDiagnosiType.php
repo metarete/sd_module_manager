@@ -15,13 +15,21 @@ class SearchDiagnosiType extends AbstractType
     {
         $resolver->setDefaults([
             'class'=> Diagnosi::class,
-            'choice_label' => function (Diagnosi $diagnosi) {
-                return $diagnosi->getDescrizione();
-                },
             'label' => 'Diagnosi professionale',
             'help' => 'Classificazione secondo standard ICD-9-CM',
             'multiple'=> true,
             'required'   => false,
+            'max_results' => 25,
+            'filter_query'=> [
+                'filter_query' => function(QueryBuilder $qb, string $query, DiagnosiRepository $repository) {
+                    if (!$query) {
+                        return;
+                    }
+            
+                    $qb->andWhere('entity.name LIKE :filter OR entity.description LIKE :filter')
+                        ->setParameter('filter', '%'.$query.'%');
+                },
+            ],
         ]);
     }
 

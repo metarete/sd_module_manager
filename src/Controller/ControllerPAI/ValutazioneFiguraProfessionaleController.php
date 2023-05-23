@@ -48,6 +48,7 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
     public function new(Request $request, string $pathName): Response
     {
         $id_pai = $request->query->get('id_pai');
+        $page = $request->query->get('page');
         $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $schedaPai = $SchedaPAIRepository->find($id_pai);
 
@@ -70,9 +71,9 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             $this->entityManager->flush();
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('valutazione_figura_professionale/new.html.twig', [

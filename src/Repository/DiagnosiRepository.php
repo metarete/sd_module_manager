@@ -55,6 +55,16 @@ class DiagnosiRepository extends ServiceEntityRepository
                  ->execute();
         return $query;
     }
+
+    public function findBySerchBar(string $input): array
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.descrizione LIKE :input')
+            ->setParameter('input', '%'.$input.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     //    /**
     //     * @return Diagnosi[] Returns an array of Diagnosi objects
     //     */

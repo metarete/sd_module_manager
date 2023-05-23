@@ -60,8 +60,7 @@ class ValutazioneGeneraleFormType extends AbstractType
             
             ->add('fanf', ChoiceType::class,[
                 'choices' => $fanfChoices,
-                'placeholder' => '',
-                'label' => 'Frequenza Assistente Non Famigliare'
+                'label' => 'Frequenza Assistente Non Famigliare',
             ])
             
             ->add('iss', ChoiceType::class,[
@@ -121,17 +120,7 @@ class ValutazioneGeneraleFormType extends AbstractType
                 'choices' => $disturbiChoices,
                 'placeholder' => '',
             ])
-            ->add('diagnosi', EntityType::class,[
-                'class'=> Diagnosi::class,
-                'choice_label' => function (Diagnosi $diagnosi) {
-                    return $diagnosi->getDescrizione();
-                },
-                'label' => 'Diagnosi professionale',
-                'help' => 'Classificazione secondo standard ICD-9-CM',
-                'multiple'=> true,
-                'required'   => false,
-                'autocomplete' => true,
-            ])
+            ->add('diagnosi', SearchDiagnosiType::class)
             
             ->add('broncoaspirazione',CheckboxType::class, [
                 'label'    => 'Broncoaspirazione/Drenaggio posturale',
