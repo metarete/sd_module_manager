@@ -17,6 +17,11 @@ import bsCustomFileInput from 'bs-custom-file-input';
 // start the Stimulus application
 import './bootstrap';
 
+// import HTMX library
+//import 'htmx.org';
+//window.htmx = require('htmx.org');
+import './htmx_functions.js';
+
 bsCustomFileInput.init();
 //icona tema dark
 
@@ -68,6 +73,32 @@ $(function() {
     }
 
   }
+  
+  //valutazione generale
+  $('#valutazione_generale_form_panf').on('change', function(e){
+    var valorePresenzaAssistenteNonFamigiare = $(this).val();
+    var selettore = $('#valutazione_generale_form_fanf');
+    if(valorePresenzaAssistenteNonFamigiare == 'non presente'){
+      selettore.val('nessuna');
+      selettore.prop('disabled', 'disabled');
+      selettore.prop('required', false);
+      
+    }
+    else {
+      selettore.prop('disabled', false);
+    }
+  });
+  if($('#valutazione_generale_form_panf')
+  && $('#valutazione_generale_form_panf').val() == 'non presente'){
+    var selettore = $('#valutazione_generale_form_fanf');
+    if(selettore){
+      selettore.prop('disabled', 'disabled');
+      selettore.val('nessuna');
+    }
+
+  }
+
+
 });
 //grafico schede
 var percentualeNuove = $("#percentualeNuove").text();

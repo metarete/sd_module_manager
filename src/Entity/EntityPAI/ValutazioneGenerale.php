@@ -43,7 +43,7 @@ class ValutazioneGenerale
     #[Assert\NotBlank]
     private $panf;
 
-    #[ORM\Column(type: 'FANF', nullable:false)]
+    #[ORM\Column(type: 'FANF', nullable:true)]
     #[Assert\NotBlank]
     private $fanf;
 

@@ -2,7 +2,7 @@
 
 namespace App\Form\FormPAI;
 
-use App\Entity\Diagnosi;
+
 use App\Doctrine\DBAL\Type\ISS;
 use App\Doctrine\DBAL\Type\FANF;
 use App\Doctrine\DBAL\Type\PANF;
@@ -16,8 +16,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Form\SearchDiagnosiType;
+use App\Entity\Diagnosi;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ValutazioneGeneraleFormType extends AbstractType
 {
@@ -122,7 +124,8 @@ class ValutazioneGeneraleFormType extends AbstractType
             ->add('diagnosi', EntityType::class,[
                 'class'=> Diagnosi::class,
                 'choice_label' => function (Diagnosi $diagnosi) {
-                    return $diagnosi->getDescrizione();},
+                    return $diagnosi->getDescrizione();
+                },
                 'label' => 'Diagnosi professionale',
                 'help' => 'Classificazione secondo standard ICD-9-CM',
                 'multiple'=> true,

@@ -60,6 +60,12 @@ Inserire nel database tutta la lista delle diagnosi con il comando
 ```
 php bin/console app:inserisci-lista-diagnosi
 ```
+In caso di aggiornamento della lista diagnosi è necessario prima eliminare tutte le diagnosi e successivamente rilanciare il comando di inserimento lista diagnosi.
+Per cancellare le diagnosi lanciare il comando
+
+```
+php bin/console app:elimina-lista-diagnosi
+```
 
 Accedere all'applicativo all'indirizzo:
 

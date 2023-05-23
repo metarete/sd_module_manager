@@ -113,6 +113,25 @@ label.test:after {
     color: #055160;
 }
 
+//espandi container 
+.espandi-container {
+    font-size:25px;
+    .aperto{
+        display: block;
+    }
+    .chiuso{
+        display: none;
+    }
+    &.collapsed {
+        .aperto{
+            display: none;
+        }
+        .chiuso{
+            display: block;
+        }
+    }
+}
+
 //tabelle di visualizzazione
 @media only screen and (max-width: 1200px) {
 

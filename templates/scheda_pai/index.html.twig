@@ -107,8 +107,9 @@
        
             <tr>
                 <td data-title='Espandi'>
-					<div class="bi bi-caret-down-fill" style="font-size:25px;"  data-bs-toggle="collapse" data-bs-target="#data{{scheda_pai.id}}" aria-expanded="false" aria-controls="data{{scheda_pai.id}}">
-					    <a href="#"></td>
+					<div class="espandi-container collapsed"  data-bs-toggle="collapse" data-bs-target="#data{{scheda_pai.id}}" aria-expanded="false" aria-controls="data{{scheda_pai.id}}">
+					    <a class="bi bi-caret-down-fill aperto" href="#"></a>
+                        <a class="bi bi-caret-right-fill chiuso" href="#"></a> 
 					</div>
 				</td>
                 <td data-title='Id'>{{ scheda_pai.id }}</td>
