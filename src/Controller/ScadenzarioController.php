@@ -47,17 +47,25 @@ class ScadenzarioController extends AbstractController
         //parametri per calcolo tabella
         $roles = $user->getRoles();
         $idUser = $user->getId();
+        //sessione
+        $session = $request->getSession();
         //filtri
-        $numeroSchedeVisibiliPerPagina = $request->request->get('filtro_numero_schede_scadenzario');
+        if( $request->request->get('filtro_numero_schede_scadenzario') != null || $request->request->get('filtro_numero_schede_scadenzario') == $session->get('filtro_numero_schede_scadenzario')){
+            if($request->request->get('filtro_numero_schede_scadenzario') == 0)
+                $session->set('filtro_numero_schede_scadenzario', null);
+            else{
+                $session->set('filtro_numero_schede_scadenzario', $request->request->get('filtro_numero_schede_scadenzario'));
+            }
+        }
 
 
         //calcolo tabella
         $schedaPais = null;
 
-        if ($numeroSchedeVisibiliPerPagina == null)
+        if ($session->get('filtro_numero_schede_scadenzario') == null)
             $schedePerPagina = 10;
         else
-            $schedePerPagina = $numeroSchedeVisibiliPerPagina;
+            $schedePerPagina = $session->get('filtro_numero_schede_scadenzario');
 
         $offset = $schedePerPagina * $page - $schedePerPagina;
 

@@ -36,7 +36,7 @@
         <div class="col-md-2">
         <p class="h6">Filtro Operatore</p>
         <select class="d-inline form-select" name='filtro_operatore' onchange="this.form.submit()">
-                <option {% if operatore == '' %}selected{% endif %} value="">Tutti</option>
+                <option {% if operatore == 'tutti' %}selected{% endif %} value="tutti">Tutti</option>
                 {% for userInLista in listaOperatori %}
                     <option {% if operatore == userInLista.id %}selected{% endif %} value="{{userInLista.id}}" >{{userInLista.name}} {{userInLista.surname}} : {{userInLista.cf}}</option>
                 {% endfor %}
@@ -45,7 +45,7 @@
         <div class="col-md-2">
         <p class="h6">Filtro stato</p>
         <select class="d-inline form-select" name='filtro_stato' onchange="this.form.submit()">
-                <option {% if stato == '' %}selected{% endif %} value="">Tutti</option>
+                <option {% if stato == 'tutti' %}selected{% endif %} value="tutti">Tutti</option>
                 <option {% if stato == 'nuova' %}selected{% endif %} value="nuova">Nuova</option>
                 <option {% if stato == 'attiva' %}selected{% endif %} value="attiva">Attiva</option>
                 <option {% if stato == 'approvata' %}selected{% endif %} value="approvata">Approvata</option>

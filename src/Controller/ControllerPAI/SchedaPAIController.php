@@ -76,39 +76,60 @@ class SchedaPAIController extends AbstractController
         //parametri per calcolo tabella
         $roles = $user->getRoles();
         $idUser = $user->getId();
+        //sessione
+        $session = $request->getSession();
         //filtri
-        $stato = $request->request->get('filtro_stato');
-        $operatore = $request->request->get('filtro_operatore');
-        $numeroSchedeVisibiliPerPagina = $request->request->get('filtro_numero_schede');
-        $listaOperatori = $userRepository->findAll();
+        if( $request->request->get('filtro_stato') != null || $request->request->get('filtro_stato') == $session->get('filtro_stato')){
+            if($request->request->get('filtro_stato') == 'tutti')
+                $session->set('filtro_stato', null);
+            else{
+                $session->set('filtro_stato', $request->request->get('filtro_stato'));
+            }
+        }
+        if( $request->request->get('filtro_operatore') != null || $request->request->get('filtro_operatore') == $session->get('filtro_operatore')){
+            if($request->request->get('filtro_operatore') == 'tutti')
+                $session->set('filtro_operatore', null);
+            else{
+                $session->set('filtro_operatore', $request->request->get('filtro_operatore'));
+            }
+        }
+        if( $request->request->get('filtro_numero_schede') != null || $request->request->get('filtro_numero_schede') == $session->get('filtro_numero_schede')){
+            if($request->request->get('filtro_numero_schede') == 0)
+                $session->set('filtro_numero_schede', null);
+            else{
+                $session->set('filtro_numero_schede', $request->request->get('filtro_numero_schede'));
+            }
+        }
         
+        $listaOperatori = $userRepository->findAll();
+
         //calcolo tabella
         $schedaPais = null;
 
-        if ($numeroSchedeVisibiliPerPagina == null)
+        if ($session->get('filtro_numero_schede') == null)
             $schedePerPagina = 10;
         else
-            $schedePerPagina = $numeroSchedeVisibiliPerPagina;
+            $schedePerPagina = $session->get('filtro_numero_schede');
 
         $offset = $schedePerPagina * $page - $schedePerPagina;
 
         //applicazione filtri
 
-        if ($stato == null || $stato == "") {
-            if ($operatore == '' || $operatore == null || $operatore == 'tutti')
+        if ($session->get('filtro_stato') == null || $session->get('filtro_stato') == "") {
+            if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
                 $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
             else
-                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($operatore, null, $schedePerPagina, $page);
+                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($session->get('filtro_operatore'), null, $schedePerPagina, $page);
         } else {
-            if ($operatore == '' || $operatore == null || $operatore == 'tutti')
-                $schedaPais = $schedaPAIRepository->selectStatoSchedePai($stato, $page, $schedePerPagina);
+            if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
+                $schedaPais = $schedaPAIRepository->selectStatoSchedePai($session->get('filtro_stato'), $page, $schedePerPagina);
             else
-                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($operatore, $stato, $schedePerPagina, $page);
+                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($session->get('filtro_operatore'), $session->get('filtro_stato'), $schedePerPagina, $page);
         }
 
 
         //calcolo pagine per paginatore
-        $totaleSchede = $schedaPAIRepository->contaSchedePai($roles[0], $idUser, $stato);
+        $totaleSchede = $schedaPAIRepository->contaSchedePai($roles[0], $idUser, $session->get('filtro_stato'));
         $pagineTotali = ceil($totaleSchede / $schedePerPagina);
 
         if ($pagineTotali == 0)
@@ -166,8 +187,8 @@ class SchedaPAIController extends AbstractController
             'page' => $page,
             'pagine_totali' => $pagineTotali,
             'schede_per_pagina' => $schedePerPagina,
-            'operatore' => $operatore,
-            'stato' => $stato,
+            'operatore' => $session->get('filtro_operatore'),
+            'stato' => $session->get('filtro_stato'),
             'user' => $user,
             'assistiti' => $assistiti,
             'listaOperatori' => $listaOperatori,
