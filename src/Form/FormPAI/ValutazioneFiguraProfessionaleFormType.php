@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Form\FormPAI\SearchDiagnosiType;
 
 class ValutazioneFiguraProfessionaleFormType extends AbstractType
 {
@@ -30,16 +31,8 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'choices' => $operatoreChoices,
                 'placeholder' => '',
             ])
-            ->add('diagnosi', EntityType::class,[
-                'class'=> Diagnosi::class,
-                'choice_label' => function (Diagnosi $diagnosi) {
-                    return $diagnosi->getDescrizione();},
-                'label' => 'Diagnosi professionale',
-                'help' => 'Classificazione secondo standard ICD-9-CM',
-                'multiple'=> true,
-                'required'   => false,
-                'autocomplete' => true,
-            ])
+            ->add('diagnosi', SearchDiagnosiType::class)
+            
             ->add('obiettivi', EntityType::class,[
                 'class'=> Obiettivi::class,
                 'choice_label' => function (Obiettivi $obiettivi) {
