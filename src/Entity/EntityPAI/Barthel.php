@@ -3,6 +3,7 @@
 namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BarthelRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -73,11 +74,11 @@ class Barthel
     #[ORM\Column(type: 'integer', nullable: true)]
     private $totale;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBarthel')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBarthel', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreBarthel;
 
-    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBarthel')]
+    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBarthel', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
@@ -85,7 +86,6 @@ class Barthel
     {
         return $this->id;
     }
-
 
     public function getDataValutazione(): ?\DateTimeInterface
     {
@@ -188,7 +188,7 @@ class Barthel
         return $this->totaleValutazioneFunzionale;
     }
 
-    public function setTotaleValutazioneFunzionale(int $totaleValutazioneFunzionale): self
+    public function setTotaleValutazioneFunzionale(?int $totaleValutazioneFunzionale): self
     {
         $this->totaleValutazioneFunzionale = $totaleValutazioneFunzionale;
 
@@ -219,18 +219,6 @@ class Barthel
         return $this;
     }
 
-    /*public function isDeambulazione(): ?bool
-    {
-        return $this->deambulazione;
-    }
-
-    public function setDeambulazione(bool $deambulazione): self
-    {
-        $this->deambulazione = $deambulazione;
-
-        return $this;
-    }
-    */
     public function getDeambulazioneValida(): ?int
     {
         return $this->deambulazioneValida;
@@ -242,13 +230,13 @@ class Barthel
 
         return $this;
     }
-    
+
     public function getUsoCarrozzina(): ?int
     {
         return $this->usoCarrozzina;
     }
 
-    public function setUsoCarrozzina(int $usoCarrozzina): self
+    public function setUsoCarrozzina(?int $usoCarrozzina): self
     {
         $this->usoCarrozzina = $usoCarrozzina;
 
@@ -260,12 +248,13 @@ class Barthel
         return $this->totale;
     }
 
-    public function setTotale(int $totale): self
+    public function setTotale(?int $totale): self
     {
         $this->totale = $totale;
 
         return $this;
     }
+
     public function getSchedaPAI(): ?SchedaPAI
     {
         return $this->schedaPAI;
@@ -283,6 +272,18 @@ class Barthel
     }
 
     public function setOperatore(?User $autoreBarthel): self
+    {
+        $this->autoreBarthel = $autoreBarthel;
+
+        return $this;
+    }
+
+    public function getAutoreBarthel(): ?User
+    {
+        return $this->autoreBarthel;
+    }
+
+    public function setAutoreBarthel(?User $autoreBarthel): self
     {
         $this->autoreBarthel = $autoreBarthel;
 

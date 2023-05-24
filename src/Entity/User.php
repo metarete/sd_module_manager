@@ -109,7 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OnetoMany(mappedBy: 'autoreValutazioneProfessionale', targetEntity: ValutazioneFiguraProfessionale::class)]
     private $idValutazioneFiguraProfessionale;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreValutazioneGenerale', targetEntity: ValutazioneGenerale::class)]
+    #[ORM\OnetoMany(mappedBy: 'autoreValutazioneGenerale', targetEntity: "App\Entity\EntityPAI\ValutazioneGenerale")]
     private $idValutazioneGenerale;
 
     #[ORM\OnetoMany(mappedBy: 'autoreVas', targetEntity: Vas::class)]

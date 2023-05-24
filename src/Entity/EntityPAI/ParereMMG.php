@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Repository\ParereMMGRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,7 +30,7 @@ class ParereMMG
     #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idParereMmg',  cascade: ['persist'])]
     private $schedaPAI;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idParereMmg')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idParereMmg', cascade:['persist'])]
     private $autoreParereMmg;
 
     public function getId(): ?int
@@ -54,12 +55,13 @@ class ParereMMG
         return $this->descrizione;
     }
 
-    public function setDescrizione(?string $descrizione): self
+    public function setDescrizione(string $descrizione): self
     {
         $this->descrizione = $descrizione;
 
         return $this;
     }
+
     public function getSchedaPAI(): ?SchedaPAI
     {
         return $this->schedaPAI;
@@ -67,6 +69,16 @@ class ParereMMG
 
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
+        // unset the owning side of the relation if necessary
+        if ($schedaPAI === null && $this->schedaPAI !== null) {
+            $this->schedaPAI->setIdParereMmg(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($schedaPAI !== null && $schedaPAI->getIdParereMmg() !== $this) {
+            $schedaPAI->setIdParereMmg($this);
+        }
+
         $this->schedaPAI = $schedaPAI;
 
         return $this;
@@ -77,6 +89,23 @@ class ParereMMG
     }
 
     public function setOperatore(?User $autoreParereMmg): self
+    {
+        $this->autoreParereMmg = $autoreParereMmg;
+
+        return $this;
+    }
+
+    public function getParere(): ?string
+    {
+        return $this->parere;
+    }
+
+    public function getAutoreParereMmg(): ?User
+    {
+        return $this->autoreParereMmg;
+    }
+
+    public function setAutoreParereMmg(?User $autoreParereMmg): self
     {
         $this->autoreParereMmg = $autoreParereMmg;
 

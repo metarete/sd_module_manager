@@ -3,6 +3,7 @@
 namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\Obiettivi;
@@ -25,10 +26,10 @@ class ValutazioneFiguraProfessionale
     #[Assert\NotBlank]
     private $tipoOperatore;
 
-    #[ORM\ManyToMany(targetEntity: Diagnosi::class, inversedBy: 'valutazioneFiguraProfessionale')]
+    #[ORM\ManyToMany(targetEntity: Diagnosi::class, inversedBy: 'valutazioneFiguraProfessionale', cascade:['persist'])]
     private $diagnosi;
 
-    #[ORM\ManyToMany(targetEntity: Obiettivi::class, inversedBy: 'valutazioneFiguraProfessionale')]
+    #[ORM\ManyToMany(targetEntity: Obiettivi::class, inversedBy: 'valutazioneFiguraProfessionale', cascade:['persist'])]
     private $obiettivi;
 
     #[ORM\Column(type: 'text')]
@@ -38,10 +39,10 @@ class ValutazioneFiguraProfessionale
     #[Assert\Type(\DateTime::class)]
     private $dataValutazione;
 
-    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idValutazioneFiguraProfessionale')]
+    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idValutazioneFiguraProfessionale', cascade:['persist'])]
     private $schedaPAI;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idValutazioneFiguraProfessionale')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idValutazioneFiguraProfessionale', cascade:['persist'])]
     private $autoreValutazioneProfessionale;
 
     public function __construct()
@@ -54,16 +55,16 @@ class ValutazioneFiguraProfessionale
     {
         return $this->id;
     }
-    
-    public function getTipoOperatore(): ?string
+
+    public function getTipoOperatore()
     {
         return $this->tipoOperatore;
     }
 
-    public function setTipoOperatore(string $tipoOperatore): self
+    public function setTipoOperatore($tipoOperatore): self
     {
         $this->tipoOperatore = $tipoOperatore;
-        
+
         return $this;
     }
 
@@ -125,7 +126,7 @@ class ValutazioneFiguraProfessionale
     public function addObiettivi(Obiettivi $obiettivi): self
     {
         if (!$this->obiettivi->contains($obiettivi)) {
-            $this->obiettivi[] = $obiettivi;
+            $this->obiettivi->add($obiettivi);
         }
 
         return $this;
@@ -133,10 +134,7 @@ class ValutazioneFiguraProfessionale
 
     public function removeObiettivi(Obiettivi $obiettivi): self
     {
-        if ($this->obiettivi->removeElement($obiettivi)) {
-            // set the owning side to null (unless already changed)
-
-        }
+        $this->obiettivi->removeElement($obiettivi);
 
         return $this;
     }
@@ -152,7 +150,7 @@ class ValutazioneFiguraProfessionale
     public function addDiagnosi(Diagnosi $diagnosi): self
     {
         if (!$this->diagnosi->contains($diagnosi)) {
-            $this->diagnosi[] = $diagnosi;
+            $this->diagnosi->add($diagnosi);
         }
 
         return $this;
@@ -160,10 +158,19 @@ class ValutazioneFiguraProfessionale
 
     public function removeDiagnosi(Diagnosi $diagnosi): self
     {
-        if ($this->diagnosi->removeElement($diagnosi)) {
-            // set the owning side to null (unless already changed)
+        $this->diagnosi->removeElement($diagnosi);
 
-        }
+        return $this;
+    }
+
+    public function getAutoreValutazioneProfessionale(): ?User
+    {
+        return $this->autoreValutazioneProfessionale;
+    }
+
+    public function setAutoreValutazioneProfessionale(?User $autoreValutazioneProfessionale): self
+    {
+        $this->autoreValutazioneProfessionale = $autoreValutazioneProfessionale;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Entity\Diagnosi;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ValutazioneGeneraleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,7 +33,7 @@ class ValutazioneGenerale
     #[ORM\Column(type: 'boolean')]
     private $rischio_infettivo;
 
-    #[ORM\ManyToMany(targetEntity: Diagnosi::class, inversedBy: 'valutazioneGenerale')]
+    #[ORM\ManyToMany(targetEntity: Diagnosi::class, inversedBy: 'valutazioneGenerale', cascade:['persist'])]
     private $diagnosi;
 
     #[ORM\Column(type:"Valutazione", nullable:false)]
@@ -199,7 +200,7 @@ class ValutazioneGenerale
     #[ORM\Column(type: 'boolean')]
     private $supportoCaregiver;
     
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idValutazioneGenerale')]
+    #[ORM\ManyToOne(targetEntity: "App\Entity\User", inversedBy: 'idValutazioneGenerale', cascade:['persist'])]
     private $autoreValutazioneGenerale;
 
     public function __construct()
@@ -249,7 +250,7 @@ class ValutazioneGenerale
         return $this;
     }
 
-   /**
+    /**
      * @return Collection<int, Diagnosi>
      */
     public function getDiagnosi(): Collection
@@ -260,7 +261,7 @@ class ValutazioneGenerale
     public function addDiagnosi(Diagnosi $diagnosi): self
     {
         if (!$this->diagnosi->contains($diagnosi)) {
-            $this->diagnosi[] = $diagnosi;
+            $this->diagnosi->add($diagnosi);
         }
 
         return $this;
@@ -268,140 +269,137 @@ class ValutazioneGenerale
 
     public function removeDiagnosi(Diagnosi $diagnosi): self
     {
-        if ($this->diagnosi->removeElement($diagnosi)) {
-            // set the owning side to null (unless already changed)
-
-        }
+        $this->diagnosi->removeElement($diagnosi);
 
         return $this;
     }
 
-    public function getTipologiaValutazione(): ?string
+    public function getTipologiaValutazione()
     {
         return $this->tipologia_valutazione;
     }
 
-    public function setTipologiaValutazione(string $tipologia_valutazione): self
+    public function setTipologiaValutazione($tipologia_valutazione): self
     {
         $this->tipologia_valutazione = $tipologia_valutazione;
 
         return $this;
     }
 
-    public function getPanf(): ?string
+    public function getPanf()
     {
         return $this->panf;
     }
 
-    public function setPanf(string $panf): self
+    public function setPanf($panf): self
     {
         $this->panf = $panf;
 
         return $this;
     }
 
-    public function getFanf(): ?string
+    public function getFanf()
     {
         return $this->fanf;
     }
 
-    public function setFanf(string $fanf): self
+    public function setFanf($fanf): self
     {
         $this->fanf = $fanf;
 
         return $this;
     }
 
-    public function getIss(): ?string
+    public function getIss()
     {
         return $this->iss;
     }
 
-    public function setIss(string $iss): self
+    public function setIss($iss): self
     {
         $this->iss = $iss;
 
         return $this;
     }
 
-    public function getUsoServiziIgenici(): ?string
+    public function getUsoServiziIgenici()
     {
         return $this->uso_servizi_igenici;
     }
 
-    public function setUsoServiziIgenici(string $uso_servizi_igenici): self
+    public function setUsoServiziIgenici($uso_servizi_igenici): self
     {
         $this->uso_servizi_igenici = $uso_servizi_igenici;
 
         return $this;
     }
 
-    public function getAbbigliamento(): ?string
+    public function getAbbigliamento()
     {
         return $this->abbigliamento;
     }
 
-    public function setAbbigliamento(string $abbigliamento): self
+    public function setAbbigliamento($abbigliamento): self
     {
         $this->abbigliamento = $abbigliamento;
 
         return $this;
     }
 
-    public function getAlimentazione(): ?string
+    public function getAlimentazione()
     {
         return $this->alimentazione;
     }
 
-    public function setAlimentazione(string $alimentazione): self
+    public function setAlimentazione($alimentazione): self
     {
         $this->alimentazione = $alimentazione;
 
         return $this;
     }
 
-    public function getIndicatoreDeambulazione(): ?string
+    public function getIndicatoreDeambulazione()
     {
         return $this->indicatore_deambulazione;
     }
 
-    public function setIndicatoreDeambulazione(string $indicatore_deambulazione): self
+    public function setIndicatoreDeambulazione($indicatore_deambulazione): self
     {
         $this->indicatore_deambulazione = $indicatore_deambulazione;
 
         return $this;
     }
 
-    public function getIgenePersonale(): ?string
+    public function getIgenePersonale()
     {
         return $this->igene_personale;
     }
 
-    public function setIgenePersonale(string $igene_personale): self
+    public function setIgenePersonale($igene_personale): self
     {
         $this->igene_personale = $igene_personale;
 
         return $this;
     }
 
-    public function getCognitivita(): ?string
+    public function getCognitivita()
     {
         return $this->cognitivita;
     }
 
-    public function setCognitivita(string $cognitivita): self
+    public function setCognitivita($cognitivita): self
     {
         $this->cognitivita = $cognitivita;
 
         return $this;
     }
 
-    public function getComportamento(): ?string
+    public function getComportamento()
     {
         return $this->comportamento;
     }
 
-    public function setComportamento(string $comportamento): self
+    public function setComportamento($comportamento): self
     {
         $this->comportamento = $comportamento;
 
@@ -415,6 +413,16 @@ class ValutazioneGenerale
 
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
+        // unset the owning side of the relation if necessary
+        if ($schedaPAI === null && $this->schedaPAI !== null) {
+            $this->schedaPAI->setIdValutazioneGenerale(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($schedaPAI !== null && $schedaPAI->getIdValutazioneGenerale() !== $this) {
+            $schedaPAI->setIdValutazioneGenerale($this);
+        }
+
         $this->schedaPAI = $schedaPAI;
 
         return $this;
@@ -894,6 +902,18 @@ class ValutazioneGenerale
     }
 
     public function setOperatore(?User $autoreValutazioneGenerale): self
+    {
+        $this->autoreValutazioneGenerale = $autoreValutazioneGenerale;
+
+        return $this;
+    }
+
+    public function getAutoreValutazioneGenerale(): ?User
+    {
+        return $this->autoreValutazioneGenerale;
+    }
+
+    public function setAutoreValutazioneGenerale(?User $autoreValutazioneGenerale): self
     {
         $this->autoreValutazioneGenerale = $autoreValutazioneGenerale;
 

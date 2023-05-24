@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Repository\TinettiRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -110,11 +111,11 @@ class Tinetti
     #[ORM\Column(type: 'integer')]
     private $totale = 0;
 
-    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idTinetti')]
+    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idTinetti', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idTinetti')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idTinetti', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreTinetti;
 
@@ -122,7 +123,6 @@ class Tinetti
     {
         return $this->id;
     }
-
 
     public function getDataValutazione(): ?\DateTimeInterface
     {
@@ -429,6 +429,18 @@ class Tinetti
     }
 
     public function setOperatore(?User $autoreTinetti): self
+    {
+        $this->autoreTinetti = $autoreTinetti;
+
+        return $this;
+    }
+
+    public function getAutoreTinetti(): ?User
+    {
+        return $this->autoreTinetti;
+    }
+
+    public function setAutoreTinetti(?User $autoreTinetti): self
     {
         $this->autoreTinetti = $autoreTinetti;
 

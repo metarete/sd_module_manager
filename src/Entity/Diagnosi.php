@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
 use App\Entity\EntityPAI\ValutazioneGenerale;
 use App\Repository\DiagnosiRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,6 +32,12 @@ class Diagnosi
 
     #[ORM\ManyToMany(mappedBy: 'diagnosi', targetEntity: ValutazioneGenerale::class)]
     private $valutazioneGenerale;
+
+    public function __construct()
+    {
+        $this->valutazioneFiguraProfessionale = new ArrayCollection();
+        $this->valutazioneGenerale = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,7 +71,7 @@ class Diagnosi
     /**
      * @return Collection<int, ValutazioneFiguraProfessionale>
      */
-    public function getValutazioneFiguraProfessionale()
+    public function getValutazioneFiguraProfessionale(): Collection
     {
         return $this->valutazioneFiguraProfessionale;
     }
@@ -70,8 +79,8 @@ class Diagnosi
     public function addValutazioneFiguraProfessionale(ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale): self
     {
         if (!$this->valutazioneFiguraProfessionale->contains($valutazioneFiguraProfessionale)) {
-            $this->valutazioneFiguraProfessionale[] = $valutazioneFiguraProfessionale;
-            
+            $this->valutazioneFiguraProfessionale->add($valutazioneFiguraProfessionale);
+            $valutazioneFiguraProfessionale->addDiagnosi($this);
         }
 
         return $this;
@@ -80,8 +89,7 @@ class Diagnosi
     public function removeValutazioneFiguraProfessionale(ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale): self
     {
         if ($this->valutazioneFiguraProfessionale->removeElement($valutazioneFiguraProfessionale)) {
-            // set the owning side to null (unless already changed)
-           
+            $valutazioneFiguraProfessionale->removeDiagnosi($this);
         }
 
         return $this;
@@ -90,7 +98,7 @@ class Diagnosi
     /**
      * @return Collection<int, ValutazioneGenerale>
      */
-    public function getValutazioneGenerale()
+    public function getValutazioneGenerale(): Collection
     {
         return $this->valutazioneGenerale;
     }
@@ -98,8 +106,8 @@ class Diagnosi
     public function addValutazioneGenerale(ValutazioneGenerale $valutazioneGenerale): self
     {
         if (!$this->valutazioneGenerale->contains($valutazioneGenerale)) {
-            $this->valutazioneGenerale[] = $valutazioneGenerale;
-            
+            $this->valutazioneGenerale->add($valutazioneGenerale);
+            $valutazioneGenerale->addDiagnosi($this);
         }
 
         return $this;
@@ -108,8 +116,7 @@ class Diagnosi
     public function removeValutazioneGenerale(ValutazioneGenerale $valutazioneGenerale): self
     {
         if ($this->valutazioneGenerale->removeElement($valutazioneGenerale)) {
-            // set the owning side to null (unless already changed)
-           
+            $valutazioneGenerale->removeDiagnosi($this);
         }
 
         return $this;

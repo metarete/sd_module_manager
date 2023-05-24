@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
 use App\Repository\ObiettiviRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,6 +31,11 @@ class Obiettivi
 
     #[ORM\ManyToMany(mappedBy: 'obiettivi', targetEntity: ValutazioneFiguraProfessionale::class)]
     private $valutazioneFiguraProfessionale;
+
+    public function __construct()
+    {
+        $this->valutazioneFiguraProfessionale = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -58,7 +66,7 @@ class Obiettivi
         return $this;
     }
 
-    public function isStato(): bool
+    public function isStato(): ?bool
     {
         return $this->stato;
     }
@@ -73,7 +81,7 @@ class Obiettivi
     /**
      * @return Collection<int, ValutazioneFiguraProfessionale>
      */
-    public function getValutazioneFiguraProfessionale()
+    public function getValutazioneFiguraProfessionale(): Collection
     {
         return $this->valutazioneFiguraProfessionale;
     }
@@ -81,8 +89,8 @@ class Obiettivi
     public function addValutazioneFiguraProfessionale(ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale): self
     {
         if (!$this->valutazioneFiguraProfessionale->contains($valutazioneFiguraProfessionale)) {
-            $this->valutazioneFiguraProfessionale[] = $valutazioneFiguraProfessionale;
-            
+            $this->valutazioneFiguraProfessionale->add($valutazioneFiguraProfessionale);
+            $valutazioneFiguraProfessionale->addObiettivi($this);
         }
 
         return $this;
@@ -91,8 +99,7 @@ class Obiettivi
     public function removeValutazioneFiguraProfessionale(ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale): self
     {
         if ($this->valutazioneFiguraProfessionale->removeElement($valutazioneFiguraProfessionale)) {
-            // set the owning side to null (unless already changed)
-           
+            $valutazioneFiguraProfessionale->removeObiettivi($this);
         }
 
         return $this;

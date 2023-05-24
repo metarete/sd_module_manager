@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Repository\SPMSQRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -57,11 +58,11 @@ class SPMSQ
     #[ORM\Column(type: 'boolean')]
     private $nonSomministrabilePerPatologia;
 
-    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idSpmsq')]
+    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idSpmsq', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idSpmsq')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idSpmsq', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreSpmsq;
 
@@ -69,7 +70,6 @@ class SPMSQ
     {
         return $this->id;
     }
-
 
     public function getDataValutazione(): ?\DateTimeInterface
     {
@@ -227,7 +227,6 @@ class SPMSQ
         return $this;
     }
 
-
     public function getSchedaPAI(): ?SchedaPAI
     {
         return $this->schedaPAI;
@@ -246,6 +245,18 @@ class SPMSQ
     }
 
     public function setOperatore(?User $autoreSpmsq): self
+    {
+        $this->autoreSpmsq = $autoreSpmsq;
+
+        return $this;
+    }
+
+    public function getAutoreSpmsq(): ?User
+    {
+        return $this->autoreSpmsq;
+    }
+
+    public function setAutoreSpmsq(?User $autoreSpmsq): self
     {
         $this->autoreSpmsq = $autoreSpmsq;
 

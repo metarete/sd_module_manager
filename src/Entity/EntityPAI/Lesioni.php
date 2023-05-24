@@ -49,11 +49,11 @@ class Lesioni
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $noteSullaLesione = null;
 
-    #[ORM\ManyToOne(inversedBy: 'idLesioni')]
+    #[ORM\ManyToOne(inversedBy: 'idLesioni', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?SchedaPAI $schedaPAI = null;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idLesioni')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idLesioni', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreLesioni;
 
@@ -61,7 +61,6 @@ class Lesioni
     {
         return $this->id;
     }
-
 
     public function getDataRivalutazioniSettimanali(): ?\DateTimeInterface
     {
@@ -176,6 +175,18 @@ class Lesioni
     }
 
     public function setOperatore(?User $autoreLesioni): self
+    {
+        $this->autoreLesioni = $autoreLesioni;
+
+        return $this;
+    }
+
+    public function getAutoreLesioni(): ?User
+    {
+        return $this->autoreLesioni;
+    }
+
+    public function setAutoreLesioni(?User $autoreLesioni): self
     {
         $this->autoreLesioni = $autoreLesioni;
 

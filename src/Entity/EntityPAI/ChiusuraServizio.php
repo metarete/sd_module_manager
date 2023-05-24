@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Repository\ChiusuraServizioRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,9 +29,8 @@ class ChiusuraServizio
     #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idChiusuraServizio',  cascade: ['persist'])]
     private $schedaPAI;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idChiusuraServizio')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idChiusuraServizio', cascade:['persist'])]
     private $autoreChiusuraServizio;
-
 
     public function getId(): ?int
     {
@@ -60,6 +60,7 @@ class ChiusuraServizio
 
         return $this;
     }
+
     public function getSchedaPAI(): ?SchedaPAI
     {
         return $this->schedaPAI;
@@ -67,6 +68,16 @@ class ChiusuraServizio
 
     public function setSchedaPAI(?SchedaPAI $schedaPAI): self
     {
+        // unset the owning side of the relation if necessary
+        if ($schedaPAI === null && $this->schedaPAI !== null) {
+            $this->schedaPAI->setIdChiusuraServizio(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($schedaPAI !== null && $schedaPAI->getIdChiusuraServizio() !== $this) {
+            $schedaPAI->setIdChiusuraServizio($this);
+        }
+
         $this->schedaPAI = $schedaPAI;
 
         return $this;
@@ -78,6 +89,18 @@ class ChiusuraServizio
     }
 
     public function setOperatore(?User $autoreChiusuraServizio): self
+    {
+        $this->autoreChiusuraServizio = $autoreChiusuraServizio;
+
+        return $this;
+    }
+
+    public function getAutoreChiusuraServizio(): ?User
+    {
+        return $this->autoreChiusuraServizio;
+    }
+
+    public function setAutoreChiusuraServizio(?User $autoreChiusuraServizio): self
     {
         $this->autoreChiusuraServizio = $autoreChiusuraServizio;
 

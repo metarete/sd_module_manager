@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Repository\BradenRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,11 +49,11 @@ class Braden
     #[ORM\Column(type: 'integer', nullable: true)]
     private $totale;
 
-    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBraden')]
+    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBraden', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBraden')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBraden', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreBraden;
 
@@ -60,7 +61,6 @@ class Braden
     {
         return $this->id;
     }
-
 
     public function getPercezioneSensoriale(): ?int
     {
@@ -151,7 +151,7 @@ class Braden
         return $this->totale;
     }
 
-    public function setTotale(int $totale): self
+    public function setTotale(?int $totale): self
     {
         $this->totale = $totale;
 
@@ -175,6 +175,18 @@ class Braden
     }
 
     public function setOperatore(?User $autoreBraden): self
+    {
+        $this->autoreBraden = $autoreBraden;
+
+        return $this;
+    }
+
+    public function getAutoreBraden(): ?User
+    {
+        return $this->autoreBraden;
+    }
+
+    public function setAutoreBraden(?User $autoreBraden): self
     {
         $this->autoreBraden = $autoreBraden;
 

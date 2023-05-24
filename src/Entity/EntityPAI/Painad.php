@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Repository\PainadRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -44,11 +45,11 @@ class Painad
     #[ORM\Column(type: 'integer')]
     private $totale = 0;
 
-    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idPainad')]
+    #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idPainad', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
 
-    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idPainad')]
+    #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idPainad', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autorePainad;
 
@@ -56,7 +57,6 @@ class Painad
     {
         return $this->id;
     }
-
 
     public function getDataValutazione(): ?\DateTimeInterface
     {
@@ -160,6 +160,18 @@ class Painad
     }
 
     public function setOperatore(?User $autorePainad): self
+    {
+        $this->autorePainad = $autorePainad;
+
+        return $this;
+    }
+
+    public function getAutorePainad(): ?User
+    {
+        return $this->autorePainad;
+    }
+
+    public function setAutorePainad(?User $autorePainad): self
     {
         $this->autorePainad = $autorePainad;
 

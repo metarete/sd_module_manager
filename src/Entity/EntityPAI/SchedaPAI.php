@@ -4,6 +4,7 @@ namespace App\Entity\EntityPAI;
 
 use DateTime;
 use App\Entity\User;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SchedaPAIRepository;
 use Doctrine\Common\Collections\Collection;
@@ -20,34 +21,34 @@ class SchedaPAI
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'principaleSchedaPai')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'principaleSchedaPai', cascade:['persist'])]
     private $idOperatorePrincipale;
 
-    #[ORM\ManyToMany(inversedBy: 'infSchedaPai', targetEntity: User::class)]
+    #[ORM\ManyToMany(inversedBy: 'infSchedaPai', targetEntity: User::class, cascade:['persist'])]
     #[ORM\JoinTable(name: 'scheda_pai_user_inf')]
     #[ORM\JoinColumn(name: 'user_inf_id', referencedColumnName: 'id', nullable: true)]
     #[ORM\InverseJoinColumn(name: 'scheda_pai_inf_id', referencedColumnName: 'id')]
     private $idOperatoreSecondarioInf;
 
-    #[ORM\ManyToMany(inversedBy: 'tdrSchedaPai', targetEntity: User::class)]
+    #[ORM\ManyToMany(inversedBy: 'tdrSchedaPai', targetEntity: User::class, cascade:['persist'])]
     #[ORM\JoinTable(name: 'scheda_pai_user_tdr')]
     #[ORM\JoinColumn(name: 'user_tdr_id', referencedColumnName: 'id', nullable: true)]
     #[ORM\InverseJoinColumn(name: 'scheda_pai_tdr_id', referencedColumnName: 'id')]
     private $idOperatoreSecondarioTdr;
 
-    #[ORM\ManyToMany(inversedBy: 'logSchedaPai', targetEntity: User::class)]
+    #[ORM\ManyToMany(inversedBy: 'logSchedaPai', targetEntity: User::class, cascade:['persist'])]
     #[ORM\JoinTable(name: 'scheda_pai_user_log')]
     #[ORM\JoinColumn(name: 'user_log_id', referencedColumnName: 'id', nullable: true)]
     #[ORM\InverseJoinColumn(name: 'scheda_pai_log_id', referencedColumnName: 'id')]
     private $idOperatoreSecondarioLog;
 
-    #[ORM\ManyToMany(inversedBy: 'asaSchedaPai', targetEntity: User::class)]
+    #[ORM\ManyToMany(inversedBy: 'asaSchedaPai', targetEntity: User::class, cascade:['persist'])]
     #[ORM\JoinTable(name: 'scheda_pai_user_asa')]
     #[ORM\JoinColumn(name: 'user_asa_id', referencedColumnName: 'id', nullable: true)]
     #[ORM\InverseJoinColumn(name: 'scheda_pai_asa_id', referencedColumnName: 'id')]
     private $idOperatoreSecondarioAsa;
 
-    #[ORM\ManyToMany(inversedBy: 'ossSchedaPai', targetEntity: User::class)]
+    #[ORM\ManyToMany(inversedBy: 'ossSchedaPai', targetEntity: User::class, cascade:['persist'])]
     #[ORM\JoinTable(name: 'scheda_pai_user_oss')]
     #[ORM\JoinColumn(name: 'user_oss_id', referencedColumnName: 'id', nullable: true)]
     #[ORM\InverseJoinColumn(name: 'scheda_pai_oss_id', referencedColumnName: 'id')]
@@ -248,26 +249,23 @@ class SchedaPAI
     /**
      * @return Collection<int, User>
      */
-    public function getidOperatoreSecondarioInf(): Collection
+    public function getIdOperatoreSecondarioInf(): Collection
     {
         return $this->idOperatoreSecondarioInf;
     }
 
-    public function addidOperatoreSecondarioInf(User $idOperatoreSecondarioInf): self
+    public function addIdOperatoreSecondarioInf(User $idOperatoreSecondarioInf): self
     {
         if (!$this->idOperatoreSecondarioInf->contains($idOperatoreSecondarioInf)) {
-            $this->idOperatoreSecondarioInf[] = $idOperatoreSecondarioInf;
+            $this->idOperatoreSecondarioInf->add($idOperatoreSecondarioInf);
         }
 
         return $this;
     }
 
-    public function removeidOperatoreSecondarioInf(User $idOperatoreSecondarioInf): self
+    public function removeIdOperatoreSecondarioInf(User $idOperatoreSecondarioInf): self
     {
-        if ($this->idOperatoreSecondarioInf->removeElement($idOperatoreSecondarioInf)) {
-            // set the owning side to null (unless already changed)
-
-        }
+        $this->idOperatoreSecondarioInf->removeElement($idOperatoreSecondarioInf);
 
         return $this;
     }
@@ -275,26 +273,23 @@ class SchedaPAI
     /**
      * @return Collection<int, User>
      */
-    public function getidOperatoreSecondarioTdr(): Collection
+    public function getIdOperatoreSecondarioTdr(): Collection
     {
         return $this->idOperatoreSecondarioTdr;
     }
 
-    public function addidOperatoreSecondarioTdr(User $idOperatoreSecondarioTdr): self
+    public function addIdOperatoreSecondarioTdr(User $idOperatoreSecondarioTdr): self
     {
         if (!$this->idOperatoreSecondarioTdr->contains($idOperatoreSecondarioTdr)) {
-            $this->idOperatoreSecondarioTdr[] = $idOperatoreSecondarioTdr;
+            $this->idOperatoreSecondarioTdr->add($idOperatoreSecondarioTdr);
         }
 
         return $this;
     }
 
-    public function removeidOperatoreSecondarioTdr(User $idOperatoreSecondarioTdr): self
+    public function removeIdOperatoreSecondarioTdr(User $idOperatoreSecondarioTdr): self
     {
-        if ($this->idOperatoreSecondarioTdr->removeElement($idOperatoreSecondarioTdr)) {
-            // set the owning side to null (unless already changed)
-
-        }
+        $this->idOperatoreSecondarioTdr->removeElement($idOperatoreSecondarioTdr);
 
         return $this;
     }
@@ -302,26 +297,23 @@ class SchedaPAI
     /**
      * @return Collection<int, User>
      */
-    public function getidOperatoreSecondarioLog(): Collection
+    public function getIdOperatoreSecondarioLog(): Collection
     {
         return $this->idOperatoreSecondarioLog;
     }
 
-    public function addidOperatoreSecondarioLog(User $idOperatoreSecondarioLog): self
+    public function addIdOperatoreSecondarioLog(User $idOperatoreSecondarioLog): self
     {
         if (!$this->idOperatoreSecondarioLog->contains($idOperatoreSecondarioLog)) {
-            $this->idOperatoreSecondarioLog[] = $idOperatoreSecondarioLog;
+            $this->idOperatoreSecondarioLog->add($idOperatoreSecondarioLog);
         }
 
         return $this;
     }
 
-    public function removeidOperatoreSecondarioLog(User $idOperatoreSecondarioLog): self
+    public function removeIdOperatoreSecondarioLog(User $idOperatoreSecondarioLog): self
     {
-        if ($this->idOperatoreSecondarioLog->removeElement($idOperatoreSecondarioLog)) {
-            // set the owning side to null (unless already changed)
-
-        }
+        $this->idOperatoreSecondarioLog->removeElement($idOperatoreSecondarioLog);
 
         return $this;
     }
@@ -329,26 +321,23 @@ class SchedaPAI
     /**
      * @return Collection<int, User>
      */
-    public function getidOperatoreSecondarioAsa(): Collection
+    public function getIdOperatoreSecondarioAsa(): Collection
     {
         return $this->idOperatoreSecondarioAsa;
     }
 
-    public function addidOperatoreSecondarioAsa(User $idOperatoreSecondarioAsa): self
+    public function addIdOperatoreSecondarioAsa(User $idOperatoreSecondarioAsa): self
     {
         if (!$this->idOperatoreSecondarioAsa->contains($idOperatoreSecondarioAsa)) {
-            $this->idOperatoreSecondarioAsa[] = $idOperatoreSecondarioAsa;
+            $this->idOperatoreSecondarioAsa->add($idOperatoreSecondarioAsa);
         }
 
         return $this;
     }
 
-    public function removeidOperatoreSecondarioAsa(User $idOperatoreSecondarioAsa): self
+    public function removeIdOperatoreSecondarioAsa(User $idOperatoreSecondarioAsa): self
     {
-        if ($this->idOperatoreSecondarioAsa->removeElement($idOperatoreSecondarioAsa)) {
-            // set the owning side to null (unless already changed)
-
-        }
+        $this->idOperatoreSecondarioAsa->removeElement($idOperatoreSecondarioAsa);
 
         return $this;
     }
@@ -356,26 +345,23 @@ class SchedaPAI
     /**
      * @return Collection<int, User>
      */
-    public function getidOperatoreSecondarioOss(): Collection
+    public function getIdOperatoreSecondarioOss(): Collection
     {
         return $this->idOperatoreSecondarioOss;
     }
 
-    public function addidOperatoreSecondarioOss(User $idOperatoreSecondarioOss): self
+    public function addIdOperatoreSecondarioOss(User $idOperatoreSecondarioOss): self
     {
         if (!$this->idOperatoreSecondarioOss->contains($idOperatoreSecondarioOss)) {
-            $this->idOperatoreSecondarioOss[] = $idOperatoreSecondarioOss;
+            $this->idOperatoreSecondarioOss->add($idOperatoreSecondarioOss);
         }
 
         return $this;
     }
 
-    public function removeidOperatoreSecondarioOss(User $idOperatoreSecondarioOss): self
+    public function removeIdOperatoreSecondarioOss(User $idOperatoreSecondarioOss): self
     {
-        if ($this->idOperatoreSecondarioOss->removeElement($idOperatoreSecondarioOss)) {
-            // set the owning side to null (unless already changed)
-
-        }
+        $this->idOperatoreSecondarioOss->removeElement($idOperatoreSecondarioOss);
 
         return $this;
     }
@@ -385,12 +371,13 @@ class SchedaPAI
         return $this->idAssistito;
     }
 
-    public function setIdAssistito(?int $idAssistito): self
+    public function setIdAssistito(int $idAssistito): self
     {
         $this->idAssistito = $idAssistito;
 
         return $this;
     }
+
     public function getNomeAssistito(): ?string
     {
         return $this->nomeAssistito;
@@ -402,6 +389,7 @@ class SchedaPAI
 
         return $this;
     }
+
     public function getCognomeAssistito(): ?string
     {
         return $this->cognomeAssistito;
@@ -419,7 +407,7 @@ class SchedaPAI
         return $this->idConsole;
     }
 
-    public function setIdConsole(?string $idConsole): self
+    public function setIdConsole(string $idConsole): self
     {
         $this->idConsole = $idConsole;
 
@@ -431,7 +419,7 @@ class SchedaPAI
         return $this->idProgetto;
     }
 
-    public function setIdProgetto(?int $idProgetto): self
+    public function setIdProgetto(int $idProgetto): self
     {
         $this->idProgetto = $idProgetto;
 
@@ -443,7 +431,7 @@ class SchedaPAI
         return $this->nomeProgetto;
     }
 
-    public function setNomeProgetto(?string $nomeProgetto): self
+    public function setNomeProgetto(string $nomeProgetto): self
     {
         $this->nomeProgetto = $nomeProgetto;
 
@@ -473,7 +461,7 @@ class SchedaPAI
     public function addIdValutazioneFiguraProfessionale(ValutazioneFiguraProfessionale $idValutazioneFiguraProfessionale): self
     {
         if (!$this->idValutazioneFiguraProfessionale->contains($idValutazioneFiguraProfessionale)) {
-            $this->idValutazioneFiguraProfessionale[] = $idValutazioneFiguraProfessionale;
+            $this->idValutazioneFiguraProfessionale->add($idValutazioneFiguraProfessionale);
             $idValutazioneFiguraProfessionale->setSchedaPAI($this);
         }
 
@@ -527,7 +515,7 @@ class SchedaPAI
     public function addIdBarthel(Barthel $idBarthel): self
     {
         if (!$this->idBarthel->contains($idBarthel)) {
-            $this->idBarthel[] = $idBarthel;
+            $this->idBarthel->add($idBarthel);
             $idBarthel->setSchedaPAI($this);
         }
 
@@ -557,7 +545,7 @@ class SchedaPAI
     public function addIdBraden(Braden $idBraden): self
     {
         if (!$this->idBraden->contains($idBraden)) {
-            $this->idBraden[] = $idBraden;
+            $this->idBraden->add($idBraden);
             $idBraden->setSchedaPAI($this);
         }
 
@@ -587,7 +575,7 @@ class SchedaPAI
     public function addIdSpmsq(SPMSQ $idSpmsq): self
     {
         if (!$this->idSpmsq->contains($idSpmsq)) {
-            $this->idSpmsq[] = $idSpmsq;
+            $this->idSpmsq->add($idSpmsq);
             $idSpmsq->setSchedaPAI($this);
         }
 
@@ -617,7 +605,7 @@ class SchedaPAI
     public function addIdTinetti(Tinetti $idTinetti): self
     {
         if (!$this->idTinetti->contains($idTinetti)) {
-            $this->idTinetti[] = $idTinetti;
+            $this->idTinetti->add($idTinetti);
             $idTinetti->setSchedaPAI($this);
         }
 
@@ -726,14 +714,16 @@ class SchedaPAI
         return $this;
     }
 
-    public function getCurrentPlace()
+    public function getCurrentPlace(): ?string
     {
         return $this->currentPlace;
     }
 
-    public function setCurrentPlace($currentPlace, $context = [])
+    public function setCurrentPlace(string $currentPlace): self
     {
         $this->currentPlace = $currentPlace;
+
+        return $this;
     }
 
     public function getIdOperatorePrincipale(): ?User
@@ -759,6 +749,7 @@ class SchedaPAI
 
         return $this;
     }
+
     public function isAbilitaBraden(): ?bool
     {
         return $this->abilitaBraden;
@@ -770,6 +761,7 @@ class SchedaPAI
 
         return $this;
     }
+
     public function isAbilitaSpmsq(): ?bool
     {
         return $this->abilitaSpmsq;
@@ -781,6 +773,7 @@ class SchedaPAI
 
         return $this;
     }
+
     public function isAbilitaTinetti(): ?bool
     {
         return $this->abilitaTinetti;
@@ -792,6 +785,7 @@ class SchedaPAI
 
         return $this;
     }
+
     public function isAbilitaVas(): ?bool
     {
         return $this->abilitaVas;
@@ -803,6 +797,7 @@ class SchedaPAI
 
         return $this;
     }
+
     public function isAbilitaLesioni(): ?bool
     {
         return $this->abilitaLesioni;
@@ -835,6 +830,7 @@ class SchedaPAI
     public function setNumeroBarthelCorretto(int $numeroBarthelCorretto): self
     {
         $this->numeroBarthelCorretto = $numeroBarthelCorretto;
+
         return $this;
     }
 
@@ -846,6 +842,7 @@ class SchedaPAI
     public function setNumeroBradenCorretto(int $numeroBradenCorretto): self
     {
         $this->numeroBradenCorretto = $numeroBradenCorretto;
+
         return $this;
     }
 
@@ -857,6 +854,7 @@ class SchedaPAI
     public function setNumeroSpmsqCorretto(int $numeroSpmsqCorretto): self
     {
         $this->numeroSpmsqCorretto = $numeroSpmsqCorretto;
+
         return $this;
     }
 
@@ -868,6 +866,7 @@ class SchedaPAI
     public function setNumeroTinettiCorretto(int $numeroTinettiCorretto): self
     {
         $this->numeroTinettiCorretto = $numeroTinettiCorretto;
+
         return $this;
     }
 
@@ -879,6 +878,7 @@ class SchedaPAI
     public function setNumeroVasCorretto(int $numeroVasCorretto): self
     {
         $this->numeroVasCorretto = $numeroVasCorretto;
+
         return $this;
     }
 
@@ -890,6 +890,7 @@ class SchedaPAI
     public function setNumeroLesioniCorretto(int $numeroLesioniCorretto): self
     {
         $this->numeroLesioniCorretto = $numeroLesioniCorretto;
+
         return $this;
     }
 
@@ -901,6 +902,7 @@ class SchedaPAI
     public function setNumeroPainadCorretto(int $numeroPainadCorretto): self
     {
         $this->numeroPainadCorretto = $numeroPainadCorretto;
+
         return $this;
     }
 
@@ -1239,6 +1241,28 @@ class SchedaPAI
             $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
         }
         $this->correctPainadNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaPainad());
+        return $this;
+    }
+
+    public function addIdVa(Vas $idVa): self
+    {
+        if (!$this->idVas->contains($idVa)) {
+            $this->idVas->add($idVa);
+            $idVa->setSchedaPAI($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdVa(Vas $idVa): self
+    {
+        if ($this->idVas->removeElement($idVa)) {
+            // set the owning side to null (unless already changed)
+            if ($idVa->getSchedaPAI() === $this) {
+                $idVa->setSchedaPAI(null);
+            }
+        }
+
         return $this;
     }
 }

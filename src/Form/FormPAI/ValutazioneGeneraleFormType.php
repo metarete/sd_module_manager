@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use App\Form\SearchDiagnosiType;
 use App\Entity\Diagnosi;
-
+use App\Form\DiagnosiAutocompleteField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ValutazioneGeneraleFormType extends AbstractType
@@ -120,7 +120,7 @@ class ValutazioneGeneraleFormType extends AbstractType
                 'choices' => $disturbiChoices,
                 'placeholder' => '',
             ])
-            ->add('diagnosi', SearchDiagnosiType::class)
+            ->add('diagnosi', DiagnosiAutocompleteField::class)
             
             ->add('broncoaspirazione',CheckboxType::class, [
                 'label'    => 'Broncoaspirazione/Drenaggio posturale',
