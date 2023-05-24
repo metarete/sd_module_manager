@@ -103,42 +103,24 @@ class MailerGenerator
     {
         $url = $this->params->get('app.site_url');
         $sender = $this->params->get('app.mailer_notification_sender');
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/logoCoop.jpg"
-        );
-        $logoCoop = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/calendar-day-solid.png"
-        );
-        $calendarIcon = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/09461c6c-3517-429e-99a2-64810982a104.png"
-        );
-        $separatoreTop = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/next_1.png"
-        );
-        $frecciaLink = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/bottom_rounded_15.png"
-        );
-        $separatoreDown = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/marker-solid.png"
-        );
-        $immagineNuove = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/circle-xmark-solid.png"
-        );
-        $immagineChiuse = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/registered-solid.png"
-        );
-        $immagineChiuseConRinnovo = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/hourglass-start-solid-2.png"
-        );
-        $immagineVerifica = base64_encode($img);
+        
+        
+        $calendarIcon = $url .'/image/calendar-day-solid.png';
+        
+        $separatoreTop = $url . '/image/09461c6c-3517-429e-99a2-64810982a104.png';
+       
+        $frecciaLink = $url . '/image/next_1.png';
+       
+        $separatoreDown = $url . '/image/bottom_rounded_15.png';
+       
+        $immagineNuove = $url . '/image/marker-solid.png';
+        
+        $immagineChiuse = $url . '/image/circle-xmark-solid.png';
+        
+        $immagineChiuseConRinnovo = $url . '/image/registered-solid.png';
+        
+        $immagineVerifica = $url . '/image/hourglass-start-solid-2.png';
+
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $schedeNuove = $schedaPAIRepository->findByState('nuova');
@@ -190,7 +172,6 @@ class MailerGenerator
                         "schedeChiuse" => $schedeChiuse,
                         "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
                         "schedeInVerifica" => $schedeInVerifica,
-                        "logoCoop" => $logoCoop,
                         "calendarIcon" => $calendarIcon,
                         "separatoreTop" => $separatoreTop,
                         "frecciaLink" => $frecciaLink,
@@ -214,50 +195,24 @@ class MailerGenerator
     {
         $url = $this->params->get('app.site_url');
         $sender = $this->params->get('app.mailer_notification_sender');
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/logoCoop.jpg"
-        );
-        $logoCoop = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/calendar-day-solid.png"
-        );
-        $calendarIcon = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/09461c6c-3517-429e-99a2-64810982a104.png"
-        );
-        $separatoreTop = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/next_1.png"
-        );
-        $frecciaLink = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/bottom_rounded_15.png"
-        );
-        $separatoreDown = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/logoCoop.jpg"
-        );
-        $logoCoop = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/circle-check-solid.png"
-        );
-        $immagineAttive = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/stopwatch-solid.png"
-        );
-        $immagineScaleRitardi = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/user-doctor-solid.png"
-        );
-        $immagineValutazioni = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/hourglass-start-solid.png"
-        );
-        $immagineScadute = base64_encode($img);
-        $img = file_get_contents(
-            __DIR__ . "/../../public/image/hourglass-start-solid-2.png"
-        );
-        $immagineVerifica = base64_encode($img);
+        
+        $calendarIcon = $url .'/image/calendar-day-solid.png';
+        
+        $separatoreTop = $url . '/image/09461c6c-3517-429e-99a2-64810982a104.png';
+       
+        $frecciaLink = $url . '/image/next_1.png';
+       
+        $separatoreDown = $url . '/image/bottom_rounded_15.png';
+
+        $immagineAttive = $url . '/image/circle-check-solid.png';
+        
+        $immagineScaleRitardi = $url . '/image/stopwatch-solid.png';
+        
+        $immagineValutazioni = $url . '/image/user-doctor-solid.png';
+       
+        $immagineScadute = $url . '/image/hourglass-start-solid.png';
+
+        $immagineVerifica = $url . '/image/hourglass-start-solid-2.png';
         
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
@@ -499,7 +454,6 @@ class MailerGenerator
                         'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
                         'testoVerifica1' => $testoVerifica1,
                         'descrizioneSchedeVerifica' => $descrizioneSchedeVerifica,
-                        "logoCoop" => $logoCoop,
                         "calendarIcon" => $calendarIcon,
                         "separatoreTop" => $separatoreTop,
                         "frecciaLink" => $frecciaLink,
