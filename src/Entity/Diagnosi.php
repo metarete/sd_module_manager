@@ -27,10 +27,10 @@ class Diagnosi
     #[Assert\NotBlank]
     private $descrizione;
 
-    #[ORM\ManyToMany(mappedBy: 'diagnosi', targetEntity: ValutazioneFiguraProfessionale::class)]
+    #[ORM\ManyToMany(mappedBy: 'diagnosi', targetEntity: ValutazioneFiguraProfessionale::class, cascade:['persist'])]
     private $valutazioneFiguraProfessionale;
 
-    #[ORM\ManyToMany(mappedBy: 'diagnosi', targetEntity: ValutazioneGenerale::class)]
+    #[ORM\ManyToMany(mappedBy: 'diagnosi', targetEntity: ValutazioneGenerale::class, cascade:['persist'])]
     private $valutazioneGenerale;
 
     public function __construct()

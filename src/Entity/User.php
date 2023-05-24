@@ -2,24 +2,24 @@
 
 namespace App\Entity;
 
-use App\Entity\EntityPAI\Braden;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntityPAI\Barthel;
+use App\Entity\EntityPAI\Braden;
+use App\Entity\EntityPAI\ChiusuraServizio;
 use App\Entity\EntityPAI\Lesioni;
-use App\Repository\UserRepository;
+use App\Entity\EntityPAI\Painad;
 use App\Entity\EntityPAI\ParereMMG;
 use App\Entity\EntityPAI\SchedaPAI;
-use App\Entity\EntityPAI\ChiusuraServizio;
-use App\Entity\EntityPAI\Painad;
 use App\Entity\EntityPAI\SPMSQ;
 use App\Entity\EntityPAI\Tinetti;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
 use App\Entity\EntityPAI\ValutazioneGenerale;
 use App\Entity\EntityPAI\Vas;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -61,58 +61,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $stato;
 
-    #[ORM\OneToMany(mappedBy: 'idOperatorePrincipale', targetEntity: SchedaPAI::class)]
+    #[ORM\OneToMany(mappedBy: 'idOperatorePrincipale', targetEntity: SchedaPAI::class, cascade:['persist'])]
     private $principaleSchedaPai;
 
-    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioInf', targetEntity: SchedaPai::class)]
+    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioInf', targetEntity: SchedaPai::class, cascade:['persist'])]
     private $infSchedaPai;
 
-    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioTdr', targetEntity: SchedaPai::class)]
+    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioTdr', targetEntity: SchedaPai::class, cascade:['persist'])]
     private $tdrSchedaPai;
 
-    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioLog', targetEntity: SchedaPai::class)]
+    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioLog', targetEntity: SchedaPai::class, cascade:['persist'])]
     private $logSchedaPai;
 
-    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioAsa', targetEntity: SchedaPai::class)]
+    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioAsa', targetEntity: SchedaPai::class, cascade:['persist'])]
     private $asaSchedaPai;
    
-    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioOss', targetEntity: SchedaPai::class)]
+    #[ORM\ManyToMany(mappedBy: 'idOperatoreSecondarioOss', targetEntity: SchedaPai::class, cascade:['persist'])]
     private $ossSchedaPai;
 
     #[ORM\Column(type: 'boolean')]
     private $sdManagerOperatore = false;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreBarthel', targetEntity: Barthel::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreBarthel', targetEntity: Barthel::class, cascade:['persist'])]
     private $idBarthel;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreBraden', targetEntity: Braden::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreBraden', targetEntity: Braden::class, cascade:['persist'])]
     private $idBraden;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreChiusuraServizio', targetEntity: ChiusuraServizio::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreChiusuraServizio', targetEntity: ChiusuraServizio::class, cascade:['persist'])]
     private $idChiusuraServizio;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreLesioni', targetEntity: Lesioni::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreLesioni', targetEntity: Lesioni::class, cascade:['persist'])]
     private $idLesioni;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreParereMmg', targetEntity: ParereMMG::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreParereMmg', targetEntity: ParereMMG::class, cascade:['persist'])]
     private $idParereMmg;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreSpmsq', targetEntity: SPMSQ::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreSpmsq', targetEntity: SPMSQ::class, cascade:['persist'])]
     private $idSpmsq;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreTinetti', targetEntity: Tinetti::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreTinetti', targetEntity: Tinetti::class, cascade:['persist'])]
     private $idTinetti;
 
-    #[ORM\OnetoMany(mappedBy: 'autorePainad', targetEntity: Painad::class)]
+    #[ORM\OneToMany(mappedBy: 'autorePainad', targetEntity: Painad::class, cascade:['persist'])]
     private $idPainad;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreValutazioneProfessionale', targetEntity: ValutazioneFiguraProfessionale::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreValutazioneProfessionale', targetEntity: ValutazioneFiguraProfessionale::class, cascade:['persist'])]
     private $idValutazioneFiguraProfessionale;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreValutazioneGenerale', targetEntity: "App\Entity\EntityPAI\ValutazioneGenerale")]
+    #[ORM\OneToMany(targetEntity: ValutazioneGenerale::class, mappedBy: 'autoreValutazioneGenerale', cascade:['persist'])]
     private $idValutazioneGenerale;
 
-    #[ORM\OnetoMany(mappedBy: 'autoreVas', targetEntity: Vas::class)]
+    #[ORM\OneToMany(mappedBy: 'autoreVas', targetEntity: Vas::class, cascade:['persist'])]
     private $idVas;
 
     //#[ORM\Column(type: 'string', nullable: true)]
@@ -121,6 +121,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->principaleSchedaPai = new ArrayCollection();
+        $this->infSchedaPai = new ArrayCollection();
+        $this->tdrSchedaPai = new ArrayCollection();
+        $this->logSchedaPai = new ArrayCollection();
+        $this->asaSchedaPai = new ArrayCollection();
+        $this->ossSchedaPai = new ArrayCollection();
     }
     public function __toString()
     {
@@ -143,12 +148,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
     public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -175,14 +181,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
-        
+
         return $this;
     }
 
     public function setCf(string $cf): self
     {
         $this->cf = $cf;
-        
+
         return $this;
     }
 
@@ -220,15 +226,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -247,7 +250,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isStato(): bool
+    public function isStato(): ?bool
     {
         return $this->stato;
     }
@@ -268,150 +271,145 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-     /**
-     * @return Collection<int, SchedaPai>
+    /**
+     * @return Collection<int, SchedaPAI>
      */
-    public function getInfSchedaPai()
+    public function getInfSchedaPai(): Collection
     {
         return $this->infSchedaPai;
     }
 
-    public function addinfSchedaPai(SchedaPAI $infSchedaPai): self
+    public function addInfSchedaPai(SchedaPAI $infSchedaPai): self
     {
         if (!$this->infSchedaPai->contains($infSchedaPai)) {
-            $this->infSchedaPai[] = $infSchedaPai;
-            
+            $this->infSchedaPai->add($infSchedaPai);
+            $infSchedaPai->addIdOperatoreSecondarioInf($this);
         }
 
         return $this;
     }
 
-    public function removeinfSchedaPai(SchedaPai $infSchedaPai): self
+    public function removeInfSchedaPai(SchedaPAI $infSchedaPai): self
     {
         if ($this->infSchedaPai->removeElement($infSchedaPai)) {
-            // set the owning side to null (unless already changed)
-           
-        }
-
-        return $this;
-    }
-
-         /**
-     * @return Collection<int, SchedaPai>
-     */
-    public function getTdrSchedaPai()
-    {
-        return $this->tdrSchedaPai;
-    }
-
-    public function addtdrSchedaPai(SchedaPAI $tdrSchedaPai): self
-    {
-        if (!$this->tdrSchedaPai->contains($tdrSchedaPai)) {
-            $this->tdrSchedaPai[] = $tdrSchedaPai;
-            
-        }
-
-        return $this;
-    }
-
-    public function removetdrSchedaPai(SchedaPai $tdrSchedaPai): self
-    {
-        if ($this->tdrSchedaPai->removeElement($tdrSchedaPai)) {
-            // set the owning side to null (unless already changed)
-           
-        }
-
-        return $this;
-    }
-
-         /**
-     * @return Collection<int, SchedaPai>
-     */
-    public function getLogSchedaPai()
-    {
-        return $this->logSchedaPai;
-    }
-
-    public function addlogSchedaPai(SchedaPAI $logSchedaPai): self
-    {
-        if (!$this->logSchedaPai->contains($logSchedaPai)) {
-            $this->logSchedaPai[] = $logSchedaPai;
-            
-        }
-
-        return $this;
-    }
-
-    public function removelogSchedaPai(SchedaPai $logSchedaPai): self
-    {
-        if ($this->logSchedaPai->removeElement($logSchedaPai)) {
-            // set the owning side to null (unless already changed)
-           
-        }
-
-        return $this;
-    }
-
-         /**
-     * @return Collection<int, SchedaPai>
-     */
-    public function getAsaSchedaPai()
-    {
-        return $this->asaSchedaPai;
-    }
-
-    public function addasaSchedaPai(SchedaPAI $asaSchedaPai): self
-    {
-        if (!$this->asaSchedaPai->contains($asaSchedaPai)) {
-            $this->asaSchedaPai[] = $asaSchedaPai;
-            
-        }
-
-        return $this;
-    }
-
-    public function removeasaSchedaPai(SchedaPai $asaSchedaPai): self
-    {
-        if ($this->asaSchedaPai->removeElement($asaSchedaPai)) {
-            // set the owning side to null (unless already changed)
-           
-        }
-
-        return $this;
-    }
-
-         /**
-     * @return Collection<int, SchedaPai>
-     */
-    public function getOssSchedaPai()
-    {
-        return $this->ossSchedaPai;
-    }
-
-    public function addossSchedaPai(SchedaPAI $ossSchedaPai): self
-    {
-        if (!$this->ossSchedaPai->contains($ossSchedaPai)) {
-            $this->ossSchedaPai[] = $ossSchedaPai;
-            
-        }
-
-        return $this;
-    }
-
-    public function removeossSchedaPai(SchedaPai $ossSchedaPai): self
-    {
-        if ($this->ossSchedaPai->removeElement($ossSchedaPai)) {
-            // set the owning side to null (unless already changed)
-           
+            $infSchedaPai->removeIdOperatoreSecondarioInf($this);
         }
 
         return $this;
     }
 
     /**
-     * @return Collection<int, SchedaPai>
+     * @return Collection<int, SchedaPAI>
      */
-    public function getPrincipaleSchedaPai()
+    public function getTdrSchedaPai(): Collection
+    {
+        return $this->tdrSchedaPai;
+    }
+
+    public function addTdrSchedaPai(SchedaPAI $tdrSchedaPai): self
+    {
+        if (!$this->tdrSchedaPai->contains($tdrSchedaPai)) {
+            $this->tdrSchedaPai->add($tdrSchedaPai);
+            $tdrSchedaPai->addIdOperatoreSecondarioTdr($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTdrSchedaPai(SchedaPAI $tdrSchedaPai): self
+    {
+        if ($this->tdrSchedaPai->removeElement($tdrSchedaPai)) {
+            $tdrSchedaPai->removeIdOperatoreSecondarioTdr($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SchedaPAI>
+     */
+    public function getLogSchedaPai(): Collection
+    {
+        return $this->logSchedaPai;
+    }
+
+    public function addLogSchedaPai(SchedaPAI $logSchedaPai): self
+    {
+        if (!$this->logSchedaPai->contains($logSchedaPai)) {
+            $this->logSchedaPai->add($logSchedaPai);
+            $logSchedaPai->addIdOperatoreSecondarioLog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogSchedaPai(SchedaPAI $logSchedaPai): self
+    {
+        if ($this->logSchedaPai->removeElement($logSchedaPai)) {
+            $logSchedaPai->removeIdOperatoreSecondarioLog($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SchedaPAI>
+     */
+    public function getAsaSchedaPai(): Collection
+    {
+        return $this->asaSchedaPai;
+    }
+
+    public function addAsaSchedaPai(SchedaPAI $asaSchedaPai): self
+    {
+        if (!$this->asaSchedaPai->contains($asaSchedaPai)) {
+            $this->asaSchedaPai->add($asaSchedaPai);
+            $asaSchedaPai->addIdOperatoreSecondarioAsa($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAsaSchedaPai(SchedaPAI $asaSchedaPai): self
+    {
+        if ($this->asaSchedaPai->removeElement($asaSchedaPai)) {
+            $asaSchedaPai->removeIdOperatoreSecondarioAsa($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SchedaPAI>
+     */
+    public function getOssSchedaPai(): Collection
+    {
+        return $this->ossSchedaPai;
+    }
+
+    public function addOssSchedaPai(SchedaPAI $ossSchedaPai): self
+    {
+        if (!$this->ossSchedaPai->contains($ossSchedaPai)) {
+            $this->ossSchedaPai->add($ossSchedaPai);
+            $ossSchedaPai->addIdOperatoreSecondarioOss($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOssSchedaPai(SchedaPAI $ossSchedaPai): self
+    {
+        if ($this->ossSchedaPai->removeElement($ossSchedaPai)) {
+            $ossSchedaPai->removeIdOperatoreSecondarioOss($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SchedaPAI>
+     */
+    public function getPrincipaleSchedaPai(): Collection
     {
         return $this->principaleSchedaPai;
     }
@@ -419,7 +417,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function addPrincipaleSchedaPai(SchedaPAI $principaleSchedaPai): self
     {
         if (!$this->principaleSchedaPai->contains($principaleSchedaPai)) {
-            $this->principaleSchedaPai[] = $principaleSchedaPai;
+            $this->principaleSchedaPai->add($principaleSchedaPai);
             $principaleSchedaPai->setIdOperatorePrincipale($this);
         }
 
@@ -438,14 +436,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isSdManagerOperatore():bool
+    public function isSdManagerOperatore(): ?bool
     {
         return $this->sdManagerOperatore;
     }
 
     public function setSdManagerOperatore(bool $sdManagerOperatore): self
     {
-        
         $this->sdManagerOperatore = $sdManagerOperatore;
 
         return $this;
