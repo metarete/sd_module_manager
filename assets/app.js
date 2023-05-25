@@ -107,9 +107,20 @@ $(function() {
     }
 
   }
+  $("#spinner").click(function() {
+    var modale = $('#modal-spinner');
+    if(modale){
+      modale.show();
+    }
+    else{
+      modale.hide();
+    }
+  });
   
-
 });
+
+ 
+
 //grafico schede
 var percentualeNuove = $("#percentualeNuove").text();
 var percentualeApprovate = $("#percentualeApprovate").text();

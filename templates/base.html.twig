@@ -93,7 +93,7 @@
 							{% if "ROLE_ADMIN" not in app.user.roles %}
 								{% else %}
 									<li>
-										<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;">Sincronizza</a>
+										<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;" id ="spinner">Sincronizza</a>
 									</li>
 							{% endif %}
 							<li class="nav-item">
@@ -151,6 +151,20 @@
 				</ul>
 			</nav>
 		{% endif %}
+			<div class="modal" tabindex="-1" id="modal-spinner">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Sincronizzazione in corso...</h5>
+						</div>
+						<div class="modal-body text-warning" style="text-align:center;">
+							<div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
+								<span class="visually-hidden">Loading...</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</body>
 	</html>
 </div>{% endblock %}<div class="container-fluid">
