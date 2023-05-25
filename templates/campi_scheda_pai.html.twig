@@ -4,6 +4,7 @@
 	}
 </style>
 <div class="container-fluid text-center">
+	<div class="card-operatori-pc">
 	<div class="row">
 		<div class="col">
 			<div class="card">
@@ -130,6 +131,144 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	</div>
+	<div class="card-operatori-mobile">
+	<div class="row">
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-person" style="font-size:25px;"></i>
+					<h5 class="card-text">Operatore Principale
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatorePrincipale  is empty %}
+							Nessuno
+						{% else %}
+							{{scheda_pai.idOperatorePrincipale.name}}
+							{{scheda_pai.idOperatorePrincipale.surname}}
+						{% endif %}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Infermieri
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioInf  is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioInf %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Terapisti della riabilitazione
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioTdr is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioTdr %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Logopedisti
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioLog is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioLog %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Ausiliari Socio Assistenziale
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioAsa is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioAsa %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="card">
+
+				<div class="card-body">
+					<i class="bi bi-people" style="font-size:25px;"></i>
+					<h5 class="card-text">Operatori Socio Sanitario
+					</h5>
+					<p class="card-title">
+						{% if scheda_pai.idOperatoreSecondarioOss is empty %}
+							Nessuno
+						{% endif %}
+						{% for i in scheda_pai.idOperatoreSecondarioOss %}
+							{{i.name}}
+							{{i.surname}}
+							<br>
+						{% endfor %}
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
 	</div>
 	<br>
 	

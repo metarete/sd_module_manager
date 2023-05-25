@@ -153,6 +153,47 @@ label.test:after {
     }
 }
 
+//visualizzazione card operatori schede pai
+
+@media only screen and (max-width: 850px){
+    .card-operatori-pc{
+        display: none;
+    }
+    .card-operatori-mobile{
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 850px){
+    .card-operatori-pc{
+        display: block;
+    }
+    .card-operatori-mobile{
+        display: none;
+    }
+}
+
+//visualizzazione card valutazione generale schede pai
+
+@media only screen and (max-width: 850px){
+    .card-valutazione-generale-pc{
+        display: none;
+    }
+    .card-valutazione-generale-mobile{
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 850px){
+    .card-valutazione-generale-pc{
+        display: block;
+    }
+    .card-valutazione-generale-mobile{
+        display: none;
+    }
+}
+
+
 //tabelle di visualizzazione
 @media only screen and (max-width: 1200px) {
 
