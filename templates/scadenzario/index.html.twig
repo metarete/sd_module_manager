@@ -22,21 +22,41 @@
     	</div>
 	{% endfor %}
 
-	<div class="b-example-divider"></div>
-<form action="{{ path('app_scadenzario_index')}}" method="POST" id="my_form">
-<nav class="navbar navbar-expand">
-    <div class="container-fluid">
-        <div class="col-md-2">
-        <p class="h6">Schede per pagina</p>
-        <select class=" d-inline form-select" name='filtro_numero_schede_scadenzario' onchange="this.form.submit()">
-                <option {% if schede_per_pagina == 0 %}selected{% endif %} value=10>10</option>
-                <option {% if schede_per_pagina == 20 %}selected{% endif %} value=20>20</option>
-                <option {% if schede_per_pagina == 50 %}selected{% endif %} value=50>50</option>
-        </select>
+<div class="b-example-divider"></div>
+<div class="filter-pc">
+	<form action="{{ path('app_scadenzario_index')}}" method="POST" id="my_form">
+	<nav class="navbar navbar-expand">
+		<div class="container-fluid">
+			<div class="col-md-2">
+			<p class="h6">Schede per pagina</p>
+			<select class=" d-inline form-select" name='filtro_numero_schede_scadenzario' onchange="this.form.submit()">
+					<option {% if schede_per_pagina == 0 %}selected{% endif %} value=10>10</option>
+					<option {% if schede_per_pagina == 20 %}selected{% endif %} value=20>20</option>
+					<option {% if schede_per_pagina == 50 %}selected{% endif %} value=50>50</option>
+			</select>
+			</div>
 		</div>
-	</div>
-</nav>
-</form>
+	</nav>
+	</form>
+</div>
+<div class="filter-mobile">
+	<form action="{{ path('app_scadenzario_index')}}" method="POST" id="my_form">
+		<div class="container-fluid">
+			<div class="row">
+			<div class="col">
+			<div class="h6">Schede per pagina</div>
+			<select class=" d-inline form-select" name='filtro_numero_schede_scadenzario' onchange="this.form.submit()">
+					<option {% if schede_per_pagina == 0 %}selected{% endif %} value=10>10</option>
+					<option {% if schede_per_pagina == 20 %}selected{% endif %} value=20>20</option>
+					<option {% if schede_per_pagina == 50 %}selected{% endif %} value=50>50</option>
+			</select>
+			</div>
+			</div>
+		</div>
+	</form>
+</div>
+<br>
+
 <div class="b-example-divider"></div>
 		<div class="no-more-tables">
 			<table id="tabella-index-scheda-pai" class="col-sm-12  table-striped table-condensed cf">

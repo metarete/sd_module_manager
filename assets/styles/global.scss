@@ -33,6 +33,27 @@ label.test:after {
     margin: 2px;
 }
 
+//barra filtri
+@media only screen and (max-width: 850px){
+    .filter-pc{
+        display: none;
+    }
+    .filter-mobile{
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 850px){
+    .filter-pc{
+        display: block;
+    }
+    .filter-mobile{
+        display: none;
+    }
+}
+
+
+
 //navbar
 
 .navbar-expand {
