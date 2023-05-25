@@ -78,22 +78,32 @@ $(function() {
   $('#valutazione_generale_form_panf').on('change', function(e){
     var valorePresenzaAssistenteNonFamigiare = $(this).val();
     var selettore = $('#valutazione_generale_form_fanf');
+    var labelSelettore = $('.fanf_attr');
     if(valorePresenzaAssistenteNonFamigiare == 'non presente'){
+      if(labelSelettore)
+      labelSelettore.hide();
       selettore.val('nessuna');
       //selettore.prop('disabled', 'disabled');
       //selettore.prop('required', false);
-      
+      selettore.hide();
     }
     else {
       //selettore.prop('disabled', false);
+      selettore.show();
+      if(labelSelettore)
+      labelSelettore.show();
     }
   });
   if($('#valutazione_generale_form_panf')
   && $('#valutazione_generale_form_panf').val() == 'non presente'){
     var selettore = $('#valutazione_generale_form_fanf');
+    var labelSelettore = $('.fanf_attr');
     if(selettore){
       //selettore.prop('disabled', 'disabled');
+      if(labelSelettore)
+        labelSelettore.hide();
       selettore.val('nessuna');
+      selettore.hide();
     }
 
   }

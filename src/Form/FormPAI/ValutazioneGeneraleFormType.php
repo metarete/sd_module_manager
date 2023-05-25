@@ -59,6 +59,7 @@ class ValutazioneGeneraleFormType extends AbstractType
             ->add('fanf', ChoiceType::class,[
                 'choices' => $fanfChoices,
                 'label' => 'Frequenza Assistente Non Famigliare',
+                'label_attr' => ['class' => 'fanf_attr']
             ])
             
             ->add('iss', ChoiceType::class,[
