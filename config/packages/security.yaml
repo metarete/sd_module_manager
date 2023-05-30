@@ -35,6 +35,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+         - { path: ^/admin/autocomplete/, roles: [ROLE_USER, ROLE_ADMIN]}
          - { path: ^/admin/, roles: ROLE_ADMIN}
          - { path: ^/scheda_pai/sincronizza_progetti, roles: ROLE_ADMIN}
          - { path: ^/profilo/, roles: [ROLE_USER, ROLE_ADMIN]}
