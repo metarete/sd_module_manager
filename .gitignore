@@ -30,4 +30,6 @@ yarn-error.log
 docker-data-volumes/mysql/data/*
 docker-data-volumes/httpd/logs/*
 /nbproject/
-/nbproject/private/
+symfony.lock
+composer.lock
+yarn.lock
