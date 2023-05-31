@@ -105,7 +105,7 @@
                         				<a class="bi bi-caret-right-fill chiuso" href="#"></a> 
 									</div>
 								</td>
-								<td data-title='Nome Progetto'>{{scheda_pai.nomeProgetto}}
+								<td data-title='Nome Progetto' ><a class="breadcrumb-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}">{{scheda_pai.nomeProgetto}}</a>
 								</td>								
 								<td data-title='Data Inizio'>{{ scheda_pai.dataInizio|date('d/m/Y') }}
 								</td>
@@ -137,7 +137,7 @@
 										</button>
 										<ul class="dropdown-menu">
 											<li>
-												<a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza</a>
+												<a class="dropdown-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-clipboard2"></i> Visualizza/Gestisci</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroConfigura(scheda_pai, user)}}>
 												<a class="dropdown-item" href="{{ path('app_scheda_pai_edit', {'id': scheda_pai.id, 'pathName': pathName, 'page': pagina}) }}"><i class="bi bi-pencil-square"></i> Configura</a>
@@ -162,37 +162,37 @@
 											</li>
 											<li><hr class="dropdown-divider"></li>
 											<li style={{filtroDropdownScadenzario.filtroValutazioneGenerale(scheda_pai, user)}}>
-												<a class="dropdown-item" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Valutazione Generale</a>
+												<a class="dropdown-item" href="{{ path('app_valutazione_generale_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Valutazione Generale</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroValutazioneFiguraProfessionale(scheda_pai, user)}}>
-												<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Valutazione Figura Professionale</a>
+												<a class="dropdown-item" href="{{ path('app_valutazione_figura_professionale_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Valutazione Figura Professionale</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroParereMmg(scheda_pai, user)}}>
-												<a class="dropdown-item" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Parere MMG</a>
+												<a class="dropdown-item" href="{{ path('app_parere_mmg_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuovo Parere MMG</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroChiusuraServizio(scheda_pai, user)}}>
-												<a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Chiusura servizio</a>
+												<a class="dropdown-item" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Chiusura servizio</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroBarthel(scheda_pai)}}>
-												<a class="dropdown-item" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Barthel</a>
+												<a class="dropdown-item" href="{{ path('app_barthel_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Barthel</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroBraden(scheda_pai)}}>
-												<a class="dropdown-item" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Braden</a>
+												<a class="dropdown-item" href="{{ path('app_form_pai_braden_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Braden</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroSpmsq(scheda_pai)}}>
-												<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> SPMSQ</a>
+												<a class="dropdown-item" href="{{ path('app_s_p_m_s_q_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova SPMSQ</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroTinetti(scheda_pai)}}>
-												<a class="dropdown-item" href="{{ path('app_tinetti_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Tinetti</a>
+												<a class="dropdown-item" href="{{ path('app_tinetti_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Tinetti</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroVas(scheda_pai)}}>
-												<a class="dropdown-item" href="{{ path('app_vas_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Vas</a>
+												<a class="dropdown-item" href="{{ path('app_vas_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Vas</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroLesioni(scheda_pai)}}>
-												<a class="dropdown-item" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Lesioni</a>
+												<a class="dropdown-item" href="{{ path('app_lesioni_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Lesioni</a>
 											</li>
 											<li style={{filtroDropdownScadenzario.filtroPainad(scheda_pai)}}>
-												<a class="dropdown-item" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-pencil-square"></i> Painad</a>
+												<a class="dropdown-item" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': pagina})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Painad</a>
 											</li>
 											<li><hr class="dropdown-divider"></li>
 											<li>

@@ -352,6 +352,9 @@ body #scheda_pai table tr td {
     border-bottom-width: 0;
     border-left-width: 0;
     border-right-width: 0;
+    &:nth-child(even) {
+		background-color: #D3D3D3;
+	}
 }
 
 @media only screen and (max-width: 1200px) {
@@ -508,5 +511,8 @@ html.dark-mode {
         border-bottom-width: 0;
         border-left-width: 0;
         border-right-width: 0;
+        &:nth-child(even) {
+            background-color: #31363c;
+        }
     }
 }
