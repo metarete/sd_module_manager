@@ -18,6 +18,7 @@
 		{{ form_errors(form.percezioneSensoriale) }}
 	</div>
 </div>
+<br>
 <div class="row">
 	<div class="col">
 		{{ form_label(form.umidita) }}
@@ -30,6 +31,7 @@
 		{{ form_errors(form.umidita) }}
 	</div>
 </div>
+<br>
 <div class="row">
 	<div class="col">
 		{{ form_label(form.attivita) }}
@@ -42,6 +44,7 @@
 		{{ form_errors(form.attivita) }}
 	</div>
 </div>
+<br>
 <div class="row">
 	<div class="col">
 		{{ form_label(form.mobilita) }}
@@ -54,6 +57,7 @@
 		{{ form_errors(form.mobilita) }}
 	</div>
 </div>
+<br>
 <div class="row">
 	<div class="col">
 		{{ form_label(form.nutrizione) }}
@@ -66,6 +70,7 @@
 		{{ form_errors(form.nutrizione) }}
 	</div>
 </div>
+<br>
 <div class="row">
 	<div class="col">
 		{{ form_label(form.frizioneScivolamento) }}
@@ -77,6 +82,34 @@
 		{{ form_widget(form.frizioneScivolamento) }}
 		{{ form_errors(form.frizioneScivolamento) }}
 	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.presenzaPresidiAntidecubito) }}
+		{{ form_help(form.presenzaPresidiAntidecubito) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.presenzaPresidiAntidecubito) }}
+		{{ form_errors(form.presenzaPresidiAntidecubito) }}
+	</div>
+</div>
+<br>
+<div class="prova">
+<div class="row">
+	<div class="col">
+		{{ form_label(form.presidiAntidecubito) }}
+		{{ form_help(form.presidiAntidecubito) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.presidiAntidecubito) }}
+		{{ form_errors(form.presidiAntidecubito) }}
+	</div>
+</div>
 </div>
 <br>
 <button class="btn btn-primary">{{ button_label|default('Salva') }}</button>

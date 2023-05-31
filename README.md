@@ -67,6 +67,18 @@ Per cancellare le diagnosi lanciare il comando
 php bin/console app:elimina-lista-diagnosi
 ```
 
+Inserire nel database la lista dei presidi antidecubito con il comando 
+
+```
+php bin/console app:inserisci-lista-presidi-antidecubito
+```
+Per aggiornare la procedura è identica alla lista diagnosi
+Lanciare il comando 
+
+```
+php bin/console app:elimina-lista-presidi-antidecubito
+```
+
 Accedere all'applicativo all'indirizzo:
 
 ```

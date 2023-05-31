@@ -5,6 +5,8 @@ namespace App\Form\FormPAI;
 use App\Entity\EntityPAI\Braden;
 use App\Doctrine\DBAL\Type\VotiBraden13;
 use App\Doctrine\DBAL\Type\VotiBraden14;
+use App\Entity\PresidiAntidecubito;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -83,6 +85,23 @@ class BradenFormType extends AbstractType
                             <br>-1: Problema.
                 ",
                 'help_html' => true
+            ])
+            ->add('presenzaPresidiAntidecubito', ChoiceType::class,[
+                'placeholder' => '',
+                'choices' => [
+                    'Si' => 'Si',
+                    'No' => 'No',
+                ],
+                'label' => 'Presenza Presidi Antidecubito'
+            ])
+            ->add('presidiAntidecubito', EntityType::class,[
+                'class'=> PresidiAntidecubito::class,
+                'choice_label' => function (PresidiAntidecubito $presidiAntidecubito) {
+                    return $presidiAntidecubito->getNome();},
+                'label' => 'Presidi Antidecubito',
+                'label_attr' => ['class' => 'presidiAntidecubito_attr'],
+                'multiple'=> true,
+                'autocomplete' => true,
             ])
             
         ;

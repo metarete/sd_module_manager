@@ -72,6 +72,24 @@
 									{% endfor %}
 								</tr>
 								<tr>
+									<th>Presenza Presidi Antidecubito</th>
+									{% for braden in bradens %}
+										<td>{{ braden.presenzaPresidiAntidecubito}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Presidi Antidecubito</th>
+									{% for braden in bradens %}
+										<td>{% if braden.presidiAntidecubito is empty %}
+										Nessuno
+										{% else %}
+											{% for i in braden.presidiAntidecubito %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+									{% endfor %}
+								</tr>
+								<tr>
 									<th>Totale</th>
 									{% for braden in bradens %}
 										<td>

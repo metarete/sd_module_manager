@@ -2,8 +2,11 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\PresidiAntidecubito;
 use App\Entity\User;
 use App\Repository\BradenRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -49,6 +52,10 @@ class Braden
     #[ORM\Column(type: 'integer', nullable: true)]
     private $totale;
 
+    #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
+    private $presenzaPresidiAntidecubito;
+
     #[ORM\ManyToOne(targetEntity: SchedaPAI::class, inversedBy: 'idBraden', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private $schedaPAI;
@@ -56,6 +63,14 @@ class Braden
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idBraden', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreBraden;
+
+    #[ORM\ManyToMany(targetEntity: PresidiAntidecubito::class, inversedBy: 'braden', cascade:['persist'])]
+    private Collection $presidiAntidecubito;
+
+    public function __construct()
+    {
+        $this->presidiAntidecubito = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -158,6 +173,18 @@ class Braden
         return $this;
     }
 
+    public function getPresenzaPresidiAntidecubito(): ?string
+    {
+        return $this->presenzaPresidiAntidecubito;
+    }
+
+    public function setPresenzaPresidiAntidecubito(?string $presenzaPresidiAntidecubito): self
+    {
+        $this->presenzaPresidiAntidecubito = $presenzaPresidiAntidecubito;
+
+        return $this;
+    }
+
     public function getSchedaPAI(): ?SchedaPAI
     {
         return $this->schedaPAI;
@@ -189,6 +216,33 @@ class Braden
     public function setAutoreBraden(?User $autoreBraden): self
     {
         $this->autoreBraden = $autoreBraden;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PresidiAntidecubito>
+     */
+    public function getPresidiAntidecubito(): Collection
+    {
+        return $this->presidiAntidecubito;
+    }
+
+    public function addPresidiAntidecubito(PresidiAntidecubito $presidiAntidecubito): self
+    {
+        if (!$this->presidiAntidecubito->contains($presidiAntidecubito)) {
+            $this->presidiAntidecubito->add($presidiAntidecubito);
+            $presidiAntidecubito->addBraden($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresidiAntidecubito(PresidiAntidecubito $presidiAntidecubito): self
+    {
+        if ($this->presidiAntidecubito->removeElement($presidiAntidecubito)) {
+            $presidiAntidecubito->removeBraden($this);
+        }
 
         return $this;
     }

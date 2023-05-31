@@ -73,7 +73,41 @@ $(function() {
     }
 
   }
-  
+  //scheda braden
+
+  $('#braden_form_presenzaPresidiAntidecubito').on('change', function(e){
+    var valorePresenzaPresidiAntidecubito = $(this).val();
+    var selettore = $('#braden_form_presidiAntidecubito');
+    var labelSelettore = $('.presidiAntidecubito_attr');
+    var labelSelettore2 = $('.prova');
+    if(valorePresenzaPresidiAntidecubito == 'No'){
+      if(labelSelettore)
+      labelSelettore.hide();
+      labelSelettore2.hide();
+      selettore.hide();
+    }
+    else {
+      selettore.show();
+      if(labelSelettore)
+      labelSelettore.show();
+      labelSelettore2.show();
+    }
+    
+  });
+  if($('#braden_form_presenzaPresidiAntidecubito')
+  && ($('#braden_form_presenzaPresidiAntidecubito').val() != 'Si' )
+  || ($('#braden_form_presenzaPresidiAntidecubito').val() != '')){
+    var selettore = $('#braden_form_presidiAntidecubito');
+    var labelSelettore = $('.presidiAntidecubito_attr');
+    var labelSelettore2 = $('.prova');
+    if(selettore){
+      if(labelSelettore)
+        labelSelettore.hide();
+        labelSelettore2.hide();
+        selettore.hide();
+    }
+
+  }
   //valutazione generale
   $('#valutazione_generale_form_panf').on('change', function(e){
     var valorePresenzaAssistenteNonFamigiare = $(this).val();
