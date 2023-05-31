@@ -86,7 +86,7 @@ class VasController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_vas_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_vas_show', methods: ['GET'])]
     public function show(Vas $va): Response
     {
         $variabileTest = null;
@@ -94,7 +94,7 @@ class VasController extends AbstractController
             'va' => $va,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_vas_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Vas $va, VasRepository $vasRepository): Response

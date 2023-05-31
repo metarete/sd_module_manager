@@ -87,7 +87,7 @@ class PainadController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_painad_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_painad_show', methods: ['GET'])]
     public function show(Painad $painad): Response
     {
         $variabileTest = null;
@@ -95,7 +95,7 @@ class PainadController extends AbstractController
             'painad' => $painad,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_painad_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Painad $painad, PainadRepository $painadRepository): Response

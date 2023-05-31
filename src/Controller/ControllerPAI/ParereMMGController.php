@@ -87,7 +87,7 @@ class ParereMMGController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_parere_mmg_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_parere_mmg_show', methods: ['GET'])]
     public function show(ParereMMG $parereMMG): Response
     {
         $variabileTest = null;
@@ -95,7 +95,7 @@ class ParereMMGController extends AbstractController
             'parere_mmg' => $parereMMG,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_parere_mmg_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ParereMMG $parereMMG, ParereMMGRepository $parereMMGRepository): Response

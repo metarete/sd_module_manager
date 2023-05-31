@@ -83,7 +83,7 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_valutazione_figura_professionale_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_valutazione_figura_professionale_show', methods: ['GET'])]
     public function show(ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale): Response
     {
         $variabileTest = null;
@@ -91,7 +91,7 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             'valutazione_figura_professionale' => $valutazioneFiguraProfessionale,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_valutazione_figura_professionale_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale, ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository): Response

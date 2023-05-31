@@ -87,7 +87,7 @@ class SPMSQController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_s_p_m_s_q_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_s_p_m_s_q_show', methods: ['GET'])]
     public function show(SPMSQ $sPMSQ): Response
     {
         $variabileTest = null;
@@ -95,7 +95,7 @@ class SPMSQController extends AbstractController
             's_p_m_s_q' => $sPMSQ,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_s_p_m_s_q_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, SPMSQ $sPMSQ, SPMSQRepository $sPMSQRepository): Response

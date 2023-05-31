@@ -87,7 +87,7 @@ class TinettiController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_tinetti_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_tinetti_show', methods: ['GET'])]
     public function show(Tinetti $tinetti): Response
     {
         $variabileTest = null;
@@ -95,7 +95,7 @@ class TinettiController extends AbstractController
             'tinetti' => $tinetti,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_tinetti_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tinetti $tinetti, TinettiRepository $tinettiRepository): Response

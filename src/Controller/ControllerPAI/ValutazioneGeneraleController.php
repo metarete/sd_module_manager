@@ -112,7 +112,7 @@ class ValutazioneGeneraleController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_valutazione_generale_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_valutazione_generale_show', methods: ['GET'])]
     public function show(ValutazioneGenerale $valutazioneGenerale): Response
     {
         $altraTipologiaAssistenza = [];
@@ -126,7 +126,7 @@ class ValutazioneGeneraleController extends AbstractController
             'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
             'bisogni' => $bisogni
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_valutazione_generale_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ValutazioneGenerale $valutazioneGenerale, ValutazioneGeneraleRepository $valutazioneGeneraleRepository): Response

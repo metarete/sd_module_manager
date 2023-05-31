@@ -84,7 +84,7 @@ class BarthelController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_barthel_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_barthel_show', methods: ['GET'])]
     public function show(Barthel $barthel): Response
     {
         $variabileTest = null;
@@ -92,7 +92,7 @@ class BarthelController extends AbstractController
             'barthel' => $barthel,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_barthel_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Barthel $barthel, BarthelRepository $barthelRepository): Response

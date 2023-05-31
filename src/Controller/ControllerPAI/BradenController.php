@@ -85,7 +85,7 @@ class BradenController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_form_pai_braden_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_form_pai_braden_show', methods: ['GET'])]
     public function show(Braden $braden): Response
     {
         $variabileTest = null;
@@ -93,7 +93,7 @@ class BradenController extends AbstractController
             'braden' => $braden,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_form_pai_braden_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Braden $braden, BradenRepository $bradenRepository): Response

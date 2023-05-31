@@ -85,7 +85,7 @@ class ChiusuraServizioController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_chiusura_servizio_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_chiusura_servizio_show', methods: ['GET'])]
     public function show(ChiusuraServizio $chiusuraServizio): Response
     {
         $variabileTest = null;
@@ -93,7 +93,7 @@ class ChiusuraServizioController extends AbstractController
             'chiusura_servizio' => $chiusuraServizio,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_chiusura_servizio_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ChiusuraServizio $chiusuraServizio, ChiusuraServizioRepository $chiusuraServizioRepository): Response

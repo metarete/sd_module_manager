@@ -86,7 +86,7 @@ class LesioniController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id}', name: 'app_lesioni_show', methods: ['GET'])]
+    /*#[Route('/show/{id}', name: 'app_lesioni_show', methods: ['GET'])]
     public function show(Lesioni $lesioni): Response
     {
         $variabileTest = null;
@@ -94,7 +94,7 @@ class LesioniController extends AbstractController
             'lesioni' => $lesioni,
             'variabileTest' => $variabileTest
         ]);
-    }
+    }*/
 
     #[Route('/{id}/edit', name: 'app_lesioni_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Lesioni $lesioni, LesioniRepository $lesioniRepository): Response
