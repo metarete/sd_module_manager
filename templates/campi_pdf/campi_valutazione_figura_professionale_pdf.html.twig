@@ -80,15 +80,30 @@
 			</tr>
 			<tr>
 				<th>
-					Tipo e frequenza
+					Frequenza
 				</th>
 
 				<td>
 
-					{% if  valutazione_figura_professionale.tipoEFrequenza is empty %}
+					{% if  valutazione_figura_professionale.frequenza is empty %}
 						Nessuno
 					{% else %}
-						{{ valutazione_figura_professionale.tipoEFrequenza }}
+						{{ valutazione_figura_professionale.frequenza }}
+					{% endif %}
+
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Osservazioni
+				</th>
+
+				<td>
+
+					{% if  valutazione_figura_professionale.osservazioni is empty %}
+						Nessuno
+					{% else %}
+						{{ valutazione_figura_professionale.osservazioni }}
 					{% endif %}
 
 				</td>

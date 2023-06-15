@@ -78,6 +78,11 @@ Lanciare il comando
 ```
 php bin/console app:elimina-lista-presidi-antidecubito
 ```
+Inserire nel database la lista dei campi multipli della scheda lesioni con il comando 
+
+```
+php bin/console app:inserisci-lista-campi-lesione
+```
 
 Accedere all'applicativo all'indirizzo:
 

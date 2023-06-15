@@ -3,7 +3,6 @@
 namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\Obiettivi;
@@ -32,8 +31,11 @@ class ValutazioneFiguraProfessionale
     #[ORM\ManyToMany(targetEntity: Obiettivi::class, inversedBy: 'valutazioneFiguraProfessionale', cascade:['persist'])]
     private $obiettivi;
 
-    #[ORM\Column(type: 'text')]
-    private $tipoEFrequenza;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frequenza;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $osservazioni;
 
     #[ORM\Column(type: 'date')]
     #[Assert\Type(\DateTime::class)]
@@ -49,6 +51,11 @@ class ValutazioneFiguraProfessionale
     {
         $this->obiettivi = new ArrayCollection();
         $this->diagnosi = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 
     public function getId(): ?int
@@ -68,14 +75,26 @@ class ValutazioneFiguraProfessionale
         return $this;
     }
 
-    public function getTipoEFrequenza(): ?string
+    public function getFrequenza(): ?string
     {
-        return $this->tipoEFrequenza;
+        return $this->frequenza;
     }
 
-    public function setTipoEFrequenza(string $tipoEFrequenza): self
+    public function setFrequenza(?string $frequenza): self
     {
-        $this->tipoEFrequenza = $tipoEFrequenza;
+        $this->frequenza = $frequenza;
+
+        return $this;
+    }
+
+    public function getOsservazioni(): ?string
+    {
+        return $this->osservazioni;
+    }
+
+    public function setOsservazioni(?string $osservazioni): self
+    {
+        $this->osservazioni = $osservazioni;
 
         return $this;
     }

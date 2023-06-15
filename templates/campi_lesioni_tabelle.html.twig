@@ -36,7 +36,13 @@
 							</thead>
 							<tbody>
 								<tr>
-									<th style="width: 300px;">Tipologia Lesione</th>
+									<th style="width: 300px;">Lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.lesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Tipologia Lesione</th>
 									{% for lesioni in lesionis %}
 										<td>{{lesioni.tipologiaLesione}}</td>
 									{% endfor %}
@@ -54,21 +60,87 @@
 									{% endfor %}
 								</tr>
 								<tr>
+									<th>Dimensioni lesione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.dimensioneLesione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
 									<th>Condizione lesione</th>
 									{% for lesioni in lesionis %}
-										<td>{{lesioni.condizioneLesione}}</td>
+										<td>{% if lesioni.condizioneLesione is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.condizioneLesione %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Bordi lesione</th>
 									{% for lesioni in lesionis %}
-										<td>{{lesioni.bordiLesione}}</td>
+										<td>{% if lesioni.bordiLesione is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.bordiLesione %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
 									{% endfor %}
 								</tr>
 								<tr>
 									<th>Cute perilesionale</th>
 									{% for lesioni in lesionis %}
-										<td>{{lesioni.cutePerilesionale}}</td>
+										<td>{% if lesioni.cutePerilesionale is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.cutePerilesionale %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Disinfezione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.disinfezione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Specifiche per disinfezione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.specificheDisinfezione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Medicazione</th>
+									{% for lesioni in lesionis %}
+										<td>{% if lesioni.medicazione is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.medicazione %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Specifiche per medicazione</th>
+									{% for lesioni in lesionis %}
+										<td>{{lesioni.specificheMedicazione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Copertura</th>
+									{% for lesioni in lesionis %}
+										<td>{% if lesioni.copertura is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.copertura %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
 									{% endfor %}
 								</tr>
 								<tr>
@@ -135,6 +207,16 @@
 							<thead></thead>
 							<tbody>
 								<tr>
+									<th>lesione</th>
+									<td></td>
+								</tr>
+								{% for lesioni in lesionis %}
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										<td>{{lesioni.lesione}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
 									<th>Tipologia lesione</th>
 									<td></td>
 								</tr>
@@ -165,14 +247,30 @@
 									</tr>
 								{% endfor %}
 								<tr>
-									<th>Condizione lesione</th>
+									<th>Dimensioni lesione</th>
 									<td></td>
 								</tr>
 								{% for lesioni in lesionis %}
 									<tr>
 										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
-										<td>{{lesioni.condizioneLesione}}</td>
+										<td>{{lesioni.dimensioneLesione}}</td>
 									</tr>
+								{% endfor %}
+								<tr>
+									<th>Condizioni Lesione</th>
+									<td></td>
+								</tr>
+								{% for lesioni in lesionis %}
+										<tr>
+										<td data-title='Data Valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										<td>{% if lesioni.condizioneLesione is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.condizioneLesione %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+										</tr>
 								{% endfor %}
 								<tr>
 									<th>Bordi lesione</th>
@@ -181,7 +279,13 @@
 								{% for lesioni in lesionis %}
 									<tr>
 										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
-										<td>{{lesioni.bordiLesione}}</td>
+										<td>{% if lesioni.bordiLesione is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.bordiLesione %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
 									</tr>
 								{% endfor %}
 								<tr>
@@ -191,7 +295,75 @@
 								{% for lesioni in lesionis %}
 									<tr>
 										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
-										<td>{{lesioni.cutePerilesionale}}</td>
+										<td>{% if lesioni.cutePerilesionale is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.cutePerilesionale %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Disinfezione</th>
+									<td></td>
+								</tr>
+								{% for lesioni in lesionis %}
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										<td>{{lesioni.disinfezione}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Specifiche per disinfezione</th>
+									<td></td>
+								</tr>
+								{% for lesioni in lesionis %}
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										<td>{{lesioni.specificheDisinfezione}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Medicazione</th>
+									<td></td>
+								</tr>
+								{% for lesioni in lesionis %}
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										<td>{% if lesioni.medicazione is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.medicazione %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Specifiche per medicazione</th>
+									<td></td>
+								</tr>
+								{% for lesioni in lesionis %}
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										<td>{{lesioni.specificheMedicazione}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Copertura</th>
+									<td></td>
+								</tr>
+								{% for lesioni in lesionis %}
+									<tr>
+										<td data-title='Data valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										<td>{% if lesioni.copertura is empty %}
+										Nessuno
+										{% else %}
+											{% for i in lesioni.copertura %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
 									</tr>
 								{% endfor %}
 								<tr>

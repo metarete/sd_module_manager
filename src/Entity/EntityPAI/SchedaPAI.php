@@ -1053,7 +1053,12 @@ class SchedaPAI
 
     public function setLesioniNumberToday(): ?self
     {
-        $this->lesioniNumberToday = count($this->getIdLesioni());
+        $numero = 0;
+        for($i=0; $i<count($this->getIdLesioni()); $i++){
+            if($this->getIdLesioni()[$i]->getLesione() == 'Principale')
+                $numero++;
+        }
+        $this->lesioniNumberToday = $numero;
         return $this;
     }
 

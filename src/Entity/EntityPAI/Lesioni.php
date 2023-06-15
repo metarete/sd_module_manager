@@ -2,11 +2,19 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\BordiLesione;
+use App\Entity\CondizioneLesione;
+use App\Entity\Copertura;
+use App\Entity\CutePerilesionale;
+use App\Entity\Medicazione;
 use App\Entity\User;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Repository\LesioniRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Utils\Json;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LesioniRepository::class)]
@@ -24,6 +32,10 @@ class Lesioni
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
+    private ?string $lesione = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $tipologiaLesione = null;
 
     #[ORM\Column(type: 'integer')]
@@ -34,17 +46,16 @@ class Lesioni
     #[Assert\NotBlank]
     private ?string $gradoLesione = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank]
-    private ?string $condizioneLesione = null;
+    private $dimensioneLesione = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    private ?string $bordiLesione = null;
-
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
-    private ?string $cutePerilesionale = null;
+    private ?string $disinfezione = null;  
+    
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specificheDisinfezione = null;  
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $noteSullaLesione = null;
@@ -56,6 +67,33 @@ class Lesioni
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idLesioni', cascade:['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $autoreLesioni;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specificheMedicazione = null;
+
+    #[ORM\ManyToMany(targetEntity: CondizioneLesione::class, inversedBy: 'lesioni', cascade:['persist'])]
+    private Collection $condizioneLesione;
+
+    #[ORM\ManyToMany(targetEntity: BordiLesione::class, inversedBy: 'lesioni', cascade:['persist'])]
+    private Collection $bordiLesione;
+
+    #[ORM\ManyToMany(targetEntity: CutePerilesionale::class, inversedBy: 'lesioni', cascade:['persist'])]
+    private Collection $cutePerilesionale;
+
+    #[ORM\ManyToMany(targetEntity: Medicazione::class, inversedBy: 'lesioni', cascade:['persist'])]
+    private Collection $medicazione;
+
+    #[ORM\ManyToMany(targetEntity: Copertura::class, inversedBy: 'lesioni', cascade:['persist'])]
+    private Collection $copertura;
+
+    public function __construct()
+    {
+        $this->condizioneLesione = new ArrayCollection();
+        $this->bordiLesione = new ArrayCollection();
+        $this->cutePerilesionale = new ArrayCollection();
+        $this->medicazione = new ArrayCollection();
+        $this->copertura = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,6 +108,18 @@ class Lesioni
     public function setDataRivalutazioniSettimanali(\DateTimeInterface $dataRivalutazioniSettimanali): self
     {
         $this->dataRivalutazioniSettimanali = $dataRivalutazioniSettimanali;
+
+        return $this;
+    }
+
+    public function getLesione(): ?string
+    {
+        return $this->lesione;
+    }
+
+    public function setLesione(string $lesione): self
+    {
+        $this->lesione = $lesione;
 
         return $this;
     }
@@ -110,38 +160,38 @@ class Lesioni
         return $this;
     }
 
-    public function getCondizioneLesione(): ?string
+    public function getDimensioneLesione(): ?int
     {
-        return $this->condizioneLesione;
+        return $this->dimensioneLesione;
     }
 
-    public function setCondizioneLesione(string $condizioneLesione): self
+    public function setDimensioneLesione(int $dimensioneLesione): self
     {
-        $this->condizioneLesione = $condizioneLesione;
+        $this->dimensioneLesione = $dimensioneLesione;
 
         return $this;
     }
 
-    public function getBordiLesione(): ?string
+    public function getDisinfezione(): ?string
     {
-        return $this->bordiLesione;
+        return $this->disinfezione;
     }
 
-    public function setBordiLesione(string $bordiLesione): self
+    public function setDisinfezione(string $disinfezione): self
     {
-        $this->bordiLesione = $bordiLesione;
+        $this->disinfezione = $disinfezione;
 
         return $this;
     }
 
-    public function getCutePerilesionale(): ?string
+    public function getSpecificheDisinfezione(): ?string
     {
-        return $this->cutePerilesionale;
+        return $this->specificheDisinfezione;
     }
 
-    public function setCutePerilesionale(string $cutePerilesionale): self
+    public function setSpecificheDisinfezione(?string $specificheDisinfezione): self
     {
-        $this->cutePerilesionale = $cutePerilesionale;
+        $this->specificheDisinfezione = $specificheDisinfezione;
 
         return $this;
     }
@@ -189,6 +239,138 @@ class Lesioni
     public function setAutoreLesioni(?User $autoreLesioni): self
     {
         $this->autoreLesioni = $autoreLesioni;
+
+        return $this;
+    }
+
+    public function getSpecificheMedicazione(): ?string
+    {
+        return $this->specificheMedicazione;
+    }
+
+    public function setSpecificheMedicazione(?string $specificheMedicazione): self
+    {
+        $this->specificheMedicazione = $specificheMedicazione;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CondizioneLesione>
+     */
+    public function getCondizioneLesione(): Collection
+    {
+        return $this->condizioneLesione;
+    }
+
+    public function addCondizioneLesione(CondizioneLesione $condizioneLesione): self
+    {
+        if (!$this->condizioneLesione->contains($condizioneLesione)) {
+            $this->condizioneLesione->add($condizioneLesione);
+        }
+
+        return $this;
+    }
+
+    public function removeCondizioneLesione(CondizioneLesione $condizioneLesione): self
+    {
+        $this->condizioneLesione->removeElement($condizioneLesione);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BordiLesione>
+     */
+    public function getBordiLesione(): Collection
+    {
+        return $this->bordiLesione;
+    }
+
+    public function addBordiLesione(BordiLesione $bordiLesione): self
+    {
+        if (!$this->bordiLesione->contains($bordiLesione)) {
+            $this->bordiLesione->add($bordiLesione);
+        }
+
+        return $this;
+    }
+
+    public function removeBordiLesione(BordiLesione $bordiLesione): self
+    {
+        $this->bordiLesione->removeElement($bordiLesione);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CutePerilesionale>
+     */
+    public function getCutePerilesionale(): Collection
+    {
+        return $this->cutePerilesionale;
+    }
+
+    public function addCutePerilesionale(CutePerilesionale $cutePerilesionale): self
+    {
+        if (!$this->cutePerilesionale->contains($cutePerilesionale)) {
+            $this->cutePerilesionale->add($cutePerilesionale);
+        }
+
+        return $this;
+    }
+
+    public function removeCutePerilesionale(CutePerilesionale $cutePerilesionale): self
+    {
+        $this->cutePerilesionale->removeElement($cutePerilesionale);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Medicazione>
+     */
+    public function getMedicazione(): Collection
+    {
+        return $this->medicazione;
+    }
+
+    public function addMedicazione(Medicazione $medicazione): self
+    {
+        if (!$this->medicazione->contains($medicazione)) {
+            $this->medicazione->add($medicazione);
+        }
+
+        return $this;
+    }
+
+    public function removeMedicazione(Medicazione $medicazione): self
+    {
+        $this->medicazione->removeElement($medicazione);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Copertura>
+     */
+    public function getCopertura(): Collection
+    {
+        return $this->copertura;
+    }
+
+    public function addCopertura(Copertura $copertura): self
+    {
+        if (!$this->copertura->contains($copertura)) {
+            $this->copertura->add($copertura);
+        }
+
+        return $this;
+    }
+
+    public function removeCopertura(Copertura $copertura): self
+    {
+        $this->copertura->removeElement($copertura);
 
         return $this;
     }

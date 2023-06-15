@@ -215,6 +215,33 @@
 									</tr>
 								{% endfor %}
 								<tr>
+									<th>Presenza Presidi Antidecubito</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.presenzaPresidiAntidecubito}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Presidi Antidecubito</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+										<tr>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
+										<td>{% if braden.presidiAntidecubito is empty %}
+										Nessuno
+										{% else %}
+											{% for i in braden.presidiAntidecubito %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+										</tr>
+								{% endfor %}
+								
+								<tr>
 									<th>Totale</th>
 									<td></td>
 								</tr>

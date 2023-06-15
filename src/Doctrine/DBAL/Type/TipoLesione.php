@@ -11,7 +11,11 @@ class TipoLesione extends EnumType
     // etichetta => valore
     // mantenere allineate con workflow
     protected $values = array(
-        'Principale' => 'Principale',
-        
+        'Da decubito' => 'Da decubito',
+        'Vascolare' => 'Vascolare',
+        'Traumatica' => 'Traumatica',
+        'Ustione' => 'Ustione',
+        'Chirurgica' => 'Chirurgica',
+        'Deiscenza'  => 'Deiscenza'
     );
 }

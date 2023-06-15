@@ -12,9 +12,8 @@ class GradoLesione extends EnumType
     // mantenere allineate con workflow
     protected $values = array(
         'I°' => 'I°',
-        'II°' => 'II°',
+        'II°/flittene' => 'II°/flittene',
         'III°' => 'III°',
-        'IV°' => 'IV°',
-        'Escara' => 'Escara',
+        'IV°/Escara' => 'IV°/Escara',
     );
 }

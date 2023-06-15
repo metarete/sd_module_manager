@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_diagnosi_delete', {'id': diagnosi.id}) }}" onsubmit="return confirm('Sei sicuro di voler eliminare questa diagnosi?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ diagnosi.id) }}">
+    <button class="btn">Elimina</button>
+</form>

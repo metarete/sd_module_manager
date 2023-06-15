@@ -102,16 +102,32 @@
 								</tr>
 								<tr>
 									<th>
-										<h5 class="card-text">Tipo e frequenza</h5>
+										<h5 class="card-text">Frequenza</h5>
 									</th>
 								</tr>
 								<tr>
 									<td>
 										<p class="card-title">
-											{% if  valutazione_figura_professionale.tipoEFrequenza is empty %}
+											{% if  valutazione_figura_professionale.frequenza is empty %}
 												Nessuno
 											{% else %}
-												{{ valutazione_figura_professionale.tipoEFrequenza }}
+												{{ valutazione_figura_professionale.frequenza }}
+											{% endif %}
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Osservazioni</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title">
+											{% if  valutazione_figura_professionale.osservazioni is empty %}
+												Nessuno
+											{% else %}
+												{{ valutazione_figura_professionale.osservazioni }}
 											{% endif %}
 										</p>
 									</td>

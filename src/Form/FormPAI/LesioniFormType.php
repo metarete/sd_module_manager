@@ -4,11 +4,16 @@ namespace App\Form\FormPAI;
 
 use App\Entity\EntityPAI\Lesioni;
 use App\Doctrine\DBAL\Type\TipoLesione;
-use App\Doctrine\DBAL\Type\BordiLesione;
 use App\Doctrine\DBAL\Type\GradoLesione;
+use App\Doctrine\DBAL\Type\Lesione;
 use Symfony\Component\Form\AbstractType;
-use App\Doctrine\DBAL\Type\CondizioneLesione;
-use App\Doctrine\DBAL\Type\CutePerilesionale;
+use App\Doctrine\DBAL\Type\Disinfezione;
+use App\Entity\BordiLesione;
+use App\Entity\CondizioneLesione;
+use App\Entity\Copertura;
+use App\Entity\CutePerilesionale;
+use App\Entity\Medicazione;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -19,21 +24,23 @@ class LesioniFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $Lesione = new Lesione();
+        $lesioneChoices = $Lesione->getValues();
         $TipoLesione = new TipoLesione();
         $tipoLesioneChoices = $TipoLesione->getValues();
         $GradoLesione = new GradoLesione();
         $gradoLesioneChoices = $GradoLesione->getValues();
-        $BordiLesione = new BordiLesione();
-        $bordiLesioneChoices = $BordiLesione->getValues();
-        $CondizioneLesione = new CondizioneLesione();
-        $condizioneLesioneChoices = $CondizioneLesione->getValues();
-        $CutePerilesionale = new CutePerilesionale();
-        $cuteChoices = $CutePerilesionale->getValues();
+        $Disinfezione = new Disinfezione();
+        $disinfezioneChoices = $Disinfezione->getValues();
 
         $builder
             ->add('dataRivalutazioniSettimanali', DateType::class,[
                 'widget' => 'single_text',
                 'empty_data' => 0,  
+                'label' => 'Data di valutazione'
+            ])
+            ->add('lesione', ChoiceType::class,[
+                'choices' => $lesioneChoices
             ])
             ->add('tipologiaLesione', ChoiceType::class,[
                 'placeholder' => '',
@@ -46,17 +53,55 @@ class LesioniFormType extends AbstractType
                 'placeholder' => '',
                 'choices' => $gradoLesioneChoices
             ])
-            ->add('condizioneLesione', ChoiceType::class,[
-                'placeholder' => '',
-                'choices' => $condizioneLesioneChoices
+            ->add('dimensioneLesione', null,[
+                'label' => 'Dimensioni Lesione (cm)'
             ])
-            ->add('bordiLesione', ChoiceType::class,[
+            ->add('condizioneLesione', EntityType::class,[
+                'class' => CondizioneLesione::class,
                 'placeholder' => '',
-                'choices' => $bordiLesioneChoices
+                'multiple'=> true,
+                'autocomplete' => true,
+                'choice_label' => function (CondizioneLesione $condizioneLesione) {
+                    return $condizioneLesione->getNome();},
             ])
-            ->add('cutePerilesionale', ChoiceType::class,[
+            ->add('bordiLesione', EntityType::class,[
+                'class' => BordiLesione::class,
                 'placeholder' => '',
-                'choices' => $cuteChoices
+                'multiple'=> true,
+                'autocomplete' => true,
+                'choice_label' => function (BordiLesione $bordiLesione) {
+                    return $bordiLesione->getNome();},
+            ])
+            ->add('cutePerilesionale', EntityType::class,[
+                'class' => CutePerilesionale::class,
+                'placeholder' => '',
+                'multiple'=> true,
+                'autocomplete' => true,
+                'choice_label' => function (CutePerilesionale $cutePerilesionale) {
+                    return $cutePerilesionale->getNome();},
+            ])
+            ->add('disinfezione', ChoiceType::class ,[
+                'placeholder' => '',
+                'label' => 'Disinfezione',
+                'choices' => $disinfezioneChoices,
+            ])
+            ->add('specificheDisinfezione')
+            ->add('medicazione', EntityType::class,[
+                'class' => Medicazione::class,
+                'placeholder' => '',
+                'multiple'=> true,
+                'autocomplete' => true,
+                'choice_label' => function (Medicazione $medicazione) {
+                    return $medicazione->getNome();},
+            ])
+            ->add('specificheMedicazione')
+            ->add('copertura', EntityType::class,[
+                'class' => Copertura::class,
+                'placeholder' => '',
+                'multiple'=> true,
+                'autocomplete' => true,
+                'choice_label' => function (Copertura $copertura) {
+                    return $copertura->getNome();},
             ])
             ->add('noteSullaLesione', TextareaType::class, [
                 'required' => false,

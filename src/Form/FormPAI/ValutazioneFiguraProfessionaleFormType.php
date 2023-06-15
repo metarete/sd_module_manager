@@ -2,9 +2,9 @@
 
 namespace App\Form\FormPAI;
 
+use App\Doctrine\DBAL\Type\FrequenzaValutazioneProfessionale;
 use Symfony\Component\Form\AbstractType;
 use App\Doctrine\DBAL\Type\TipoOperatore;
-use App\Entity\Diagnosi;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
@@ -21,6 +21,8 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
     {
         $TipoOperatore = new TipoOperatore();
         $operatoreChoices = $TipoOperatore->getValues();
+        $Frequenza = new FrequenzaValutazioneProfessionale();
+        $frequenzaChoices = $Frequenza->getValues();
 
         $builder
             ->add('dataValutazione', DateType::class, [
@@ -43,7 +45,12 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                 'required'   => false,
                 'autocomplete' => true,
             ])
-            ->add('tipoEFrequenza', TextareaType::class, [
+            ->add('frequenza', ChoiceType::class, [
+                'choices' => $frequenzaChoices,
+                'required'   => false,
+                'placeholder' => '',
+            ])
+            ->add('osservazioni', TextareaType::class, [
                 'attr' => array('style' => 'height:100px'),
                 'required'   => false,
                 'empty_data' => '',

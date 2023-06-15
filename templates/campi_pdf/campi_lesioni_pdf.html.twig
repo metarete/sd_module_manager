@@ -34,43 +34,135 @@
 							</tr>
 						</thead>
 						<tbody>
-                            <tr>
+							<tr>
+								<th>Lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.lesione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
 								<th>Tipologia Lesione</th>
 								{% for lesioni in lesionis %}
 									<td>{{lesioni.tipologiaLesione}}</td>
 								{% endfor %}
 							</tr>
-                            <tr>
+							<tr>
 								<th>Numero sede lesione</th>
 								{% for lesioni in lesionis %}
 									<td>{{lesioni.numeroSedeLesione}}</td>
 								{% endfor %}
 							</tr>
-                            <tr>
+							<tr>
 								<th>Grado lesione</th>
 								{% for lesioni in lesionis %}
 									<td>{{lesioni.gradoLesione}}</td>
 								{% endfor %}
 							</tr>
-                            <tr>
+							<tr>
+								<th>Dimensioni lesione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.dimensioneLesione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
 								<th>Condizione lesione</th>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.condizioneLesione}}</td>
+									<td>
+										{% if lesioni.condizioneLesione is empty %}
+											Nessuno
+										{% else %}
+										<ul>
+											{% for i in lesioni.condizioneLesione %}
+												<li>{{ i.nome }}</li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</td>
 								{% endfor %}
 							</tr>
-                            <tr>
+							<tr>
 								<th>Bordi lesione</th>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.bordiLesione}}</td>
+									<td>
+										{% if lesioni.bordiLesione is empty %}
+											Nessuno
+										{% else %}
+										<ul>
+											{% for i in lesioni.bordiLesione %}
+												<li>{{ i.nome }}</li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</td>
 								{% endfor %}
 							</tr>
-                            <tr>
+							<tr>
 								<th>Cute perilesionale</th>
 								{% for lesioni in lesionis %}
-									<td>{{lesioni.cutePerilesionale}}</td>
+									<td>
+										{% if lesioni.cutePerilesionale is empty %}
+											Nessuno
+										{% else %}
+										<ul>
+											{% for i in lesioni.cutePerilesionale %}
+												<li>{{ i.nome }}</li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</td>
 								{% endfor %}
 							</tr>
-                            <tr>
+							<tr>
+								<th>Disinfezione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.disinfezione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Specifiche per disinfezione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.specificheDisinfezione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Medicazione</th>
+								{% for lesioni in lesionis %}
+									<td>
+										{% if lesioni.medicazione is empty %}
+											Nessuno
+										{% else %}
+										<ul>
+											{% for i in lesioni.medicazione %}
+												<li>{{ i.nome }}</li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Specifiche per medicazione</th>
+								{% for lesioni in lesionis %}
+									<td>{{lesioni.specificheMedicazione}}</td>
+								{% endfor %}
+							</tr>
+							<tr>
+								<th>Copertura</th>
+								{% for lesioni in lesionis %}
+									<td>
+										{% if lesioni.copertura is empty %}
+											Nessuno
+										{% else %}
+										<ul>
+											{% for i in lesioni.copertura %}
+												<li>{{ i.nome }}</li>
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</td>
+								{% endfor %}
+							</tr>
+							<tr>
 								<th>Note sulla lesione</th>
 								{% for lesioni in lesionis %}
 									<td>{{lesioni.noteSullaLesione}}</td>
@@ -89,7 +181,7 @@
 										{{lesioni.operatore.surname}}</td>
 								{% endfor %}
 							</tr>
-							
+
 						</tbody>
 					</table>
 				</div>
