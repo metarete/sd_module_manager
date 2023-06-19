@@ -24,7 +24,7 @@ class SDManagerClientApiService
     private $numeroProgettiAggiornati = 0;
 
     private $setterCambioStatiDopoSincronizzazioneService;
-    
+
 
     public function __construct(HttpClientInterface $client, EntityManagerInterface $entityManager, ParameterBagInterface $params, SetterCambioStatiDopoSincronizzazioneService $setterCambioStatiDopoSincronizzazioneService)
     {
@@ -32,7 +32,6 @@ class SDManagerClientApiService
         $this->entityManager = $entityManager;
         $this->params = $params;
         $this->setterCambioStatiDopoSincronizzazioneService = $setterCambioStatiDopoSincronizzazioneService;
-        
     }
 
     public function getCodiceResponseProgetti(): int
@@ -67,13 +66,13 @@ class SDManagerClientApiService
             'GET',
             $url . $dataInizio . "/" . $dataFine
         );
-        
+
         $this->codiceResponseProgetti = $response->getStatusCode();
-        if($this->codiceResponseProgetti != 200){
+        if ($this->codiceResponseProgetti != 200) {
             $content = [];
             return $content;
         }
-       
+
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 
@@ -88,11 +87,11 @@ class SDManagerClientApiService
         );
 
         $this->codiceResponseOperatori = $response->getStatusCode();
-        if($this->codiceResponseOperatori != 200){
+        if ($this->codiceResponseOperatori != 200) {
             $content = [];
             return $content;
         }
-       
+
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 
@@ -107,18 +106,18 @@ class SDManagerClientApiService
         );
 
         $this->codiceResponseAssistiti = $response->getStatusCode();
-        if($this->codiceResponseAssistiti != 200){
+        if ($this->codiceResponseAssistiti != 200) {
             $content = [];
             return $content;
         }
-        
+
         $content = $response->toArray();
         // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 
         return $content;
     }
 
-    
+
     /*
         funzione per sincronizzare con Sd manager gli operatori
         
@@ -126,34 +125,32 @@ class SDManagerClientApiService
 
     public function sincOperatori()
     {
-       
-        
+
+
         //tramite API ottengo gli operatori da Sd manager
         $utenti = $this->getOperatori();
 
-        if($this->codiceResponseOperatori != 200){
+        if ($this->codiceResponseOperatori != 200) {
             return;
         }
         //ottengo il repository degli utenti in locale
         $userRepository = $this->entityManager->getRepository(User::class);
 
-        
+
         //faccio passare tutti gli utenti scaricati
         for ($i = 0; $i < count($utenti); $i++) {
             //verifico che l'utente ha lo username
-            if(empty($utenti[$i]['username'])){
+            if (empty($utenti[$i]['username'])) {
                 //lo salto. non ha lo username
-            }
-            else{
-                if(empty($utenti[$i]['emails'])){
+            } else {
+                if (empty($utenti[$i]['emails'])) {
                     //lo salto. non ha la mail
-                }
-                else{
+                } else {
                     //ha tutto. controllo se c'è gia
-                    if($userRepository->findOneByUsername($utenti[$i]['username']) == null){
+                    if ($userRepository->findOneByUsername($utenti[$i]['username']) == null) {
                         //utente nuovo. 
                         //controllo se esiste un utente che ha la stessa mail di questo nuovo utente
-                        if ($userRepository->findOneByEmail($utenti[$i]['emails'][0]['email'])== null){
+                        if ($userRepository->findOneByEmail($utenti[$i]['emails'][0]['email']) == null) {
                             //non esiste. creo l'utente
                             $utente = new User;
                             $utente->setEmail($utenti[$i]['emails'][0]['email']);
@@ -166,27 +163,23 @@ class SDManagerClientApiService
                             $utente->setUsername($utenti[$i]['username']);
                             $utente->setSdManagerOperatore(true);
                             $statoScaricato = $utenti[$i]['stato'];
-                            if($statoScaricato == '1'){
+                            if ($statoScaricato == '1') {
                                 $stato = true;
-                            }
-                            else{
+                            } else {
                                 $stato = false;
                             }
                             $utente->setStato($stato);
 
                             $userRepository->add($utente, true);
-                        }
-                        else {
+                        } else {
                             //ho già un utente con questa mail. lo salto
                         }
-                    }
-                    else{
+                    } else {
                         //utente che ho gia. aggiorno i dati
                         $statoScaricato = $utenti[$i]['stato'];
-                        if($statoScaricato == '1'){
+                        if ($statoScaricato == '1') {
                             $stato = true;
-                        }
-                        else{
+                        } else {
                             $stato = false;
                         }
                         $email = $utenti[$i]['emails'][0]['email'];
@@ -200,44 +193,47 @@ class SDManagerClientApiService
     public function sincProgetti(string $dataInizio, string $dataFine)
     {
         $progetti = $this->getProgetti($dataInizio, $dataFine);
-        if($this->codiceResponseProgetti != 200){
+        if ($this->codiceResponseProgetti != 200) {
             return;
         }
-        
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         //faccio passare i progetti scaricati uno ad uno
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
-            
-            //se il progetto è attivo e deve avere la scheda pai
-            if ($progetti[$i]['scheda_pai'] == 1 && $progetti[$i]['stato_progetto']=='ATTIVO') {
+
+            //se il progetto ha la scheda pai
+            if ($progetti[$i]['scheda_pai'] == 1) {
                 $dataInizio = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_inizio']);
                 $dataFine = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_fine']);
                 $idAssistito = $progetti[$i]['id_utente'];
                 $nomeProgetto = $progetti[$i]['nome'];
+                $statoSDManager = $progetti[$i]['stato_progetto'];
                 //se non c'è già lo creo da zero
                 if ($schedaPAIRepository->findOneByProgetto($idProgetto) == null) {
-                    $schedaPai = new SchedaPAI;
-                    $schedaPai->setDataInizio($dataInizio);
-                    $schedaPai->setDataFine($dataFine);
-                    $schedaPai->setIdAssistito($idAssistito);
-                    $schedaPai->setIdProgetto($idProgetto);
-                    $schedaPai->setNomeProgetto($nomeProgetto);
-                    $schedaPai->setCurrentPlace('nuova');
-                    $schedaPai->setIdConsole('demo');
-                    $schedaPAIRepository->add($schedaPai, true);
-                    $this->numeroProgettiScaricati++;
+                    if($progetti[$i]['stato_progetto'] == 'ATTIVO'){
+                        $schedaPai = new SchedaPAI;
+                        $schedaPai->setDataInizio($dataInizio);
+                        $schedaPai->setDataFine($dataFine);
+                        $schedaPai->setIdAssistito($idAssistito);
+                        $schedaPai->setIdProgetto($idProgetto);
+                        $schedaPai->setNomeProgetto($nomeProgetto);
+                        $schedaPai->setCurrentPlace('nuova');
+                        $schedaPai->setIdConsole('demo');
+                        $schedaPai->setStatoSDManager($statoSDManager);
+                        $schedaPAIRepository->add($schedaPai, true);
+                        $this->numeroProgettiScaricati++;
+                    }
                 } else {
                     //se c'è già 
                     $schedaPai = $schedaPAIRepository->findOneByProgetto($idProgetto);
                     $dataInizio->format('d-m-Y');
                     $dataFine->format('d-m-Y');
-                    
+
                     //check per i cambiamenti di stato in base ai cambio data iniziale e finale
                     $this->setterCambioStatiDopoSincronizzazioneService->settaCambioStati($dataInizio, $dataFine, $schedaPai);
-                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto);
-                    
-                    $this->numeroProgettiAggiornati++;                    
+                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager);
+
+                    $this->numeroProgettiAggiornati++;
                 }
             }
         }
@@ -245,7 +241,7 @@ class SDManagerClientApiService
     public function sincAssistiti()
     {
         $assistiti = $this->getAssistiti();
-        if($this->codiceResponseAssistiti != 200){
+        if ($this->codiceResponseAssistiti != 200) {
             return;
         }
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);

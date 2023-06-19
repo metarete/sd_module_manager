@@ -182,6 +182,9 @@ class SchedaPAI
     #[ORM\Column(type: 'integer')]
     private $frequenzaPainad = 0;
 
+    #[ORM\Column(type: 'string')]
+    private $statoSDManager = null;
+
    //attributi non mappati
     private $barthelNumberToday = 0;
     private $bradenNumberToday = 0;
@@ -1267,6 +1270,18 @@ class SchedaPAI
                 $idVa->setSchedaPAI(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatoSDManager(): ?string
+    {
+        return $this->statoSDManager;
+    }
+
+    public function setStatoSDManager(string $statoSDManager): self
+    {
+        $this->statoSDManager = $statoSDManager;
 
         return $this;
     }

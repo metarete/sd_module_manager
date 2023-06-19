@@ -271,6 +271,7 @@
                                 <th>Op Log</th>
                                 <th>Op Asa</th>
                                 <th>Op Oss</th>
+                                <th>Stato SD Manager</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -345,6 +346,9 @@
                                 {{i.surname}}  
                                 <br>
                             {% endfor %}
+                            </td>
+                            <td data-title='Stato SD Manager'><span class='badge {{filtroNomiStatiScadenzario.filtroStatoSDManager(scheda_pai)}}'>
+                                {{scheda_pai.statoSDManager}}</span>
                             </td>
                         </tbody>
                     </table>      

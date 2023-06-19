@@ -62,4 +62,20 @@ class SetterNomiStatoSchedaPaiService
         return $coloreBadge;
     }
 
+    public function settaColoriStatoSDManager(SchedaPAI $schedaPAI):string
+    {
+        $coloreStato = null;
+
+        if ($schedaPAI->getStatoSDManager() == 'ATTIVO') 
+        $coloreStato = self::SUCCESS;
+        elseif ($schedaPAI->getStatoSDManager() == 'NON ATTIVO')
+        $coloreStato = self::ORANGE;
+        elseif ($schedaPAI->getStatoSDManager() == 'SOSPESO')
+        $coloreStato = self::ORANGE;
+        elseif ($schedaPAI->getStatoSDManager() == 'CHIUSO')
+        $coloreStato = self::DANGER;
+
+        return $coloreStato;
+    }
+
 }

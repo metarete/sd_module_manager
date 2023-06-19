@@ -197,7 +197,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ;
     }
 
-    public function updateSchedaByIdprogetto($idProgetto,$idAssistito, $dataInizio, $dataFine, $nomeProgetto): void
+    public function updateSchedaByIdprogetto($idProgetto,$idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
         ->update('App\Entity\EntityPAI\SchedaPAI', 'u')
@@ -205,12 +205,14 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->set('u.dataInizio', ':dataInizio')
         ->set('u.idAssistito', ':idAssistito')
         ->set('u.nomeProgetto', ':nomeProgetto')
+        ->set('u.statoSDManager', ':statoSDManager')
         ->where('u.idProgetto = :idProgetto')
         ->setParameter('dataInizio', $dataInizio)
         ->setParameter('dataFine', $dataFine)
         ->setParameter('idAssistito', $idAssistito)
         ->setParameter('idProgetto', $idProgetto)
         ->setParameter('nomeProgetto', $nomeProgetto)
+        ->setParameter('statoSDManager', $statoSDManager)
         ->getQuery()
         ->execute();
     }

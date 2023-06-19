@@ -30,4 +30,11 @@ class FiltroNomiStatiScadenzario
         return $coloreBadge;
     }
 
+    public function filtroStatoSDManager( SchedaPAI $schedaPAI): string
+    {
+        $setterRitardiSchedaPaiService = new SetterNomiStatoSchedaPaiService();
+        $coloreStato = $setterRitardiSchedaPaiService->settaColoriStatoSDManager($schedaPAI);
+        return $coloreStato;
+    }
+
 }
