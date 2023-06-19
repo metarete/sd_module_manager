@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\EntityPAI\ValutazioneFiguraProfessionale;
 use App\Entity\Obiettivi;
+use App\Entity\TipiAdiweb;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -41,6 +42,16 @@ class ValutazioneFiguraProfessionaleFormType extends AbstractType
                     if($obiettivi->isStato() == true)
                     return $obiettivi->getTitolo();},
                 'label' => 'Obiettivi da raggiungere',
+                'multiple'=> true,
+                'required'   => false,
+                'autocomplete' => true,
+            ])
+            ->add('tipiAdiwebs', EntityType::class,[
+                'class' => TipiAdiweb::class,
+                'choice_label' => function (TipiAdiweb $tipiAdiweb) {
+                    return $tipiAdiweb->getNome();
+                },
+                'label' => 'Tipo Adiweb',
                 'multiple'=> true,
                 'required'   => false,
                 'autocomplete' => true,

@@ -1,0 +1,468 @@
+
+prestazioni_adiweb:
+    IP:
+    -   nome: Broncoaspirazione / Drenaggio posturale
+        descrizione: Broncoaspirazione / Drenaggio posturale
+        codice: '102'
+        adiweb_id_prestazione: '2'
+    -   nome: Ossigeno terapia
+        descrizione: Ossigeno terapia
+        codice: '103'
+        adiweb_id_prestazione: '3'
+    -   nome: Ventilo terapia
+        descrizione: Ventilo terapia
+        codice: '104'
+        adiweb_id_prestazione: '4'
+    -   nome: Tracheotomia
+        descrizione: Tracheotomia
+        codice: '105'
+        adiweb_id_prestazione: '5'
+    -   nome: Alimentazione assistita
+        descrizione: Alimentazione assistita
+        codice: '106'
+        adiweb_id_prestazione: '6'
+    -   nome: Alimentazione enterale
+        descrizione: Alimentazione enterale
+        codice: '107'
+        adiweb_id_prestazione: '7'
+    -   nome: Alimentazione parenterale
+        descrizione: Alimentazione parenterale
+        codice: '108'
+        adiweb_id_prestazione: '8'
+    -   nome: Gestione della stomia
+        descrizione: Gestione della stomia
+        codice: '109'
+        adiweb_id_prestazione: '9'          
+    -   nome: Eliminazione urinaria/intestinale
+        descrizione: Eliminazione urinaria/intestinale
+        codice: '110'
+        adiweb_id_prestazione: '10'
+    -   nome: Alterazione del ritmo sonno/veglia
+        descrizione: Alterazione del ritmo sonno/veglia
+        codice: '112'
+        adiweb_id_prestazione: '12'
+    -   nome: Educazione terapeutica (addestramento/nursing)
+        descrizione: Educazione terapeutica (addestramento/nursing)
+        codice: '113'
+        adiweb_id_prestazione: '13'
+    -   nome: Ulcere da decubito di 1 e 2 grado
+        descrizione: Ulcere da decubito di 1 e 2 grado
+        codice: '114'
+        adiweb_id_prestazione: '14'
+    -   nome: Ulcere da decubito di 1 e 2 grado
+        descrizione: Ulcere da decubito di 1 e 2 grado
+        codice: '115'
+        adiweb_id_prestazione: '15'
+    -   nome: Ulcere cutanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 1 e 2 grado
+        descrizione: Ulcere cutanee (vascolari, traumatiche, ustioni, postchirurgiche, ecc) di 1 e 2 grado
+        codice: '116'
+        adiweb_id_prestazione: '16'
+    -   nome: Ulcere cutanee (vascolari, ustioni, traumatiche, postchirurgiche, ecc) di 3 e 4 grado
+        descrizione: Ulcere cutanee (vascolari, ustioni, traumatiche, postchirurgiche, ecc) di 3 e 4 grado
+        codice: '117'
+        adiweb_id_prestazione: '17'                            
+    -   nome: Prelievi venosi non occasionali
+        descrizione: Prelievi venosi non occasionali
+        codice: '118'
+        adiweb_id_prestazione: '18'         
+    -   nome: Prelievi venosi occasionali
+        descrizione: Prelievi venosi occasionali
+        codice: '119'
+        adiweb_id_prestazione: '19'          
+    -   nome: ECG
+        descrizione: ECG
+        codice: '120'
+        adiweb_id_prestazione: '20'         
+    -   nome: Telemetria
+        descrizione: Telemetria
+        codice: '121'
+        adiweb_id_prestazione: '21'         
+    -   nome: Procedura terapeutica (accesso venoso sottocute/intramuscolo)
+        descrizione: Procedura terapeutica (accesso venoso sottocute/intramuscolo)
+        codice: '122'
+        adiweb_id_prestazione: '22'         
+    -   nome: Gestione catetere centrale
+        descrizione: Gestione catetere centrale
+        codice: '123'
+        adiweb_id_prestazione: '23'         
+    -   nome: Trasfusioni
+        descrizione: Trasfusioni
+        codice: '124'
+        adiweb_id_prestazione: '24'         
+    -   nome: Controllo del dolore
+        descrizione: Controllo del dolore
+        codice: '125'
+        adiweb_id_prestazione: '25'         
+    -   nome: Assistenza Stato di terminalità oncologica
+        descrizione: Assistenza Stato di terminalità oncologica
+        codice: '126'
+        adiweb_id_prestazione: '26'         
+    -   nome: Assistenza Stato di terminalità non oncologica
+        descrizione: Assistenza Stato di terminalità non oncologica
+        codice: '127'
+        adiweb_id_prestazione: '27'         
+    -   nome: Supervisione continua di utenti con disabilità
+        descrizione: Supervisione continua di utenti con disabilità
+        codice: '131'
+        adiweb_id_prestazione: '31'          
+    -   nome: Assistenza nelle IADL
+        descrizione: Assistenza nelle IADL
+        codice: '132'
+        adiweb_id_prestazione: '32'
+    -   nome: Assistenza nelle ADL
+        descrizione: Assistenza nelle ADL
+        codice: '133'
+        adiweb_id_prestazione: '33'
+    -   nome: Supporto al care giver
+        descrizione: Supporto al care giver
+        codice: '134'
+        adiweb_id_prestazione: '34'
+    -   nome: IP00 - Visita Domiciliare
+        descrizione: IP00 - Visita Domiciliare
+        codice: '135'
+        adiweb_id_prestazione: '35'
+    -   nome: IP01 - Prelievo ematico
+        descrizione: IP01 - Prelievo ematico
+        codice: '136'
+        adiweb_id_prestazione: '36'
+    -   nome: Esami strumentali
+        descrizione: Esami strumentali
+        codice: '137'
+        adiweb_id_prestazione: '37'
+    -   nome: IP03 - Trasferimento competenze / educazione del caregiver / colloqui / nursing / addestramento
+        descrizione: IP03 - Trasferimento competenze / educazione del caregiver / colloqui / nursing / addestramento
+        codice: '138'
+        adiweb_id_prestazione: '38'
+    -   nome: IP04 - Supporto psicologico equipes-paziente-famiglia
+        descrizione: IP04 - Supporto psicologico equipes-paziente-famiglia
+        codice: '139'
+        adiweb_id_prestazione: '39'
+    -   nome: IP05 - Terapie iniettive attraverso le diverse vie di somministrazione
+        descrizione: IP05 - Terapie iniettive attraverso le diverse vie di somministrazione
+        codice: '140'
+        adiweb_id_prestazione: '40'
+    -   nome: IP06 - Terapia infusionale SC e EV
+        descrizione: IP06 - Terapia infusionale SC e EV
+        codice: '141'
+        adiweb_id_prestazione: '41'
+    -   nome: Emotrasfusione
+        descrizione: Emotrasfusione
+        codice: '142'
+        adiweb_id_prestazione: '42'
+    -   nome: IP08 - Paracentesi, toracentesi e altre manovre invasive, gestione di cateteri spinali o sistemi di neuromodulazione del dolore
+        descrizione: IP08 - Paracentesi, toracentesi e altre manovre invasive, gestione di cateteri spinali o sistemi di neuromodulazione del dolore
+        codice: '143'
+        adiweb_id_prestazione: '43'
+    -   nome: IP09 - Gestione ventilazione meccanica - tracheostomia - sostituzione canula - bronco aspirazione - ossigenoterapia
+        descrizione: IP09 - Gestione ventilazione meccanica - tracheostomia - sostituzione canula - bronco aspirazione - ossigenoterapia
+        codice: '144'
+        adiweb_id_prestazione: '44'
+    -   nome: IP10 - Gestione nutrizione enterale (SNG PEG)
+        descrizione: IP10 - Gestione nutrizione enterale (SNG PEG)
+        codice: '145'
+        adiweb_id_prestazione: '45'
+    -   nome: IP11 - Gestione nutrizione parenterale gestione CVC
+        descrizione: IP11 - Gestione nutrizione parenterale gestione CVC
+        codice: '146'
+        adiweb_id_prestazione: '46'
+    -   nome: IP12 - Gestione cateterismo urinario comprese le derivazioni urinarie
+        descrizione: IP12 - Gestione cateterismo urinario comprese le derivazioni urinarie
+        codice: '147'
+        adiweb_id_prestazione: '47'
+    -   nome: IP13 - Gestione alvo comprese le enterostomie
+        descrizione: IP13 - Gestione alvo comprese le enterostomie
+        codice: '148'
+        adiweb_id_prestazione: '48'
+    -   nome: IP14 - Igiene personale e mobilizzazione
+        descrizione: IP14 - Igiene personale e mobilizzazione
+        codice: '149'
+        adiweb_id_prestazione: '49'
+    -   nome: IP15 - Medicazioni semplici (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        descrizione: IP15 - Medicazioni semplici (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        codice: '150'
+        adiweb_id_prestazione: '50'
+    -   nome: IP16 - Medicazioni complesse (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        descrizione: IP16 - Medicazioni complesse (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        codice: '151'
+        adiweb_id_prestazione: '51'
+    -   nome: IP17 - Fasciature semplici, bendaggi, bendaggi adesivo elastici
+        descrizione: IP17 - Fasciature semplici, bendaggi, bendaggi adesivo elastici
+        codice: '152'
+        adiweb_id_prestazione: '52'
+    -   nome: Trattamento di rieducazione motoria - respiratoria
+        descrizione: Trattamento di rieducazione motoria - respiratoria
+        codice: '188'
+        adiweb_id_prestazione: '88'
+    -   nome: C1 - Visita di valutazione iniziale (entro 24 ore dalla segnalazione)
+        descrizione: C1 - Visita di valutazione iniziale (entro 24 ore dalla segnalazione)
+        codice: '317'
+        adiweb_id_prestazione: '217'
+    -   nome: C2 - Informazione sulle modalità di esecuzione delle misure di isolamento
+        descrizione: C2 - Informazione sulle modalità di esecuzione delle misure di isolamento
+        codice: '318'
+        adiweb_id_prestazione: '218'
+    -   nome: "C3 - Informazione all'assistito e caregiver in merito all'esigenza di rilevare la temperatura e gli eventuali sintomi di monitoraggio e contestuale presentazione scheda"
+        descrizione: "C3 - Informazione all'assistito e caregiver in merito all'esigenza di rilevare la temperatura e gli eventuali sintomi di monitoraggio e contestuale presentazione scheda"
+        codice: '319'
+        adiweb_id_prestazione: '219'
+    -   nome: C4 - Informazione in merito ai contatti da attivare in caso di comparsa di sintomi (MMG/PdF/MCA, e alle modalità/situazioni in cui attivare il 112, di concerto con il proprio MMG/PLS)
+        descrizione: C4 - Informazione in merito ai contatti da attivare in caso di comparsa di sintomi (MMG/PdF/MCA, e alle modalità/situazioni in cui attivare il 112, di concerto con il proprio MMG/PLS)
+        codice: '320'
+        adiweb_id_prestazione: '220'
+    -   nome: C6 - Sorveglianza attiva di tipo sanitario e follow up sanitario, anche utilizzando strumenti di telemonitoraggio
+        descrizione: C6 - Sorveglianza attiva di tipo sanitario e follow up sanitario, anche utilizzando strumenti di telemonitoraggio
+        codice: '321'
+        adiweb_id_prestazione: '221'        
+    -   nome: C7 - Programmazione/effettuazione contatti telefonici a frequenza quotidiana o plurisettimanale, a seconda della situazione del paziente
+        descrizione: C7 - Programmazione/effettuazione contatti telefonici a frequenza quotidiana o plurisettimanale, a seconda della situazione del paziente
+        codice: '322'
+        adiweb_id_prestazione: '222'  
+    -   nome: C10 - Raccordo con MMG e strutture dimettenti
+        descrizione: C10 - Raccordo con MMG e strutture dimettenti
+        codice: '323'
+        adiweb_id_prestazione: '223'  
+    -   nome: C11 - Raccordo con ATS per le attività di sorveglianza attiva
+        descrizione: C11 - Raccordo con ATS per le attività di sorveglianza attiva
+        codice: '324'
+        adiweb_id_prestazione: '224' 
+    -   nome: C12 - Effettuazioni di prelievo per test sierologico (Ex effettuazione di prelievi, ove necessari)
+        descrizione: C12 - Effettuazioni di prelievo per test sierologico (Ex effettuazione di prelievi, ove necessari)
+        codice: '325'
+        adiweb_id_prestazione: '225'
+    -   nome: C14 - Visita di valutazione finale
+        descrizione: C14 - Visita di valutazione finale
+        codice: '327'
+        adiweb_id_prestazione: '227'
+    -   nome: C15 - Monitoraggio della saturimetria quotidiano o plurisettimanale
+        descrizione: C15 - Monitoraggio della saturimetria quotidiano o plurisettimanale
+        codice: '328'
+        adiweb_id_prestazione: '228'        
+    -   nome: C16 - Istruzione all'uso dell'ossigeno terapia
+        descrizione: C16 - Istruzione all'uso dell'ossigeno terapia
+        codice: '329'
+        adiweb_id_prestazione: '229'  
+    -   nome: C18 - Monitoraggio saturimetria con piattaforma informatica
+        descrizione: C18 - Monitoraggio saturimetria con piattaforma informatica
+        codice: '330'
+        adiweb_id_prestazione: '230'
+    -   nome: C13A - Tampone diagnostico, comprensivo di attività di counseling e informazione sulla gestione dell'isolamento domiciliare
+        descrizione: C13A - Tampone diagnostico, comprensivo di attività di counseling e informazione sulla gestione dell'isolamento domiciliare
+        codice: '335'
+        adiweb_id_prestazione: '235'
+    -   nome: C13B - Tampone di controllo di avvenuta guarigione
+        descrizione: C13B - Tampone di controllo di avvenuta guarigione
+        codice: '336'
+        adiweb_id_prestazione: '236'
+    -   nome: C13C - Effettuazione di tampone a più persone presenti nello stesso nucleo abitativo
+        descrizione: C13C - Effettuazione di tampone a più persone presenti nello stesso nucleo abitativo
+        codice: '337'
+        adiweb_id_prestazione: '237'
+    FKT:
+    -   nome: Trattamento riabilitativo neurologico in presenza di disabilità
+        descrizione: Trattamento riabilitativo neurologico in presenza di disabilità
+        codice: '128'
+        adiweb_id_prestazione: '28'
+    -   nome: Trattamento riabilitativo ortopedico in presenza di disabilità
+        descrizione: Trattamento riabilitativo ortopedico in presenza di disabilità
+        codice: '129'
+        adiweb_id_prestazione: '29'
+    -   nome: Trattamento riabilitativo di mantenimento in presenza di disabilità
+        descrizione: Trattamento riabilitativo di mantenimento in presenza di disabilità
+        codice: '130'
+        adiweb_id_prestazione: '30'
+    -   nome: FKT18 - Trattamento di rieducazione motoria - respiratoria
+        descrizione: FKT18 - Trattamento di rieducazione motoria - respiratoria
+        codice: '153'
+        adiweb_id_prestazione: '53'
+    -   nome: FKT00 - Visita Domiciliare
+        descrizione: FKT00 - Visita Domiciliare
+        codice: '156'
+        adiweb_id_prestazione: '56'
+    -   nome: Esami strumentali
+        descrizione: Esami strumentali
+        codice: '158'
+        adiweb_id_prestazione: '58'
+    -   nome: FKT03 - Trasferimento competenze / educazione del caregiver / colloqui / nursing / addestramento
+        descrizione: FKT03 - Trasferimento competenze / educazione del caregiver / colloqui / nursing / addestramento
+        codice: '161'
+        adiweb_id_prestazione: '61'
+    -   nome: Supporto psicologico equipes-paziente-famiglia
+        descrizione: Supporto psicologico equipes-paziente-famiglia
+        codice: '163'
+        adiweb_id_prestazione: '63'
+    -   nome: Prelievo ematico
+        descrizione: Prelievo ematico
+        codice: '183'
+        adiweb_id_prestazione: '83'
+    -   nome: C17 - Ginnastica respiratoria per i pazienti che necessitano di ossigenoterapia
+        descrizione: C17 - Ginnastica respiratoria per i pazienti che necessitano di ossigenoterapia
+        codice: '331'
+        adiweb_id_prestazione: '231'
+    ASA:
+    -   nome: ASA03 - Trasferimento competenze/educazione del caregiver / colloqui / nursing / addestramento
+        descrizione: ASA03 - Trasferimento competenze/educazione del caregiver / colloqui / nursing / addestramento
+        codice: '160'
+        adiweb_id_prestazione: '60'
+    -   nome: ASA14 - Igiene personale e mobilizzazione
+        descrizione: ASA14 - Igiene personale e mobilizzazione
+        codice: '167'
+        adiweb_id_prestazione: '67'
+    -   nome: Visita Domiciliare
+        descrizione: Visita Domiciliare
+        codice: '181'
+        adiweb_id_prestazione: '81' 
+    -   nome: Esami strumentali
+        descrizione: Esami strumentali
+        codice: '182'
+        adiweb_id_prestazione: '82'       
+    -   nome: Medicazioni semplici (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        descrizione: Medicazioni semplici (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        codice: '184'
+        adiweb_id_prestazione: '84'   
+    -   nome: Gestione nutrizione enterale (SNG PEG)
+        descrizione: Gestione nutrizione enterale (SNG PEG)
+        codice: '185'
+        adiweb_id_prestazione: '85' 
+    -   nome: Gestione nutrizione parenterale gestione CVC
+        descrizione: Gestione nutrizione parenterale gestione CVC
+        codice: '186'
+        adiweb_id_prestazione: '86'         
+    -   nome: Gestione ventilazione meccanica -tracheostomia- sostituzione canula- bronco aspirazione - ossigenoterapia 
+        descrizione: Gestione ventilazione meccanica -tracheostomia- sostituzione canula- bronco aspirazione - ossigenoterapia 
+        codice: '187'
+        adiweb_id_prestazione: '87'  
+    -   nome: Trattamento di rieducazione motoria - respiratoria
+        descrizione: Trattamento di rieducazione motoria - respiratoria
+        codice: '189'
+        adiweb_id_prestazione: '89'        
+    ASA-OSS/OTA:
+    -   nome: OSS14 - Igiene personale e mobilizzazione
+        descrizione: OSS14 - Igiene personale e mobilizzazione
+        codice: '169'
+        adiweb_id_prestazione: '69'
+    -   nome: OSS03 - Trasferimento competenze/educazione del caregiver / colloqui / nursing / addestramento
+        descrizione: OSS03 - Trasferimento competenze/educazione del caregiver / colloqui / nursing / addestramento
+        codice: '170'
+        adiweb_id_prestazione: '70'    
+    -   nome: Visita Domiciliare
+        descrizione: Visita Domiciliare
+        codice: '190'
+        adiweb_id_prestazione: '90'  
+    -   nome: OSS02 - Esami strumentali
+        descrizione: OSS02 - Esami strumentali
+        codice: '191'
+        adiweb_id_prestazione: '91'  
+    -   nome: OSS15 - Medicazioni semplici Medicazioni semplici (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        descrizione: OSS15 - Medicazioni semplici Medicazioni semplici (lesioni cutanee da pressione, vascolari, neoplastiche, post chirurgiche, post attiniche, ect..)
+        codice: '192'
+        adiweb_id_prestazione: '92'  
+    -   nome: Gestione nutrizione enterale (SNG PEG)
+        descrizione: Gestione nutrizione enterale (SNG PEG)
+        codice: '193'
+        adiweb_id_prestazione: '93' 
+    -   nome: Gestione nutrizione parenterale gestione CVC
+        descrizione: Gestione nutrizione parenterale gestione CVC
+        codice: '194'
+        adiweb_id_prestazione: '94' 
+    -   nome: Gestione ventilazione meccanica -tracheostomia- sostituzione canula- bronco aspirazione - ossigenoterapia
+        descrizione: Gestione ventilazione meccanica -tracheostomia- sostituzione canula- bronco aspirazione - ossigenoterapia
+        codice: '195'
+        adiweb_id_prestazione: '95' 
+    -   nome: Trattamento di rieducazione motoria - respiratoria
+        descrizione: Trattamento di rieducazione motoria - respiratoria
+        codice: '196'
+        adiweb_id_prestazione: '96' 
+    SPEC-TERAPISTA-OCCUPAZIONALE:
+    -   nome: TER20 - Trattamento di rieducazione dei disturbi neuropsicologici
+        descrizione: TER20 - Trattamento di rieducazione dei disturbi neuropsicologici
+        codice: '176'
+        adiweb_id_prestazione: '76'     
+    -   nome: TER00 - Visita Domiciliare
+        descrizione: TER00 - Visita Domiciliare
+        codice: '180'
+        adiweb_id_prestazione: '80'  
+    -   nome: DIET01 - Valutazione
+        descrizione: DIET01 - Valutazione
+        codice: '264'
+        adiweb_id_prestazione: '164' 
+    -   nome: DIET02 - Visita Domiciliare
+        descrizione: DIET02 - Visita Domiciliare
+        codice: '265'
+        adiweb_id_prestazione: '165' 
+    SPEC-LOGOPEDISTA:
+    -   nome: LOGO19 - Trattamento di rieducazione del linguaggio
+        descrizione: LOGO19 - Trattamento di rieducazione del linguaggio
+        codice: '154'
+        adiweb_id_prestazione: '54'     
+    -   nome: LOGO00 - Visita Domiciliare
+        descrizione: LOGO00 - Visita Domiciliare
+        codice: '179'
+        adiweb_id_prestazione: '79' 
+    SPEC-PSICOLOGO:
+    -   nome: PSI20 - Trattamento di rieducazione dei disturbi neuropsicologici
+        descrizione: PSI20 - Trattamento di rieducazione dei disturbi neuropsicologici
+        codice: '155'
+        adiweb_id_prestazione: '55'     
+    -   nome: PSI04 - Supporto psicologico equipes-paziente-famiglia
+        descrizione: PSI04 - Supporto psicologico equipes-paziente-famiglia
+        codice: '164'
+        adiweb_id_prestazione: '64'   
+    -   nome: PSI00 - Visita Domiciliare
+        descrizione: PSI00 - Visita Domiciliare
+        codice: '172'
+        adiweb_id_prestazione: '72'  
+    SPEC-FISIATRA:
+    -   nome: FIS00 - Visita Domiciliare
+        descrizione: FIS00 - Visita Domiciliare
+        codice: '157'
+        adiweb_id_prestazione: '57'
+    SPEC-GERIATRA:
+    -   nome: GER00 - Visita Domiciliare
+        descrizione: GER00 - Visita Domiciliare
+        codice: '171'
+        adiweb_id_prestazione: '71'       
+    -   nome: C9 - Consulenze mediche domiciliari
+        descrizione: C9 - Consulenze mediche domiciliari
+        codice: '332'
+        adiweb_id_prestazione: '232'             
+    SPEC-PALLIATORE:
+    -   nome: PAL08 - Paracentesi, toracentesi e altre manovre invasive, gestione di cateteri spinali o sistemi di neuromodulazione del dolore 
+        descrizione: PAL08 - Paracentesi, toracentesi e altre manovre invasive, gestione di cateteri spinali o sistemi di neuromodulazione del dolore 
+        codice: '173'
+        adiweb_id_prestazione: '73'               
+    -   nome: PAL00 - Visita Domiciliare
+        descrizione: PAL00 - Visita Domiciliare
+        codice: '174'
+        adiweb_id_prestazione: '74'        
+    SPEC-ALTRO-SPECIALISTA:
+    -   nome: SPEC20 - Trattamento di rieducazione dei disturbi neuropsicologici
+        descrizione: SPEC20 - Trattamento di rieducazione dei disturbi neuropsicologici
+        codice: '165'
+        adiweb_id_prestazione: '65'                
+    -   nome: SPEC09 - Gestione ventilazione meccanica - tracheostomia - sostituzione canula - bronco aspirazione - ossigenoterapia
+        descrizione: SPEC09 - Gestione ventilazione meccanica - tracheostomia - sostituzione canula - bronco aspirazione - ossigenoterapia
+        codice: '166'
+        adiweb_id_prestazione: '66'         
+    -   nome: SPEC00 - Visita Domiciliare
+        descrizione: SPEC00 - Visita Domiciliare
+        codice: '175'
+        adiweb_id_prestazione: '75'         
+    -   nome: C9 - Consulenze mediche domiciliari
+        descrizione: C9 - Consulenze mediche domiciliari
+        codice: '333'
+        adiweb_id_prestazione: '233'             
+    SPEC-MEDICO-SPECIALISTA:
+    -   nome: C9 - Consulenze mediche domiciliari
+        descrizione: C9 - Consulenze mediche domiciliari
+        codice: '334'
+        adiweb_id_prestazione: '234'         
+        
+        
+        
+        
+        
+        
+            
+
+
+        

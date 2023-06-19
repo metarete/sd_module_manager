@@ -80,6 +80,25 @@
 			</tr>
 			<tr>
 				<th>
+					Tipo
+				</th>
+
+				<td>
+
+					{% if valutazione_figura_professionale.tipiAdiwebs is empty %}
+						Nessuno
+					{% else %}
+						<ul>
+						{% for i in valutazione_figura_professionale.tipiAdiwebs %}
+							<li>{{ i.nome }}</li>
+						{% endfor %}
+						</ul>
+					{% endif %}
+
+				</td>
+			</tr>
+			<tr>
+				<th>
 					Frequenza
 				</th>
 

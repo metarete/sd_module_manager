@@ -70,7 +70,9 @@ class InserisciListaCampiLesioneCommand extends Command
         for($i=0; $i< count($listaCondizioni); $i++){
             $condizioneLesione = new CondizioneLesione;
             $condizioneLesione->setNome($listaCondizioni[$i]);
-            $this->condizioneLesioneRepository->add($condizioneLesione, true);
+            if($this->condizioneLesioneRepository->findOneBy(["nome" => $condizioneLesione->getNome()])== null){
+                $this->condizioneLesioneRepository->add($condizioneLesione, true);
+            }
         }
 
         //bordi lesione
@@ -87,7 +89,8 @@ class InserisciListaCampiLesioneCommand extends Command
         for($i=0; $i< count($listaBordi); $i++){
             $bordiLesione = new BordiLesione;
             $bordiLesione->setNome($listaBordi[$i]);
-            $this->bordiLesioneRepository->add($bordiLesione, true);
+            if($this->bordiLesioneRepository->findOneBy(["nome" => $bordiLesione->getNome()])== null)
+                $this->bordiLesioneRepository->add($bordiLesione, true);
         }
 
         //cute perilesionale
@@ -103,7 +106,8 @@ class InserisciListaCampiLesioneCommand extends Command
         for($i=0; $i< count($listaCute); $i++){
             $cuteLesione = new CutePerilesionale;
             $cuteLesione->setNome($listaCute[$i]);
-            $this->cutePerilesionaleRepository->add($cuteLesione, true);
+            if($this->cutePerilesionaleRepository->findOneBy(["nome" => $cuteLesione->getNome()])== null)
+                $this->cutePerilesionaleRepository->add($cuteLesione, true);
         }
 
         //medicazione
@@ -126,7 +130,8 @@ class InserisciListaCampiLesioneCommand extends Command
         for($i=0; $i< count($listaMedicazioni); $i++){
             $medicazioneLesione = new Medicazione;
             $medicazioneLesione->setNome($listaMedicazioni[$i]);
-            $this->medicazioneRepository->add($medicazioneLesione, true);
+            if($this->medicazioneRepository->findOneBy(["nome" => $medicazioneLesione->getNome()])== null)
+                $this->medicazioneRepository->add($medicazioneLesione, true);
         }
 
         //copertura
@@ -140,7 +145,8 @@ class InserisciListaCampiLesioneCommand extends Command
         for($i=0; $i< count($listaCopertura); $i++){
             $coperturaLesione = new Copertura;
             $coperturaLesione->setNome($listaCopertura[$i]);
-            $this->coperturaRepository->add($coperturaLesione, true);
+            if($this->coperturaRepository->findOneBy(["nome" => $coperturaLesione->getNome()])== null)
+                $this->coperturaRepository->add($coperturaLesione, true);
         }
         
         $io->success('Comando completato con successo');

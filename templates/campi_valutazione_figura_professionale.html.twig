@@ -102,6 +102,24 @@
 								</tr>
 								<tr>
 									<th>
+										<h5 class="card-text">Tipo </h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										<p class="card-title" style="border-bottom-style: none;">
+											{% if  valutazione_figura_professionale.tipiAdiwebs is empty %}
+												Nessuno
+											{% else %}
+												{% for i in valutazione_figura_professionale.tipiAdiwebs %}
+													<li>{{ i.nome }}</li>
+												{% endfor %}
+											{% endif %}
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<th>
 										<h5 class="card-text">Frequenza</h5>
 									</th>
 								</tr>

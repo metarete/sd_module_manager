@@ -2,6 +2,7 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\TipiAdiweb;
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntityPAI\SchedaPAI;
@@ -47,10 +48,14 @@ class ValutazioneFiguraProfessionale
     #[ORM\ManyToOne(targetEntity: User:: class, inversedBy: 'idValutazioneFiguraProfessionale', cascade:['persist'])]
     private $autoreValutazioneProfessionale;
 
+    #[ORM\ManyToMany(targetEntity: TipiAdiweb::class, inversedBy: 'valutazioneProfessionale', cascade:['persist'])]
+    private Collection $tipiAdiwebs;
+
     public function __construct()
     {
         $this->obiettivi = new ArrayCollection();
         $this->diagnosi = new ArrayCollection();
+        $this->tipiAdiwebs = new ArrayCollection();
     }
 
     public function __toString()
@@ -190,6 +195,33 @@ class ValutazioneFiguraProfessionale
     public function setAutoreValutazioneProfessionale(?User $autoreValutazioneProfessionale): self
     {
         $this->autoreValutazioneProfessionale = $autoreValutazioneProfessionale;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TipiAdiweb>
+     */
+    public function getTipiAdiwebs(): Collection
+    {
+        return $this->tipiAdiwebs;
+    }
+
+    public function addTipiAdiwebs(TipiAdiweb $tipiAdiweb): self
+    {
+        if (!$this->tipiAdiwebs->contains($tipiAdiweb)) {
+            $this->tipiAdiwebs->add($tipiAdiweb);
+            $tipiAdiweb->addValutazioneProfessionale($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTipiAdiwebs(TipiAdiweb $tipiAdiweb): self
+    {
+        if ($this->tipiAdiwebs->removeElement($tipiAdiweb)) {
+            $tipiAdiweb->removeValutazioneProfessionale($this);
+        }
 
         return $this;
     }
