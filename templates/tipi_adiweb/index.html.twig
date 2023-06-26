@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipi Adiweb
+{% endblock %}
+
+{% block body %}
+	<h1>Tipi Adiweb</h1>
+
+	<div class="b-example-divider"></div>
+	<form action="{{ path('app_tipi_adiweb_index')}}" method="POST" id="my_form">
+		<nav class="navbar navbar-expand">
+			<div class="container-fluid">
+				<div class="col-md-2">
+					<p class="h6">Tipi per pagina</p>
+					<select class=" d-inline form-select" name='filtro_numero_tipi' onchange="this.form.submit()">
+						<option {% if tipi_per_pagina == 0 %} selected {% endif %} value="10">10</option>
+						<option {% if tipi_per_pagina == 20 %} selected {% endif %} value="20">20</option>
+						<option {% if tipi_per_pagina == 50 %} selected {% endif %} value="50">50</option>
+					</select>
+				</div>
+			</div>
+		</nav>
+	</form>
+
+	<div class="no-more-tables">
+		<table class="col-sm-12  table-striped table-condensed cf">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Descrizione</th>
+					<th>Codice</th>
+					<th>Adiweb Id Prestazione</th>
+					<th>Tipo Operatore</th>
+					<th>Operazioni</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for tipi_adiweb in tipi_adiwebs %}
+					<tr>
+						<td data-title='Id'>{{ tipi_adiweb.id }}</td>
+						<td data-title='Nome'>{{ tipi_adiweb.nome }}</td>
+						<td data-title='Descrizione'>{{ tipi_adiweb.descrizione }}</td>
+						<td data-title='Codice'>{{ tipi_adiweb.codice }}</td>
+						<td data-title='Adiweb Id Prestazione'>{{ tipi_adiweb.adiwebIdPrestazione }}</td>
+						<td data-title='Tipo Operatore'>{{ tipi_adiweb.tipoOperatore }}</td>
+						<td data-title='Operazioni'>
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+									Apri
+								</button>
+								<ul class="dropdown-menu">
+									<a class="dropdown-item" href="{{ path('app_tipi_adiweb_show', {'id': tipi_adiweb.id}) }}">
+										<i class="bi bi-clipboard2"></i>
+										Visualizza</a>
+
+									<a class="dropdown-item" href="{{ path('app_tipi_adiweb_edit', {'id': tipi_adiweb.id}) }}">
+										<i class="bi bi-pencil-square"></i>
+										Modifica</a>
+									<a class="dropdown-item" href="{{ path('app_tipi_adiweb_delete', {'id': tipi_adiweb.id, '_token': csrf_token('delete' ~ tipi_adiweb.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questo tipo?');">
+										<i class="bi bi-trash3"></i>Elimina</a>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">Nessun tipo disponibile</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<a href="{{ path('app_tipi_adiweb_new') }}" type="button" class="btn btn-primary">Crea nuovo tipo</a>
+<div class="pb-2 mb-4"></div>
+
+<nav aria-label="Page navigation example">
+   <ul class="pagination justify-content-center">
+       <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_tipi_adiweb_index') }}'; document.getElementById('my_form').submit();"><<</a></li>
+        <li class="page-item"><a class="page-link {% if pagina==1 %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_tipi_adiweb_index', {'page':pagina-1}) }}'; document.getElementById('my_form').submit();"><</a></li>
+    {% for i in 1..pagine_totali %}
+		{% if i == pagina %}
+            <li class="page-item active"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_tipi_adiweb_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
+        {% elseif i <= pagina + 5 and i >= pagina - 1 %}
+            <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_tipi_adiweb_index', {'page':i}) }}'; document.getElementById('my_form').submit();">{{i}}</a></li>
+        {% endif %}
+    {% endfor %}
+    <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_tipi_adiweb_index', {'page':pagina+1}) }}'; document.getElementById('my_form').submit();">></a></li>
+      <li class="page-item"><a class="page-link {% if pagina==pagine_totali %}disabled{% endif %}" href="javascript:void(0)" onclick="document.getElementById('my_form').action = '{{ path('app_tipi_adiweb_index', {'page':pagine_totali}) }}'; document.getElementById('my_form').submit();">>></a></li>
+  </ul>
+</nav>
+{% endblock %}

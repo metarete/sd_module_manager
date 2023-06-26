@@ -82,15 +82,24 @@ class ScadenzarioController extends AbstractController
             $schedaPais = $schedaPAIRepository->findBy(['currentPlace' => ['nuova','attiva','approvata','verifica','in_attesa_di_chiusura', 'in_attesa_di_chiusura_con_rinnovo']], array('id' => 'DESC'), $schedePerPagina, $offset);
         
         } else {
-            $schedaPais = $schedaPAIRepository->findUserSchedePai($idUser, null, $schedePerPagina, $page);
-            //tolgo le schede chiuse e chiuse con rinnovo
-            for($i=0; $i<count($schedaPais); $i++){
-                if($schedaPais[$i]->getCurrentPlace()=='chiusa' || $schedaPais[$i]->getCurrentPlace()== 'chiusa_con_rinnovo'){
-                    unset($schedaPais[$i]);
-                }
+            $principale = $schedaPAIRepository->findOperatorePrincipaleSchedePai($idUser);
+            $secondarioInf = $schedaPAIRepository->findOperatoreSecondarioInfSchedePai($idUser);
+            $secondarioTdr = $schedaPAIRepository->findOperatoreSecondarioTdrSchedePai($idUser);
+            $secondarioLog = $schedaPAIRepository->findOperatoreSecondarioLogSchedePai($idUser);
+            $secondarioAsa = $schedaPAIRepository->findOperatoreSecondarioAsaSchedePai($idUser);
+            $secondarioOss = $schedaPAIRepository->findOperatoreSecondarioOssSchedePai($idUser);
+            //unisco gli array e tolgo duplicati
+            $schedaPais1 = array_unique (array_merge ($principale, $secondarioInf, $secondarioTdr, $secondarioLog, $secondarioAsa, $secondarioOss));
+            //ordino per id in ordine decrescente per avere le schede più recenti in alto
+            usort($schedaPais1, fn($a, $b) => $a->getId()-$b->getId());
+            $schedaPais1 = array_reverse($schedaPais1);
+            $schedaPais = [];
+            //costruisco l'elenco schede in base al filtro e alla pagina
+            for($i=(($page - 1) * $schedePerPagina); $i<$schedePerPagina*$page; $i++){
+                if($i<count($schedaPais1))
+                    array_push($schedaPais,$schedaPais1[$i]);     
             }
         }
-        
         
         
         //setto pagina di partenza

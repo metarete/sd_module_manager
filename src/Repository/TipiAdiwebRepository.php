@@ -39,6 +39,15 @@ class TipiAdiwebRepository extends ServiceEntityRepository
         }
     }
 
+    public function contaTipi(): int
+    {
+        return $this->createQueryBuilder('s')
+        ->select('count(s.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+
+    }
+
 //    /**
 //     * @return TipiAdiweb[] Returns an array of TipiAdiweb objects
 //     */

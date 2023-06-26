@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\EntityPAI\SchedaPAI;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -74,10 +75,13 @@ class SchedaPAIRepository extends ServiceEntityRepository
 
 
     //funzioni per utenti User
-    public function findUserSchedePai(int $idUser, string $stato = null, int $schedePerPagina = null, int $page = null): array
+    private function findUserSchedePai(int $idUser, string $stato = null, int $schedePerPagina = null, int $page = null): array
     {
         $qb = $this->createQueryBuilder('s')
 
+        //conversione in 6 query diverse che restituiscono un array. 
+        //poi unione degli array che viene passato al template
+        //eliminare subito schede chiuse e chiuse con rinnovo
         ->leftJoin('s.idOperatoreSecondarioInf', 's1')
         ->leftJoin('s.idOperatoreSecondarioTdr', 's2')
         ->leftJoin('s.idOperatoreSecondarioLog', 's3')
@@ -89,8 +93,9 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->orWhere('s3.id = :id')
         ->orWhere('s4.id = :id')
         ->orWhere('s5.id = :id')
-        ->setParameter('id', $idUser);
-
+        ->setParameter('id', $idUser)
+        ->groupBy('s.id');
+        
 
         if($stato != null){
             $qb 
@@ -104,6 +109,129 @@ class SchedaPAIRepository extends ServiceEntityRepository
         
         
     }
+
+
+    public function findOperatorePrincipaleSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $expr = $queryBuilder->expr();
+        $chiusa = 'chiusa';
+        $chiusaRinnovo = 'chiusa_con_rinnovo';
+        
+        $query = $queryBuilder
+        ->Where('s.idOperatorePrincipale = :id')
+        ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
+        ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+        ->setParameter('id', $idUser)
+        ->setParameter('chiusa', $chiusa)
+        ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioInfSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $expr = $queryBuilder->expr();
+        $chiusa = 'chiusa';
+        $chiusaRinnovo = 'chiusa_con_rinnovo';
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioInf', 's1')
+        ->Where('s1.id = :id')
+        ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
+        ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+        ->setParameter('id', $idUser)
+        ->setParameter('chiusa', $chiusa)
+        ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioTdrSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $expr = $queryBuilder->expr();
+        $chiusa = 'chiusa';
+        $chiusaRinnovo = 'chiusa_con_rinnovo';
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioTdr', 's1')
+        ->Where('s1.id = :id')
+        ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
+        ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+        ->setParameter('id', $idUser)
+        ->setParameter('chiusa', $chiusa)
+        ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioLogSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $expr = $queryBuilder->expr();
+        $chiusa = 'chiusa';
+        $chiusaRinnovo = 'chiusa_con_rinnovo';
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioLog', 's1')
+        ->Where('s1.id = :id')
+        ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
+        ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+        ->setParameter('id', $idUser)
+        ->setParameter('chiusa', $chiusa)
+        ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioAsaSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $expr = $queryBuilder->expr();
+        $chiusa = 'chiusa';
+        $chiusaRinnovo = 'chiusa_con_rinnovo';
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioAsa', 's1')
+        ->Where('s1.id = :id')
+        ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
+        ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+        ->setParameter('id', $idUser)
+        ->setParameter('chiusa', $chiusa)
+        ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioOssSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $expr = $queryBuilder->expr();
+        $chiusa = 'chiusa';
+        $chiusaRinnovo = 'chiusa_con_rinnovo';
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioOss', 's1')
+        ->Where('s1.id = :id')
+        ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
+        ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+        ->setParameter('id', $idUser)
+        ->setParameter('chiusa', $chiusa)
+        ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    /*public function paginaElencoSchede(array $schedePais,int $schedePerPagina = null, int $page = null): array
+    {
+        
+        $schedePais->setFirstResult(($page - 1) * $schedePerPagina)->setMaxResults($schedePerPagina);
+        return $qb ->getQuery()
+                ->getResult();
+        
+    }*/
 
 
     //funzioni per utenti admin

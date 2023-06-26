@@ -75,11 +75,13 @@
 								</tr>
 								<td>
 									<p class="card-title">
-									{% if user.roles[0]=="ROLE_ADMIN" %}
-										Admin
-									{% else %}
-										Utente
-									{% endif %}
+										{% if "ROLE_SUPERADMIN" in user.roles %}
+											Super Admin
+										{% elseif "ROLE_ADMIN" in user.roles %}
+											Admin
+										{% else %}
+											Utente
+										{% endif %}		
 									</p>
 								</td>
 							</tr>

@@ -35,7 +35,7 @@ class CreaOperatoreCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setHelp('Questo comando serve a creare un utente admin o user. Inserire in questo ordine i parametri: nome cognome ruolo(scegliere tra ROLE_USER e ROLE_ADMIN) email password e username.')
+            ->setHelp('Questo comando serve a creare un utente admin o user. Inserire in questo ordine i parametri: nome cognome ruolo(scegliere tra ROLE_USER, ROLE_ADMIN e ROLE_SUPERADMIN) email password e username.')
             ->addArgument('nome', InputArgument::REQUIRED, 'nome')
             ->addArgument('cognome', InputArgument::REQUIRED, 'cognome')
             ->addArgument('codice fiscale',InputArgument::REQUIRED,'codice fiscale' )
@@ -55,7 +55,13 @@ class CreaOperatoreCommand extends Command
         $cognome = $input->getArgument('cognome');
         $cf = $input->getArgument('codice fiscale');
         $password = $input->getArgument('password');
-        $role[0] = $input->getArgument('role');
+        if($input->getArgument('role')== "ROLE_SUPERADMIN"){
+            $role[0] = $input->getArgument('role');
+            $role[1] = "ROLE_ADMIN";
+        }
+        else{
+            $role[0] = $input->getArgument('role');
+        }
         $email = $input->getArgument('email');
         $username = $input->getArgument('username');
 
@@ -69,7 +75,7 @@ class CreaOperatoreCommand extends Command
         $user->setCf($cf);
         $user->setPassword($hashedPassword);
         $user->setRoles($role);
-        $user->setStato(false);
+        $user->setStato(true);
         $user->setEmail($email);
         if($username != null){
             $user->setUsername($username);

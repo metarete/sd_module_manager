@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_tipi_adiweb_delete', {'id': tipi_adiweb.id}) }}" onsubmit="return confirm('Sei sicuro di voler eliminare questo tipo?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tipi_adiweb.id) }}">
+    <button class="btn">Elimina</button>
+</form>
