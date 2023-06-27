@@ -55,7 +55,7 @@ class PazienteRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    public function updateAssistitiByCf($cf, $nome, $cognome, $indirizzo, $comune, $provincia, $cap): void
+    public function updateAssistitiByIdSdManager($idSdManager,$cf, $nome, $cognome, $indirizzo, $comune, $provincia, $cap): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
         ->update(null, null)
@@ -65,7 +65,8 @@ class PazienteRepository extends ServiceEntityRepository
         ->set('u.comune', ':comune')
         ->set('u.provincia', ':provincia')
         ->set('u.cap', ':cap')
-        ->where('u.codiceFiscale = :cf')
+        ->set('u.codiceFiscale', ':cf')
+        ->where('u.idSdManager = :idSdManager')
         ->setParameter('nome', $nome)
         ->setParameter('cognome', $cognome)
         ->setParameter('indirizzo', $indirizzo)
@@ -73,6 +74,7 @@ class PazienteRepository extends ServiceEntityRepository
         ->setParameter('provincia', $provincia)
         ->setParameter('cap', $cap)
         ->setParameter('cf', $cf)
+        ->setParameter('idSdManager', $idSdManager)
         ->getQuery()
         ->execute();
     }

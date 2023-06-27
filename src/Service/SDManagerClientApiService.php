@@ -253,7 +253,7 @@ class SDManagerClientApiService
             $comune = $assistiti[$i]['indirizzi'][0]['comune'];
             $provincia = $assistiti[$i]['indirizzi'][0]['provincia'];
             $cap = $assistiti[$i]['indirizzi'][0]['cap'];
-            if ($assistitiRepository->findOneByCf($cf) == null) {
+            if ($assistitiRepository->findOneBy(["idSdManager" => $assistiti[$i]['id_utente']]) === null) {
                 $assistito = new Paziente;
                 $assistito->setNome($assistiti[$i]['nome']);
                 $assistito->setCognome($assistiti[$i]['cognome']);
@@ -265,7 +265,7 @@ class SDManagerClientApiService
                 $assistito->setIdSdManager($assistiti[$i]['id_utente']);
                 $assistitiRepository->add($assistito, true);
             } else {
-                $assistitiRepository->updateAssistitiByCf($cf, $assistiti[$i]['nome'], $assistiti[$i]['cognome'], $indirizzo, $comune, $provincia, $cap);
+                $assistitiRepository->updateAssistitiByIdSdManager($assistiti[$i]['id_utente'], $cf, $assistiti[$i]['nome'], $assistiti[$i]['cognome'], $indirizzo, $comune, $provincia, $cap);
             }
         }
     }
