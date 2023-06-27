@@ -2,9 +2,9 @@
 
 namespace App\Entity\EntityPAI;
 
+use App\Entity\Paziente;
 use DateTime;
 use App\Entity\User;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SchedaPAIRepository;
 use Doctrine\Common\Collections\Collection;
@@ -53,15 +53,6 @@ class SchedaPAI
     #[ORM\JoinColumn(name: 'user_oss_id', referencedColumnName: 'id', nullable: true)]
     #[ORM\InverseJoinColumn(name: 'scheda_pai_oss_id', referencedColumnName: 'id')]
     private $idOperatoreSecondarioOss;
-
-    #[ORM\Column(type: 'integer')]
-    private $idAssistito;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private $nomeAssistito;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private $cognomeAssistito;
 
     #[ORM\Column(type: 'string')]
     private $idConsole;
@@ -184,6 +175,9 @@ class SchedaPAI
 
     #[ORM\Column(type: 'string')]
     private $statoSDManager = null;
+
+    #[ORM\ManyToOne(targetEntity: Paziente::class, inversedBy: 'schedaPAIs', cascade:['persist'])]
+    private ?Paziente $assistito = null;
 
    //attributi non mappati
     private $barthelNumberToday = 0;
@@ -370,42 +364,6 @@ class SchedaPAI
     public function removeIdOperatoreSecondarioOss(User $idOperatoreSecondarioOss): self
     {
         $this->idOperatoreSecondarioOss->removeElement($idOperatoreSecondarioOss);
-
-        return $this;
-    }
-
-    public function getIdAssistito(): ?int
-    {
-        return $this->idAssistito;
-    }
-
-    public function setIdAssistito(int $idAssistito): self
-    {
-        $this->idAssistito = $idAssistito;
-
-        return $this;
-    }
-
-    public function getNomeAssistito(): ?string
-    {
-        return $this->nomeAssistito;
-    }
-
-    public function setNomeAssistito(?string $nomeAssistito): self
-    {
-        $this->nomeAssistito = $nomeAssistito;
-
-        return $this;
-    }
-
-    public function getCognomeAssistito(): ?string
-    {
-        return $this->cognomeAssistito;
-    }
-
-    public function setCognomeAssistito(?string $cognomeAssistito): self
-    {
-        $this->cognomeAssistito = $cognomeAssistito;
 
         return $this;
     }
@@ -1287,6 +1245,18 @@ class SchedaPAI
     public function setStatoSDManager(string $statoSDManager): self
     {
         $this->statoSDManager = $statoSDManager;
+
+        return $this;
+    }
+
+    public function getAssistito(): ?Paziente
+    {
+        return $this->assistito;
+    }
+
+    public function setAssistito(?Paziente $assistito): self
+    {
+        $this->assistito = $assistito;
 
         return $this;
     }

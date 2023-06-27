@@ -197,6 +197,7 @@ class SDManagerClientApiService
             return;
         }
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         //faccio passare i progetti scaricati uno ad uno
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
@@ -208,13 +209,14 @@ class SDManagerClientApiService
                 $idAssistito = $progetti[$i]['id_utente'];
                 $nomeProgetto = $progetti[$i]['nome'];
                 $statoSDManager = $progetti[$i]['stato_progetto'];
+                $assistito = $assistitiRepository->findOneById($idAssistito);
                 //se non c'è già lo creo da zero
                 if ($schedaPAIRepository->findOneByProgetto($idProgetto) == null) {
                     if($progetti[$i]['stato_progetto'] == 'ATTIVO'){
                         $schedaPai = new SchedaPAI;
                         $schedaPai->setDataInizio($dataInizio);
                         $schedaPai->setDataFine($dataFine);
-                        $schedaPai->setIdAssistito($idAssistito);
+                        $schedaPai->setAssistito($assistito);
                         $schedaPai->setIdProgetto($idProgetto);
                         $schedaPai->setNomeProgetto($nomeProgetto);
                         $schedaPai->setCurrentPlace('nuova');
@@ -231,7 +233,7 @@ class SDManagerClientApiService
 
                     //check per i cambiamenti di stato in base ai cambio data iniziale e finale
                     $this->setterCambioStatiDopoSincronizzazioneService->settaCambioStati($dataInizio, $dataFine, $schedaPai);
-                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager);
+                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $assistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager);
 
                     $this->numeroProgettiAggiornati++;
                 }

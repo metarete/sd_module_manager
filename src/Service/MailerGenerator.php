@@ -32,7 +32,7 @@ class MailerGenerator
                     "nome_progetto" => $schede[$i]->getNomeProgetto(),
                     "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
                     "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
-                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "assistito" => $schede[$i]->getAssistito()->getNome() . "  " . $schede[$i]->getAssistito()->getCognome(),
                     "stato" => $schede[$i]->getCurrentPlace(),
                     "link" => $url . '/scheda_pai/'
                 ];
@@ -51,7 +51,7 @@ class MailerGenerator
                     "nome_progetto" => $schede[$i]->getNomeProgetto(),
                     "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
                     "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
-                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "assistito" => $schede[$i]->getAssistito()->getNome() . "  " . $schede[$i]->getAssistito()->getCognome(),
                     "stato" => $schede[$i]->getCurrentPlace(),
                     "link" => $url . '/scheda_pai/'
                 ];
@@ -70,7 +70,7 @@ class MailerGenerator
                     "nome_progetto" => $schede[$i]->getNomeProgetto(),
                     "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
                     "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
-                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "assistito" => $schede[$i]->getAssistito()->getNome() . "  " . $schede[$i]->getAssistito()->getCognome(),
                     "motivazione" => $schede[$i]->getIdChiusuraServizio()->getConclusioni(),
                     "stato" => $schede[$i]->getCurrentPlace(),
                     "link" => 'https://' . $console . '.sdmanager.it/index.php?module=Servizi.Domiciliari&func=progetti_edit&type=admin'
@@ -89,7 +89,7 @@ class MailerGenerator
                     "nome_progetto" => $schede[$i]->getNomeProgetto(),
                     "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
                     "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
-                    "assistito" => $schede[$i]->getNomeAssistito() . "  " . $schede[$i]->getCognomeAssistito(),
+                    "assistito" => $schede[$i]->getAssistito()->getNome() . "  " . $schede[$i]->getAssistito()->getCognome(),
                     "stato" => $schede[$i]->getCurrentPlace(),
                 ];
                 array_push($testo, $riga);
@@ -255,7 +255,7 @@ class MailerGenerator
                         "nome_progetto" => $arraySchedeApprovate[$j]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeApprovate[$j]->getDataInizio()->format('d/m/Y'),
                         "data_fine" => $arraySchedeApprovate[$j]->getDataFine()->format('d/m/Y'),
-                        "assistito" => $arraySchedeApprovate[$j]->getNomeAssistito() . "  " . $arraySchedeApprovate[$j]->getCognomeAssistito(),
+                        "assistito" => $arraySchedeApprovate[$j]->getAssistito()->getNome() . "  " . $arraySchedeApprovate[$j]->getAssistito()->getCognome(),
                         "stato" => $arraySchedeApprovate[$j]->getCurrentPlace(),
                         "link" => $url . '/scadenzario/'
                     ];
@@ -296,7 +296,7 @@ class MailerGenerator
                             "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
                             "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d/m/Y'),
                             "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d/m/Y'),
-                            "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
+                            "assistito" => $arraySchedeAttive[$t]->getAssistito()->getNome() . "  " . $arraySchedeAttive[$t]->getAssistito()->getCognome(),
                             "valore" => $valore,
                         ];
                         array_push($descrizioneValutazioneProfessionale, $riga);
@@ -306,7 +306,7 @@ class MailerGenerator
                         "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d/m/Y'),
                         "data_fine" => $arraySchedeAttive[$t]->getDataFine()->format('d/m/Y'),
-                        "assistito" => $arraySchedeAttive[$t]->getNomeAssistito() . "  " . $arraySchedeAttive[$t]->getCognomeAssistito(),
+                        "assistito" => $arraySchedeAttive[$t]->getAssistito()->getNome() . "  " . $arraySchedeAttive[$t]->getAssistito()->getCognome(),
                         "barthel" => "Nessuna",
                         "braden" => "Nessuna",
                         "spmsq" => "Nessuna",
@@ -380,7 +380,7 @@ class MailerGenerator
                         "nome_progetto" => $arraySchedeInAttesaDiChiusura[$z]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeInAttesaDiChiusura[$z]->getDataInizio()->format('d/m/Y'),
                         "data_fine" => $arraySchedeInAttesaDiChiusura[$z]->getDataFine()->format('d/m/Y'),
-                        "assistito" => $arraySchedeInAttesaDiChiusura[$z]->getNomeAssistito() . "  " . $arraySchedeInAttesaDiChiusura[$z]->getCognomeAssistito(),
+                        "assistito" => $arraySchedeInAttesaDiChiusura[$z]->getAssistito()->getNome() . "  " . $arraySchedeInAttesaDiChiusura[$z]->getAssistito()->getCognome(),
                         "stato" => $arraySchedeInAttesaDiChiusura[$z]->getCurrentPlace(),
                     ];
                     array_push($descrizioneSchedeDaChiudere, $riga);
@@ -397,7 +397,7 @@ class MailerGenerator
                         "nome_progetto" => $arraySchedeVerifica[$a]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeVerifica[$a]->getDataInizio()->format('d/m/Y'),
                         "data_fine" => $arraySchedeVerifica[$a]->getDataFine()->format('d/m/Y'),
-                        "assistito" => $arraySchedeVerifica[$a]->getNomeAssistito() . "  " . $arraySchedeVerifica[$a]->getCognomeAssistito(),
+                        "assistito" => $arraySchedeVerifica[$a]->getAssistito()->getNome() . "  " . $arraySchedeVerifica[$a]->getAssistito()->getCognome(),
                         "stato" => $arraySchedeVerifica[$a]->getCurrentPlace(),
                     ];
                     array_push($descrizioneSchedeVerifica, $riga);

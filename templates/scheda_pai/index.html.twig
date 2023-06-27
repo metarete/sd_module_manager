@@ -165,13 +165,9 @@
                 <td data-title='Data Inizio'>{{ scheda_pai.dataInizio|date('d/m/Y') }} </td>
                 <td data-title='Data Fine'>{{ scheda_pai.dataFine|date('d/m/Y')}} </td>
                 <td data-title='Assistito'>
-                {% for i in assistiti %}
-                 {% if i.idSdManager == scheda_pai.idAssistito %}
-                    {{ i.nome }}
-                    {{ i.cognome }}
+                    {{ scheda_pai.assistito.nome }}
+                    {{ scheda_pai.assistito.cognome }}
                     <br>
-                 {% endif %}
-                {% endfor %}
                 </td>
                 <td data-title='Stato'><span class='badge {{filtroNomiStatiScadenzario.filtroBadge(scheda_pai)}}'>
                 {{filtroNomiStatiScadenzario.filtroNomi(scheda_pai)}}
@@ -277,16 +273,12 @@
                         <tbody>
                 
                         <td data-title='Codice Fiscale'>
-						{% for i in assistiti %}
-						    {% if i.idSdManager == scheda_pai.idAssistito %}
-								{% if i.codiceFiscale is empty %}
-                                    Nessuno
-                                {% else %}
-                                    {{i.codiceFiscale}}
-                                {% endif %}
-							<br>
-							{% endif %}
-						{% endfor %}
+						    {% if scheda_pai.assistito.codiceFiscale is empty %}
+                                Nessuno
+                            {% else %}
+                                {{scheda_pai.assistito.codiceFiscale}}
+                            {% endif %}
+                            <br>
 						</td>
 						<td data-title='Operatore Principale'>
 							{% if scheda_pai.idOperatorePrincipale == null %}

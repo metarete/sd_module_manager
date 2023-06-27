@@ -18,10 +18,6 @@ Class SetterDatiSchedaPaiService
     public function settaDatiAssistito(SchedaPAI $schedaPAI)
     {
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
-        $nomeAssistito = $assistitiRepository->getNameById($schedaPAI->getIdAssistito());
-        $cognomeAssistito = $assistitiRepository->getSurnameById($schedaPAI->getIdAssistito());
-        $schedaPAI->setNomeAssistito($nomeAssistito);
-        $schedaPAI->setCognomeAssistito($cognomeAssistito);
         $this->entityManager->flush();
     }
 

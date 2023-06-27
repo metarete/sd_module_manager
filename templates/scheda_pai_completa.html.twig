@@ -238,7 +238,7 @@
 		</div>
 		<div class="col col-lg-2">
 			<a class="btn btn-primary {% if not chiusura_servizio is empty %} disabled {% endif %}
-							{% if user.roles[0] == 'ROLE_ADMIN' %}
+							{% if user.roles[0] == 'ROLE_ADMIN' or user.roles[0] == 'ROLE_SUPERADMIN' %}
 								{% else %}
 									{% if user.username != scheda_pai.idOperatorePrincipale.username %}
 										disabled

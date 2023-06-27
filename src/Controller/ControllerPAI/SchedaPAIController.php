@@ -209,9 +209,8 @@ class SchedaPAIController extends AbstractController
         //assistiti
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $assistiti = $assistitiRepository->findAll();
-        $idAssistito = $schedaPAI->getIdAssistito();
-        $assistito = $assistitiRepository->findOneById($idAssistito);
-
+        $assistito = $schedaPAI->getAssistito();
+        
         $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
         $valutazioniFiguraProfessionale = $schedaPAI->getIdValutazioneFiguraProfessionale();
         $parereMMG = $schedaPAI->getIdParereMmg();
@@ -314,7 +313,6 @@ class SchedaPAIController extends AbstractController
         //data creazione pdf
         $dataCreazione = date("d-m-Y");
 
-        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
         $valutazioniFiguraProfessionale = $schedaPAI->getIdValutazioneFiguraProfessionale();
         $parereMMG = $schedaPAI->getIdParereMmg();
@@ -326,8 +324,7 @@ class SchedaPAIController extends AbstractController
         $lesioni = $schedaPAI->getIdLesioni();
         $painad = $schedaPAI->getIdPainad();
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
-        $idAssistito = $schedaPAI->getIdAssistito();
-        $assistito = $assistitiRepository->findOneById($idAssistito);
+        $assistito = $schedaPAI->getAssistito();
         $variabileTest = 1;
         $altraTipologiaAssistenza = [];
         $altraTipologiaAssistenza = $this->altraTipologiaAssistenzaService->getAltreTipologieAssistenza($valutazioneGenerale);
@@ -397,9 +394,7 @@ class SchedaPAIController extends AbstractController
     #[Route('/{pathName}/anagrafica_assistito/{id}', name: 'app_scheda_pai_anagrafica_assistito', methods: ['GET'])]
     public function datiAssistito(SchedaPAI $schedaPAI, string $pathName)
     {
-        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
-        $idAssistito = $schedaPAI->getIdAssistito();
-        $assistito = $assistitiRepository->findOneById($idAssistito);
+        $assistito = $schedaPAI->getAssistito();
         $variabileTest = 1;
 
         return $this->render('scheda_pai/show_assistito.html.twig', [

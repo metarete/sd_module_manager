@@ -45,7 +45,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
     {
         $totale = 0;
 
-        if($roleUser == 'ROLE_ADMIN'){
+        if($roleUser == 'ROLE_ADMIN' || $roleUser == 'ROLE_SUPERADMIN'){
             if($stato == null || $stato==""){
                 $totale = $this->createQueryBuilder('s')
                 ->select('count(s.id)')
@@ -325,19 +325,19 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ;
     }
 
-    public function updateSchedaByIdprogetto($idProgetto,$idAssistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager): void
+    public function updateSchedaByIdprogetto($idProgetto,$assistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
         ->update('App\Entity\EntityPAI\SchedaPAI', 'u')
         ->set('u.dataFine', ':dataFine')
         ->set('u.dataInizio', ':dataInizio')
-        ->set('u.idAssistito', ':idAssistito')
+        ->set('u.assistito', ':assistito')
         ->set('u.nomeProgetto', ':nomeProgetto')
         ->set('u.statoSDManager', ':statoSDManager')
         ->where('u.idProgetto = :idProgetto')
         ->setParameter('dataInizio', $dataInizio)
         ->setParameter('dataFine', $dataFine)
-        ->setParameter('idAssistito', $idAssistito)
+        ->setParameter('assistito', $assistito)
         ->setParameter('idProgetto', $idProgetto)
         ->setParameter('nomeProgetto', $nomeProgetto)
         ->setParameter('statoSDManager', $statoSDManager)

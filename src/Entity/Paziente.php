@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\EntityPAI\SchedaPAI;
 use App\Repository\PazienteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PazienteRepository::class)]
@@ -36,6 +39,14 @@ class Paziente
 
     #[ORM\Column]
     private ?int $idSdManager;
+
+    #[ORM\OneToMany(mappedBy: 'assistito', targetEntity: SchedaPAI::class, cascade:['persist'])]
+    private Collection $schedaPAIs;
+
+    public function __construct()
+    {
+        $this->schedaPAIs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -133,6 +144,36 @@ class Paziente
     public function setIdSdManager(int $idSdManager): self
     {
         $this->idSdManager = $idSdManager;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SchedaPAI>
+     */
+    public function getSchedaPAIs(): Collection
+    {
+        return $this->schedaPAIs;
+    }
+
+    public function addSchedaPAI(SchedaPAI $schedaPAI): self
+    {
+        if (!$this->schedaPAIs->contains($schedaPAI)) {
+            $this->schedaPAIs->add($schedaPAI);
+            $schedaPAI->setAssistito($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSchedaPAI(SchedaPAI $schedaPAI): self
+    {
+        if ($this->schedaPAIs->removeElement($schedaPAI)) {
+            // set the owning side to null (unless already changed)
+            if ($schedaPAI->getAssistito() === $this) {
+                $schedaPAI->setAssistito(null);
+            }
+        }
 
         return $this;
     }   
