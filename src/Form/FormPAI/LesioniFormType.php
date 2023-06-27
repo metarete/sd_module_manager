@@ -54,7 +54,8 @@ class LesioniFormType extends AbstractType
                 'choices' => $gradoLesioneChoices
             ])
             ->add('dimensioneLesione', null,[
-                'label' => 'Dimensioni Lesione (cm)'
+                'label' => 'Dimensioni Lesione (cm)',
+                'attr' => array('style' => 'height:100px'),
             ])
             ->add('condizioneLesione', EntityType::class,[
                 'class' => CondizioneLesione::class,

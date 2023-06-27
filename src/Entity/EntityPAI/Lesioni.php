@@ -14,7 +14,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Nette\Utils\Json;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LesioniRepository::class)]
@@ -46,9 +45,8 @@ class Lesioni
     #[Assert\NotBlank]
     private ?string $gradoLesione = null;
 
-    #[ORM\Column(type: 'integer')]
-    #[Assert\NotBlank]
-    private $dimensioneLesione = null;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $dimensioneLesione = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
@@ -160,12 +158,12 @@ class Lesioni
         return $this;
     }
 
-    public function getDimensioneLesione(): ?int
+    public function getDimensioneLesione(): ?string
     {
         return $this->dimensioneLesione;
     }
 
-    public function setDimensioneLesione(int $dimensioneLesione): self
+    public function setDimensioneLesione(string $dimensioneLesione): self
     {
         $this->dimensioneLesione = $dimensioneLesione;
 
