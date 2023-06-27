@@ -98,6 +98,24 @@ class MailerGenerator
         return $testo;
     }
 
+    private function creaTestoEmailInAttesaDiChiusura($testo, $schede):array
+    {
+        if ($schede != null) {
+            for ($i = 0; $i < count($schede); $i++) {
+                $riga = [
+                    "id" => $schede[$i]->getId(),
+                    "nome_progetto" => $schede[$i]->getNomeProgetto(),
+                    "data_inizio" => $schede[$i]->getDataInizio()->format('d/m/Y'),
+                    "data_fine" => $schede[$i]->getDataFine()->format('d/m/Y'),
+                    "assistito" => $schede[$i]->getAssistito()->getNome() . "  " . $schede[$i]->getAssistito()->getCognome(),
+                    "stato" => $schede[$i]->getCurrentPlace(),
+                ];
+                array_push($testo, $riga);
+            }
+        }
+        return $testo;
+    }
+
 
     public function EmailAdmin()
     {
@@ -121,22 +139,32 @@ class MailerGenerator
         
         $immagineVerifica = $url . '/image/hourglass-start-solid-2.png';
 
+        $immagineInAttesaDiChiusuraConRinnovo = $url . '/image/hourglass-start-solid-3.png';
+
+        $immagineInAttesaDiChiusura = $url . '/image/hourglass-start-solid-4.png';
+
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
         $schedeNuove = $schedaPAIRepository->findByState('nuova');
         $schedeChiuse = $schedaPAIRepository->findByState('chiusa');
         $schedeChiuseConRinnovo = $schedaPAIRepository->findByState('chiusa_con_rinnovo');
         $schedeInVerifica = $schedaPAIRepository->findByState('verifica');
+        $schedeInAttesaDiChiusura = $schedaPAIRepository->findByState('in_attesa_di_chiusura');
+        $schedeInAttesaDiChiusuraConRinnovo = $schedaPAIRepository->findByState('in_attesa_di_chiusura_con_rinnovo');
         $utenti = $userRepository->findAll();
         $admin = [];
         $testoEmailNuove = [];
         $testoEmailChiuse = [];
         $testoEmailChiuseConRinnovo = [];
         $testoEmailVerifica = [];
+        $testoEmailInAttesaDiChiusura = [];
+        $testoEmailInAttesaDiChiusuraConRinnovo = [];
         $testoEmailNuove = $this->creaTestoEmailNuove($testoEmailNuove, $schedeNuove);
         $testoEmailChiuse = $this->creaTestoEmailChiuse($testoEmailChiuse, $schedeChiuse);
         $testoEmailChiuseConRinnovo = $this->creaTestoEmailChiuseConRinnovo($testoEmailChiuseConRinnovo, $schedeChiuseConRinnovo);
         $testoEmailVerifica = $this->creaTestoEmailVerifica($testoEmailVerifica, $schedeInVerifica);
+        $testoEmailInAttesaDiChiusura = $this->creaTestoEmailInAttesaDiChiusura($testoEmailInAttesaDiChiusura, $schedeInAttesaDiChiusura);
+        $testoEmailInAttesaDiChiusuraConRinnovo = $this->creaTestoEmailInAttesaDiChiusura($testoEmailInAttesaDiChiusuraConRinnovo, $schedeInAttesaDiChiusuraConRinnovo);
 
         for ($i = 0; $i < count($utenti); $i++) {
             $roles = $utenti[$i]->getRoles();
@@ -168,10 +196,14 @@ class MailerGenerator
                         "testoEmailChiuse" => $testoEmailChiuse,
                         "testoEmailChiuseConRinnovo" => $testoEmailChiuseConRinnovo,
                         "testoEmailVerifica" => $testoEmailVerifica,
+                        "testoEmailInAttesaDiChiusura" => $testoEmailInAttesaDiChiusura,
+                        "testoEmailInAttesaDiChiusuraConRinnovo" => $testoEmailInAttesaDiChiusuraConRinnovo,
                         "schedeNuove" =>  $schedeNuove,
                         "schedeChiuse" => $schedeChiuse,
                         "schedeChiuseConRinnovo" => $schedeChiuseConRinnovo,
                         "schedeInVerifica" => $schedeInVerifica,
+                        "schedeInAttesaDiChiusura" => $schedeInAttesaDiChiusura,
+                        "schedeInAttesaDiChiusuraConRinnovo" => $schedeInAttesaDiChiusuraConRinnovo,
                         "calendarIcon" => $calendarIcon,
                         "separatoreTop" => $separatoreTop,
                         "frecciaLink" => $frecciaLink,
@@ -180,6 +212,8 @@ class MailerGenerator
                         "immagineChiuse" => $immagineChiuse,
                         "immagineChiuseConRinnovo" => $immagineChiuseConRinnovo,
                         "immagineVerifica" => $immagineVerifica,
+                        "immagineInAttesaDiChiusuraConRinnovo" => $immagineInAttesaDiChiusuraConRinnovo,
+                        "immagineInAttesaDiChiusura" => $immagineInAttesaDiChiusura,
                         "url" => $url,
                         "operatore" => $operatore
                     ]);
