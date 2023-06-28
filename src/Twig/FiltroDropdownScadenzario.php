@@ -30,6 +30,7 @@ class FiltroDropdownScadenzario extends AbstractExtension
             new TwigFilter('filtroVas', [$this, 'filtroVas']),
             new TwigFilter('filtroLesioni', [$this, 'filtroLesioni']),
             new TwigFilter('filtroPainad', [$this, 'filtroPainad']),
+            new TwigFilter('filtroCdr', [$this, 'filtroCdr']),
         ];
     }
 
@@ -149,6 +150,13 @@ class FiltroDropdownScadenzario extends AbstractExtension
     {
         $setterDropdownScadenzarioService = new SetterDropdownScadenzarioService;
         $style = $setterDropdownScadenzarioService->painad($schedaPAI);
+        return $style;
+    }
+
+    public function filtroCdr(SchedaPAI $schedaPAI):string
+    {
+        $setterDropdownScadenzarioService = new SetterDropdownScadenzarioService;
+        $style = $setterDropdownScadenzarioService->cdr($schedaPAI);
         return $style;
     }
 }

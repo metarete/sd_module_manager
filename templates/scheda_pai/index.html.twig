@@ -129,10 +129,12 @@
                 <th>PVA</th>
                 <th>LES</th>
                 <th>PAI</th>
+                <th>CDR</th>
 				<th>Operazioni</th>
 				
             </tr>
             <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -179,6 +181,7 @@
                 <td data-title='PVA' class = {{filtroColoriScadenzario.filtroColoriVas(scheda_pai)}}>{% if scheda_pai.abilitaVas %} {{scheda_pai.vasNumberToday}} / {{scheda_pai.numeroVasCorretto}} {% else %} 0 / 0 {% endif %}</td>
                 <td data-title='LES' class = {{filtroColoriScadenzario.filtroColoriLesioni(scheda_pai)}}>{% if scheda_pai.abilitaLesioni %} {{scheda_pai.lesioniNumberToday}} / {{scheda_pai.numeroLesioniCorretto}} {% else %} 0 / 0 {% endif %}</td>
                 <td data-title='PAI' class = {{filtroColoriScadenzario.filtroColoriPainad(scheda_pai)}}>{% if scheda_pai.abilitaPainad %} {{scheda_pai.painadNumberToday}} / {{scheda_pai.numeroPainadCorretto}} {% else %} 0 / 0 {% endif %}</td>
+                <td data-title='CDR' class = {{filtroColoriScadenzario.filtroColoriCdr(scheda_pai)}}>{% if scheda_pai.abilitaCdr %} {{scheda_pai.cdrNumberToday}} / {{scheda_pai.numeroCdrCorretto}} {% else %} 0 / 0 {% endif %}</td>
                 <td data-title='Operazioni'>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -242,6 +245,9 @@
                             </li>
                             <li style={{filtroDropdownScadenzario.filtroPainad(scheda_pai)}}>
                                 <a class="dropdown-item" href="{{ path('app_painad_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': page})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Painad</a>
+                            </li>
+                            <li style={{filtroDropdownScadenzario.filtroCdr(scheda_pai)}}>
+                                <a class="dropdown-item" href="{{ path('app_cdr_new', {'id_pai': scheda_pai.id, 'pathName': pathName, 'page': page})}}"><i class="bi bi-file-earmark-plus"></i> Nuova Cdr</a>
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>

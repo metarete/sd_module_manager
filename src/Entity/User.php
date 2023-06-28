@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\EntityPAI\Barthel;
 use App\Entity\EntityPAI\Braden;
+use App\Entity\EntityPAI\Cdr;
 use App\Entity\EntityPAI\ChiusuraServizio;
 use App\Entity\EntityPAI\Lesioni;
 use App\Entity\EntityPAI\Painad;
@@ -118,6 +119,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //#[ORM\Column(type: 'string', nullable: true)]
     private $plainPassword2;
 
+    #[ORM\OneToMany(mappedBy: 'autoreCdr', targetEntity: Cdr::class)]
+    private Collection $cdrs;
+
     public function __construct()
     {
         $this->principaleSchedaPai = new ArrayCollection();
@@ -126,6 +130,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->logSchedaPai = new ArrayCollection();
         $this->asaSchedaPai = new ArrayCollection();
         $this->ossSchedaPai = new ArrayCollection();
+        $this->cdrs = new ArrayCollection();
     }
     public function __toString()
     {
@@ -637,6 +642,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->idVas->contains($idVas)) {
             $this->idVas[] = $idVas;
             
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cdr>
+     */
+    public function getCdrs(): Collection
+    {
+        return $this->cdrs;
+    }
+
+    public function addCdr(Cdr $cdr): self
+    {
+        if (!$this->cdrs->contains($cdr)) {
+            $this->cdrs->add($cdr);
+            $cdr->setAutoreCdr($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCdr(Cdr $cdr): self
+    {
+        if ($this->cdrs->removeElement($cdr)) {
+            // set the owning side to null (unless already changed)
+            if ($cdr->getAutoreCdr() === $this) {
+                $cdr->setAutoreCdr(null);
+            }
         }
 
         return $this;

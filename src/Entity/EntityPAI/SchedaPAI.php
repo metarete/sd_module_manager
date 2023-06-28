@@ -54,9 +54,6 @@ class SchedaPAI
     #[ORM\InverseJoinColumn(name: 'scheda_pai_oss_id', referencedColumnName: 'id')]
     private $idOperatoreSecondarioOss;
 
-    #[ORM\Column(type: 'string')]
-    private $idConsole;
-
     #[ORM\Column(type: 'integer')]
     private $idProgetto;
 
@@ -99,6 +96,9 @@ class SchedaPAI
     #[ORM\OneToMany(mappedBy: 'schedaPAI', targetEntity: Painad::class, cascade: ['persist', 'remove'])]
     private $idPainad;
 
+    #[ORM\OneToMany(mappedBy: 'schedaPAI', targetEntity: Cdr::class, cascade: ['persist', 'remove'])]
+    private $cdrs;
+
     #[ORM\Column(type: 'string')]
     private $currentPlace = 'nuova';
 
@@ -131,6 +131,9 @@ class SchedaPAI
     #[ORM\Column(type: 'boolean')]
     private $abilitaPainad = false;
 
+    #[ORM\Column(type: 'boolean')]
+    private $abilitaCdr = false;
+
     #[ORM\Column(type: 'integer')]
     private $numeroBarthelCorretto = 0;
 
@@ -153,6 +156,9 @@ class SchedaPAI
     private $numeroPainadCorretto = 0;
 
     #[ORM\Column(type: 'integer')]
+    private $numeroCdrCorretto = 0;
+
+    #[ORM\Column(type: 'integer')]
     private $frequenzaBarthel = 0;
 
     #[ORM\Column(type: 'integer')]
@@ -173,6 +179,9 @@ class SchedaPAI
     #[ORM\Column(type: 'integer')]
     private $frequenzaPainad = 0;
 
+    #[ORM\Column(type: 'integer')]
+    private $frequenzaCdr = 0;
+
     #[ORM\Column(type: 'string')]
     private $statoSDManager = null;
 
@@ -187,6 +196,7 @@ class SchedaPAI
     private $vasNumberToday = 0;
     private $lesioniNumberToday = 0;
     private $painadNumberToday = 0;
+    private $cdrNumberToday = 0;
     private $correctBarthelNumberToday = 0;
     private $correctBradenNumberToday = 0;
     private $correctSpmsqNumberToday = 0;
@@ -194,7 +204,7 @@ class SchedaPAI
     private $correctVasNumberToday = 0;
     private $correctLesioniNumberToday = 0;
     private $correctPainadNumberToday = 0;
-
+    private $correctCdrNumberToday = 0;
     
 
     public function __construct()
@@ -212,6 +222,7 @@ class SchedaPAI
         $this->idVas = new ArrayCollection();
         $this->idLesioni = new ArrayCollection();
         $this->idPainad = new ArrayCollection();
+        $this->cdrs = new ArrayCollection();
     }
 
     public function __toString()
@@ -364,18 +375,6 @@ class SchedaPAI
     public function removeIdOperatoreSecondarioOss(User $idOperatoreSecondarioOss): self
     {
         $this->idOperatoreSecondarioOss->removeElement($idOperatoreSecondarioOss);
-
-        return $this;
-    }
-
-    public function getIdConsole(): ?string
-    {
-        return $this->idConsole;
-    }
-
-    public function setIdConsole(string $idConsole): self
-    {
-        $this->idConsole = $idConsole;
 
         return $this;
     }
@@ -680,6 +679,36 @@ class SchedaPAI
         return $this;
     }
 
+     /**
+     * @return Collection<int, Cdr>
+     */
+    public function getCdrs(): Collection
+    {
+        return $this->cdrs;
+    }
+
+    public function addCdr(Cdr $cdr): self
+    {
+        if (!$this->cdrs->contains($cdr)) {
+            $this->cdrs->add($cdr);
+            $cdr->setSchedaPAI($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCdr(Cdr $cdr): self
+    {
+        if ($this->cdrs->removeElement($cdr)) {
+            // set the owning side to null (unless already changed)
+            if ($cdr->getSchedaPAI() === $this) {
+                $cdr->setSchedaPAI(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getCurrentPlace(): ?string
     {
         return $this->currentPlace;
@@ -788,6 +817,18 @@ class SchedaPAI
         return $this;
     }
 
+    public function isAbilitaCdr(): ?bool
+    {
+        return $this->abilitaCdr;
+    }
+
+    public function setAbilitaCdr(bool $abilitaCdr): self
+    {
+        $this->abilitaCdr = $abilitaCdr;
+
+        return $this;
+    }
+
     public function getNumeroBarthelCorretto(): ?int
     {
         return $this->numeroBarthelCorretto;
@@ -868,6 +909,18 @@ class SchedaPAI
     public function setNumeroPainadCorretto(int $numeroPainadCorretto): self
     {
         $this->numeroPainadCorretto = $numeroPainadCorretto;
+
+        return $this;
+    }
+
+    public function getNumeroCdrCorretto(): ?int
+    {
+        return $this->numeroCdrCorretto;
+    }
+
+    public function setNumeroCdrCorretto(int $numeroCdrCorretto): self
+    {
+        $this->numeroCdrCorretto = $numeroCdrCorretto;
 
         return $this;
     }
@@ -956,6 +1009,18 @@ class SchedaPAI
         return $this;
     }
 
+    public function getFrequenzaCdr(): ?int
+    {
+        return $this->frequenzaCdr;
+    }
+
+    public function setFrequenzaCdr(int $frequenzaCdr): self
+    {
+        $this->frequenzaCdr = $frequenzaCdr;
+
+        return $this;
+    }
+
 
      // attributi non mappati
     public function getBarthelNumberToday(): ?int
@@ -1036,6 +1101,17 @@ class SchedaPAI
     public function setPainadNumberToday(): ?self
     {
         $this->painadNumberToday = count($this->getIdPainad());
+        return $this;
+    }
+
+    public function getCdrNumberToday(): ?int
+    {
+        return $this->cdrNumberToday;
+    }
+
+    public function setCdrNumberToday(): ?self
+    {
+        $this->cdrNumberToday = count($this->getCdrs());
         return $this;
     }
 
@@ -1212,6 +1288,31 @@ class SchedaPAI
             $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
         }
         $this->correctPainadNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaPainad());
+        return $this;
+    }
+
+    public function getCorrectCdrNumberToday(): ?int
+    {
+        return $this->correctCdrNumberToday;
+    }
+
+    public function setCorrectCdrNumberToday(): ?self
+    {
+        if($this->getFrequenzaCdr() == 0){
+            return null;
+        }
+        if($this->isAbilitaCdr() == false){
+            return null;
+        }
+        $dataInizio = $this->getDataInizio();
+        $dataOggi = new DateTime();
+        if($dataOggi > $this->getDataFine()){
+            $numeroGiorniAdOggi = $this->getDataFine()->diff($dataInizio)->days;
+        }
+        else{
+            $numeroGiorniAdOggi = $dataOggi->diff($dataInizio)->days;
+        }
+        $this->correctCdrNumberToday = (int)($numeroGiorniAdOggi / $this->getFrequenzaCdr());
         return $this;
     }
 

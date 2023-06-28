@@ -34,6 +34,8 @@ class SetterNomiStatoSchedaPaiService
             $nomeStato = 'Chiusa';
         elseif ($schedaPai->getCurrentPlace() == 'chiusa_con_rinnovo')
             $nomeStato = 'Chiusa Con rinnovo';
+        else
+            $nomeStato = 'Nessuno';
 
         return $nomeStato;
     }
@@ -43,21 +45,23 @@ class SetterNomiStatoSchedaPaiService
         $coloreBadge = null;
 
         if ($schedaPAI->getCurrentPlace() == 'approvata') 
-        $coloreBadge = self::PINK;
+            $coloreBadge = self::PINK;
         elseif ($schedaPAI->getCurrentPlace() == 'attiva')
-        $coloreBadge = self::SUCCESS;
+            $coloreBadge = self::SUCCESS;
         elseif ($schedaPAI->getCurrentPlace() == 'verifica')
-        $coloreBadge = self::BROWN;
+            $coloreBadge = self::BROWN;
         elseif ($schedaPAI->getCurrentPlace() == 'nuova')
-        $coloreBadge = self::PURPLE;
+            $coloreBadge = self::PURPLE;
         elseif ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura') 
-        $coloreBadge = self::WARNING;
+            $coloreBadge = self::WARNING;
         elseif ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo') 
-        $coloreBadge = self::BLUE;
+            $coloreBadge = self::BLUE;
         elseif ($schedaPAI->getCurrentPlace() == 'chiusa')
-        $coloreBadge = self::DANGER;
+            $coloreBadge = self::DANGER;
         elseif ($schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo') 
-        $coloreBadge = self::ORANGE;
+            $coloreBadge = self::ORANGE;
+        else
+            $coloreBadge = self::DANGER;
 
         return $coloreBadge;
     }
@@ -67,13 +71,15 @@ class SetterNomiStatoSchedaPaiService
         $coloreStato = null;
 
         if ($schedaPAI->getStatoSDManager() == 'ATTIVO') 
-        $coloreStato = self::SUCCESS;
+            $coloreStato = self::SUCCESS;
         elseif ($schedaPAI->getStatoSDManager() == 'NON ATTIVO')
-        $coloreStato = self::ORANGE;
+            $coloreStato = self::ORANGE;
         elseif ($schedaPAI->getStatoSDManager() == 'SOSPESO')
-        $coloreStato = self::ORANGE;
+            $coloreStato = self::ORANGE;
         elseif ($schedaPAI->getStatoSDManager() == 'CHIUSO')
-        $coloreStato = self::DANGER;
+            $coloreStato = self::DANGER;
+        else
+            $coloreStato = self::DANGER;
 
         return $coloreStato;
     }

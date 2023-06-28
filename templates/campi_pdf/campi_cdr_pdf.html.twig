@@ -1,0 +1,145 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+
+<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+								<tr>
+									<td></td>
+									{% for cdr in cdrs %}
+										<th data-title='Data Valutazione'>{{cdr.dataValutazione ? cdr.dataValutazione|date('d/m/Y') : ''}}</th>
+									{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Memoria</th>
+									{% for cdr in cdrs %}
+                                        {% if cdr.cdr4 == false and cdr.cdr5 == false %}
+										    <td>{{ cdr.memoria}}</td>
+                                        {% else %}
+                                            <td>/</td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Orientamento</th>
+									{% for cdr in cdrs %}
+										{% if cdr.cdr4 == false and cdr.cdr5 == false %}
+										    <td>{{ cdr.orientamento}}</td>
+                                        {% else %}
+                                            <td>/</td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Giudizio e soluzione di problemi</th>
+									{% for cdr in cdrs %}
+										{% if cdr.cdr4 == false and cdr.cdr5 == false %}
+										    <td>{{ cdr.giudizio}}</td>
+                                        {% else %}
+                                            <td>/</td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Attività sociali</th>
+									{% for cdr in cdrs %}
+										{% if cdr.cdr4 == false and cdr.cdr5 == false %}
+										    <td>{{ cdr.attivitaSociali}}</td>
+                                        {% else %}
+                                            <td>/</td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Casa e tempo libero</th>
+									{% for cdr in cdrs %}
+										{% if cdr.cdr4 == false and cdr.cdr5 == false %}
+										    <td>{{ cdr.casa}}</td>
+                                        {% else %}
+                                            <td>/</td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Cura personale</th>
+									{% for cdr in cdrs %}
+										{% if cdr.cdr4 == false and cdr.cdr5 == false %}
+										    <td>{{ cdr.curaPersonale}}</td>
+                                        {% else %}
+                                            <td>/</td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+                                <tr>
+									<th>CDR 4</th>
+									{% for cdr in cdrs %}
+										{% if cdr.cdr4 == true %}
+                                            <td>
+                                                <strong>Grado di demenza molto grave
+                                            </td>
+                                        {% else %}
+                                            <td>
+											    /
+										    </td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+                                <tr>
+									<th>CDR 5</th>
+									{% for cdr in cdrs %}
+										{% if cdr.cdr5 == true %}
+                                            <td>
+											    <strong>Grado di demenza terminale
+                                            </td>
+                                        {% else %}
+                                            <td>
+											    /
+										    </td>
+                                        {% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th></th>
+									{% for cdr in cdrs %}
+										<td><br></td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Operatore</th>
+									{% for cdr in cdrs %}
+										<td>{{ cdr.autoreCdr.name }}
+											{{cdr.autoreCdr.surname}}</td>
+									{% endfor %}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

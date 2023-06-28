@@ -313,4 +313,18 @@ class SetterDropdownScadenzarioService
         }
         return $style;
     }
+
+    public function cdr(SchedaPAI $schedaPAI):string
+    {
+        $style = null;
+
+        if ($schedaPAI->getCurrentPlace() != 'attiva' && $schedaPAI->getCurrentPlace() != 'in_attesa_di_chiusura' && $schedaPAI->getCurrentPlace() != 'in_attesa_di_chiusura_con_rinnovo' && $schedaPAI->getCurrentPlace() != 'verifica'){
+            $style = 'display:none';
+        } elseif ($schedaPAI->isAbilitaCdr() == false){
+            $style = 'display:none';
+        } else{
+            $style = '';
+        }
+        return $style;
+    }
 }

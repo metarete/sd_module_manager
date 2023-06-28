@@ -10,6 +10,7 @@ use App\Entity\EntityPAI\Vas;
 use App\Entity\EntityPAI\SPMSQ;
 use App\Entity\EntityPAI\Braden;
 use App\Entity\EntityPAI\Barthel;
+use App\Entity\EntityPAI\Cdr;
 use App\Entity\EntityPAI\Lesioni;
 use App\Entity\EntityPAI\Painad;
 use App\Entity\EntityPAI\Tinetti;
@@ -221,6 +222,7 @@ class SchedaPAIController extends AbstractController
         $vas = $schedaPAI->getIdVas();
         $lesioni = $schedaPAI->getIdLesioni();
         $painad = $schedaPAI->getIdPainad();
+        $cdr = $schedaPAI->getCdrs();
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
         $variabileTest = 1;
         $altraTipologiaAssistenza = [];
@@ -243,6 +245,7 @@ class SchedaPAIController extends AbstractController
             'vass' => $vas,
             'lesionis' => $lesioni,
             'painads' => $painad,
+            'cdrs' => $cdr,
             'chiusura_servizio' => $chiusuraServizio,
             'variabileTest' => $variabileTest,
             'assistito' => $assistito,
@@ -323,6 +326,7 @@ class SchedaPAIController extends AbstractController
         $vas = $schedaPAI->getIdVas();
         $lesioni = $schedaPAI->getIdLesioni();
         $painad = $schedaPAI->getIdPainad();
+        $cdr = $schedaPAI->getCdrs();
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
         $assistito = $schedaPAI->getAssistito();
         $variabileTest = 1;
@@ -361,6 +365,7 @@ class SchedaPAIController extends AbstractController
             'vass' => $vas,
             'lesionis' => $lesioni,
             'painads' => $painad,
+            'cdrs' => $cdr,
             'chiusura_servizio' => $chiusuraServizio,
             'variabileTest' => $variabileTest,
             'assistito' => $assistito,
@@ -415,6 +420,7 @@ class SchedaPAIController extends AbstractController
         $vasRepository = $this->entityManager->getRepository(Vas::class);
         $lesioniRepository = $this->entityManager->getRepository(Lesioni::class);
         $painadRepository = $this->entityManager->getRepository(Painad::class);
+        $cdrRepository = $this->entityManager->getRepository(Cdr::class);
         $numeroBarthelPresenti = $barthelRepository->findByBarthelPerScheda($idScheda);
         $numeroBarthelCorretto = $schedaPAI->getNumeroBarthelCorretto();
         $numeroBradenPresenti = $bradenRepository->findByBradenPerScheda($idScheda);
@@ -429,6 +435,8 @@ class SchedaPAIController extends AbstractController
         $numeroLesioniCorretto = $schedaPAI->getNumeroLesioniCorretto();
         $numeroPainadPresenti = $painadRepository->findByPainadPerScheda($idScheda);
         $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto();
+        $numeroCdrPresenti = $cdrRepository->findByCdrPerScheda($idScheda);
+        $numeroCdrCorretto = $schedaPAI->getNumeroCdrCorretto();
         $numeroOperatoriInf = count($schedaPAI->getidOperatoreSecondarioInf());
         $numeroOperatoriTdr = count($schedaPAI->getidOperatoreSecondarioTdr());
         $numeroOperatoriLog = count($schedaPAI->getidOperatoreSecondarioLog());
@@ -438,7 +446,7 @@ class SchedaPAIController extends AbstractController
         $numeroValutazioniProfessionali = count($schedaPAI->getIdValutazioneFiguraProfessionale());
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
 
-        if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $numeroPainadPresenti == $numeroPainadCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
+        if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $numeroPainadPresenti == $numeroPainadCorretto && $numeroCdrPresenti == $numeroCdrCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
             if ($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura") {
                 $schedaPAI->setCurrentPlace('chiusa');
                 $session = $request->getSession();

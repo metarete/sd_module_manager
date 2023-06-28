@@ -1,0 +1,137 @@
+{% form_theme form 'form/help_theme.html.twig' %}
+
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+<div class="row">
+	<div class="col">
+		{{ form_row(form.dataValutazione) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+        <h3>Condizioni lievi/medie/gravi</h3>
+    </div>
+</div>
+
+<div class="row">
+	<div class="col ">
+		{{ form_label(form.memoria) }}
+		{{ form_help(form.memoria) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.memoria) }}
+		{{form_errors(form.memoria)}}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.orientamento) }}
+		{{ form_help(form.orientamento) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.orientamento) }}
+		{{ form_errors(form.orientamento) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.giudizio) }}
+		{{ form_help(form.giudizio) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.giudizio) }}
+		{{ form_errors(form.giudizio) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.attivitaSociali) }}
+		{{ form_help(form.attivitaSociali) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.attivitaSociali) }}
+		{{ form_errors(form.attivitaSociali) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.casa) }}
+		{{ form_help(form.casa) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.casa) }}
+		{{ form_errors(form.casa) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.curaPersonale) }}
+		{{ form_help(form.curaPersonale) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.curaPersonale) }}
+		{{ form_errors(form.curaPersonale) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+        <h3>Condizioni molto gravi o terminali</h3>
+    </div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.cdr4) }}
+		{{ form_help(form.cdr4) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.cdr4) }}
+		{{ form_errors(form.cdr4) }}
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col">
+		{{ form_label(form.cdr5) }}
+		{{ form_help(form.cdr5) }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		{{ form_widget(form.cdr5) }}
+		{{ form_errors(form.cdr5) }}
+	</div>
+</div>
+<br>
+
+<button class="btn btn-primary">{{ button_label|default('Salva') }}</button>
+<div class="pb-2 mb-2"></div>
+{{ form_end(form) }}

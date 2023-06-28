@@ -38,6 +38,8 @@ Class SetterDatiSchedaPaiService
         $schedaPAI->setCorrectLesioniNumberToday();
         $schedaPAI->setPainadNumberToday();
         $schedaPAI->setCorrectPainadNumberToday();
+        $schedaPAI->setCdrNumberToday();
+        $schedaPAI->setCorrectCdrNumberToday();
 
         //mappati
         $frequenzaBarthel = $schedaPAI->getFrequenzaBarthel();
@@ -47,6 +49,7 @@ Class SetterDatiSchedaPaiService
         $frequenzaVas = $schedaPAI->getFrequenzaVas();
         $frequenzaLesioni = $schedaPAI->getFrequenzaLesioni();
         $frequenzaPainad = $schedaPAI->getFrequenzaPainad();
+        $frequenzaCdr = $schedaPAI->getFrequenzaCdr();
         $dataInizio = $schedaPAI->getDataInizio();
         $dataFine = $schedaPAI->getDataFine();
         $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
@@ -78,6 +81,10 @@ Class SetterDatiSchedaPaiService
             $numeroPainadCorretto = 0;
         } else
             $numeroPainadCorretto = (int)($numeroGiorniTotali / $frequenzaPainad);
+        if ($frequenzaCdr == 0) {
+            $numeroCdrCorretto = 0;
+        } else
+            $numeroCdrCorretto = (int)($numeroGiorniTotali / $frequenzaCdr);
 
         $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
         $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
@@ -86,6 +93,7 @@ Class SetterDatiSchedaPaiService
         $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
         $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
         $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
+        $schedaPAI->setNumeroCdrCorretto($numeroCdrCorretto);
 
         //se non rinnovo la scheda aggiungo una valutazione finale per ogni scala
 
@@ -117,6 +125,10 @@ Class SetterDatiSchedaPaiService
             if($schedaPAI->isAbilitaPainad()== true){
                 $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto()+1;
                 $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
+            }
+            if($schedaPAI->isAbilitaCdr()== true){
+                $numeroCdrCorretto = $schedaPAI->getNumeroCdrCorretto()+1;
+                $schedaPAI->setNumeroCdrCorretto($numeroCdrCorretto);
             }
         }
     }

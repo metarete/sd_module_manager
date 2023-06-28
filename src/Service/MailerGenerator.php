@@ -348,6 +348,7 @@ class MailerGenerator
                         "vas" => "Nessuna",
                         "lesioni" => "Nessuna",
                         "painad" => "Nessuna",
+                        "cdr" => "Nessuna"
                     ];
 
                     $arraySchedeAttive[$t]->setBarthelNumberToday();
@@ -364,6 +365,8 @@ class MailerGenerator
                     $arraySchedeAttive[$t]->setCorrectLesioniNumberToday();
                     $arraySchedeAttive[$t]->setPainadNumberToday();
                     $arraySchedeAttive[$t]->setCorrectPainadNumberToday();
+                    $arraySchedeAttive[$t]->setCdrNumberToday();
+                    $arraySchedeAttive[$t]->setCorrectCdrNumberToday();
 
                     if ($arraySchedeAttive[$t]->getBarthelNumberToday() <= $arraySchedeAttive[$t]->getCorrectBarthelNumberToday() && $arraySchedeAttive[$t]->isAbilitaBarthel() == true) {
                         $flagRitardi = true;
@@ -400,7 +403,11 @@ class MailerGenerator
                         $flagRitardi = true;
                         $riga["painad"] = 'si';
                     }
-                    if ($riga["barthel"] == 'si' || $riga["braden"] == 'si' || $riga["spmsq"] == 'si' || $riga["tinetti"] == 'si' || $riga["vas"] == 'si' || $riga["lesioni"] == 'si'|| $riga["painad"] == 'si') {
+                    if ($arraySchedeAttive[$t]->getCdrNumberToday() <= $arraySchedeAttive[$t]->getCorrectCdrNumberToday() && $arraySchedeAttive[$t]->isAbilitaCdr() == true) {
+                        $flagRitardi = true;
+                        $riga["cdr"] = 'si';
+                    }
+                    if ($riga["barthel"] == 'si' || $riga["braden"] == 'si' || $riga["spmsq"] == 'si' || $riga["tinetti"] == 'si' || $riga["vas"] == 'si' || $riga["lesioni"] == 'si'|| $riga["painad"] == 'si' || $riga["cdr"] == 'si') {
                         array_push($descrizioneRitardi, $riga);
                     }
                 }

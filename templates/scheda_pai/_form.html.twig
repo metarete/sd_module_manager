@@ -212,6 +212,31 @@
 	</div>
 </div>
 <div class="row">
+	<div class="pb-2 mb-4"></div>
+</div>
+<div class="row">
+	<div class="col">
+		{{ form_row(form.abilitaCdr) }}
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div class="row">
+			<div class="col col-lg-2">
+				{{ form_label(form.frequenzaCdr) }}
+			</div>
+			<div class="col col-lg-1">
+				<a class="bi bi-info-circle-fill" data-toggle="tooltip" title="Ogni quanti giorni dovrà essere compilata la scala di valutazione."></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				{{ form_widget(form.frequenzaCdr) }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
 	<div class="pb-2 mb-2"></div>
 </div>
 <div class="row">

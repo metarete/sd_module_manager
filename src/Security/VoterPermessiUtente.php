@@ -30,6 +30,7 @@ class VoterPermessiUtente extends Voter
     const CREA_VAS = "crea_vas";
     const CREA_LESIONI = "crea_lesioni";
     const CREA_PAINAD = "crea_painad";
+    const CREA_CDR = "crea_cdr";
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -56,7 +57,7 @@ class VoterPermessiUtente extends Voter
             self::CREA_VAS,
             self::CREA_LESIONI,
             self::CREA_PAINAD,
-
+            self::CREA_CDR,
         ])) {
 
             return false;
@@ -105,6 +106,7 @@ class VoterPermessiUtente extends Voter
             self::CREA_VAS => $this->canCreaVas($schedaPai, $user),
             self::CREA_LESIONI => $this->canCreaLesioni($schedaPai, $user),
             self::CREA_PAINAD => $this->canCreaPainad($schedaPai, $user),
+            self::CREA_CDR => $this->canCreaCdr($schedaPai, $user),
             default => throw new \LogicException('This code should not be reached!')
         };
     }
@@ -368,6 +370,19 @@ class VoterPermessiUtente extends Voter
         //verifico che sia abilitata la possibilità di creare la scheda
 
         if ($schedaPAI->isAbilitaPainad() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
+
+            return $this->checkRuoloPrincipaleSecondario($schedaPAI, $user);
+        } else {
+            return false;
+        }
+    }
+
+    private function canCreaCdr(SchedaPAI $schedaPAI, User $user): bool
+    {
+
+        //verifico che sia abilitata la possibilità di creare la scheda
+
+        if ($schedaPAI->isAbilitaCdr() && ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica")) {
 
             return $this->checkRuoloPrincipaleSecondario($schedaPAI, $user);
         } else {

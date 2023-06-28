@@ -234,6 +234,15 @@
 					<div style="page-break-before: always;"></div>
 			{% endif %}
 
+			{% if cdrs is empty %}
+
+				{% else %}
+					<h3>Cdr</h3>
+					{{ include('campi_pdf/campi_cdr_pdf.html.twig') }}
+					<br>
+					<div style="page-break-before: always;"></div>
+			{% endif %}
+
 
 			{% if parere_mmg is empty %}
 

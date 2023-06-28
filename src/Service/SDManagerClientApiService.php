@@ -220,7 +220,6 @@ class SDManagerClientApiService
                         $schedaPai->setIdProgetto($idProgetto);
                         $schedaPai->setNomeProgetto($nomeProgetto);
                         $schedaPai->setCurrentPlace('nuova');
-                        $schedaPai->setIdConsole('demo');
                         $schedaPai->setStatoSDManager($statoSDManager);
                         $schedaPAIRepository->add($schedaPai, true);
                         $this->numeroProgettiScaricati++;

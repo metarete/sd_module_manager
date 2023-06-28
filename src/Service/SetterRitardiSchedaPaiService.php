@@ -128,4 +128,21 @@ class SetterRitardiSchedaPaiService
 
         return $colore;
     }
+
+    public function settaColoriCdr(SchedaPAI $schedaPAI):string
+    {
+        $colore = null;
+
+        if($schedaPAI->isAbilitaCdr() == false){
+            $colore = self::GREY;
+        }
+        elseif($schedaPAI->getCdrNumberToday()< $schedaPAI->getCorrectCdrNumberToday()){
+            $colore = self::DANGER;
+        }
+        else{
+            $colore = self::SUCCES;
+        }
+
+        return $colore;
+    }
 }

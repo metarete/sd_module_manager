@@ -19,6 +19,7 @@ class FiltroColoriScadenzario extends AbstractExtension
             new TwigFilter('filtroColoriVas', [$this, 'filtroColoriVas']),
             new TwigFilter('filtroColoriLesioni', [$this, 'filtroColoriLesioni']),
             new TwigFilter('filtroColoriPainad', [$this, 'filtroColoriPainad']),
+            new TwigFilter('filtroColoriCdr', [$this, 'filtroColoriCdr']),
         ];
     }
 
@@ -68,6 +69,13 @@ class FiltroColoriScadenzario extends AbstractExtension
     {
         $setterRitardiSchedaPaiService = new SetterRitardiSchedaPaiService();
         $textColor = $setterRitardiSchedaPaiService->settaColoriPainad($schedaPAI);
+        return $textColor;
+    }
+
+    public function filtroColoriCdr( SchedaPAI $schedaPAI):string
+    {
+        $setterRitardiSchedaPaiService = new SetterRitardiSchedaPaiService();
+        $textColor = $setterRitardiSchedaPaiService->settaColoriCdr($schedaPAI);
         return $textColor;
     }
 }
