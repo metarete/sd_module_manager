@@ -29,14 +29,14 @@ class BachecaController extends AbstractController
         $pazientiRepository = $this->entityManager->getRepository(Paziente::class);
         $schedePaiRepository = $this->entityManager->getRepository(SchedaPAI::class);
 
-        $schedeNuove = count($schedePaiRepository->findByState("nuova"));
-        $schedeApprovate = count($schedePaiRepository->findByState("approvata"));
-        $schedeAttive = count($schedePaiRepository->findByState("attiva"));
-        $schedeInAttesa = count($schedePaiRepository->findByState("in_attesa_di_chiusura"));
-        $schedeInAttesaConRinnovo = count($schedePaiRepository->findByState("in_attesa_di_chiusura_con_rinnovo"));
-        $schedeVerifica = count($schedePaiRepository->findByState("verifica"));
-        $schedeChiuse = count($schedePaiRepository->findByState("chiusa"));
-        $schedeChiuseConRinnovo = count($schedePaiRepository->findByState("chiusa_con_rinnovo"));
+        $schedeNuove = count($schedePaiRepository->findBy(['currentPlace' => 'nuova']));
+        $schedeApprovate = count($schedePaiRepository->findBy(['currentPlace' => 'approvata']));
+        $schedeAttive = count($schedePaiRepository->findBy(['currentPlace' => 'attiva']));
+        $schedeInAttesa = count($schedePaiRepository->findBy(['currentPlace' => 'in_attesa_di_chiusura']));
+        $schedeInAttesaConRinnovo = count($schedePaiRepository->findBy(['currentPlace' => 'in_attesa_di_chiusura_con_rinnovo']));
+        $schedeVerifica = count($schedePaiRepository->findBy(['currentPlace' => 'verifica']));
+        $schedeChiuse = count($schedePaiRepository->findBy(['currentPlace' => 'chiusa']));
+        $schedeChiuseConRinnovo = count($schedePaiRepository->findBy(['currentPlace' => 'chiusa_con_rinnovo']));
         $totaleSchede = count($schedePaiRepository->findAll());
         $totaleOperatori = count($operatoriRepository->findAll());
         $totalePazienti = count($pazientiRepository->findAll());

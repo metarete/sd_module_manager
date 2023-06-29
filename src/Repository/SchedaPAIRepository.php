@@ -60,10 +60,12 @@ class SchedaPAIRepository extends ServiceEntityRepository
         if($roleUser == 'ROLE_USER'){
             if($stato == null || $stato==""){
                 $qb = $this->findUserSchedePai($idUser);
+                dump('ciao');
                 $totale = count($qb);
             }
             else{
                 $qb = $this->findUserSchedePai($idUser, $stato);
+                dump('ciao ciao');
                 $totale = count($qb);
             }
         }
@@ -72,9 +74,6 @@ class SchedaPAIRepository extends ServiceEntityRepository
 
     }
 
-
-
-    //funzioni per utenti User
     private function findUserSchedePai(int $idUser, string $stato = null, int $schedePerPagina = null, int $page = null): array
     {
         $qb = $this->createQueryBuilder('s')
@@ -111,7 +110,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
     }
 
 
-    public function findOperatorePrincipaleSchedePai(int $idUser): array
+    public function findOperatorePrincipaleScadenzario(int $idUser): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
         $expr = $queryBuilder->expr();
@@ -129,7 +128,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function findOperatoreSecondarioInfSchedePai(int $idUser): array
+    public function findOperatoreSecondarioInfScadenzario(int $idUser): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
         $expr = $queryBuilder->expr();
@@ -148,7 +147,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function findOperatoreSecondarioTdrSchedePai(int $idUser): array
+    public function findOperatoreSecondarioTdrScadenzario(int $idUser): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
         $expr = $queryBuilder->expr();
@@ -167,7 +166,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function findOperatoreSecondarioLogSchedePai(int $idUser): array
+    public function findOperatoreSecondarioLogScadenzario(int $idUser): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
         $expr = $queryBuilder->expr();
@@ -186,7 +185,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function findOperatoreSecondarioAsaSchedePai(int $idUser): array
+    public function findOperatoreSecondarioAsaScadenzario(int $idUser): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
         $expr = $queryBuilder->expr();
@@ -205,7 +204,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
                 ->getResult();
     }
 
-    public function findOperatoreSecondarioOssSchedePai(int $idUser): array
+    public function findOperatoreSecondarioOssScadenzario(int $idUser): array
     {
         $queryBuilder = $this->createQueryBuilder('s');
         $expr = $queryBuilder->expr();
@@ -233,8 +232,91 @@ class SchedaPAIRepository extends ServiceEntityRepository
         
     }*/
 
+    public function findOperatorePrincipaleSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        
+        $query = $queryBuilder
+        ->Where('s.idOperatorePrincipale = :id')
+        ->setParameter('id', $idUser);
+        return $query ->getQuery()
+                ->getResult();
+    }
 
-    //funzioni per utenti admin
+    public function findOperatoreSecondarioInfSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioInf', 's1')
+        ->Where('s1.id = :id')
+        ->setParameter('id', $idUser);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioTdrSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioTdr', 's1')
+        ->Where('s1.id = :id')
+        ->setParameter('id', $idUser);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioLogSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioLog', 's1')
+        ->Where('s1.id = :id')
+        ->setParameter('id', $idUser);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioAsaSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioAsa', 's1')
+        ->Where('s1.id = :id')
+        ->setParameter('id', $idUser);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findOperatoreSecondarioOssSchedePai(int $idUser): array
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        
+        $query = $queryBuilder
+        ->innerJoin('s.idOperatoreSecondarioOss', 's1')
+        ->Where('s1.id = :id')
+        ->setParameter('id', $idUser);
+        return $query ->getQuery()
+                ->getResult();
+    }
+
+    public function findSchedePaiConOperatore(int $idUser): array
+    {
+        // schede pai in cui è presente l'utente come operatore principale o secondario
+        $principale = $this->findOperatorePrincipaleSchedePai($idUser);
+        $secondarioInf = $this->findOperatoreSecondarioInfSchedePai($idUser);
+        $secondarioTdr = $this->findOperatoreSecondarioTdrSchedePai($idUser);
+        $secondarioLog = $this->findOperatoreSecondarioLogSchedePai($idUser);
+        $secondarioAsa = $this->findOperatoreSecondarioAsaSchedePai($idUser);
+        $secondarioOss = $this->findOperatoreSecondarioOssSchedePai($idUser);
+        $schedaPais = array_unique(array_merge($principale, $secondarioInf, $secondarioTdr, $secondarioLog, $secondarioAsa, $secondarioOss));
+        return $schedaPais;
+    }
+
+    
     public function selectStatoSchedePai(string $stato, int $page = null, int $schedePerPagina = null): array
     {
         
@@ -250,50 +332,6 @@ class SchedaPAIRepository extends ServiceEntityRepository
                 ->getResult();
         
     }
-    public function findStatoIdSchedePai(string $id, string $stato = null, int $schedePerPagina = null, int $page = null): array
-    {
-        $qb = $this->createQueryBuilder('s')
-
-        ->leftJoin('s.idOperatorePrincipale', 's0')
-        ->leftJoin('s.idOperatoreSecondarioInf', 's1')
-        ->leftJoin('s.idOperatoreSecondarioTdr', 's2')
-        ->leftJoin('s.idOperatoreSecondarioLog', 's3')
-        ->leftJoin('s.idOperatoreSecondarioAsa', 's4')
-        ->leftJoin('s.idOperatoreSecondarioOss', 's5')
-        ->Where('s0.id = :id')
-        ->orWhere('s1.id = :id')
-        ->orWhere('s2.id = :id')
-        ->orWhere('s3.id = :id')
-        ->orWhere('s4.id = :id')
-        ->orWhere('s5.id = :id')
-        ->setParameter('id', $id);
-
-
-        if($stato != null){
-            $qb 
-            ->andWhere('s.currentPlace = :stato')
-            ->setParameter('stato', $stato);  
-        }
-        
-        $qb->setFirstResult(($page - 1) * $schedePerPagina)->setMaxResults($schedePerPagina);
-        return $qb ->getQuery()
-                ->getResult();
-        
-        
-    }
-
-    /**
-     * @return SchedaPAI[] Returns an array of SchedaPAI objects
-    */
-    public function findByState($value): array
-    {
-        return $this->createQueryBuilder('s')
-           ->andWhere('s.currentPlace = :currentPlace')
-            ->setParameter('currentPlace', $value)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
 
     public function findOneBySomeField($value): ?SchedaPAI
     {
@@ -305,27 +343,7 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findOneByState($value): ?SchedaPAI
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.currentPlace = :currentPlace')
-            ->setParameter('currentPlace', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
-    public function findOneByProgetto($value): ?SchedaPAI
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.idProgetto = :idProgetto')
-            ->setParameter('idProgetto', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
-    public function updateSchedaByIdprogetto($idProgetto,$assistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager): void
+    public function updateSchedaByIdprogetto($idProgetto,$assistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager, $adiwebPratica, $adiwebProtocollo): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
         ->update('App\Entity\EntityPAI\SchedaPAI', 'u')
@@ -334,6 +352,8 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->set('u.assistito', ':assistito')
         ->set('u.nomeProgetto', ':nomeProgetto')
         ->set('u.statoSDManager', ':statoSDManager')
+        ->set('u.adiwebPratica', ':adiwebPratica')
+        ->set('u.adiwebProtocollo', ':adiwebProtocollo')
         ->where('u.idProgetto = :idProgetto')
         ->setParameter('dataInizio', $dataInizio)
         ->setParameter('dataFine', $dataFine)
@@ -341,6 +361,8 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->setParameter('idProgetto', $idProgetto)
         ->setParameter('nomeProgetto', $nomeProgetto)
         ->setParameter('statoSDManager', $statoSDManager)
+        ->setParameter('adiwebPratica', $adiwebPratica)
+        ->setParameter('adiwebProtocollo', $adiwebProtocollo)
         ->getQuery()
         ->execute();
     }
@@ -364,18 +386,4 @@ class SchedaPAIRepository extends ServiceEntityRepository
         ->getQuery()
         ->execute();
     }
-
-    public function countByState($value): int
-    {
-        return $this->createQueryBuilder('u')
-        ->select('count(u.id)')
-        ->andWhere('u.currentPlace = :currentPlace')
-        ->setParameter('currentPlace', $value)
-        ->getQuery()
-        ->getSingleScalarResult();
-        ;
-    }
-
-   
-
 }

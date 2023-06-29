@@ -188,6 +188,13 @@ class SchedaPAI
     #[ORM\ManyToOne(targetEntity: Paziente::class, inversedBy: 'schedaPAIs', cascade:['persist'])]
     private ?Paziente $assistito = null;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $adiwebProtocollo = null;
+
+    #[ORM\ManyToOne(targetEntity: Pratica::class, inversedBy: 'schedaPAIs', cascade:['persist'])]
+    private ?Pratica $adiwebPratica = null;
+
+
    //attributi non mappati
     private $barthelNumberToday = 0;
     private $bradenNumberToday = 0;
@@ -1358,6 +1365,30 @@ class SchedaPAI
     public function setAssistito(?Paziente $assistito): self
     {
         $this->assistito = $assistito;
+
+        return $this;
+    }
+
+    public function getAdiwebPratica(): ?Pratica
+    {
+        return $this->adiwebPratica;
+    }
+
+    public function setAdiwebPratica(?Pratica $adiwebPratica): self
+    {
+        $this->adiwebPratica = $adiwebPratica;
+
+        return $this;
+    }
+
+    public function getAdiwebProtocollo(): ?string
+    {
+        return $this->adiwebProtocollo;
+    }
+
+    public function setAdiwebProtocollo(?string $adiwebProtocollo): self
+    {
+        $this->adiwebProtocollo = $adiwebProtocollo;
 
         return $this;
     }

@@ -145,12 +145,12 @@ class MailerGenerator
 
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
-        $schedeNuove = $schedaPAIRepository->findByState('nuova');
-        $schedeChiuse = $schedaPAIRepository->findByState('chiusa');
-        $schedeChiuseConRinnovo = $schedaPAIRepository->findByState('chiusa_con_rinnovo');
-        $schedeInVerifica = $schedaPAIRepository->findByState('verifica');
-        $schedeInAttesaDiChiusura = $schedaPAIRepository->findByState('in_attesa_di_chiusura');
-        $schedeInAttesaDiChiusuraConRinnovo = $schedaPAIRepository->findByState('in_attesa_di_chiusura_con_rinnovo');
+        $schedeNuove = $schedaPAIRepository->findBy(['currentPlace' => 'nuova']);
+        $schedeChiuse = $schedaPAIRepository->findBy(['currentPlace' => 'chiusa']);
+        $schedeChiuseConRinnovo = $schedaPAIRepository->findBy(['currentPlace' => 'chiusa_con_rinnovo']);
+        $schedeInVerifica = $schedaPAIRepository->findBy(['currentPlace' => 'verifica']);
+        $schedeInAttesaDiChiusura = $schedaPAIRepository->findBy(['currentPlace' => 'in_attesa_di_chiusura']);
+        $schedeInAttesaDiChiusuraConRinnovo = $schedaPAIRepository->findBy(['currentPlace' => 'in_attesa_di_chiusura_con_rinnovo']);
         $utenti = $userRepository->findAll();
         $admin = [];
         $testoEmailNuove = [];
@@ -250,11 +250,11 @@ class MailerGenerator
         
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
-        $arraySchedeApprovate = $schedaPAIRepository->findByState('approvata');
-        $arraySchedeAttive = $schedaPAIRepository->findByState('attiva');
-        $arraySchedeVerifica = $schedaPAIRepository->findByState('verifica');
-        $arraySchedeInAttesaDiChiusuraConRinnovo = $schedaPAIRepository->findByState('in_attesa_di_chiusura_con_rinnovo');
-        $arraySchedeInAttesaDiChiusura = $schedaPAIRepository->findByState('in_attesa_di_chiusura');
+        $arraySchedeApprovate = $schedaPAIRepository->findBy(['currentPlace' => 'approvata']);
+        $arraySchedeAttive = $schedaPAIRepository->findBy(['currentPlace' => 'attiva']);
+        $arraySchedeVerifica = $schedaPAIRepository->findBy(['currentPlace' => 'verifica']);
+        $arraySchedeInAttesaDiChiusuraConRinnovo = $schedaPAIRepository->findBy(['currentPlace' => 'in_attesa_di_chiusura_con_rinnovo']);
+        $arraySchedeInAttesaDiChiusura = $schedaPAIRepository->findBy(['currentPlace' => 'in_attesa_di_chiusura']);
         $arraySchedeAttive = array_merge($arraySchedeAttive, $arraySchedeInAttesaDiChiusura, $arraySchedeInAttesaDiChiusuraConRinnovo, $arraySchedeVerifica);
         $arraySchedeInAttesaDiChiusura = array_merge($arraySchedeInAttesaDiChiusura, $arraySchedeInAttesaDiChiusuraConRinnovo);
         $arrayOperatori = $userRepository->findAll();

@@ -46,15 +46,7 @@ class PazienteRepository extends ServiceEntityRepository
         ->getSingleScalarResult();
 
     }
-    public function findOneByCf($value): ?Paziente
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.codiceFiscale = :codiceFiscale')
-            ->setParameter('codiceFiscale', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
+    
     public function updateAssistitiByIdSdManager($idSdManager,$cf, $nome, $cognome, $indirizzo, $comune, $provincia, $cap): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
@@ -77,26 +69,6 @@ class PazienteRepository extends ServiceEntityRepository
         ->setParameter('idSdManager', $idSdManager)
         ->getQuery()
         ->execute();
-    }
-
-    public function getNameById($value): string
-    {
-        return $this->createQueryBuilder('u')
-        ->select('u.nome')
-        ->where('u.idSdManager = :id')
-        ->setParameter('id', $value)
-        ->getQuery()
-        ->getSingleScalarResult();
-    }
-
-    public function getSurnameById($value): string
-    {
-        return $this->createQueryBuilder('u')
-        ->select('u.cognome')
-        ->where('u.idSdManager = :id')
-        ->setParameter('id', $value)
-        ->getQuery()
-        ->getSingleScalarResult();
     }
 
 //    /**

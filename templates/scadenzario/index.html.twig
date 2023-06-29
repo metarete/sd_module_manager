@@ -222,6 +222,8 @@
 													<th>Op Asa</th>
 													<th>Op Oss</th>
 													<th>Stato SD Manager</th>
+													<th>Pratica Adiweb</th>
+                                					<th>Protocollo Adiweb</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -296,6 +298,20 @@
 												<td data-title='Stato SD Manager'><span class='badge {{filtroNomiStatiScadenzario.filtroStatoSDManager(scheda_pai)}}'>
                                						{{scheda_pai.statoSDManager}}</span>
                             					</td>
+												<td data-title='Pratica Adiweb'>
+												{% if scheda_pai.adiwebPratica == null %}
+													Nessuna
+												{% else %}
+													{{scheda_pai.adiwebPratica.codice}}
+												{% endif %}
+												</td>
+												<td data-title='Protocollo Adiweb'>
+												{% if scheda_pai.adiwebProtocollo == null %}
+													Nessuno
+												{% else %}
+													{{scheda_pai.adiwebProtocollo}}
+												{% endif %}
+												</td>
 											</tbody>
 										</table>
 									</div>

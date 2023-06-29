@@ -82,12 +82,12 @@ class ScadenzarioController extends AbstractController
             $schedaPais = $schedaPAIRepository->findBy(['currentPlace' => ['nuova','attiva','approvata','verifica','in_attesa_di_chiusura', 'in_attesa_di_chiusura_con_rinnovo']], array('id' => 'DESC'), $schedePerPagina, $offset);
         
         } else {
-            $principale = $schedaPAIRepository->findOperatorePrincipaleSchedePai($idUser);
-            $secondarioInf = $schedaPAIRepository->findOperatoreSecondarioInfSchedePai($idUser);
-            $secondarioTdr = $schedaPAIRepository->findOperatoreSecondarioTdrSchedePai($idUser);
-            $secondarioLog = $schedaPAIRepository->findOperatoreSecondarioLogSchedePai($idUser);
-            $secondarioAsa = $schedaPAIRepository->findOperatoreSecondarioAsaSchedePai($idUser);
-            $secondarioOss = $schedaPAIRepository->findOperatoreSecondarioOssSchedePai($idUser);
+            $principale = $schedaPAIRepository->findOperatorePrincipaleScadenzario($idUser);
+            $secondarioInf = $schedaPAIRepository->findOperatoreSecondarioInfScadenzario($idUser);
+            $secondarioTdr = $schedaPAIRepository->findOperatoreSecondarioTdrScadenzario($idUser);
+            $secondarioLog = $schedaPAIRepository->findOperatoreSecondarioLogScadenzario($idUser);
+            $secondarioAsa = $schedaPAIRepository->findOperatoreSecondarioAsaScadenzario($idUser);
+            $secondarioOss = $schedaPAIRepository->findOperatoreSecondarioOssScadenzario($idUser);
             //unisco gli array e tolgo duplicati
             $schedaPais1 = array_unique (array_merge ($principale, $secondarioInf, $secondarioTdr, $secondarioLog, $secondarioAsa, $secondarioOss));
             //ordino per id in ordine decrescente per avere le schede più recenti in alto

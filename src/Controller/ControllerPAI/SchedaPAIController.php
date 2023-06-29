@@ -15,6 +15,7 @@ use App\Entity\EntityPAI\Lesioni;
 use App\Entity\EntityPAI\Painad;
 use App\Entity\EntityPAI\Tinetti;
 use App\Entity\EntityPAI\SchedaPAI;
+use App\Entity\EntityPAI\Pratica;
 use App\Form\FormPAI\SchedaPAIType;
 use App\Repository\SchedaPAIRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +28,6 @@ use App\Service\SetterStatoVerificaSchedaPaiService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Twig\FiltroColoriScadenzario;
 use App\Twig\FiltroDropdownScadenzario;
@@ -48,7 +48,7 @@ class SchedaPAIController extends AbstractController
     private $setterStatoVerificaSchedaPaiService;
     private $setterDatiSchedaPaiService;
 
-    public function __construct( EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, SetterDatiSchedaPaiService $setterDatiSchedaPaiService)
+    public function __construct(EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, SetterDatiSchedaPaiService $setterDatiSchedaPaiService)
     {
         $this->entityManager = $entityManager;
         $this->SdManagerClientApiService = $SdManagerClientApiService;
@@ -70,6 +70,7 @@ class SchedaPAIController extends AbstractController
         //assistiti
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $userRepository = $this->entityManager->getRepository(User::class);
+        $praticaRepository = $this->entityManager->getRepository(Pratica::class);
         $assistiti = $assistitiRepository->findAll();
         //controllo login
         $user = $this->getUser();
@@ -80,29 +81,37 @@ class SchedaPAIController extends AbstractController
         //sessione
         $session = $request->getSession();
         //filtri
-        if( $request->request->get('filtro_stato') != null || $request->request->get('filtro_stato') == $session->get('filtro_stato')){
-            if($request->request->get('filtro_stato') == 'tutti')
+        if ($request->request->get('filtro_stato') != null || $request->request->get('filtro_stato') == $session->get('filtro_stato')) {
+            if ($request->request->get('filtro_stato') == 'tutti')
                 $session->set('filtro_stato', null);
-            else{
+            else {
                 $session->set('filtro_stato', $request->request->get('filtro_stato'));
             }
         }
-        if( $request->request->get('filtro_operatore') != null || $request->request->get('filtro_operatore') == $session->get('filtro_operatore')){
-            if($request->request->get('filtro_operatore') == 'tutti')
+        if ($request->request->get('filtro_operatore') != null || $request->request->get('filtro_operatore') == $session->get('filtro_operatore')) {
+            if ($request->request->get('filtro_operatore') == 'tutti')
                 $session->set('filtro_operatore', null);
-            else{
+            else {
                 $session->set('filtro_operatore', $request->request->get('filtro_operatore'));
             }
         }
-        if( $request->request->get('filtro_numero_schede') != null || $request->request->get('filtro_numero_schede') == $session->get('filtro_numero_schede')){
-            if($request->request->get('filtro_numero_schede') == 0)
+        if ($request->request->get('filtro_numero_schede') != null || $request->request->get('filtro_numero_schede') == $session->get('filtro_numero_schede')) {
+            if ($request->request->get('filtro_numero_schede') == 0)
                 $session->set('filtro_numero_schede', null);
-            else{
+            else {
                 $session->set('filtro_numero_schede', $request->request->get('filtro_numero_schede'));
             }
         }
-        
+        if ($request->request->get('filtro_pratica') != null || $request->request->get('filtro_pratica') == $session->get('filtro_pratica')) {
+            if ($request->request->get('filtro_pratica') == 'tutte')
+                $session->set('filtro_pratica', null);
+            else {
+                $session->set('filtro_pratica', $request->request->get('filtro_pratica'));
+            }
+        }
+
         $listaOperatori = $userRepository->findAll();
+        $listaPratiche = $praticaRepository->findAll();
 
         //calcolo tabella
         $schedaPais = null;
@@ -116,16 +125,73 @@ class SchedaPAIController extends AbstractController
 
         //applicazione filtri
 
-        if ($session->get('filtro_stato') == null || $session->get('filtro_stato') == "") {
-            if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
-                $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
-            else
-                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($session->get('filtro_operatore'), null, $schedePerPagina, $page);
+
+        if ($session->get('filtro_pratica') == null || $session->get('filtro_pratica') == "" || $session->get('filtro_pratica') == "tutte") {
+            if ($session->get('filtro_stato') == null || $session->get('filtro_stato') == "") {
+                if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
+                    $schedaPais = $schedaPAIRepository->findBy([], array('id' => 'DESC'), $schedePerPagina, $offset);
+                else{
+                    $schedaPais1 = $schedaPAIRepository->findSchedePaiConOperatore($session->get('filtro_operatore'));
+                    usort($schedaPais1, fn($a, $b) => $a->getId()-$b->getId());
+                    $schedaPais1 = array_reverse($schedaPais1);
+                    $schedaPais = [];
+                    //costruisco l'elenco schede in base al filtro e alla pagina
+                    for($i=(($page - 1) * $schedePerPagina); $i<$schedePerPagina*$page; $i++){
+                        if($i<count($schedaPais1))
+                            array_push($schedaPais,$schedaPais1[$i]);     
+                    }
+                }
+            } else {
+                if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
+                    $schedaPais = $schedaPAIRepository->findBy(['currentPlace' => $session->get('filtro_stato')], array('id' => 'DESC'), $schedePerPagina, $offset);
+                else{
+                    $schedaPais1 = $schedaPAIRepository->findSchedePaiConOperatore($session->get('filtro_operatore'));
+                    $schedaPais2 = $schedaPAIRepository->findBy(['currentPlace' => $session->get('filtro_operatore')], array('id' => 'DESC'));
+                    $schedaPais3 = array_intersect($schedaPais1, $schedaPais2);
+                    usort($schedaPais3, fn($a, $b) => $a->getId()-$b->getId());
+                    $schedaPais3 = array_reverse($schedaPais3);
+                    $schedaPais = [];
+                    //costruisco l'elenco schede in base al filtro e alla pagina
+                    for($i=(($page - 1) * $schedePerPagina); $i<$schedePerPagina*$page; $i++){
+                        if($i<count($schedaPais3))
+                            array_push($schedaPais,$schedaPais3[$i]);     
+                    }
+                }
+            }
         } else {
-            if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
-                $schedaPais = $schedaPAIRepository->selectStatoSchedePai($session->get('filtro_stato'), $page, $schedePerPagina);
-            else
-                $schedaPais = $schedaPAIRepository->findStatoIdSchedePai($session->get('filtro_operatore'), $session->get('filtro_stato'), $schedePerPagina, $page);
+            if ($session->get('filtro_stato') == null || $session->get('filtro_stato') == "") {
+                if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
+                    $schedaPais = $schedaPAIRepository->findBy(['adiwebPratica' => $session->get('filtro_pratica')], array('id' => 'DESC'), $schedePerPagina, $offset);
+                else{
+                    $schedaPais1 = $schedaPAIRepository->findSchedePaiConOperatore($session->get('filtro_operatore'));
+                    $schedaPais2 = $schedaPAIRepository->findBy(['adiwebPratica' => $session->get('filtro_pratica')], array('id' => 'DESC'));
+                    $schedaPais3 = array_intersect($schedaPais1, $schedaPais2);
+                    usort($schedaPais3, fn($a, $b) => $a->getId()-$b->getId());
+                    $schedaPais3 = array_reverse($schedaPais3);
+                    $schedaPais = [];
+                    //costruisco l'elenco schede in base al filtro e alla pagina
+                    for($i=(($page - 1) * $schedePerPagina); $i<$schedePerPagina*$page; $i++){
+                        if($i<count($schedaPais3))
+                            array_push($schedaPais,$schedaPais3[$i]);     
+                    }
+                }
+            } else {
+                if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
+                    $schedaPais = $schedaPAIRepository->findBy(['currentPlace' => $session->get('filtro_stato'), 'adiwebPratica' => $session->get('filtro_pratica')], array('id' => 'DESC'), $schedePerPagina, $offset);
+                else {
+                    $schedaPais1 = $schedaPAIRepository->findSchedePaiConOperatore($session->get('filtro_operatore'));
+                    $schedaPais2 = $schedaPAIRepository->findBy(['currentPlace' => $session->get('filtro_stato'), 'adiwebPratica' => $session->get('filtro_pratica')], array('id' => 'DESC'));
+                    $schedaPais3 = array_intersect($schedaPais1, $schedaPais2);
+                    usort($schedaPais3, fn($a, $b) => $a->getId()-$b->getId());
+                    $schedaPais3 = array_reverse($schedaPais3);
+                    $schedaPais = [];
+                    //costruisco l'elenco schede in base al filtro e alla pagina
+                    for($i=(($page - 1) * $schedePerPagina); $i<$schedePerPagina*$page; $i++){
+                        if($i<count($schedaPais3))
+                            array_push($schedaPais,$schedaPais3[$i]);     
+                    }
+                }
+            }
         }
 
 
@@ -190,9 +256,11 @@ class SchedaPAIController extends AbstractController
             'schede_per_pagina' => $schedePerPagina,
             'operatore' => $session->get('filtro_operatore'),
             'stato' => $session->get('filtro_stato'),
+            'pratica' => $session->get('filtro_pratica'),
             'user' => $user,
             'assistiti' => $assistiti,
             'listaOperatori' => $listaOperatori,
+            'listaPratiche' => $listaPratiche,
             'pathName' => $pathName,
             'filtroColoriScadenzario' => $this->filtroColoriScadenzario,
             'filtroNomiStatiScadenzario' => $this->filtroNomiStatiScadenzario,
@@ -211,7 +279,7 @@ class SchedaPAIController extends AbstractController
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
         $assistiti = $assistitiRepository->findAll();
         $assistito = $schedaPAI->getAssistito();
-        
+
         $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
         $valutazioniFiguraProfessionale = $schedaPAI->getIdValutazioneFiguraProfessionale();
         $parereMMG = $schedaPAI->getIdParereMmg();
@@ -267,7 +335,7 @@ class SchedaPAIController extends AbstractController
 
         $form = $this->createForm(SchedaPAIType::class, $schedaPAI);
         $form->handleRequest($request);
-        
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->setterDatiSchedaPaiService->settaDatiCompilazioneSchede($schedaPAI);
@@ -452,13 +520,12 @@ class SchedaPAIController extends AbstractController
                 $session = $request->getSession();
                 $session->set('alertSincronizzazione', 'chiusuraCompletata');
                 $this->entityManager->flush();
-            } else if($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo") {
+            } else if ($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo") {
                 $schedaPAI->setCurrentPlace('chiusa_con_rinnovo');
                 $session = $request->getSession();
                 $session->set('alertSincronizzazione', 'chiusuraCompletata');
                 $this->entityManager->flush();
-            }
-            else{
+            } else {
                 $session = $request->getSession();
                 $session->set('alertSincronizzazione', 'chiusuraFallitaPerStato');
                 if ($pathName == 'app_scadenzario_index') {
@@ -494,7 +561,7 @@ class SchedaPAIController extends AbstractController
         $this->SdManagerClientApiService->sincAssistiti();
         if ($this->SdManagerClientApiService->getCodiceResponseAssistiti() != 200) {
             $session->set('alertSincronizzazione', 'errore');
-            return $this->redirectToRoute('app_scheda_pai_index', ['page'=> $page], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
         }
         $this->SdManagerClientApiService->sincOperatori();
         if ($this->SdManagerClientApiService->getCodiceResponseOperatori() != 200) {
@@ -509,7 +576,7 @@ class SchedaPAIController extends AbstractController
 
         //ricalcolo del verifica dopo gli eventuali cambiamenti di data dei progetti
         $schedaPais = $schedaPAIRepository->findBy([]);
-        for($i =0; $i<count($schedaPais); $i++){
+        for ($i = 0; $i < count($schedaPais); $i++) {
             $this->setterStatoVerificaSchedaPaiService->settaStatoVerifica($schedaPais[$i]);
         }
         $this->entityManager->flush();
@@ -544,7 +611,7 @@ class SchedaPAIController extends AbstractController
         $this->denyAccessUnlessGranted('rinnovare', $post);
         $schedaPAI->setCurrentPlace("in_attesa_di_chiusura_con_rinnovo");
         $this->entityManager->flush();
-    
+
         return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
@@ -557,7 +624,7 @@ class SchedaPAIController extends AbstractController
         $schedaPAI->setCurrentPlace("in_attesa_di_chiusura");
         //il setter sistema il calcolo del totale scale
         $this->entityManager->flush();
-        
+
         return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
@@ -568,7 +635,7 @@ class SchedaPAIController extends AbstractController
         //il setter sistema il calcolo del totale scale
         $schedaPAI->setCurrentPlace("verifica");
         $this->entityManager->flush();
-    
+
         return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 }

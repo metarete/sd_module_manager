@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\User;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\Paziente;
+use App\Entity\EntityPAI\Pratica;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -147,10 +148,10 @@ class SDManagerClientApiService
                     //lo salto. non ha la mail
                 } else {
                     //ha tutto. controllo se c'è gia
-                    if ($userRepository->findOneByUsername($utenti[$i]['username']) == null) {
+                    if ($userRepository->findOneBy(['username' => $utenti[$i]['username']]) == null) {
                         //utente nuovo. 
                         //controllo se esiste un utente che ha la stessa mail di questo nuovo utente
-                        if ($userRepository->findOneByEmail($utenti[$i]['emails'][0]['email']) == null) {
+                        if ($userRepository->findOneBy(['email' => $utenti[$i]['emails'][0]['email']]) == null) {
                             //non esiste. creo l'utente
                             $utente = new User;
                             $utente->setEmail($utenti[$i]['emails'][0]['email']);
@@ -198,11 +199,12 @@ class SDManagerClientApiService
         }
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
+        $praticaRepository = $this->entityManager->getRepository(Pratica::class);
         //faccio passare i progetti scaricati uno ad uno
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
-
-            //se il progetto ha la scheda pai
+            
+            //se il progetto ha la scheda pai sarà da creare o da modificare
             if ($progetti[$i]['scheda_pai'] == 1) {
                 $dataInizio = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_inizio']);
                 $dataFine = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_fine']);
@@ -210,8 +212,29 @@ class SDManagerClientApiService
                 $nomeProgetto = $progetti[$i]['nome'];
                 $statoSDManager = $progetti[$i]['stato_progetto'];
                 $assistito = $assistitiRepository->findOneById($idAssistito);
+                //se il progetto è adiweb mi servono pratica e protocollo
+                if($progetti[$i]['tipologia'] == 'ADIWEB'){
+                    //cerco la pratica tra quelle che ho gia
+                    $pratica = $praticaRepository->findOneBy(["codice" => $progetti[$i]['adiweb_pratica']]);
+                    //se non c'è la creo
+                    if($pratica == null){
+                        $adiwebPratica = new Pratica;
+                        $adiwebPratica->setCodice($progetti[$i]['adiweb_pratica']);
+                        $praticaRepository->add($adiwebPratica, true);
+                    }
+                    else{
+                        $adiwebPratica = $pratica;
+                    }
+                    
+                    $adiwebProtocollo = $progetti[$i]['adiweb_protocollo'];
+                }
+                else{
+                    $adiwebPratica = null;
+                    $adiwebProtocollo = null;
+                }
+                
                 //se non c'è già lo creo da zero
-                if ($schedaPAIRepository->findOneByProgetto($idProgetto) == null) {
+                if ($schedaPAIRepository->findBy(['idProgetto' => $idProgetto]) == null) {
                     if($progetti[$i]['stato_progetto'] == 'ATTIVO'){
                         $schedaPai = new SchedaPAI;
                         $schedaPai->setDataInizio($dataInizio);
@@ -221,18 +244,20 @@ class SDManagerClientApiService
                         $schedaPai->setNomeProgetto($nomeProgetto);
                         $schedaPai->setCurrentPlace('nuova');
                         $schedaPai->setStatoSDManager($statoSDManager);
+                        $schedaPai->setAdiwebPratica($adiwebPratica);
+                        $schedaPai->setAdiwebProtocollo($adiwebProtocollo);
                         $schedaPAIRepository->add($schedaPai, true);
                         $this->numeroProgettiScaricati++;
                     }
                 } else {
                     //se c'è già 
-                    $schedaPai = $schedaPAIRepository->findOneByProgetto($idProgetto);
+                    $schedaPai = $schedaPAIRepository->findOneBy(['idProgetto' => $idProgetto]);
                     $dataInizio->format('d-m-Y');
                     $dataFine->format('d-m-Y');
 
                     //check per i cambiamenti di stato in base ai cambio data iniziale e finale
                     $this->setterCambioStatiDopoSincronizzazioneService->settaCambioStati($dataInizio, $dataFine, $schedaPai);
-                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $assistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager);
+                    $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $assistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager, $adiwebPratica, $adiwebProtocollo);
 
                     $this->numeroProgettiAggiornati++;
                 }

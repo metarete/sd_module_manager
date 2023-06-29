@@ -21,150 +21,128 @@
 	</head>
 	<body>
 		{% block header %}
-		{% if app.user != null %}
-			<nav class="navbar navbar-mobile">
-				<ul class="nav row-1 cols-12 gap-3">
-					<li>
-						<nav class="navbar navbar-dark">
-							<a class="navbar-brand" href="{{ path('app_scadenzario_index') }}" style="font-size:20px;padding-left:15px;">Module Manager</a>
-						</nav>
-					</li>
-				</ul>
-				
-				<ul class="nav row-1 cols-12 gap-3">
-					<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-						<i class="bi bi-list" style="font-size:25px;"></i>
-					</button>
-				</ul>
-				<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-					<div class="offcanvas-header">
-						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menù</h5>
-						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-					</div>
-					<div class="offcanvas-body">
-						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-							<li class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item accordion-navbar">
-									<div class"account" style="text-align:center">
-										<i class="bi bi-person-circle" style="font-size:50px;text-align:center"></i>
-										<h5 style="color:white;font-size:15px;">{{app.user.name}} {{app.user.surname}}</h5>
-										<h5 style="color:white;font-size:15px;">
-										{% if "ROLE_SUPERADMIN" in app.user.roles %}
-											Super Admin
-										{% elseif "ROLE_ADMIN" in app.user.roles  %}
-											Admin
-										{% else %}
-											Utente
-										{% endif %}
-										</h5>
-										{% if is_granted('IS_IMPERSONATOR') %}
-											<h5 style="color:yellow;font-size:15px;">Impersonificazione attiva</h5>
-										{% endif %}
-									</div>
-									<br>
-									<h2 class="accordion-header accordion-navbar" id="flush-headingOne">
-										<button class="accordion-button accordion-navbar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-											Profilo
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_show') }}" style="margin:20px;">
-												<i class="bi bi-person-circle"></i>
-												Dati</a>
-											<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}" style="margin:20px;">
-												<i class="bi bi-pencil-square"></i>
-												Modifica Profilo</a>
-											<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}" style="margin:20px;">
-												<i class="bi bi-key"></i>
-												Modifica Password</a>
-											<a class="button nav-link px-1 text-white" id="dark-mode-mobile" type="checkbox" onclick="window.darkMode(this)" style="margin:20px;">
-												<i class="bi bi-moon-fill"></i>
-												Tema</a>
-											<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" style="margin:20px;">
-												<i class="bi bi-box-arrow-left"></i>
-												Logout</a>
+			{% if app.user != null %}
+				<nav class="navbar navbar-mobile">
+					<ul class="nav row-1 cols-12 gap-3">
+						<li>
+							<nav class="navbar navbar-dark">
+								<a class="navbar-brand" href="{{ path('app_scadenzario_index') }}" style="font-size:20px;padding-left:15px;">Module Manager</a>
+							</nav>
+						</li>
+					</ul>
+
+					<ul class="nav row-1 cols-12 gap-3">
+						<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+							<i class="bi bi-list" style="font-size:25px;"></i>
+						</button>
+					</ul>
+					<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+						<div class="offcanvas-header">
+							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menù</h5>
+							<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body">
+							<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+								<li class="accordion accordion-flush" id="accordionFlushExample">
+									<div class="accordion-item accordion-navbar">
+										<div class"account" style="text-align:center">
+											<i class="bi bi-person-circle" style="font-size:50px;text-align:center"></i>
+											<h5 style="color:white;font-size:15px;">{{app.user.name}}
+												{{app.user.surname}}</h5>
+											<h5 style="color:white;font-size:15px;">
+												{% if "ROLE_SUPERADMIN" in app.user.roles %}
+													Super Admin
+												{% elseif "ROLE_ADMIN" in app.user.roles  %}
+													Admin
+												{% else %}
+													Utente
+												{% endif %}
+											</h5>
+											{% if is_granted('IS_IMPERSONATOR') %}
+												<h5 style="color:yellow;font-size:15px;">Impersonificazione attiva</h5>
+											{% endif %}
 										</div>
+										<br>
+										<h2 class="accordion-header accordion-navbar" id="flush-headingOne">
+											<button class="accordion-button accordion-navbar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+												Profilo
+											</button>
+										</h2>
+										<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+											<div class="accordion-body">
+												<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_show') }}" style="margin:20px;">
+													<i class="bi bi-person-circle"></i>
+													Dati</a>
+												<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}" style="margin:20px;">
+													<i class="bi bi-pencil-square"></i>
+													Modifica Profilo</a>
+												<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}" style="margin:20px;">
+													<i class="bi bi-key"></i>
+													Modifica Password</a>
+												<a class="button nav-link px-1 text-white" id="dark-mode-mobile" type="checkbox" onclick="window.darkMode(this)" style="margin:20px;">
+													<i class="bi bi-moon-fill"></i>
+													Tema</a>
+												<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}" style="margin:20px;">
+													<i class="bi bi-box-arrow-left"></i>
+													Logout</a>
+											</div>
+										</div>
+										{% if "ROLE_ADMIN" not in app.user.roles %}
+											{% else %}
+												<h2 class="accordion-header accordion-navbar" id="flush-headingAdmin">
+													<button class="accordion-button accordion-navbar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAdmin" aria-expanded="false" aria-controls="flush-collapseAdmin">
+														Strumenti Admin
+													</button>
+												</h2>
+												<div id="flush-collapseAdmin" class="accordion-collapse collapse" aria-labelledby="flush-headingAdmin" data-bs-parent="#accordionFlushExample">
+													<div class="accordion-body">
+														<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;" id="spinner">Sincronizza</a>
+														<a class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>
+														<a class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}" style="margin:20px;">Schede Pai</a>
+														<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
+														<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
+														<a class="nav-link active" aria-current="page" href="{{ path('app_obiettivi_index') }}" style="margin:20px;">Obiettivi</a>
+														<a class="nav-link active" aria-current="page" href="{{ path('app_diagnosi_index') }}" style="margin:20px;">Diagnosi</a>
+														{% if "ROLE_SUPERADMIN" not in app.user.roles %}
+															{% else %}
+																<a class="nav-link active" aria-current="page" href="{{ path('app_tipi_adiweb_index') }}" style="margin:20px;">Tipi Adiweb</a>
+														{% endif %}
+													</div>
+												</div>
+										{% endif %}
 									</div>
-								</div>
-							</li>
-							<li class="nav-divider"></li>
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="https://demo.sdmanager.it/index.phtml" target="_blank" style="margin:20px;">SD Manager <i class="bi bi-box-arrow-up-right"></i></a>
-							</li>
-							{% if "ROLE_ADMIN" not in app.user.roles %}
-								{% else %}
-									<li>
-										<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;" id ="spinner">Sincronizza</a>
-									</li>
-							{% endif %}
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="{{ path('app_scadenzario_index') }}" style="margin:20px;">Scadenzario</a>
-							</li>
-							{% if "ROLE_ADMIN" not in app.user.roles %}
-								{% else %}
-									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>
-									</li>
-							{% endif %}
-							{% if "ROLE_ADMIN" not in app.user.roles %}
-								{% else %}
-									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}" style="margin:20px;">Schede Pai</a>
-									</li>
-							{% endif %}
-							{% if "ROLE_ADMIN" not in app.user.roles %}
-								{% else %}
-									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
-									</li>
-							{% endif %}
-							{% if "ROLE_ADMIN" not in app.user.roles %}
-								{% else %}
-									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
-									</li>
-							{% endif %}
-							{% if "ROLE_ADMIN" not in app.user.roles %}
-								{% else %}
-									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_obiettivi_index') }}" style="margin:20px;">Obiettivi</a>
-									</li>
-							{% endif %}
-							{% if "ROLE_ADMIN" not in app.user.roles %}
-								{% else %}
-									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_diagnosi_index') }}" style="margin:20px;">Diagnosi</a>
-									</li>
-							{% endif %}
-							{% if "ROLE_SUPERADMIN" not in app.user.roles %}
-								{% else %}
-									<li class="nav-item">
-										<a class="nav-link active" aria-current="page" href="{{ path('app_tipi_adiweb_index') }}" style="margin:20px;">Tipi Adiweb</a>
-									</li>
-							{% endif %}
-							{% if is_granted('IS_IMPERSONATOR') %}
-								<li class="nav-item">
-									<a class="nav-link active" aria-current="page" href="{{ impersonation_exit_path(path('app_user_index') ) }}" style="margin:20px;">Esci dall'impersonificazione</a>
 								</li>
-							{% endif %}
-							<li class="nav-divider"></li>
-						</ul>
+								<li class="nav-divider"></li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="https://demo.sdmanager.it/index.phtml" target="_blank" style="margin:20px;">SD Manager
+										<i class="bi bi-box-arrow-up-right"></i>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_scadenzario_index') }}" style="margin:20px;">Scadenzario</a>
+								</li>
+								{% if is_granted('IS_IMPERSONATOR') %}
+									<li class="nav-item">
+										<a class="nav-link active" aria-current="page" href="{{ impersonation_exit_path(path('app_user_index') ) }}" style="margin:20px;">Esci dall'impersonificazione</a>
+									</li>
+								{% endif %}
+								<li class="nav-divider"></li>
+							</ul>
+						</div>
 					</div>
-				</div>
-				
-			</nav>
-		{% else %}
-			<nav class="navbar navbar-mobile">
-				<ul class="nav row-1 cols-12 gap-3">
-					<li>
-						<nav class="navbar navbar-dark">
-							<a class="navbar-brand" style="font-size:20px;padding-left:15px;">Module Manager</a>
-						</nav>
-					</li>
-				</ul>
-			</nav>
-		{% endif %}
+
+				</nav>
+			{% else %}
+				<nav class="navbar navbar-mobile">
+					<ul class="nav row-1 cols-12 gap-3">
+						<li>
+							<nav class="navbar navbar-dark">
+								<a class="navbar-brand" style="font-size:20px;padding-left:15px;">Module Manager</a>
+							</nav>
+						</li>
+					</ul>
+				</nav>
+			{% endif %}
 			<div class="modal" tabindex="-1" id="modal-spinner">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
@@ -194,7 +172,7 @@
 			|
 			<a href="{{ path('app_link_footer') }}">About</a>
 			| 
-						Versione 1.0.0RC13
+									Versione 1.0.0RC13
 			<strong>beta</strong>
 		</div>
 		<div class="right">

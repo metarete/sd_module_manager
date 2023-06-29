@@ -57,6 +57,15 @@
                     <option {% if stato == 'chiusa_con_rinnovo' %}selected{% endif %} value="chiusa_con_rinnovo">Chiusa con rinnovo</option>
             </select>
             </div>
+            <div class="col-md-2">
+            <p class="h6">Filtro Pratica</p>
+            <select class="d-inline form-select" name='filtro_pratica' onchange="this.form.submit()">
+                    <option {% if pratica == 'tutte' %}selected{% endif %} value="tutte">Tutte</option>
+                    {% for praticaInLista in listaPratiche %}
+                        <option {% if pratica == praticaInLista.id %}selected{% endif %} value="{{praticaInLista.id}}" > {{praticaInLista}} </option>
+                    {% endfor %}
+            </select>
+            </div>
         </div>
     </nav>
     </form>
@@ -101,6 +110,18 @@
                     <option {% if stato == 'in_attesa_di_chiusura_con_rinnovo' %}selected{% endif %} value="in_attesa_di_chiusura_con_rinnovo"> In attesa di chiusura con rinnovo</option>
                     <option {% if stato == 'chiusa' %}selected{% endif %} value="chiusa">Chiusa</option>
                     <option {% if stato == 'chiusa_con_rinnovo' %}selected{% endif %} value="chiusa_con_rinnovo">Chiusa con rinnovo</option>
+            </select>
+            </div>
+            </div>
+            <br>
+            <div class="row">
+			<div class="col">
+            <p class="h6">Filtro Pratica</p>
+            <select class="d-inline form-select" name='filtro_pratica' onchange="this.form.submit()">
+                    <option {% if pratica == 'tutte' %}selected{% endif %} value="tutte">Tutte</option>
+                    {% for praticaInLista in listaPratiche %}
+                        <option {% if pratica == praticaInLista.id %}selected{% endif %} value="{{praticaInLista.id}}" >{{praticaInLista.codice}} </option>
+                    {% endfor %}
             </select>
             </div>
             </div>
@@ -256,6 +277,11 @@
                             <li>
                                 <a class="dropdown-item" href="{{ path('app_scheda_pai_pdf', {'id': scheda_pai.id}) }}" target= "__blank"><i class="bi bi-filetype-pdf"></i> Genera PDF</a>
                             </li>
+                            {% if scheda_pai.adiwebPratica != null %}
+                            <li>
+                                <a class="dropdown-item" href="{{path('app_pratica_show',{'id': scheda_pai.adiwebPratica.id, 'pathName': pathName}) }}" >Pratica</a>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </td>
@@ -274,6 +300,8 @@
                                 <th>Op Asa</th>
                                 <th>Op Oss</th>
                                 <th>Stato SD Manager</th>
+                                <th>Pratica Adiweb</th>
+                                <th>Protocollo Adiweb</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -347,6 +375,20 @@
                             </td>
                             <td data-title='Stato SD Manager'><span class='badge {{filtroNomiStatiScadenzario.filtroStatoSDManager(scheda_pai)}}'>
                                 {{scheda_pai.statoSDManager}}</span>
+                            </td>
+                            <td data-title='Pratica Adiweb'>
+                            {% if scheda_pai.adiwebPratica == null %}
+                                Nessuna
+                            {% else %}
+                                {{scheda_pai.adiwebPratica.codice}}
+                            {% endif %}
+                            </td>
+                            <td data-title='Protocollo Adiweb'>
+                            {% if scheda_pai.adiwebProtocollo == null %}
+                                Nessuno
+                            {% else %}
+                                {{scheda_pai.adiwebProtocollo}}
+                            {% endif %}
                             </td>
                         </tbody>
                     </table>      
