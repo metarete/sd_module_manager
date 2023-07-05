@@ -1,0 +1,246 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+{% if painads is empty %}
+	Nessuna Painad disponibile
+{% else %}
+	<div class="visualizzazione-desktop">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+									<tr>
+										<th style="width: 300px;">Data inizio/fine</th>
+										{% for painad in painads %}
+											<th>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+										{% endfor %}
+
+									</tr>
+									<tr>
+
+										<th style="width: 300px;">Nome Progetto</th>
+										{% for painad in painads %}
+											<td>{{painad.schedaPai.nomeProgetto}}</td>
+										{% endfor %}
+
+									</tr>
+									<tr>
+										<th style="width: 300px;">Data di valutazione</th>
+										{% for painad in painads %}
+											<td data-title='Data Valutazione'>{{painad.dataValutazione ? painad.dataValutazione|date('d/m/Y') : ''}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th style="width: 300px;">Respiro</th>
+										{% for painad in painads %}
+											<td>{{painad.respiro}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Vocalizzazione</th>
+										{% for painad in painads %}
+											<td>{{painad.vocalizzazione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Espressione facciale</th>
+										{% for painad in painads %}
+											<td>{{painad.espressioneFacciale}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Linguaggio del corpo</th>
+										{% for painad in painads %}
+											<td>{{painad.linguaggioDelCorpo}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Consolabilità</th>
+										{% for painad in painads %}
+											<td>{{painad.consolabilita}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Totale</th>
+										{% for painad in painads %}
+											<td>
+												<strong>{{painad.totale}}</td>
+											{% endfor %}
+										</tr>
+									</tr>
+									<tr>
+										<th></th>
+										{% for painad in painads %}
+											<td><br></td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Operatore</th>
+										{% for painad in painads %}
+											<td>{{ painad.operatore.name }}
+												{{painad.operatore.surname}}</td>
+										{% endfor %}
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="visualizzazione-mobile">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+                                    <tr>
+										<th>Nome Progetto</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{painad.schedaPai.nomeProgetto}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Data di valutazione</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td data-title='Data Valutazione'>{{painad.dataValutazione ? painad.dataValutazione|date('d/m/Y') : ''}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Respiro</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{painad.respiro}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Vocalizzazione</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{painad.vocalizzazione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Espressione facciale</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{painad.espressioneFacciale}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Linguaggio del corpo</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{painad.linguaggioDelCorpo}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Consolabilità</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{painad.consolabilita}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Totale</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{painad.totale}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Operatore</th>
+										<td></td>
+									</tr>
+									{% for painad in painads %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{painad.schedaPai.dataInizio ? painad.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{painad.schedaPai.dataFine ? painad.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th>{{ painad.operatore.name }}
+												{{painad.operatore.surname}}
+												<br>
+											</th>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+<br>

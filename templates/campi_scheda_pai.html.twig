@@ -400,6 +400,20 @@
 									{% endif %}
 								</td>
 							</tr>
+							<tr>
+								<th>
+									<h5 class="card-text">Frequenza scale CDR</h5>
+								</th>
+							</tr>
+							<tr>
+								<td>
+									{% if scheda_pai.abilitaCdr == true %}
+										<p class="card-title">Compilazione scala CDR ogni {{ scheda_pai.frequenzaCdr}} giorni</p>
+									{% else %}
+										<p class="card-title">Scala CDR non disponibile</p>
+									{% endif %}
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

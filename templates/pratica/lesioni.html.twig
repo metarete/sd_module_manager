@@ -1,0 +1,469 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+{% if lesionis is empty %}
+	Nessuna Lesioni disponibile
+{% else %}
+	<div class="visualizzazione-desktop">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+
+								<thead></thead>
+								<tbody>
+									<tr>
+										<th style="width: 300px;">Data inizio/fine</th>
+										{% for lesioni in lesionis %}
+											<th>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+										{% endfor %}
+
+									</tr>
+									<tr>
+
+										<th style="width: 300px;">Nome Progetto</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.schedaPai.nomeProgetto}}</td>
+										{% endfor %}
+
+									</tr>
+									<tr>
+										<th style="width: 300px;">Data di valutazione</th>
+										{% for lesioni in lesionis %}
+											<td data-title='Data Valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th style="width: 300px;">Lesione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.lesione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Tipologia Lesione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.tipologiaLesione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Numero sede lesione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.numeroSedeLesione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Grado lesione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.gradoLesione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Dimensioni lesione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.dimensioneLesione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Condizione lesione</th>
+										{% for lesioni in lesionis %}
+											<td>
+												{% if lesioni.condizioneLesione is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.condizioneLesione %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Bordi lesione</th>
+										{% for lesioni in lesionis %}
+											<td>
+												{% if lesioni.bordiLesione is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.bordiLesione %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Cute perilesionale</th>
+										{% for lesioni in lesionis %}
+											<td>
+												{% if lesioni.cutePerilesionale is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.cutePerilesionale %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Disinfezione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.disinfezione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Specifiche per disinfezione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.specificheDisinfezione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Medicazione</th>
+										{% for lesioni in lesionis %}
+											<td>
+												{% if lesioni.medicazione is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.medicazione %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Specifiche per medicazione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.specificheMedicazione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Copertura</th>
+										{% for lesioni in lesionis %}
+											<td>
+												{% if lesioni.copertura is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.copertura %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Note sulla lesione</th>
+										{% for lesioni in lesionis %}
+											<td>{{lesioni.noteSullaLesione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th></th>
+										{% for lesioni in lesionis %}
+											<td><br></td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Operatore</th>
+										{% for lesioni in lesionis %}
+											<td>{{ lesioni.operatore.name }}
+												{{lesioni.operatore.surname}}</td>
+										{% endfor %}
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="visualizzazione-mobile">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+                                    <tr>
+										<th>Nome Progetto</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.schedaPai.nomeProgetto}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Data di valutazione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td data-title='Data Valutazione'>{{lesioni.dataRivalutazioniSettimanali ? lesioni.dataRivalutazioniSettimanali|date('d/m/Y') : ''}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.lesione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Tipologia lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.tipologiaLesione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Numero sede lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.numeroSedeLesione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Grado lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.gradoLesione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Dimensioni lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.dimensioneLesione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Condizioni Lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>
+												{% if lesioni.condizioneLesione is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.condizioneLesione %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Bordi lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>
+												{% if lesioni.bordiLesione is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.bordiLesione %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Cute perilesionale</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>
+												{% if lesioni.cutePerilesionale is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.cutePerilesionale %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Disinfezione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.disinfezione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Specifiche per disinfezione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.specificheDisinfezione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Medicazione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>
+												{% if lesioni.medicazione is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.medicazione %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Specifiche per medicazione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.specificheMedicazione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Copertura</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>
+												{% if lesioni.copertura is empty %}
+													Nessuno
+												{% else %}
+													{% for i in lesioni.copertura %}
+														<li>{{ i.nome }}</li>
+													{% endfor %}
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Note sulla lesione</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{lesioni.noteSullaLesione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Operatore</th>
+										<td></td>
+									</tr>
+									{% for lesioni in lesionis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{lesioni.schedaPai.dataInizio ? lesioni.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{lesioni.schedaPai.dataFine ? lesioni.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th>{{ lesioni.operatore.name }}
+												{{lesioni.operatore.surname}}
+												<br>
+											</th>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+<br>

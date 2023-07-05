@@ -1,0 +1,588 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+{% if tinettis is empty %}
+	Nessuna Tinetti disponibile
+{% else %}
+	<div class="visualizzazione-desktop">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+									<tr>
+										<th style="width: 300px;">Data inizio/fine</th>
+										{% for tinetti in tinettis %}
+											<th>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+										{% endfor %}
+
+									</tr>
+									<tr>
+
+										<th style="width: 300px;">Nome Progetto</th>
+										{% for tinetti in tinettis %}
+											<td>{{tinetti.schedaPai.nomeProgetto}}</td>
+										{% endfor %}
+
+									</tr>
+									<tr>
+										<th style="width: 300px;">Data di valutazione</th>
+										{% for tinetti in tinettis %}
+											<td data-title='Data Valutazione'>{{tinetti.dataValutazione ? tinetti.dataValutazione|date('d/m/Y') : ''}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>
+											<h3>Equilibrio</h3>
+										</th>
+										{% for tinetti in tinettis %}
+											<th><br></th>
+										{% endfor %}
+									</tr>
+
+									<tr>
+										<th style="width: 300px;">Equilibrio da Seduto</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.equilibrioSeduto}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Alzarsi dalla sedia</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.sedia}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Tentativo di alzarsi</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.alzarsi}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Equilibrio stazione eretta</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.stazioneEretta}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Equilibrio stazione eretta prolungata</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.stazioneErettaProlungata}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Romberg</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.romberg}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Romberg sensibilizzato</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.rombergSensibilizzato}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Girarsi a 360° A</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.girarsi1}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Girarsi a 360° B</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.girarsi2}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Sedersi</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.sedersi}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Totale Equilibrio</th>
+										{% for tinetti in tinettis %}
+											<td>
+												<strong>{{ tinetti.totaleEquilibrio}}/16</td>
+											{% endfor %}
+										</tr>
+									</tr>
+									<tr>
+										<th><br></th>
+									</tr>
+									<tr>
+										<th>
+											<h3>Andatura</h3>
+										</th>
+										{% for tinetti in tinettis %}
+											<td><br></td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Inizio della deambulazione immediatamente dopo il via</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.inizioDeambulazione}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Lunghezza passo piede destro</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.piedeDx}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Altezza passo piede destro</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.piedeDx2}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Lunghezza passo piede sinistro</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.piedeSx}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Altezza passo piede sinistro</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.piedeSx2}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Simmetria del passo</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.simmetriaPasso}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Continuità passo</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.continuitaPasso}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Traiettoria</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.traiettoria}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Tronco</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.tronco}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Cammino</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.cammino}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Totale andatura</th>
+										{% for tinetti in tinettis %}
+											<td>
+												<strong>{{ tinetti.totaleAndatura}}/12</td>
+											{% endfor %}
+										</tr>
+									</tr>
+									<tr>
+										<th></th>
+										{% for tinetti in tinettis %}
+											<td><br></td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Totale</th>
+										{% for tinetti in tinettis %}
+											<td>
+												<strong>{{ tinetti.totale}}/28</td>
+											{% endfor %}
+										</tr>
+									</tr>
+									<tr>
+										<th>Operatore</th>
+										{% for tinetti in tinettis %}
+											<td>{{ tinetti.operatore.name }}
+												{{tinetti.operatore.surname}}</td>
+										{% endfor %}
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="visualizzazione-mobile">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+                                    <tr>
+										<th>Nome Progetto</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.schedaPai.nomeProgetto}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Data di valutazione</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td data-title='Data Valutazione'>{{tinetti.dataValutazione ? tinetti.dataValutazione|date('d/m/Y') : ''}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>
+											<h3>Equilibrio</h3>
+										</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>Equilibrio da seduto</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.equilibrioSeduto}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Alzarsi dalla sedia</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.sedia}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Tentativo di alzarsi</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.alzarsi}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Equilibrio stazione eretta</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.stazioneEretta}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Equilibrio stazione eretta prolungata</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.stazioneErettaProlungata}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>romberg</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.romberg}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Romberg sensibilizzato</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.rombergSensibilizzato}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Girarsi a 360° A</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.girarsi1}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Girarsi a 360° B</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.girarsi2}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Sedersi</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.sedersi}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Totale Equilibrio</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th>{{tinetti.totaleEquilibrio}}/16</th>
+										</tr>
+									{% endfor %}
+									<br>
+									<tr>
+										<th><h3>Andatura</h3></th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>Inizio Deambulazione</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.inizioDeambulazione}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Lunghezza passo piede destro</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.piedeDx}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Altezza passo piede destro</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.piedeDx2}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Lunghezza passo piede sinistro</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.piedeSx}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Altezza passo piede sinistro</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.piedeSx2}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Simmetria passo</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.simmetriaPasso}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Continuità passo</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.continuitaPasso}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Traiettoria</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.traiettoria}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Tronco</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.tronco}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Cammino</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.cammino}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Totale Andatura</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th>{{tinetti.totaleAndatura}}/12</th>
+										</tr>
+									{% endfor %}
+									<br>
+									<tr>
+										<th>Totale</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{tinetti.totale}}/28</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Operatore</th>
+										<td></td>
+									</tr>
+									{% for tinetti in tinettis %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{tinetti.schedaPai.dataInizio ? tinetti.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{tinetti.schedaPai.dataFine ? tinetti.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th>{{ tinetti.operatore.name }}
+												{{tinetti.operatore.surname}}
+												<br>
+											</th>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+<br>

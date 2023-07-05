@@ -1,0 +1,322 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+<div class="visualizzazione-desktop">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<tbody>
+								<tr>
+									<th>
+										<th style="width: 300px;">Data inizio/fine</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+											<th>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</th>
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Nome Progetto</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+											<td>{{scheda_pai.nomeProgetto}}</td>
+										{% endfor %}
+									</th>
+								</tr>
+								
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale Barthel</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaBarthel == true %}
+											<td>Compilazione scala barthel ogni
+												{{ scheda_pai.frequenzaBarthel}}
+												giorni</td>
+										{% else %}
+											<td>Scala barthel non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale Braden</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaBraden == true %}
+											<td>Compilazione scala braden ogni
+												{{ scheda_pai.frequenzaBraden}}
+												giorni</td>
+										{% else %}
+											<td>Scala braden non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale SPMSQ</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaSpmsq == true %}
+											<td>Compilazione scala SPMSQ ogni
+												{{ scheda_pai.frequenzaSpmsq}}
+												giorni</td>
+										{% else %}
+											<td>Scala SPMSQ non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale Tinetti</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaTinetti == true %}
+											<td>Compilazione scala tinetti ogni
+												{{ scheda_pai.frequenzaTinetti}}
+												giorni</td>
+										{% else %}
+											<td>Scala tinetti non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale Vas</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaVas == true %}
+											<td>Compilazione scala VAS ogni
+												{{ scheda_pai.frequenzaVas}}
+												giorni</td>
+										{% else %}
+											<td>Scala VAS non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale Lesioni</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaLesioni == true %}
+											<td>Compilazione scala lesioni ogni
+												{{ scheda_pai.frequenzaLesioni}}
+												giorni</td>
+										{% else %}
+											<td>Scala lesioni non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale Painad</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaPainad == true %}
+											<td>Compilazione scala painad ogni
+												{{ scheda_pai.frequenzaPainad}}
+												giorni</td>
+										{% else %}
+											<td>Scala painad non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Frequenza scale CDR</th>
+										{% for scheda_pai in pratica.schedaPAIs %}
+										{% if scheda_pai.abilitaCdr == true %}
+											<td>Compilazione scala CDR ogni
+												{{ scheda_pai.frequenzaCdr}}
+												giorni</td>
+										{% else %}
+											<td>Scala CDR non disponibile</td>
+										{% endif %}
+										{% endfor %}
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="visualizzazione-mobile">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead></thead>
+							<tbody>
+								<tr>
+									<th>Nome Progetto</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{scheda_pai.nomeProgetto}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale Barthel</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaBarthel == true %}
+											<td>Compilazione scala Barthel ogni
+												{{ scheda_pai.frequenzaBarthel}}
+												giorni</td>
+										{% else %}
+											<td>Scala Barthel non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale Braden</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaBraden == true %}
+											<td>Compilazione scala Braden ogni
+												{{ scheda_pai.frequenzaBraden}}
+												giorni</td>
+										{% else %}
+											<td>Scala Braden non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale SPMSQ</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaSpmsq == true %}
+											<td>Compilazione scala SPMSQ ogni
+												{{ scheda_pai.frequenzaSpmsq}}
+												giorni</td>
+										{% else %}
+											<td>Scala SPMSQ non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale Tinetti</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaTinetti == true %}
+											<td>Compilazione scala Tinetti ogni
+												{{ scheda_pai.frequenzaTinetti}}
+												giorni</td>
+										{% else %}
+											<td>Scala Tinetti non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale Vas</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaVas == true %}
+											<td>Compilazione scala Vas ogni
+												{{ scheda_pai.frequenzaVas}}
+												giorni</td>
+										{% else %}
+											<td>Scala Vas non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale Lesioni</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaLesioni == true %}
+											<td>Compilazione scala Lesioni ogni
+												{{ scheda_pai.frequenzaLesioni}}
+												giorni</td>
+										{% else %}
+											<td>Scala Lesioni non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale Painad</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaPainad == true %}
+											<td>Compilazione scala Painad ogni
+												{{ scheda_pai.frequenzaPainad}}
+												giorni</td>
+										{% else %}
+											<td>Scala Painad non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frequenza scale CDR</th>
+									<td></td>
+								</tr>
+								{% for scheda_pai in pratica.schedaPAIs %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{scheda_pai.dataInizio ? scheda_pai.dataInizio|date('d/m/Y') : ''}} -- {{scheda_pai.dataFine ? scheda_pai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if scheda_pai.abilitaCdr == true %}
+											<td>Compilazione scala CDR ogni
+												{{ scheda_pai.frequenzaCdr}}
+												giorni</td>
+										{% else %}
+											<td>Scala CDR non disponibile</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

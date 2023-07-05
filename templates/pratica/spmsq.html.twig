@@ -1,0 +1,664 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+{% if spmsqs is empty %}
+	Nessuna SPMSQ disponibile
+{% else %}
+	<div class="visualizzazione-desktop">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+									<tr>
+										<th style="width: 300px;">Data inizio/fine</th>
+										{% for spmsq in spmsqs %}
+											<th>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+										{% endfor %}
+
+									</tr>
+									<tr>
+
+										<th style="width: 300px;">Nome Progetto</th>
+										{% for spmsq in spmsqs %}
+											<td>{{spmsq.schedaPai.nomeProgetto}}</td>
+										{% endfor %}
+
+									</tr>
+									<tr>
+										<th style="width: 300px;">Data di valutazione</th>
+										{% for spmsq in spmsqs %}
+											<td data-title='Data Valutazione'>{{spmsq.dataValutazione ? spmsq.dataValutazione|date('d/m/Y') : ''}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th style="width: 300px;">Che giorno è oggi?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.giornoOggi == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Che giorno della settimana è?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.giornoSettimana == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Come si chiama questo posto?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.posto == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Qual è il suo indirizzo?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.indirizzo == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Quanti anni ha?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.anni == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Quando è nato?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.dataNascita == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Chi è il Presidente della Repubblica?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.presidenteAttuale == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Chi era il Presidente precedente?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.presidentePrecedente == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Qual è il cognome da ragazza si sua madre?</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.cognomeMadre == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.sottrazione == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Totale errori</th>
+										{% for spmsq in spmsqs %}
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<strong>/</td>
+												{% else %}
+													<td>
+														<strong>{{spmsq.totale}}</td>
+													{% endif %}
+
+												{% endfor %}
+											</tr>
+											<tr>
+												<th>Non somministrabile per patologia</th>
+												{% for spmsq in spmsqs %}
+													{% if spmsq.nonSomministrabilePerPatologia == true %}
+														<td>
+															<i class="bi bi-check-circle-fill" style="color:green"></i>
+														</td>
+													{% else %}
+														<td>
+															<strong>/</td>
+														{% endif %}
+
+													{% endfor %}
+												</tr>
+											</tr>
+											<tr>
+												<th></th>
+												{% for spmsq in spmsqs %}
+													<td><br></td>
+												{% endfor %}
+											</tr>
+											<tr>
+												<th>Operatore</th>
+												{% for spmsq in spmsqs %}
+													<td>{{ spmsq.operatore.name }}
+														{{spmsq.operatore.surname}}</td>
+												{% endfor %}
+											</tr>
+										</tbody>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="visualizzazione-mobile">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+									<tr>
+										<th>Nome Progetto</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{spmsq.schedaPai.nomeProgetto}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Data di valutazione</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td data-title='Data Valutazione'>{{spmsq.dataValutazione ? spmsq.dataValutazione|date('d/m/Y') : ''}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Che giorno è oggi?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.giornoOggi == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Che giorno è della settimana?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.giornoSettimana == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Come si chiama questo posto?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.posto == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Qual è il suo indirizzo?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.indirizzo == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Quanti anni ha?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.anni == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Quando è nato?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.dataNascita == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Chi è il presidente della Repubblica?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.presidenteAttuale == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Che era il Presidente precedente?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.presidentePrecedente == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Qual è il cognome da ragazza di  sua madre?</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.cognomeMadre == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Sottragga da 20 tre e poi ancora fino in fondo</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											{% if spmsq.nonSomministrabilePerPatologia == true %}
+												<td>
+													<i class="bi bi-dash-circle-fill" style="color:grey"></i>
+												</td>
+											{% else %}
+												{% if spmsq.sottrazione == false %}
+													<td>
+														<i class="bi bi-check-circle-fill" style="color:green"></i>
+													</td>
+												{% else %}
+													<td>
+														<i class="bi bi-x-circle-fill" style="color:red"></i>
+													</td>
+												{% endif %}
+											{% endif %}
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Totale errori</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+
+											<th data-title='Totale errori'>
+												{% if spmsq.nonSomministrabilePerPatologia == true %}
+													/
+												{% else %}
+													{{spmsq.totale}}
+												{% endif %}
+											</th>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Non somministrabile per patologia</th>
+										<td></td>
+
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th data-title='Non somministrabile per patologia'>
+												{% if spmsq.nonSomministrabilePerPatologia == true %}
+													<i class="bi bi-check-circle-fill" style="color:green"></i>
+												{% else %}
+													/
+												{% endif %}
+											</th>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Operatore</th>
+										<td></td>
+									</tr>
+									{% for spmsq in spmsqs %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{spmsq.schedaPai.dataInizio ? spmsq.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{spmsq.schedaPai.dataFine ? spmsq.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th>{{ spmsq.operatore.name }}
+												{{spmsq.operatore.surname}}
+												<br>
+											</th>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<br>

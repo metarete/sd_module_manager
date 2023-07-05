@@ -1,0 +1,362 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+
+{% if barthels is empty %}
+Nessuna Barthel disponibile
+{% else %}
+<div class="visualizzazione-desktop">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+								
+							</thead>
+							<tbody>
+                                <tr>
+                                    <th style="width: 300px;">Data inizio/fine</th>
+                                    {% for barthel in barthels %}
+                                        <th>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+                                    {% endfor %}
+									
+								</tr>
+								<tr>
+									
+                                    <th style="width: 300px;">Nome Progetto</th>
+                                    {% for barthel in barthels %}
+                                        <td>{{barthel.schedaPai.nomeProgetto}}</td>
+                                    {% endfor %}
+									
+								</tr>
+                                <tr>
+									<th style="width: 300px;">Data di valutazione</th>
+									{% for barthel in barthels %}
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th style="width: 300px;">Alimentazione</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.alimentazione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Bagno Doccia</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.bagnoDoccia}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Igiene Personale</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.igienePersonale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Abbigliamento</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.abbigliamento}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Continenza Intestinale</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.continenzaIntestinale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Continenza Urinaria</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.continenzaUrinaria}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Toilet</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.toilet}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Totale Valutazione Funzionale</th>
+									{% for barthel in barthels %}
+										<td>
+											<strong>{{ barthel.totaleValutazioneFunzionale}}</td>
+										{% endfor %}
+									</tr>
+								</tr>
+								<tr>
+									<th>Trasferimento Letto Sedia</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.trasferimentoLettoSedia}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Scale</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.scale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Deambulazione</th>
+									{% for barthel in barthels %}
+										{% if barthel.deambulazioneValida != 0 %}
+											<td>{{ barthel.deambulazioneValida}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Uso carrozzina</th>
+									{% for barthel in barthels %}
+										{% if barthel.deambulazioneValida == 0 %}
+											<td>{{ barthel.usoCarrozzina}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Totale</th>
+									{% for barthel in barthels %}
+										<td>
+											<strong>{{ barthel.totale}}/100</td>
+										{% endfor %}
+									</tr>
+								</tr>
+								<tr>
+									<th></th>
+									{% for barthel in barthels %}
+										<td><br></td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Operatore</th>
+									{% for barthel in barthels %}
+										<td>{{ barthel.operatore.name }}
+											{{barthel.operatore.surname}}</td>
+									{% endfor %}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="visualizzazione-mobile">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+							</thead>
+							<tbody>
+                                <tr>
+									<th>Nome Progetto</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{barthel.schedaPai.nomeProgetto}}</td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Data di valutazione</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{barthel.dataValutazione ? barthel.dataValutazione|date('d/m/Y') : ''}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Alimentazione</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.alimentazione}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Bagno Doccia</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.bagnoDoccia}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Igiene Personale</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.igienePersonale}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Abbigliamento</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.abbigliamento}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Continenza Intestinale</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.continenzaIntestinale}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Continenza Urinaria</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.continenzaUrinaria}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Toilet</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.toilet}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Totale Valutazione Funzionale</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<th>{{ barthel.totaleValutazioneFunzionale}}</th>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Trasferimento Letto Sedia</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.trasferimentoLettoSedia}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Scale</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ barthel.scale}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Deambulazione</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if barthel.deambulazioneValida != 0 %}
+											<td>{{ barthel.deambulazioneValida}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+										
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Uso carrozzina</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										{% if barthel.deambulazioneValida == 0 %}
+											<td>{{ barthel.usoCarrozzina}}</td>
+										{% else %}
+											<td>/</td>
+										{% endif %}
+										
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Totale</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<th>{{ barthel.totale}}/100</th>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Operatore</th>
+									<td></td>
+								</tr>
+								{% for barthel in barthels %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{barthel.schedaPai.dataInizio ? barthel.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{barthel.schedaPai.dataFine ? barthel.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<th>{{ barthel.operatore.name }}
+											{{barthel.operatore.surname}}
+											<br>
+										</th>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<br>

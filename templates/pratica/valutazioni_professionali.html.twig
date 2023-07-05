@@ -1,0 +1,294 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+
+{% if valutazioniProfessionali is empty %}
+Nessuna Valutazione Professionale
+{% else %}
+<div class="visualizzazione-desktop">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+                            
+                            <tbody>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Data inizio/fine</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<th>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+										{% endfor %}
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<th style="width: 300px;">Nome Progetto</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{{valutazioneProfessionale.schedaPai.nomeProgetto}}</td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Operatore</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{{valutazioneProfessionale.operatore.name}} {{valutazioneProfessionale.operatore.surname}}</td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Tipo Operatore</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{{valutazioneProfessionale.tipoOperatore}}</td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Data di valutazione</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{{ valutazioneProfessionale.dataValutazione ? valutazioneProfessionale.dataValutazione|date('d/m/Y') : '' }}</td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Diagnosi Professionale</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{% if valutazioneProfessionale.diagnosi is empty %}
+												Nessuno
+											{% else %}
+												{% for i in valutazioneProfessionale.diagnosi %}
+													<li>{{ i.descrizione }}</li>
+												{% endfor %}
+											{% endif %}
+                                            </td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Obbiettivi da raggiungere</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{% if valutazioneProfessionale.obiettivi is empty %}
+												Nessuno
+											{% else %}
+												{% for i in valutazioneProfessionale.obiettivi %}
+													<li>{{ i.descrizione }}</li>
+												{% endfor %}
+											{% endif %}
+                                            </td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Tipo</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{% if valutazioneProfessionale.tipiAdiwebs is empty %}
+												Nessuno
+											{% else %}
+												{% for i in valutazioneProfessionale.tipiAdiwebs %}
+													<li>{{ i.nome }}</li>
+												{% endfor %}
+											{% endif %}
+                                            </td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Frequenza</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{% if  valutazioneProfessionale.frequenza is empty %}
+												Nessuno
+											{% else %}
+												{{ valutazioneProfessionale.frequenza }}
+											{% endif %}
+                                            </td>
+										{% endfor %}
+									</th>
+								</tr>
+                                <tr>
+									<th>
+										<th style="width: 300px;">Osservazioni</th>
+										{% for valutazioneProfessionale in valutazioniProfessionali %}
+											<td>{% if  valutazioneProfessionale.osservazioni is empty %}
+												Nessuno
+											{% else %}
+												{{ valutazioneProfessionale.osservazioni }}
+											{% endif %}
+                                            </td>
+										{% endfor %}
+									</th>
+								</tr>
+                            </tbody>
+                            
+                        </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="visualizzazione-mobile">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead></thead>
+                            <tbody>
+                                <tr>
+									<th>Nome Progetto</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{valutazioneProfessionale.schedaPai.nomeProgetto}}</td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Operatore</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{valutazioneProfessionale.operatore.name}} {{valutazioneProfessionale.operatore.surname}}</td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Tipo Operatore</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{valutazioneProfessionale.tipoOperatore}}</td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Data di valutazione</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ valutazioneProfessionale.dataValutazione ? valutazioneProfessionale.dataValutazione|date('d/m/Y') : '' }}</td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Diagnosi Professionale</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{% if valutazioneProfessionale.diagnosi is empty %}
+												Nessuno
+											{% else %}
+												{% for i in valutazioneProfessionale.diagnosi %}
+													<li>{{ i.descrizione }}</li>
+												{% endfor %}
+											{% endif %}
+                                        </td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Obbiettivi da raggiungere</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{% if valutazioneProfessionale.obiettivi is empty %}
+												Nessuno
+											{% else %}
+												{% for i in valutazioneProfessionale.obiettivi %}
+													<li>{{ i.descrizione }}</li>
+												{% endfor %}
+											{% endif %}
+                                        </td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Tipo</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{% if valutazioneProfessionale.tipiAdiwebs is empty %}
+												Nessuno
+											{% else %}
+												{% for i in valutazioneProfessionale.tipiAdiwebs %}
+													<li>{{ i.nome }}</li>
+												{% endfor %}
+											{% endif %}
+                                        </td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Frequenza</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{% if valutazioneProfessionale.frequenza is empty %}
+												Nessuno
+											{% else %}
+												<li>{{ valutazioneProfessionale.frequenza }}</li>
+											{% endif %}
+                                        </td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Osservazioni</th>
+									<td></td>
+								</tr>
+								{% for valutazioneProfessionale in valutazioniProfessionali %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{valutazioneProfessionale.schedaPai.dataInizio ? valutazioneProfessionale.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{valutazioneProfessionale.schedaPai.dataFine ? valutazioneProfessionale.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{% if valutazioneProfessionale.osservazioni is empty %}
+												Nessuno
+											{% else %}
+												<li>{{ valutazioneProfessionale.osservazioni }}</li>
+											{% endif %}
+                                        </td>
+									</tr>
+								{% endfor %}
+                            </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<br>

@@ -1,11 +1,66 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Pratica{% endblock %}
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		
+		@media screen and(min-width: 1200px) {
+			tr {
+				width: 30%;
+			}
+			td {
+				width: 70%;
+			}
+		}
+        
+	</style>
+{% endblock %}
 
 {% block body %}
-    <h1>Pratica</h1>
+    <h1>Pratica numero {{pratica.codice}}</h1>
 
-    {% for schedaPai in pratica.schedaPAIs %}
-        
-    {% endfor %}
+    <h3>Informazioni Schede PAI associate</h3>
+    {{ include('pratica/campi_schede_pai.html.twig') }}
+    <br>
+    <h3>Valutazioni Generali</h3>
+    {{ include('pratica/valutazioni_generali.html.twig') }}
+    <br>
+    <h3>Valutazioni Professionali</h3>
+    {{ include('pratica/valutazioni_professionali.html.twig') }}
+    <br>
+    <h3>Pareri del medico</h3>
+    {{ include('pratica/pareri_medico.html.twig') }}
+    <br>
+    <h3>Scale Barthel</h3>
+    {{ include('pratica/barthel.html.twig') }}
+    <br>
+    <h3>Scale Braden</h3>
+    {{ include('pratica/braden.html.twig') }}
+    <br>
+    <h3>Scale SPMSQ</h3>
+    {{ include('pratica/spmsq.html.twig') }}
+    <br>
+    <h3>Scale Tinetti</h3>
+    {{ include('pratica/tinetti.html.twig') }}
+    <br>
+    <h3>Scale VAS</h3>
+    {{ include('pratica/vas.html.twig') }}
+    <br>
+    <h3>Scale Lesioni</h3>
+    {{ include('pratica/lesioni.html.twig') }}
+    <br>
+    <h3>Scale Painad</h3>
+    {{ include('pratica/painad.html.twig') }}
+    <br>
+    <h3>Scale CDR</h3>
+    {{ include('pratica/cdr.html.twig') }}
+    <br>
+    <div class="pb-2 mb-4"></div>
+    <a type="button" class="btn btn-secondary" onclick="history.back()">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewbox="0 0 16 16">
+			<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+		</svg>
+		Torna indietro</a>
+	<div class="pb-2 mb-4"></div>
 {% endblock %}

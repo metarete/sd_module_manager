@@ -1,0 +1,229 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+{% if vass is empty %}
+	Nessuna VAS disponibile
+{% else %}
+	<div class="visualizzazione-desktop">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+
+								<thead></thead>
+								<tbody>
+									<tr>
+										<th style="width: 300px;">Data inizio/fine</th>
+										{% for vas in vass %}
+											<th>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+										{% endfor %}
+
+									</tr>
+									<tr>
+
+										<th style="width: 300px;">Nome Progetto</th>
+										{% for vas in vass %}
+											<td>{{vas.schedaPai.nomeProgetto}}</td>
+										{% endfor %}
+
+									</tr>
+									<tr>
+										<th style="width: 300px;">Data di valutazione</th>
+										{% for vas in vass %}
+											<td data-title='Data Valutazione'>{{vas.data ? vas.data|date('d/m/Y') : ''}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th style="width: 300px;">Rilevazione di Base 2 volte</th>
+										{% for vas in vass %}
+											<td>{{ vas.base2}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Rilevazione al bisogno del PZ</th>
+										{% for vas in vass %}
+											<td>{{ vas.pz}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Esito rilevazione post trattamento</th>
+										{% for vas in vass %}
+											<td>{{ vas.esito}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Farmaci</th>
+										{% for vas in vass %}
+											<td>{{ vas.farmaci ? 'Si' : 'No'}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Altro</th>
+										{% for vas in vass %}
+											<td>{{ vas.altro ? 'Si' : 'No'}}</td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th></th>
+										{% for vas in vass %}
+											<td><br></td>
+										{% endfor %}
+									</tr>
+									<tr>
+										<th>Operatore</th>
+										{% for vas in vass %}
+											<td>{{ vas.operatore.name }}
+												{{vas.operatore.surname}}</td>
+										{% endfor %}
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="visualizzazione-mobile">
+		<div class="container-fluid text-center">
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+								<thead class="cf"></thead>
+								<thead></thead>
+								<tbody>
+                                    <tr>
+										<th>Nome Progetto</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{vas.schedaPai.nomeProgetto}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Data di valutazione</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td data-title='Data Valutazione'>{{vas.data ? vas.data|date('d/m/Y') : ''}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Rilevazione di Base 2 volte</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{vas.base2}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Rilevazione al bisogno del PZ</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{vas.pz}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Esito rilevazione post trattamento</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{vas.esito}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Farmaci</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{vas.farmaci ? 'Si' : 'No'}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Altro</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<td>{{vas.altro ? 'Si' : 'No'}}</td>
+										</tr>
+									{% endfor %}
+									<tr>
+										<th>Operatore</th>
+										<td></td>
+									</tr>
+									{% for vas in vass %}
+										<tr>
+											<td data-title='Data inizio/fine'>{{vas.schedaPai.dataInizio ? vas.schedaPai.dataInizio|date('d/m/Y') : ''}}
+												--
+												{{vas.schedaPai.dataFine ? vas.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+											<th>{{ vas.operatore.name }}
+												{{vas.operatore.surname}}
+												<br>
+												
+											</th>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+<br>

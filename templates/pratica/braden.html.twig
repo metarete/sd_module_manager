@@ -1,0 +1,291 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		body {
+			margin: 0;
+		}
+		.card {
+			padding: 0;
+			text-align: left;
+		}
+		.card-text {
+			border-bottom-style: solid;
+		}
+		.card-title {
+			border-bottom-style: solid;
+			padding-bottom: 8px
+		}
+	</style>
+{% endblock %}
+
+{% if bradens is empty %}
+Nessuna Braden disponibile
+{% else %}
+<div class="visualizzazione-desktop">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+								
+							</thead>
+							<tbody>
+                                <tr>
+                                    <th style="width: 300px;">Data inizio/fine</th>
+                                    {% for braden in bradens %}
+                                        <th>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</th>
+                                    {% endfor %}
+									
+								</tr>
+								<tr>
+									
+                                    <th style="width: 300px;">Nome Progetto</th>
+                                    {% for braden in bradens %}
+                                        <td>{{braden.schedaPai.nomeProgetto}}</td>
+                                    {% endfor %}
+									
+								</tr>
+                                <tr>
+									<th style="width: 300px;">Data di valutazione</th>
+									{% for braden in bradens %}
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th style="width: 300px;">Percezione Sensoriale</th>
+									{% for braden in bradens %}
+										<td>{{ braden.percezioneSensoriale}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Umidità</th>
+									{% for braden in bradens %}
+										<td>{{ braden.umidita}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Attività</th>
+									{% for braden in bradens %}
+										<td>{{ braden.attivita}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Mobilità</th>
+									{% for braden in bradens %}
+										<td>{{ braden.mobilita}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Nutrizione</th>
+									{% for braden in bradens %}
+										<td>{{ braden.nutrizione}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Frizione Scivolamento</th>
+									{% for braden in bradens %}
+										<td>{{ braden.frizioneScivolamento}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Presenza Presidi Antidecubito</th>
+									{% for braden in bradens %}
+										<td>{{ braden.presenzaPresidiAntidecubito}}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Presidi Antidecubito</th>
+									{% for braden in bradens %}
+										<td>{% if braden.presidiAntidecubito is empty %}
+										Nessuno
+										{% else %}
+											{% for i in braden.presidiAntidecubito %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Totale</th>
+									{% for braden in bradens %}
+										<td>
+											<strong>{{ braden.totale}}</td>
+										{% endfor %}
+									</tr>
+								</tr>
+								<tr>
+									<th></th>
+									{% for braden in bradens %}
+										<td><br></td>
+									{% endfor %}
+								</tr>
+								<tr>
+									<th>Operatore</th>
+									{% for braden in bradens %}
+										<td>{{ braden.operatore.name }}
+											{{braden.operatore.surname}}</td>
+									{% endfor %}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="visualizzazione-mobile">
+	<div class="container-fluid text-center">
+		<div class="row">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<table id="tabella-index-scale-scheda-pai" class="col-sm-12  table-striped table-condensed cf">
+							<thead class="cf"></thead>
+							<thead>
+							</thead>
+							<tbody>
+                                <tr>
+									<th>Nome Progetto</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{braden.schedaPai.nomeProgetto}}</td>
+									</tr>
+								{% endfor %}
+                                <tr>
+									<th>Data di valutazione</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td data-title='Data Valutazione'>{{braden.dataValutazione ? braden.dataValutazione|date('d/m/Y') : ''}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Percezione Sensoriale</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.percezioneSensoriale}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Umidità</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.umidita}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Attività</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.attivita}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Mobilità</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.mobilita}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Nutrizione</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.nutrizione}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Frizione e Scivolamento</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.frizioneScivolamento}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Presenza Presidi Antidecubito</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{{ braden.presenzaPresidiAntidecubito}}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Presidi Antidecubito</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+										<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<td>{% if braden.presidiAntidecubito is empty %}
+										Nessuno
+										{% else %}
+											{% for i in braden.presidiAntidecubito %}
+											<li>{{ i.nome }}</li>
+											{% endfor %}
+										{% endif %}</td>
+										</tr>
+								{% endfor %}
+								
+								<tr>
+									<th>Totale</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<th>{{ braden.totale}}</th>
+									</tr>
+								{% endfor %}
+								<tr>
+									<th>Operatore</th>
+									<td></td>
+								</tr>
+								{% for braden in bradens %}
+									<tr>
+										<td data-title='Data inizio/fine'>{{braden.schedaPai.dataInizio ? braden.schedaPai.dataInizio|date('d/m/Y') : ''}} -- {{braden.schedaPai.dataFine ? braden.schedaPai.dataFine|date('d/m/Y') : ''}}</td>
+										<th>{{ braden.operatore.name }}
+											{{braden.operatore.surname}}
+											<br>
+										</th>
+									</tr>
+                                {% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<br>
