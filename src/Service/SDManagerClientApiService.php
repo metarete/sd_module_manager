@@ -203,7 +203,7 @@ class SDManagerClientApiService
         //faccio passare i progetti scaricati uno ad uno
         for ($i = 0; $i < count($progetti); $i++) {
             $idProgetto = $progetti[$i]['id_progetto'];
-            
+
             //se il progetto ha la scheda pai sarà da creare o da modificare
             if ($progetti[$i]['scheda_pai'] == 1) {
                 $dataInizio = DateTime::createfromformat('d-m-Y', $progetti[$i]['data_inizio']);
@@ -213,29 +213,33 @@ class SDManagerClientApiService
                 $statoSDManager = $progetti[$i]['stato_progetto'];
                 $assistito = $assistitiRepository->findOneById($idAssistito);
                 //se il progetto è adiweb mi servono pratica e protocollo
-                if($progetti[$i]['tipologia'] == 'ADIWEB'){
-                    //cerco la pratica tra quelle che ho gia
-                    $pratica = $praticaRepository->findOneBy(["codice" => $progetti[$i]['adiweb_pratica']]);
-                    //se non c'è la creo
-                    if($pratica == null){
-                        $adiwebPratica = new Pratica;
-                        $adiwebPratica->setCodice($progetti[$i]['adiweb_pratica']);
-                        $praticaRepository->add($adiwebPratica, true);
+                if ($progetti[$i]['tipologia'] == 'ADIWEB') {
+                    //se non è stato inserito il numero di pratica su SD manager
+                    if ($progetti[$i]['adiweb_pratica'] == null) {
+                        $adiwebPratica = null;
+                    } else {
+                        //cerco la pratica tra quelle che ho gia
+                        $pratica = $praticaRepository->findOneBy(["codice" => $progetti[$i]['adiweb_pratica']]);
+                        //se non c'è la creo
+                        if ($pratica == null) {
+                            $adiwebPratica = new Pratica;
+                            $adiwebPratica->setCodice($progetti[$i]['adiweb_pratica']);
+                            $praticaRepository->add($adiwebPratica, true);
+                        } else {
+                            $adiwebPratica = $pratica;
+                        }
                     }
-                    else{
-                        $adiwebPratica = $pratica;
-                    }
-                    
+
+
                     $adiwebProtocollo = $progetti[$i]['adiweb_protocollo'];
-                }
-                else{
+                } else {
                     $adiwebPratica = null;
                     $adiwebProtocollo = null;
                 }
-                
+
                 //se non c'è già lo creo da zero
                 if ($schedaPAIRepository->findBy(['idProgetto' => $idProgetto]) == null) {
-                    if($progetti[$i]['stato_progetto'] == 'ATTIVO'){
+                    if ($progetti[$i]['stato_progetto'] == 'ATTIVO') {
                         $schedaPai = new SchedaPAI;
                         $schedaPai->setDataInizio($dataInizio);
                         $schedaPai->setDataFine($dataFine);

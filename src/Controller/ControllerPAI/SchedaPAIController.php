@@ -146,7 +146,7 @@ class SchedaPAIController extends AbstractController
                     $schedaPais = $schedaPAIRepository->findBy(['currentPlace' => $session->get('filtro_stato')], array('id' => 'DESC'), $schedePerPagina, $offset);
                 else{
                     $schedaPais1 = $schedaPAIRepository->findSchedePaiConOperatore($session->get('filtro_operatore'));
-                    $schedaPais2 = $schedaPAIRepository->findBy(['currentPlace' => $session->get('filtro_operatore')], array('id' => 'DESC'));
+                    $schedaPais2 = $schedaPAIRepository->findBy(['currentPlace' => $session->get('filtro_stato')], array('id' => 'DESC'));
                     $schedaPais3 = array_intersect($schedaPais1, $schedaPais2);
                     usort($schedaPais3, fn($a, $b) => $a->getId()-$b->getId());
                     $schedaPais3 = array_reverse($schedaPais3);
@@ -160,8 +160,9 @@ class SchedaPAIController extends AbstractController
             }
         } else {
             if ($session->get('filtro_stato') == null || $session->get('filtro_stato') == "") {
-                if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti')
+                if ($session->get('filtro_operatore') == '' || $session->get('filtro_operatore') == null || $session->get('filtro_operatore') == 'tutti'){
                     $schedaPais = $schedaPAIRepository->findBy(['adiwebPratica' => $session->get('filtro_pratica')], array('id' => 'DESC'), $schedePerPagina, $offset);
+                }
                 else{
                     $schedaPais1 = $schedaPAIRepository->findSchedePaiConOperatore($session->get('filtro_operatore'));
                     $schedaPais2 = $schedaPAIRepository->findBy(['adiwebPratica' => $session->get('filtro_pratica')], array('id' => 'DESC'));
@@ -196,7 +197,7 @@ class SchedaPAIController extends AbstractController
 
 
         //calcolo pagine per paginatore
-        $totaleSchede = $schedaPAIRepository->contaSchedePai($roles[0], $idUser, $session->get('filtro_stato'));
+        $totaleSchede = $schedaPAIRepository->contaSchedePai($session->get('filtro_operatore'), $session->get('filtro_stato'), $session->get('filtro_pratica'));
         $pagineTotali = ceil($totaleSchede / $schedePerPagina);
 
         if ($pagineTotali == 0)

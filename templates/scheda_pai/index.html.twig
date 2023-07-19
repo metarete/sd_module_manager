@@ -224,6 +224,9 @@
                             <li style={{filtroDropdownScadenzario.filtroChiudi(scheda_pai, user)}}>
                                 <a class="dropdown-item" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName, 'page': page}) }}"><i class="bi bi-lock"></i> Chiudi</a>
                             </li>
+                            <li style={{filtroDropdownScadenzario.filtroChiudiConRinnovo(scheda_pai, user)}}>
+                                <a class="dropdown-item" href="{{ path('app_scheda_pai_chiusura', {'id': scheda_pai.id, 'pathName': pathName, 'page': page}) }}"><i class="bi bi-lock"></i> Chiudi con rinnovo</a>
+                            </li>
                             <li style={{filtroDropdownScadenzario.filtroRinnova(scheda_pai, user)}}>
                                 <a class="dropdown-item" href="{{ path('app_scheda_pai_rinnova', {'id': scheda_pai.id, 'pathName': pathName, 'page': page}) }}"><i class="bi bi-exclamation-diamond"></i> Rinnova</a>
                             </li>

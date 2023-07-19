@@ -70,7 +70,7 @@ class ScadenzarioController extends AbstractController
         $offset = $schedePerPagina * $page - $schedePerPagina;
 
         //calcolo pagine per paginatore
-        $totaleSchede = $schedaPAIRepository->contaSchedePai($roles[0], $idUser, null);
+        $totaleSchede = $schedaPAIRepository->contaSchedeScadenzario($roles[0], $idUser, null);
         $pagineTotali = ceil($totaleSchede / $schedePerPagina);
 
         if ($pagineTotali == 0)
