@@ -62,7 +62,7 @@
             <select class="d-inline form-select" name='filtro_pratica' onchange="this.form.submit()">
                     <option {% if pratica == 'tutte' %}selected{% endif %} value="tutte">Tutte</option>
                     {% for praticaInLista in listaPratiche %}
-                        <option {% if pratica == praticaInLista.id %}selected{% endif %} value="{{praticaInLista.id}}" > {{praticaInLista}} </option>
+                        <option {% if pratica == praticaInLista.id %}selected{% endif %} value="{{praticaInLista.id}}" > {{praticaInLista}}-{{praticaInLista.schedaPAIs[0].nomeProgetto}}</option>
                     {% endfor %}
             </select>
             </div>
@@ -120,7 +120,7 @@
             <select class="d-inline form-select" name='filtro_pratica' onchange="this.form.submit()">
                     <option {% if pratica == 'tutte' %}selected{% endif %} value="tutte">Tutte</option>
                     {% for praticaInLista in listaPratiche %}
-                        <option {% if pratica == praticaInLista.id %}selected{% endif %} value="{{praticaInLista.id}}" >{{praticaInLista.codice}} </option>
+                        <option {% if pratica == praticaInLista.id %}selected{% endif %} value="{{praticaInLista.id}}" >{{praticaInLista.codice}}-{{praticaInLista.schedaPAIs[0].nomeProgetto}}</option>
                     {% endfor %}
             </select>
             </div>
