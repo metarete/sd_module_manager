@@ -24,6 +24,7 @@ use App\Service\BisogniService;
 use App\Service\AltraTipologiaAssistenzaService;
 use App\Service\ApprovaSchedaService;
 use App\Service\SetterDatiSchedaPaiService;
+use App\Service\SetterSimboloValutazioneService;
 use App\Service\SetterStatoVerificaSchedaPaiService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Twig\FiltroColoriScadenzario;
 use App\Twig\FiltroDropdownScadenzario;
 use App\Twig\FiltroNomiStatiScadenzario;
-
+use App\Twig\FiltroSimboloValutazioneScadenzario;
 
 #[Route('/scheda_pai')]
 class SchedaPAIController extends AbstractController
@@ -45,10 +46,12 @@ class SchedaPAIController extends AbstractController
     private $filtroColoriScadenzario;
     private $filtroNomiStatiScadenzario;
     private $filtroDropdownScadenzario;
+    private $filtroSimboloValutazioneScadenzario;
     private $setterStatoVerificaSchedaPaiService;
     private $setterDatiSchedaPaiService;
+    private $setterSimboloValutazioneService;
 
-    public function __construct(EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, SetterDatiSchedaPaiService $setterDatiSchedaPaiService)
+    public function __construct(EntityManagerInterface $entityManager, SdManagerClientApiService $SdManagerClientApiService, AltraTipologiaAssistenzaService $altraTipologiaAssistenzaService, BisogniService $bisogniService, ApprovaSchedaService $approvaSchedaService, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, FiltroSimboloValutazioneScadenzario $filtroSimboloValutazioneScadenzario , SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, SetterDatiSchedaPaiService $setterDatiSchedaPaiService, SetterSimboloValutazioneService $setterSimboloValutazioneService)
     {
         $this->entityManager = $entityManager;
         $this->SdManagerClientApiService = $SdManagerClientApiService;
@@ -58,8 +61,10 @@ class SchedaPAIController extends AbstractController
         $this->filtroColoriScadenzario = $filtroColoriScadenzario;
         $this->filtroNomiStatiScadenzario = $filtroNomiStatiScadenzario;
         $this->filtroDropdownScadenzario = $filtroDropdownScadenzario;
+        $this->filtroSimboloValutazioneScadenzario = $filtroSimboloValutazioneScadenzario;
         $this->setterStatoVerificaSchedaPaiService = $setterStatoVerificaSchedaPaiService;
         $this->setterDatiSchedaPaiService = $setterDatiSchedaPaiService;
+        $this->setterSimboloValutazioneService = $setterSimboloValutazioneService;
     }
 
 
@@ -226,8 +231,7 @@ class SchedaPAIController extends AbstractController
             $this->addFlash(
                 'Fallimento',
                 'Chiusura Fallita! Per chiudere una scheda è necessario aver compilato tutte le
-                scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale 
-                per operatore coinvolto'
+                scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale'
             );
         } elseif ($alertSincronizzazione == 'chiusuraFallitaPerStato') {
             $this->addFlash(
@@ -266,6 +270,7 @@ class SchedaPAIController extends AbstractController
             'filtroColoriScadenzario' => $this->filtroColoriScadenzario,
             'filtroNomiStatiScadenzario' => $this->filtroNomiStatiScadenzario,
             'filtroDropdownScadenzario' => $this->filtroDropdownScadenzario,
+            'filtroSimboloValutazioneScadenzario' => $this->filtroSimboloValutazioneScadenzario
         ]);
     }
 
@@ -506,12 +511,7 @@ class SchedaPAIController extends AbstractController
         $numeroPainadCorretto = $schedaPAI->getNumeroPainadCorretto();
         $numeroCdrPresenti = $cdrRepository->findByCdrPerScheda($idScheda);
         $numeroCdrCorretto = $schedaPAI->getNumeroCdrCorretto();
-        $numeroOperatoriInf = count($schedaPAI->getidOperatoreSecondarioInf());
-        $numeroOperatoriTdr = count($schedaPAI->getidOperatoreSecondarioTdr());
-        $numeroOperatoriLog = count($schedaPAI->getidOperatoreSecondarioLog());
-        $numeroOperatoriAsa = count($schedaPAI->getidOperatoreSecondarioAsa());
-        $numeroOperatoriOss = count($schedaPAI->getidOperatoreSecondarioOss());
-        $numeroValutazioneProfessionaliMinime = $numeroOperatoriInf + $numeroOperatoriTdr + $numeroOperatoriLog + $numeroOperatoriAsa + $numeroOperatoriOss;
+        $numeroValutazioneProfessionaliMinime = 1;
         $numeroValutazioniProfessionali = count($schedaPAI->getIdValutazioneFiguraProfessionale());
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
 
@@ -612,8 +612,9 @@ class SchedaPAIController extends AbstractController
         $this->denyAccessUnlessGranted('rinnovare', $post);
         $schedaPAI->setCurrentPlace("in_attesa_di_chiusura_con_rinnovo");
         $this->entityManager->flush();
-
-        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
+        
+        return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $page, 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
+        //return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/non_rinnovare_scheda_pai/{id}', name: 'app_scheda_pai_non_rinnovare', methods: ['GET'])]
@@ -626,7 +627,8 @@ class SchedaPAIController extends AbstractController
         //il setter sistema il calcolo del totale scale
         $this->entityManager->flush();
 
-        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $page, 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
+        //return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/torna_al_verifica_scheda_pai/{id}', name: 'app_scheda_pai_torna_al_verifica', methods: ['GET'])]

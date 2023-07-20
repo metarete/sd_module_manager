@@ -69,6 +69,7 @@
 						<th>Data Fine</th>
 						<th>Assistito</th>
 						<th>Stato</th>
+						<th>Valutazione <br> Professionale</th>
 						<th>BAR</th>
                 		<th>BRA</th>
                 		<th>SPMS</th>
@@ -81,6 +82,7 @@
 						
 					</tr>
 					<tr>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -121,6 +123,7 @@
 								<td data-title='Stato'><span class='badge {{filtroNomiStatiScadenzario.filtroBadge(scheda_pai)}}'>
 								{{filtroNomiStatiScadenzario.filtroNomi(scheda_pai)}}
 								</span></td>
+								<td data-title='Valutazione prof'><i class='{{filtroSimboloValutazioneScadenzario.filtroValutazione(scheda_pai)}}' style='{{filtroSimboloValutazioneScadenzario.filtroColoreSimboloValutazione(scheda_pai)}}'></i></td>
                 				<td data-title='BAR' class = {{filtroColoriScadenzario.filtroColoriBarthel(scheda_pai)}}>{% if scheda_pai.abilitaBarthel %} {{scheda_pai.barthelNumberToday}} / {{scheda_pai.numeroBarthelCorretto}} {% else %} 0 / 0 {% endif %}</td>
                 				<td data-title='BRA' class = {{filtroColoriScadenzario.filtroColoriBraden(scheda_pai)}}>{% if scheda_pai.abilitaBraden %} {{scheda_pai.bradenNumberToday}} / {{scheda_pai.numeroBradenCorretto}} {% else %} 0 / 0 {% endif %}</td>
                 				<td data-title='SPMS'class = {{filtroColoriScadenzario.filtroColoriSpmsq(scheda_pai)}}>{% if scheda_pai.abilitaSpmsq %} {{scheda_pai.spmsqNumberToday}} / {{scheda_pai.numeroSpmsqCorretto}} {% else %} 0 / 0 {% endif %}</td>

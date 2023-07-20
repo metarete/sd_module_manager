@@ -7,6 +7,7 @@ use App\Entity\EntityPAI\SchedaPAI;
 use App\Twig\FiltroColoriScadenzario;
 use App\Twig\FiltroDropdownScadenzario;
 use App\Twig\FiltroNomiStatiScadenzario;
+use App\Twig\FiltroSimboloValutazioneScadenzario;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +22,15 @@ class ScadenzarioController extends AbstractController
     private $filtroColoriScadenzario;
     private $filtroNomiStatiScadenzario;
     private $filtroDropdownScadenzario;
+    private $filtroSimboloValutazioneScadenzario;
 
-    public function __construct(EntityManagerInterface $entityManager, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario)
+    public function __construct(EntityManagerInterface $entityManager, FiltroColoriScadenzario $filtroColoriScadenzario, FiltroNomiStatiScadenzario $filtroNomiStatiScadenzario, FiltroDropdownScadenzario $filtroDropdownScadenzario, FiltroSimboloValutazioneScadenzario $filtroSimboloValutazioneScadenzario)
     {
         $this->entityManager = $entityManager;
         $this->filtroColoriScadenzario = $filtroColoriScadenzario;
         $this->filtroNomiStatiScadenzario = $filtroNomiStatiScadenzario;
         $this->filtroDropdownScadenzario = $filtroDropdownScadenzario;
+        $this->filtroSimboloValutazioneScadenzario = $filtroSimboloValutazioneScadenzario;
     }
 
 
@@ -155,6 +158,7 @@ class ScadenzarioController extends AbstractController
             'filtroColoriScadenzario' => $this->filtroColoriScadenzario,
             'filtroNomiStatiScadenzario' => $this->filtroNomiStatiScadenzario,
             'filtroDropdownScadenzario' => $this->filtroDropdownScadenzario,
+            'filtroSimboloValutazioneScadenzario' => $this->filtroSimboloValutazioneScadenzario
         ]);
     }
 }
