@@ -19,18 +19,11 @@ class SetterStatoVerificaSchedaPaiService
     {
         $dataOggi = new DateTime('now');
         $diff = date_diff($dataOggi, $schedaPAI->getDataFine());
-        
 
-        if($diff->days > 0 && $diff->days <= 7){
+        if($diff->days <= 7){
             if($schedaPAI->getCurrentPlace() == 'attiva'){
                 $this->workflow->apply($schedaPAI, 'verifica');
             }         
-        }
-
-        if($schedaPAI->getDataFine()<$dataOggi){
-            if($schedaPAI->getCurrentPlace()== "attiva"){
-                $this->workflow->apply($schedaPAI, 'verifica');
-            }
         }
     }
 }

@@ -53,38 +53,54 @@ Class SetterDatiSchedaPaiService
         $dataInizio = $schedaPAI->getDataInizio();
         $dataFine = $schedaPAI->getDataFine();
         $numeroGiorniTotali = $dataFine->diff($dataInizio)->days;
+
+        //Barthel
         if ($frequenzaBarthel == 0) {
             $numeroBarthelCorretto = 0;
         } else
-            $numeroBarthelCorretto = (int)($numeroGiorniTotali / $frequenzaBarthel);
+            $numeroBarthelCorretto = (int)($numeroGiorniTotali / $frequenzaBarthel) +1;
+
+        //Braden
         if ($frequenzaBraden == 0) {
             $numeroBradenCorretto = 0;
         } else
-            $numeroBradenCorretto = (int)($numeroGiorniTotali / $frequenzaBraden);
+            $numeroBradenCorretto = (int)($numeroGiorniTotali / $frequenzaBraden) +1;
+
+        //SPMSQ
         if ($frequenzaSpmsq == 0) {
             $numeroSpmsqCorretto = 0;
         } else
-            $numeroSpmsqCorretto = (int)($numeroGiorniTotali / $frequenzaSpmsq);
+            $numeroSpmsqCorretto = (int)($numeroGiorniTotali / $frequenzaSpmsq) +1;
+
+        //Tinetti
         if ($frequenzaTinetti == 0) {
             $numeroTinettiCorretto = 0;
         } else
-            $numeroTinettiCorretto = (int)($numeroGiorniTotali / $frequenzaTinetti);
+            $numeroTinettiCorretto = (int)($numeroGiorniTotali / $frequenzaTinetti) +1;
+
+        //VAS
         if ($frequenzaVas == 0) {
             $numeroVasCorretto = 0;
         } else
-            $numeroVasCorretto = (int)($numeroGiorniTotali / $frequenzaVas);
+            $numeroVasCorretto = (int)($numeroGiorniTotali / $frequenzaVas) +1;
+
+        //Lesioni
         if ($frequenzaLesioni == 0) {
             $numeroLesioniCorretto = 0;
         } else
-            $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni);
+            $numeroLesioniCorretto = (int)($numeroGiorniTotali / $frequenzaLesioni) +1;
+
+        //Painad
         if ($frequenzaPainad == 0) {
             $numeroPainadCorretto = 0;
         } else
-            $numeroPainadCorretto = (int)($numeroGiorniTotali / $frequenzaPainad);
+            $numeroPainadCorretto = (int)($numeroGiorniTotali / $frequenzaPainad) +1;
+        
+        //CDR
         if ($frequenzaCdr == 0) {
             $numeroCdrCorretto = 0;
         } else
-            $numeroCdrCorretto = (int)($numeroGiorniTotali / $frequenzaCdr);
+            $numeroCdrCorretto = (int)($numeroGiorniTotali / $frequenzaCdr) +1;
 
         $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
         $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
