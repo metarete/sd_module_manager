@@ -231,7 +231,7 @@ class SchedaPAIController extends AbstractController
             $this->addFlash(
                 'Fallimento',
                 'Chiusura Fallita! Per chiudere una scheda è necessario aver compilato tutte le
-                scale di valutazione necessarie, la chisura servizio e almeno una valutazione professionale'
+                scale di valutazione necessarie, la chiusura servizio e almeno una valutazione professionale'
             );
         } elseif ($alertSincronizzazione == 'chiusuraFallitaPerStato') {
             $this->addFlash(
