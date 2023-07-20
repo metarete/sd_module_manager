@@ -26,5 +26,11 @@ class SetterStatoVerificaSchedaPaiService
                 $this->workflow->apply($schedaPAI, 'verifica');
             }         
         }
+
+        if($schedaPAI->getDataFine()<$dataOggi){
+            if($schedaPAI->getCurrentPlace()== "attiva"){
+                $this->workflow->apply($schedaPAI, 'verifica');
+            }
+        }
     }
 }
