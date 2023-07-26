@@ -116,8 +116,15 @@ class SchedaPAIController extends AbstractController
         }
 
         $listaOperatori = $userRepository->findAll();
-        $listaPratiche = $praticaRepository->findAll();
 
+        $listaPratiche = $praticaRepository->findAll();
+        //elimino le pratiche senza progetti associati
+        for($i=0; $i<count($listaPratiche); $i++){
+            if($listaPratiche[$i]->getSchedaPais()->isEmpty()){
+                array_splice($listaPratiche, $i, 1);
+            }
+        }
+        
         //calcolo tabella
         $schedaPais = null;
 
