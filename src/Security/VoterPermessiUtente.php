@@ -212,12 +212,12 @@ class VoterPermessiUtente extends Voter
 
     private function canNonRinnovare(SchedaPAI $schedaPAI, User $user): bool
     {
-        return $this->checkRuoloPrincipale($schedaPAI, $user);
+        return $this->checkRuoloPrincipaleSecondario($schedaPAI, $user);
     }
 
     private function canRinnovare(SchedaPAI $schedaPAI, User $user): bool
     {
-        return $this->checkRuoloPrincipale($schedaPAI, $user);
+        return $this->checkRuoloPrincipaleSecondario($schedaPAI, $user);
     }
 
     private function canVisualizzaDatiAssistito(SchedaPAI $schedaPAI, User $user): bool
@@ -278,7 +278,7 @@ class VoterPermessiUtente extends Voter
     private function canCreaChiusuraServizio(SchedaPAI $schedaPAI, User $user): bool
     {
         if ($schedaPAI->getCurrentPlace() == "attiva" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura" || $schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura_con_rinnovo" || $schedaPAI->getCurrentPlace() == "verifica"){
-            return $this->checkRuoloPrincipale($schedaPAI, $user);
+            return $this->checkRuoloPrincipaleSecondario($schedaPAI, $user);
         }
         else{
             return false;

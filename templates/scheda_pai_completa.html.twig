@@ -258,13 +258,7 @@
 			</div>
 		</div>
 		<div class="col col-lg-2">
-			<a class="btn btn-primary {% if not chiusura_servizio is empty %} disabled {% endif %}
-							{% if user.roles[0] == 'ROLE_ADMIN' or user.roles[0] == 'ROLE_SUPERADMIN' %}
-								{% else %}
-									{% if user.username != scheda_pai.idOperatorePrincipale.username %}
-										disabled
-									{% endif %}
-								{% endif %}" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
+			<a class="btn btn-primary {% if not chiusura_servizio is empty %} disabled {% endif %}" href="{{ path('app_chiusura_servizio_new', {'id_pai': scheda_pai.id, 'pathName': pathName}) }}" role="button">
 				<i class="bi bi-plus-circle"></i>
 				Nuova</a>
 		</div>

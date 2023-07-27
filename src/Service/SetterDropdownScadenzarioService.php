@@ -94,15 +94,13 @@ class SetterDropdownScadenzarioService
                 $style = ''; 
             }
         } else {
-            if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                if ($schedaPAI->getCurrentPlace() != 'verifica'){
-                    $style = 'display:none';
-                } else {
-                    $style = ''; 
-                }
-            } else{
+            
+            if ($schedaPAI->getCurrentPlace() != 'verifica'){
                 $style = 'display:none';
+            } else {
+                $style = ''; 
             }
+            
         }
         return $style;
     }
@@ -118,14 +116,11 @@ class SetterDropdownScadenzarioService
                 $style = 'display:none';                          
             }
         } else {
-            if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo'){
-                    $style = '';
-                }else {
-                    $style = 'display:none';                          
-                }
-            }else{
-                $style = 'display:none';
+            
+            if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo'){
+                $style = '';
+            }else {
+                $style = 'display:none';                          
             }
         }
         return $style;
@@ -225,14 +220,9 @@ class SetterDropdownScadenzarioService
                 $style = 'display:none';
             }
         }else{
-            if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'){
-                    $style = '';
-                }else{
-                    $style = 'display:none';
-                }
-            }
-            else{
+            if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'){
+                $style = '';
+            }else{
                 $style = 'display:none';
             }
         } 
