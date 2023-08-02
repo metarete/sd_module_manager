@@ -582,6 +582,8 @@ class SchedaPAIController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
         }
 
+        //libera la cache per recuperare dalla findby i nuovi dati
+        $this->entityManager->clear();
         //ricalcolo del verifica dopo gli eventuali cambiamenti di data dei progetti
         $schedaPais = $schedaPAIRepository->findBy([]);
         for ($i = 0; $i < count($schedaPais); $i++) {

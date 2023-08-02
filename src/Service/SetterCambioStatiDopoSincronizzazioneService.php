@@ -18,12 +18,12 @@ class SetterCambioStatiDopoSincronizzazioneService
         $this->entityManager = $entityManager;
     }
 
-    public function settaCambioStati(DateTime $dataInizioNuova, DateTime $dataFineNuova, SchedaPAI $schedaPAI)
+    public function settaCambioStati(DateTime $dataFineNuova, SchedaPAI $schedaPAI)
     {
         //spostamento della data di fine in avanti
         if(($dataFineNuova->format('d-m-Y') > $schedaPAI->getDataFine()->format('d-m-Y'))){
             if($schedaPAI->getCurrentPlace()=='verifica'){
-                $this->workflow->apply($schedaPAI, 'attiva_per_cambio_dati3');
+                $this->workflow->apply($schedaPAI, 'attiva_per_cambio_dati3');                
             }
             elseif($schedaPAI->getCurrentPlace()=='in_attesa_di_chiusura'){
                 $this->workflow->apply($schedaPAI, 'attiva_per_cambio_dati1');

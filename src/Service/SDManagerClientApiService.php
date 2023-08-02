@@ -259,10 +259,10 @@ class SDManagerClientApiService
                     $dataInizio->format('d-m-Y');
                     $dataFine->format('d-m-Y');
 
-                    //check per i cambiamenti di stato in base ai cambio data iniziale e finale
-                    $this->setterCambioStatiDopoSincronizzazioneService->settaCambioStati($dataInizio, $dataFine, $schedaPai);
+                    //check per i cambiamenti di stato in base ai cambio data finale
+                    $this->setterCambioStatiDopoSincronizzazioneService->settaCambioStati($dataFine, $schedaPai);
                     $schedaPAIRepository->updateSchedaByIdprogetto($idProgetto, $assistito, $dataInizio, $dataFine, $nomeProgetto, $statoSDManager, $adiwebPratica, $adiwebProtocollo);
-
+                    
                     $this->numeroProgettiAggiornati++;
                 }
             }
