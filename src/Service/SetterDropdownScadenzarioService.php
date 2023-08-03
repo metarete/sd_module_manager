@@ -191,19 +191,23 @@ class SetterDropdownScadenzarioService
     public function parereMmg(SchedaPAI $schedaPAI, User $user):string
     {
         $style = null;
-
-        if ($schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' ){
+        if($schedaPAI->getIdParereMmg() != null){
             $style = 'display:none';
         }
         else{
-            if(in_array("ROLE_ADMIN", $user->getRoles())){
-                $style = '';
-            }
-            elseif($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                $style = '';
+            if ($schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' ){
+                $style = 'display:none';
             }
             else{
-                $style = 'display:none';
+                if(in_array("ROLE_ADMIN", $user->getRoles())){
+                    $style = '';
+                }
+                elseif($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                    $style = '';
+                }
+                else{
+                    $style = 'display:none';
+                }
             }
         }
         return $style;
@@ -212,20 +216,25 @@ class SetterDropdownScadenzarioService
     public function chiusuraServizio(SchedaPAI $schedaPAI, User $user):string
     {
         $style = null;
+        if($schedaPAI->getIdChiusuraServizio() != null){
+            $style = 'display:none';
+        }
+        else{
+            if (in_array("ROLE_ADMIN", $user->getRoles())) {
+                if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'){
+                    $style = '';
+                }else{
+                    $style = 'display:none';
+                }
+            }else{
+                if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'){
+                    $style = '';
+                }else{
+                    $style = 'display:none';
+                }
+            } 
+        }
 
-        if (in_array("ROLE_ADMIN", $user->getRoles())) {
-            if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'){
-                $style = '';
-            }else{
-                $style = 'display:none';
-            }
-        }else{
-            if ($schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'){
-                $style = '';
-            }else{
-                $style = 'display:none';
-            }
-        } 
         return $style;
     }
 

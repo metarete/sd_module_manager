@@ -521,8 +521,8 @@ class SchedaPAIController extends AbstractController
         $numeroValutazioneProfessionaliMinime = 1;
         $numeroValutazioniProfessionali = count($schedaPAI->getIdValutazioneFiguraProfessionale());
         $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
-
-        if ($numeroBarthelPresenti == $numeroBarthelCorretto && $numeroBradenPresenti == $numeroBradenCorretto && $numeroSpmsqPresenti == $numeroSpmsqCorretto && $numeroTinettiPresenti == $numeroTinettiCorretto && $numeroVasPresenti == $numeroVasCorretto && $numeroLesioniPresenti == $numeroLesioniCorretto && $numeroPainadPresenti == $numeroPainadCorretto && $numeroCdrPresenti == $numeroCdrCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
+        
+        if ($numeroBarthelPresenti >= $numeroBarthelCorretto && $numeroBradenPresenti >= $numeroBradenCorretto && $numeroSpmsqPresenti >= $numeroSpmsqCorretto && $numeroTinettiPresenti >= $numeroTinettiCorretto && $numeroVasPresenti >= $numeroVasCorretto && $numeroLesioniPresenti >= $numeroLesioniCorretto && $numeroPainadPresenti >= $numeroPainadCorretto && $numeroCdrPresenti >= $numeroCdrCorretto && $chiusuraServizio != null && $numeroValutazioniProfessionali >= $numeroValutazioneProfessionaliMinime) {
             if ($schedaPAI->getCurrentPlace() == "in_attesa_di_chiusura") {
                 $schedaPAI->setCurrentPlace('chiusa');
                 $session = $request->getSession();
@@ -622,8 +622,10 @@ class SchedaPAIController extends AbstractController
         $schedaPAI->setCurrentPlace("in_attesa_di_chiusura_con_rinnovo");
         $this->entityManager->flush();
         
-        return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $page, 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
-        //return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
+        if($schedaPAI->getIdChiusuraServizio() == null)
+            return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $page, 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
+        
+        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/non_rinnovare_scheda_pai/{id}', name: 'app_scheda_pai_non_rinnovare', methods: ['GET'])]
@@ -636,8 +638,10 @@ class SchedaPAIController extends AbstractController
         //il setter sistema il calcolo del totale scale
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $page, 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
-        //return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
+        if($schedaPAI->getIdChiusuraServizio() == null)
+            return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $page, 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
+        
+        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/torna_al_verifica_scheda_pai/{id}', name: 'app_scheda_pai_torna_al_verifica', methods: ['GET'])]
