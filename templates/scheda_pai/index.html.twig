@@ -283,6 +283,11 @@
                             <li>
                                 <a class="dropdown-item" href="{{ path('app_scheda_pai_pdf', {'id': scheda_pai.id}) }}" target= "__blank"><i class="bi bi-filetype-pdf"></i> Genera PDF</a>
                             </li>
+                            {% if scheda_pai.assistito.emailFiguraDiRiferimento != null %}
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_scheda_pai_invia_pdf_caregiver', {'id': scheda_pai.id, 'pathName': pathName}) }}"><i class="bi bi-filetype-pdf"></i> Invia PDF al Caregiver</a>
+                            </li>
+                            {% endif %}
                             {% if scheda_pai.adiwebPratica != null %}
                             <li>
                                 <a class="dropdown-item" href="{{path('app_pratica_show',{'id': scheda_pai.adiwebPratica.id, 'pathName': pathName}) }}" ><i class="bi bi-file-earmark-text"></i> Visualizza Pratica</a>

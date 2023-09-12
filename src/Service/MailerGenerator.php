@@ -514,4 +514,25 @@ class MailerGenerator
             }
         }
     }
+
+    public function EmailCaregiver(SchedaPAI $schedaPAI)
+    {
+        $sender = $this->params->get('app.mailer_notification_sender');
+        $dataCreazione = date("d-m-Y");
+        $assistito = $schedaPAI->getAssistito();
+        $nomePdf = "Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione .".pdf";
+
+        $email = (new TemplatedEmail())
+                ->from($sender)
+                ->to($assistito->getEmailFiguraDiRiferimento())
+                ->subject('Scheda PAI')
+                //allegati
+                ->attachFromPath("/tmp/".$nomePdf, 'Scheda-PAI.pdf')
+                ->htmlTemplate("/email_caregiver.html.twig")
+                //parametri per html
+                ->context([
+                    'assistito' => $assistito
+                ]);
+        $this->mailer->send($email);
+    }
 }

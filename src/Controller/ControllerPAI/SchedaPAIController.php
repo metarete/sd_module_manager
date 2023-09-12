@@ -2,8 +2,6 @@
 
 namespace App\Controller\ControllerPAI;
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use App\Entity\User;
 use App\Entity\Paziente;
 use App\Entity\EntityPAI\Vas;
@@ -23,6 +21,8 @@ use App\Service\SDManagerClientApiService;
 use App\Service\BisogniService;
 use App\Service\AltraTipologiaAssistenzaService;
 use App\Service\ApprovaSchedaService;
+use App\Service\CreazionePdfSchedaPaiService;
+use App\Service\MailerGenerator;
 use App\Service\SetterDatiSchedaPaiService;
 use App\Service\SetterStatoVerificaSchedaPaiService;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +33,10 @@ use App\Twig\FiltroColoriScadenzario;
 use App\Twig\FiltroDropdownScadenzario;
 use App\Twig\FiltroNomiStatiScadenzario;
 use App\Twig\FiltroSimboloValutazioneScadenzario;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 #[Route('/scheda_pai')]
 class SchedaPAIController extends AbstractController
@@ -48,6 +52,8 @@ class SchedaPAIController extends AbstractController
     private $filtroSimboloValutazioneScadenzario;
     private $setterStatoVerificaSchedaPaiService;
     private $setterDatiSchedaPaiService;
+    private $creazionePdfSchedaPaiService;
+    private $mailerGenerator;
 
     public function __construct(
         EntityManagerInterface $entityManager, 
@@ -60,7 +66,9 @@ class SchedaPAIController extends AbstractController
         FiltroDropdownScadenzario $filtroDropdownScadenzario, 
         FiltroSimboloValutazioneScadenzario $filtroSimboloValutazioneScadenzario , 
         SetterStatoVerificaSchedaPaiService $setterStatoVerificaSchedaPaiService, 
-        SetterDatiSchedaPaiService $setterDatiSchedaPaiService
+        SetterDatiSchedaPaiService $setterDatiSchedaPaiService,
+        CreazionePdfSchedaPaiService $creazionePdfSchedaPaiService,
+        MailerGenerator $mailerGenerator
         )
     {
         $this->entityManager = $entityManager;
@@ -74,6 +82,8 @@ class SchedaPAIController extends AbstractController
         $this->filtroSimboloValutazioneScadenzario = $filtroSimboloValutazioneScadenzario;
         $this->setterStatoVerificaSchedaPaiService = $setterStatoVerificaSchedaPaiService;
         $this->setterDatiSchedaPaiService = $setterDatiSchedaPaiService;
+        $this->creazionePdfSchedaPaiService = $creazionePdfSchedaPaiService;
+        $this->mailerGenerator = $mailerGenerator;
     }
 
 
@@ -359,65 +369,10 @@ class SchedaPAIController extends AbstractController
     #[Route('/pdf/{id}', name: 'app_scheda_pai_pdf', methods: ['GET'])]
     public function generatePdf(SchedaPAI $schedaPAI)
     {
-        //data creazione pdf
-        $dataCreazione = date("d-m-Y");
-        
-        $assistito = $schedaPAI->getAssistito();
-        
-        // Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-
-        $img = file_get_contents(
-            __DIR__ . "/../../../public/image/Logo_ProgettoAssistenza_450x450.png"
-        );
-        $imgLogoMetarete = file_get_contents(
-            __DIR__ . "/../../../public/image/logo-metarete.png"
-        );
-        $image64 = base64_encode($img);
-        $image64Metarete = base64_encode($imgLogoMetarete);
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('template_pdf.html.twig', [
-            'title' => "Scheda PAI",
-            'scheda_pai' => $schedaPAI,
-            'valutazione_generale' => $schedaPAI->getIdValutazioneGenerale(),
-            'valutazioni_figura_professionale' => $schedaPAI->getIdValutazioneFiguraProfessionale(),
-            'parere_mmg' => $schedaPAI->getIdParereMmg(),
-            'barthels' => $schedaPAI->getIdBarthel(),
-            'bradens' => $schedaPAI->getIdBraden(),
-            'spmsqs' => $schedaPAI->getIdSpmsq(),
-            'tinettis' => $schedaPAI->getIdTinetti(),
-            'vass' => $schedaPAI->getIdVas(),
-            'lesionis' => $schedaPAI->getIdLesioni(),
-            'painads' => $schedaPAI->getIdPainad(),
-            'cdrs' => $schedaPAI->getCdrs(),
-            'chiusura_servizio' => $schedaPAI->getIdChiusuraServizio(),
-            'assistito' => $schedaPAI->getAssistito(),
-            'altra_tipologia_assistenza' => $this->altraTipologiaAssistenzaService->getAltreTipologieAssistenza($schedaPAI->getIdValutazioneGenerale()),
-            'bisogni' => $this->bisogniService->getBisogni($schedaPAI->getIdValutazioneGenerale()),
-            'image64' => $image64,
-            'image64Metarete' => $image64Metarete,
-            'dataCreazione' => $dataCreazione,
-        ]);
-        //$html .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-        $dompdf->addInfo('Title', "Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione);
-
-        // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione . "-" . "pdf", [
-            "Attachment" => false
-        ]);
+        $html = $this->creazionePdfSchedaPaiService->generaHtmlPerPdf($schedaPAI);
+        $this->creazionePdfSchedaPaiService->visualizzaPdf($html, $schedaPAI);
     }
+
     #[Route('/{pathName}/anagrafica_assistito/{id}', name: 'app_scheda_pai_anagrafica_assistito', methods: ['GET'])]
     public function datiAssistito(SchedaPAI $schedaPAI, string $pathName)
     {
@@ -428,6 +383,7 @@ class SchedaPAIController extends AbstractController
             'pathName' => $pathName,
         ]);
     }
+
     #[Route('/{pathName}/chiusura_scheda/{id}', name: 'app_scheda_pai_chiusura', methods: ['GET'])]
     public function chiudiScheda(SchedaPAI $schedaPAI, string $pathName, Request $request): Response
     {
@@ -495,6 +451,7 @@ class SchedaPAIController extends AbstractController
         } else
             return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
     }
+
     #[Route('/sincronizza_progetti', name: 'app_scheda_pai_sincronizza', methods: ['GET'])]
     public function sincronizza(Request $request, SchedaPAIRepository $schedaPAIRepository)
     {
@@ -584,90 +541,22 @@ class SchedaPAIController extends AbstractController
         return $this->redirectToRoute($pathName, ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
     }
 
-    /*#[Route('/{pathName}/invia_pdf_caregiver/{id}', name: 'app_scheda_pai_invia_pdf_caregiver', methods: ['GET'])]
+    #[Route('/{pathName}/invia_pdf_caregiver/{id}', name: 'app_scheda_pai_invia_pdf_caregiver', methods: ['GET'])]
     public function inviaPdfCaregiver(Request $request, SchedaPAI $schedaPAI, string $pathName)
     {
-        $page = $request->query->get('page');
-        $assistito = $schedaPAI->getAssistito();
-
-        //data creazione pdf
         $dataCreazione = date("d-m-Y");
-
-        $valutazioneGenerale = $schedaPAI->getIdValutazioneGenerale();
-        $valutazioniFiguraProfessionale = $schedaPAI->getIdValutazioneFiguraProfessionale();
-        $parereMMG = $schedaPAI->getIdParereMmg();
-        $barthel = $schedaPAI->getIdBarthel();
-        $braden = $schedaPAI->getIdBraden();
-        $spmsq = $schedaPAI->getIdSpmsq();
-        $tinetti = $schedaPAI->getIdTinetti();
-        $vas = $schedaPAI->getIdVas();
-        $lesioni = $schedaPAI->getIdLesioni();
-        $painad = $schedaPAI->getIdPainad();
-        $cdr = $schedaPAI->getCdrs();
-        $chiusuraServizio = $schedaPAI->getIdChiusuraServizio();
         $assistito = $schedaPAI->getAssistito();
-        $variabileTest = 1;
-        $altraTipologiaAssistenza = [];
-        $altraTipologiaAssistenza = $this->altraTipologiaAssistenzaService->getAltreTipologieAssistenza($valutazioneGenerale);
-        $bisogni = [];
-        $bisogni = $this->bisogniService->getBisogni($valutazioneGenerale);
+        $nomePdf = "Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione .".pdf";
+        
+        //creo e salvo il pdf
+        $html = $this->creazionePdfSchedaPaiService->generaHtmlPerPdf($schedaPAI);
+        $this->creazionePdfSchedaPaiService->salvaPdf($schedaPAI, $html);
+        //invio pdf
+        $this->mailerGenerator->EmailCaregiver($schedaPAI);
+        //elimino il pdf
+        $filesystem = new Filesystem();
+        $filesystem->remove("/tmp/" . $nomePdf);
 
-        // Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-
-
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-
-        $img = file_get_contents(
-            __DIR__ . "/../../../public/image/Logo_ProgettoAssistenza_450x450.png"
-        );
-        $imgLogoMetarete = file_get_contents(
-            __DIR__ . "/../../../public/image/logo-metarete.png"
-        );
-        $image64 = base64_encode($img);
-        $image64Metarete = base64_encode($imgLogoMetarete);
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('template_pdf.html.twig', [
-            'title' => "Scheda PAI",
-            'scheda_pai' => $schedaPAI,
-            'valutazione_generale' => $valutazioneGenerale,
-            'valutazioni_figura_professionale' => $valutazioniFiguraProfessionale,
-            'parere_mmg' => $parereMMG,
-            'barthels' => $barthel,
-            'bradens' => $braden,
-            'spmsqs' => $spmsq,
-            'tinettis' => $tinetti,
-            'vass' => $vas,
-            'lesionis' => $lesioni,
-            'painads' => $painad,
-            'cdrs' => $cdr,
-            'chiusura_servizio' => $chiusuraServizio,
-            'variabileTest' => $variabileTest,
-            'assistito' => $assistito,
-            'altra_tipologia_assistenza' => $altraTipologiaAssistenza,
-            'bisogni' => $bisogni,
-            'image64' => $image64,
-            'image64Metarete' => $image64Metarete,
-            'dataCreazione' => $dataCreazione,
-        ]);
-        //$html .= '<link type="text/css" href="/absolute/path/to/pdf.css" rel="stylesheet" />';
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-        $dompdf->addInfo('Title', "Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione);
-
-        // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("Scheda-PAI-di-" . $assistito->getNome() . "-" . $assistito->getCognome() . "-" . $dataCreazione . "-" . "pdf", [
-            "Attachment" => false
-        ]);
-
-        return $this->redirectToRoute($pathName, ['page' => $page], Response::HTTP_SEE_OTHER);
-    }*/
+        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+    }
 }
