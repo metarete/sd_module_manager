@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\EntityPAI\Tinetti;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 Class SetterTotaliTinettiService
 {
     private $entityManager;

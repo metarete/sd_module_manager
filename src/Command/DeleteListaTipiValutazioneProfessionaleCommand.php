@@ -36,9 +36,6 @@ class DeleteListaTipiValutazioneProfessionaleCommand extends Command
         
         $this->tipiAdiwebRepository->deleteAll();
         
-        
-        
-        
         $io->success('Comando completato con successo');
 
         return Command::SUCCESS;

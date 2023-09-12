@@ -9,8 +9,6 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
-
 #[AsCommand(
     name: 'app:scarica-operatori',
     description: 'comando che scarica tramite API gli operatori da SD manager',
@@ -27,11 +25,6 @@ class ScaricaOperatoriCommand extends Command
 
     }
 
-    protected function configure(): void
-    {
-        
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -41,7 +34,6 @@ class ScaricaOperatoriCommand extends Command
         $io->success('Operatori scaricati e aggiornati con successo');
 
         return Command::SUCCESS;
-
 
     }
 }

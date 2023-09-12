@@ -23,8 +23,6 @@ class BachecaController extends AbstractController
     #[Route('/admin/bacheca', name: 'app_bacheca')]
     public function index(): Response
     {
-        $user = $this->getUser();
-
         $operatoriRepository = $this->entityManager->getRepository(User::class);
         $pazientiRepository = $this->entityManager->getRepository(Paziente::class);
         $schedePaiRepository = $this->entityManager->getRepository(SchedaPAI::class);
@@ -40,6 +38,7 @@ class BachecaController extends AbstractController
         $totaleSchede = count($schedePaiRepository->findAll());
         $totaleOperatori = count($operatoriRepository->findAll());
         $totalePazienti = count($pazientiRepository->findAll());
+
         if ($totaleSchede == 0) {
             $percentualeNuove = 0;
             $percentualeApprovate = 0;
@@ -59,9 +58,10 @@ class BachecaController extends AbstractController
             $percentualeChiuse = (int)(($schedeChiuse / $totaleSchede) * 100);
             $percentualeChiuseConRinnovo = (int)(($schedeChiuseConRinnovo / $totaleSchede) * 100);
         }
+        
         return $this->render('bacheca/index.html.twig', [
             'controller_name' => 'BachecaController',
-            'user' => $user,
+            'user' => $this->getUser(),
             'schedeNuove' => $schedeNuove,
             'schedeApprovate' => $schedeApprovate,
             'schedeAttive' => $schedeAttive,

@@ -14,8 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-
-
 #[Route('/admin/user')]
 class UserController extends AbstractController
 {
@@ -50,7 +48,6 @@ class UserController extends AbstractController
     #[Route('/{page}', name: 'app_user_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
     public function index(Request $request, UserRepository $userRepository, ParameterBagInterface $params, int $page = 1): Response
     {
-        $users = null;
         $numeroUsersVisibiliPerPagina = $request->request->get('filtro_numero_users');
         if ($numeroUsersVisibiliPerPagina == null)
             $usersPerPagina = 10;
@@ -72,6 +69,7 @@ class UserController extends AbstractController
 
         if ($pagineTotali == 0)
             $pagineTotali = 1;
+
         return $this->render('user/index.html.twig', [
             'users' => $users,
             'pagina' => $page,
@@ -115,15 +113,13 @@ class UserController extends AbstractController
             
             $passwordNuova = $form->get('plainPassword')->getData();
             
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $passwordNuova
+            );
             
-                $hashedPassword = $passwordHasher->hashPassword(
-                    $user,
-                    $passwordNuova
-                );
-                
-                $user->setPassword($hashedPassword);
-                $userRepository->add($user, true);
-            
+            $user->setPassword($hashedPassword);
+            $userRepository->add($user, true);
             
             return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
         }
@@ -138,7 +134,6 @@ class UserController extends AbstractController
     #[Route('/promuovi_admin/{id}', name: 'app_user_promuovi_admin', methods: ['GET', 'POST'])]
     public function promuoviAdmin(User $user, UserRepository $userRepository): Response
     {
-
         $roles[0] = "ROLE_ADMIN";
         $user->setRoles($roles);
         $userRepository->add($user, true);
@@ -149,7 +144,6 @@ class UserController extends AbstractController
     #[Route('/rendi_user/{id}', name: 'app_user_rendi_user', methods: ['GET', 'POST'])]
     public function rendiUser(User $user, UserRepository $userRepository): Response
     {
-
         $roles[0] = "ROLE_USER";
         $user->setRoles($roles);
         $userRepository->add($user, true);

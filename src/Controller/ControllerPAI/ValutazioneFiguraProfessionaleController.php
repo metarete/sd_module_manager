@@ -23,14 +23,13 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
         $this->managerRegistry = $managerRegistry;
         $this->entityManager = $this->managerRegistry->getManager();
     }
+
     #[Route('/delete/{id}', name: 'app_valutazione_figura_professionale_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale, ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository): Response
     {
-        $post = $valutazioneFiguraProfessionale->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $valutazioneFiguraProfessionale->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
+        if ($request->getMethod() == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $valutazioneFiguraProfessionale->getId(), $request->request->get('_token'))) {
                 $valutazioneFiguraProfessionaleRepository->remove($valutazioneFiguraProfessionale, true);
             }
@@ -42,18 +41,14 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
 
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
-    
 
     #[Route('/{pathName}/new', name: 'app_valutazione_figura_professionale_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
-        $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_valutazione_figura_professionale', $post);
+        $this->denyAccessUnlessGranted('crea_valutazione_figura_professionale', $schedaPai);
 
         $valutazioneFiguraProfessionale = new ValutazioneFiguraProfessionale();
         $form = $this->createForm(ValutazioneFiguraProfessionaleFormType::class, $valutazioneFiguraProfessionale);
@@ -63,17 +58,16 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $valutazioneFiguraProfessionale->setOperatore($user);
+            $valutazioneFiguraProfessionale->setOperatore($this->getUser());
             $schedaPai->addIdValutazioneFiguraProfessionale($valutazioneFiguraProfessionale);
             $valutazioneFiguraProfessionaleRepository = $this->entityManager->getRepository(ValutazioneFiguraProfessionale::class);
             $valutazioneFiguraProfessionaleRepository->add($valutazioneFiguraProfessionale, true);
             $this->entityManager->flush();
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('valutazione_figura_professionale/new.html.twig', [
@@ -83,21 +77,10 @@ class ValutazioneFiguraProfessionaleController extends AbstractController
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_valutazione_figura_professionale_show', methods: ['GET'])]
-    public function show(ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale): Response
-    {
-        $variabileTest = null;
-        return $this->render('valutazione_figura_professionale/show.html.twig', [
-            'valutazione_figura_professionale' => $valutazioneFiguraProfessionale,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_valutazione_figura_professionale_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ValutazioneFiguraProfessionale $valutazioneFiguraProfessionale, ValutazioneFiguraProfessionaleRepository $valutazioneFiguraProfessionaleRepository): Response
     {
-        $post = $valutazioneFiguraProfessionale->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $valutazioneFiguraProfessionale->getSchedaPAI());
 
         $form = $this->createForm(ValutazioneFiguraProfessionaleFormType::class, $valutazioneFiguraProfessionale);
         $form->handleRequest($request);

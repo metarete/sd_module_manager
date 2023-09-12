@@ -25,95 +25,74 @@ class SPMSQController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_s_p_m_s_q_delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, SPMSQ $sPMSQ, SPMSQRepository $sPMSQRepository): Response
+    public function delete(Request $request, SPMSQ $spmsq, SPMSQRepository $spmsqRepository): Response
     {
-        $post = $sPMSQ->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $spmsq->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
-            if ($this->isCsrfTokenValid('delete' . $sPMSQ->getId(), $request->request->get('_token'))) {
-                $sPMSQRepository->remove($sPMSQ, true);
+        if ($request->getMethod() == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $spmsq->getId(), $request->request->get('_token'))) {
+                $spmsqRepository->remove($spmsq, true);
             }
         } else {
-            if ($this->isCsrfTokenValid('delete' . $sPMSQ->getId(), $request->query->get('_token'))) {
-                $sPMSQRepository->remove($sPMSQ, true);
+            if ($this->isCsrfTokenValid('delete' . $spmsq->getId(), $request->query->get('_token'))) {
+                $spmsqRepository->remove($spmsq, true);
             }
         }
 
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    
-
     #[Route('/{pathName}/new', name: 'app_s_p_m_s_q_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
-        $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_spmsq', $post);
+        $this->denyAccessUnlessGranted('crea_spmsq', $schedaPai);
 
-
-        $sPMSQ = new SPMSQ();
-        $form = $this->createForm(SPMSQFormType::class, $sPMSQ);
+        $spmsq = new SPMSQ();
+        $form = $this->createForm(SPMSQFormType::class, $spmsq);
         $form->handleRequest($request);
         
         if (!$schedaPai) {
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $sPMSQ->setOperatore($user);
-            $schedaPai->addIdSpmsq($sPMSQ);
+            $spmsq->setOperatore($this->getUser());
+            $schedaPai->addIdSpmsq($spmsq);
             $spmsqRepository = $this->entityManager->getRepository(SPMSQ::class);
-            $spmsqRepository->add($sPMSQ, true);
+            $spmsqRepository->add($spmsq, true);
             $this->entityManager->flush();
 
-
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('spmsq/new.html.twig', [
-            's_p_m_s_q' => $sPMSQ,
+            's_p_m_s_q' => $spmsq,
             'form' => $form,
             'pathName' => $pathName
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_s_p_m_s_q_show', methods: ['GET'])]
-    public function show(SPMSQ $sPMSQ): Response
-    {
-        $variabileTest = null;
-        return $this->render('spmsq/show.html.twig', [
-            's_p_m_s_q' => $sPMSQ,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_s_p_m_s_q_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, SPMSQ $sPMSQ, SPMSQRepository $sPMSQRepository): Response
+    public function edit(Request $request, SPMSQ $spmsq, SPMSQRepository $spmsqRepository): Response
     {
-        $post = $sPMSQ->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $spmsq->getSchedaPAI());
 
-        $form = $this->createForm(SPMSQFormType::class, $sPMSQ);
+        $form = $this->createForm(SPMSQFormType::class, $spmsq);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $sPMSQRepository->add($sPMSQ, true);
+            $spmsqRepository->add($spmsq, true);
 
             return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('spmsq/edit.html.twig', [
-            's_p_m_s_q' => $sPMSQ,
+            's_p_m_s_q' => $spmsq,
             'form' => $form,
         ]);
     }

@@ -2,7 +2,6 @@
 
 namespace App\Form\FormPAI;
 
-
 use App\Doctrine\DBAL\Type\ISS;
 use App\Doctrine\DBAL\Type\FANF;
 use App\Doctrine\DBAL\Type\PANF;
@@ -17,7 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use App\Form\FormPAI\SearchDiagnosiType;
-
 
 class ValutazioneGeneraleFormType extends AbstractType
 {

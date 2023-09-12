@@ -38,6 +38,7 @@ class SetterCambioStatiDopoSincronizzazioneService
         else{
             //non cambia nulla
         }
+        
         $this->entityManager->flush();
 
     }

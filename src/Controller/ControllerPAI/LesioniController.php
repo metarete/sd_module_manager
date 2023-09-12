@@ -27,11 +27,9 @@ class LesioniController extends AbstractController
     #[Route('/delete/{id}', name: 'app_lesioni_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Lesioni $lesioni, LesioniRepository $lesioniRepository): Response
     {
-        $post = $lesioni->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $lesioni->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
+        if ($request->getMethod() == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $lesioni->getId(), $request->request->get('_token'))) {
                 $lesioniRepository->remove($lesioni, true);
             }
@@ -49,13 +47,10 @@ class LesioniController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_lesioni_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
-        $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_lesioni', $post);
+        $this->denyAccessUnlessGranted('crea_lesioni', $schedaPai);
 
 
         $lesioni = new Lesioni();
@@ -66,17 +61,16 @@ class LesioniController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $lesioni->setOperatore($user);
+            $lesioni->setOperatore($this->getUser());
             $schedaPai->addIdLesioni($lesioni);
             $lesioniRepository = $this->entityManager->getRepository(Lesioni::class);
             $lesioniRepository->add($lesioni, true);
             $this->entityManager->flush();
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('lesioni/new.html.twig', [
@@ -86,21 +80,10 @@ class LesioniController extends AbstractController
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_lesioni_show', methods: ['GET'])]
-    public function show(Lesioni $lesioni): Response
-    {
-        $variabileTest = null;
-        return $this->render('lesioni/show.html.twig', [
-            'lesioni' => $lesioni,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_lesioni_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Lesioni $lesioni, LesioniRepository $lesioniRepository): Response
     {
-        $post = $lesioni->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $lesioni->getSchedaPAI());
 
         $form = $this->createForm(LesioniFormType::class, $lesioni);
         $form->handleRequest($request);

@@ -30,12 +30,12 @@ class CheckBraden implements EventSubscriberInterface
     {
         $o = $args->getObject();
         
-
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
         if (!$o instanceof Braden) {
             return;
         }
+
         $this->setterTotaleBradenService->settaTotale($o);
         
     }
@@ -43,16 +43,14 @@ class CheckBraden implements EventSubscriberInterface
     {
         $o = $args->getObject();
         
-
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
         if (!$o instanceof Braden) {
             return;
         }
+
         $this->setterTotaleBradenService->settaTotale($o);
         
     }
     
-    
-   
 }

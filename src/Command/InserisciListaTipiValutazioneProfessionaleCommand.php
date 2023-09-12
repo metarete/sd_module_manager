@@ -11,7 +11,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
-
 #[AsCommand(
     name: 'app:inserisci-lista-tipi-valutazione-professionale',
     description: 'comando che inserisce nel sistema la lista dei tipi nella scheda valutazione professionale',

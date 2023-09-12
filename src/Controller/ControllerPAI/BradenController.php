@@ -27,11 +27,9 @@ class BradenController extends AbstractController
     #[Route('/delete/{id}', name: 'app_form_pai_braden_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Braden $braden, BradenRepository $bradenRepository): Response
     {
-        $post = $braden->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $braden->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
+        if ($request->getMethod() == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $braden->getId(), $request->request->get('_token'))) {
                 $bradenRepository->remove($braden, true);
             }
@@ -49,13 +47,10 @@ class BradenController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_form_pai_braden_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
         $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPai = $SchedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_braden', $post);
+        $this->denyAccessUnlessGranted('crea_braden', $schedaPai);
 
         $braden = new Braden();
         $form = $this->createForm(BradenFormType::class, $braden);
@@ -65,17 +60,16 @@ class BradenController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $braden->setOperatore($user);
+            $braden->setOperatore($this->getUser());
             $schedaPai->addIdBraden($braden);
             $bradenRepository = $this->entityManager->getRepository(Braden::class);
             $bradenRepository->add($braden, true);
             $this->entityManager->flush();
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('braden/new.html.twig', [
@@ -85,21 +79,10 @@ class BradenController extends AbstractController
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_form_pai_braden_show', methods: ['GET'])]
-    public function show(Braden $braden): Response
-    {
-        $variabileTest = null;
-        return $this->render('braden/show.html.twig', [
-            'braden' => $braden,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_form_pai_braden_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Braden $braden, BradenRepository $bradenRepository): Response
     {
-        $post = $braden->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $braden->getSchedaPAI());
 
         $form = $this->createForm(BradenFormType::class, $braden);
         $form->handleRequest($request);

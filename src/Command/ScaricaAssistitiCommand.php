@@ -9,8 +9,6 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
-
 #[AsCommand(
     name: 'app:scarica-assistiti',
     description: 'comando che scarica tramite API gli assistiti da SD manager',

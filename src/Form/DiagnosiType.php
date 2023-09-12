@@ -14,8 +14,6 @@ class DiagnosiType extends AbstractType
         $builder
             ->add('codice')
             ->add('descrizione')
-            //->add('valutazioneFiguraProfessionale')
-            //->add('valutazioneGenerale')
         ;
     }
 

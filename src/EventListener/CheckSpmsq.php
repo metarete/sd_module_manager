@@ -30,12 +30,12 @@ class CheckSpmsq implements EventSubscriberInterface
     {
         $o = $args->getObject();
         
-
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
         if (!$o instanceof SPMSQ) {
             return;
         }
+
         $this->setterTotaliSpmsqService->settaTotali($o);
         
     }
@@ -43,15 +43,13 @@ class CheckSpmsq implements EventSubscriberInterface
     {
         $o = $args->getObject();
         
-
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
         if (!$o instanceof SPMSQ) {
             return;
         }
+
         $this->setterTotaliSpmsqService->settaTotali($o);
     }
     
-    
-   
 }

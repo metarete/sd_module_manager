@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\EntityPAI\SPMSQ;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 Class SetterTotaliSpmsqService
 {
     private $entityManager;

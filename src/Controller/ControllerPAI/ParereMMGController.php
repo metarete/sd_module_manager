@@ -28,11 +28,9 @@ class ParereMMGController extends AbstractController
     #[Route('/delete/{id}', name: 'app_parere_mmg_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, ParereMMG $parereMMG, ParereMMGRepository $parereMMGRepository): Response
     {
-        $post = $parereMMG->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $parereMMG->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
+        if ($request->getMethod() == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $parereMMG->getId(), $request->request->get('_token'))) {
                 $parereMMGRepository->remove($parereMMG, true);
             }
@@ -45,18 +43,13 @@ class ParereMMGController extends AbstractController
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-   
-
     #[Route('/{pathName}/new', name: 'app_parere_mmg_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
-        $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_parere_mmg', $post);
+        $this->denyAccessUnlessGranted('crea_parere_mmg', $schedaPai);
 
         $parereMMG = new ParereMMG();
         $form = $this->createForm(ParereMMGFormType::class, $parereMMG);
@@ -67,17 +60,16 @@ class ParereMMGController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $parereMMG->setOperatore($user);
+            $parereMMG->setOperatore($this->getUser());
             $schedaPai->setIdParereMmg($parereMMG);
             $parereMMGRepository = $this->entityManager->getRepository(ParereMMG::class);
             $parereMMGRepository->add($parereMMG, true);
             $this->entityManager->flush();
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('parere_mmg/new.html.twig', [
@@ -87,21 +79,10 @@ class ParereMMGController extends AbstractController
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_parere_mmg_show', methods: ['GET'])]
-    public function show(ParereMMG $parereMMG): Response
-    {
-        $variabileTest = null;
-        return $this->render('parere_mmg/show.html.twig', [
-            'parere_mmg' => $parereMMG,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_parere_mmg_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ParereMMG $parereMMG, ParereMMGRepository $parereMMGRepository): Response
     {
-        $post = $parereMMG->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $parereMMG->getSchedaPAI());
 
         $form = $this->createForm(ParereMMGFormType::class, $parereMMG);
         $form->handleRequest($request);

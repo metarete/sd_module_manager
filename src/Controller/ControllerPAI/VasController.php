@@ -25,37 +25,30 @@ class VasController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'app_vas_delete', methods: ['GET', 'POST'])]
-    public function delete(Request $request, Vas $va, VasRepository $vasRepository): Response
+    public function delete(Request $request, Vas $vas, VasRepository $vasRepository): Response
     {
-        $post = $va->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $vas->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
-            if ($this->isCsrfTokenValid('delete' . $va->getId(), $request->request->get('_token'))) {
-                $vasRepository->remove($va, true);
+        if ($request->getMethod() == 'POST') {
+            if ($this->isCsrfTokenValid('delete' . $vas->getId(), $request->request->get('_token'))) {
+                $vasRepository->remove($vas, true);
             }
         } else {
-            if ($this->isCsrfTokenValid('delete' . $va->getId(), $request->query->get('_token'))) {
-                $vasRepository->remove($va, true);
+            if ($this->isCsrfTokenValid('delete' . $vas->getId(), $request->query->get('_token'))) {
+                $vasRepository->remove($vas, true);
             }
         }
 
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
     #[Route('/{pathName}/new', name: 'app_vas_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
-        $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_vas', $post);
-
+        $this->denyAccessUnlessGranted('crea_vas', $schedaPai);
 
         $vas = new Vas();
         $form = $this->createForm(VasFormType::class, $vas);
@@ -65,8 +58,7 @@ class VasController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $vas->setOperatore($user);
+            $vas->setOperatore($this->getUser());
             $schedaPai->addIdVas($vas);
             $vasRepository = $this->entityManager->getRepository(Vas::class);
             $vasRepository->add($vas, true);
@@ -74,9 +66,9 @@ class VasController extends AbstractController
 
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('vas/new.html.twig', [
@@ -86,33 +78,22 @@ class VasController extends AbstractController
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_vas_show', methods: ['GET'])]
-    public function show(Vas $va): Response
-    {
-        $variabileTest = null;
-        return $this->render('vas/show.html.twig', [
-            'va' => $va,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_vas_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Vas $va, VasRepository $vasRepository): Response
+    public function edit(Request $request, Vas $vas, VasRepository $vasRepository): Response
     {
-        $post = $va->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $vas->getSchedaPAI());
 
-        $form = $this->createForm(VasFormType::class, $va);
+        $form = $this->createForm(VasFormType::class, $vas);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $vasRepository->add($va, true);
+            $vasRepository->add($vas, true);
 
             return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('vas/edit.html.twig', [
-            'va' => $va,
+            'va' => $vas,
             'form' => $form,
         ]);
     }

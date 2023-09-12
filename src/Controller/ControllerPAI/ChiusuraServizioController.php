@@ -27,11 +27,9 @@ class ChiusuraServizioController extends AbstractController
     #[Route('/delete/{id}', name: 'app_chiusura_servizio_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, ChiusuraServizio $chiusuraServizio, ChiusuraServizioRepository $chiusuraServizioRepository): Response
     {
-        $post = $chiusuraServizio->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $chiusuraServizio->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
+        if ($request->getMethod() == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $chiusuraServizio->getId(), $request->request->get('_token'))) {
                 $chiusuraServizioRepository->remove($chiusuraServizio, true);
             }
@@ -49,13 +47,10 @@ class ChiusuraServizioController extends AbstractController
     #[Route('/{pathName}/new', name: 'app_chiusura_servizio_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
-        $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_chiusura_servizio', $post);
+        $this->denyAccessUnlessGranted('crea_chiusura_servizio', $schedaPai);
 
         $chiusuraServizio = new ChiusuraServizio();
         $form = $this->createForm(ChiusuraServizioFormType::class, $chiusuraServizio);
@@ -65,17 +60,16 @@ class ChiusuraServizioController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $chiusuraServizio->setOperatore($user);
+            $chiusuraServizio->setOperatore($this->getUser());
             $schedaPai->setIdChiusuraServizio($chiusuraServizio);
             $chiusuraServizioRepository = $this->entityManager->getRepository(ChiusuraServizio::class);
             $chiusuraServizioRepository->add($chiusuraServizio, true);
             $this->entityManager->flush();
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('chiusura_servizio/new.html.twig', [
@@ -85,28 +79,16 @@ class ChiusuraServizioController extends AbstractController
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_chiusura_servizio_show', methods: ['GET'])]
-    public function show(ChiusuraServizio $chiusuraServizio): Response
-    {
-        $variabileTest = null;
-        return $this->render('chiusura_servizio/show.html.twig', [
-            'chiusura_servizio' => $chiusuraServizio,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_chiusura_servizio_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ChiusuraServizio $chiusuraServizio, ChiusuraServizioRepository $chiusuraServizioRepository): Response
     {
-        $post = $chiusuraServizio->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $chiusuraServizio->getSchedaPAI());
 
         $form = $this->createForm(ChiusuraServizioFormType::class, $chiusuraServizio);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $chiusuraServizioRepository->add($chiusuraServizio, true);
-
 
             return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
         }

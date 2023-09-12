@@ -27,11 +27,9 @@ class PainadController extends AbstractController
     #[Route('/delete/{id}', name: 'app_painad_delete', methods: ['GET', 'POST'])]
     public function delete(Request $request, Painad $painad, PainadRepository $painadRepository): Response
     {
-        $post = $painad->getSchedaPAI();
-        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('elimina_scala_valutazione', $painad->getSchedaPAI());
 
-        $metodo = $request->getMethod();
-        if ($metodo == 'POST') {
+        if ($request->getMethod() == 'POST') {
             if ($this->isCsrfTokenValid('delete' . $painad->getId(), $request->request->get('_token'))) {
                 $painadRepository->remove($painad, true);
             }
@@ -44,18 +42,13 @@ class PainadController extends AbstractController
         return $this->redirectToRoute('app_scadenzario_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    
-
     #[Route('/{pathName}/new', name: 'app_painad_new', methods: ['GET', 'POST'])]
     public function new(Request $request, string $pathName): Response
     {
-        $id_pai = $request->query->get('id_pai');
-        $page = $request->query->get('page');
-        $SchedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $SchedaPAIRepository->find($id_pai);
+        $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
+        $schedaPai = $schedaPAIRepository->find($request->query->get('id_pai'));
 
-        $post = $schedaPai;
-        $this->denyAccessUnlessGranted('crea_painad', $post);
+        $this->denyAccessUnlessGranted('crea_painad', $schedaPai);
 
 
         $painad = new Painad();
@@ -66,18 +59,16 @@ class PainadController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', [], Response::HTTP_SEE_OTHER);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
-            $painad->setOperatore($user);
+            $painad->setOperatore($this->getUser());
             $schedaPai->addIdPainad($painad);
             $painadRepository = $this->entityManager->getRepository(Painad::class);
             $painadRepository->add($painad, true);
             $this->entityManager->flush();
 
-
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $page], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('painad/new.html.twig', [
@@ -87,21 +78,10 @@ class PainadController extends AbstractController
         ]);
     }
 
-    /*#[Route('/show/{id}', name: 'app_painad_show', methods: ['GET'])]
-    public function show(Painad $painad): Response
-    {
-        $variabileTest = null;
-        return $this->render('painad/show.html.twig', [
-            'painad' => $painad,
-            'variabileTest' => $variabileTest
-        ]);
-    }*/
-
     #[Route('/{id}/edit', name: 'app_painad_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Painad $painad, PainadRepository $painadRepository): Response
     {
-        $post = $painad->getSchedaPAI();
-        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $post);
+        $this->denyAccessUnlessGranted('modifica_scala_valutazione', $painad->getSchedaPAI());
 
         $form = $this->createForm(PainadFormType::class, $painad);
         $form->handleRequest($request);

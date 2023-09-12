@@ -37,15 +37,10 @@ class ScadenzarioController extends AbstractController
     #[Route('/{page}', name: 'app_scadenzario_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
     public function index(Request $request, int $page = 1): Response
     {
-
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        //assistiti
         $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
-        $assistiti = $assistitiRepository->findAll();
         //controllo login
         $user = $this->getUser();
-
-
 
         //parametri per calcolo tabella
         $roles = $user->getRoles();
@@ -60,7 +55,6 @@ class ScadenzarioController extends AbstractController
                 $session->set('filtro_numero_schede_scadenzario', $request->request->get('filtro_numero_schede_scadenzario'));
             }
         }
-
 
         //calcolo tabella
         $schedaPais = null;
@@ -104,11 +98,9 @@ class ScadenzarioController extends AbstractController
             }
         }
         
-        
         //setto pagina di partenza
         $pathName = 'app_scadenzario_index';
 
-        
         //calcolo valori delle schede per le scadenze delle scale -> nel listener
 
         //alert
@@ -145,15 +137,13 @@ class ScadenzarioController extends AbstractController
         }
         $session->set('alertSincronizzazione', '');
 
-        
-
         return $this->render('scadenzario/index.html.twig', [
             'scheda_pais' => $schedaPais,
             'pagina' => $page,
             'pagine_totali' => $pagineTotali,
             'schede_per_pagina' => $schedePerPagina,
             'user' => $user,
-            'assistiti' => $assistiti,
+            'assistiti' => $assistitiRepository->findAll(),
             'pathName' => $pathName,
             'filtroColoriScadenzario' => $this->filtroColoriScadenzario,
             'filtroNomiStatiScadenzario' => $this->filtroNomiStatiScadenzario,

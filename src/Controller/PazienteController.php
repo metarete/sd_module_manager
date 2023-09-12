@@ -15,7 +15,6 @@ class PazienteController extends AbstractController
     #[Route('/{page}', name: 'app_paziente_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
     public function index(Request $request, PazienteRepository $pazienteRepository, int $page = 1): Response
     {
-        $pazientes = null;
         $numeroPazientiVisibiliPerPagina = $request->request->get('filtro_numero_pazienti');
         if ($numeroPazientiVisibiliPerPagina == null)
             $pazientiPerPagina = 10;
@@ -25,18 +24,18 @@ class PazienteController extends AbstractController
         $offset = $pazientiPerPagina * $page - $pazientiPerPagina;
 
 
-        $pazientes = $pazienteRepository->findBy([], array('id' => 'DESC'), $pazientiPerPagina, $offset);
+        $pazienti = $pazienteRepository->findBy([], array('id' => 'DESC'), $pazientiPerPagina, $offset);
 
-         //calcolo pagine per paginatore
-         $totalePazienti = $pazienteRepository->contaPazienti();
-         $pagineTotali = ceil($totalePazienti / $pazientiPerPagina);
-         
- 
-         if ($pagineTotali == 0)
-             $pagineTotali = 1;
+        //calcolo pagine per paginatore
+        $totalePazienti = $pazienteRepository->contaPazienti();
+        $pagineTotali = ceil($totalePazienti / $pazientiPerPagina);
+        
+
+        if ($pagineTotali == 0)
+            $pagineTotali = 1;
 
         return $this->render('paziente/index.html.twig', [
-            'pazientes' => $pazientes,
+            'pazientes' => $pazienti,
             'pagina' => $page,
             'pagine_totali' => $pagineTotali,
             'pazienti_per_pagina' => $pazientiPerPagina,
@@ -50,6 +49,4 @@ class PazienteController extends AbstractController
             'paziente' => $paziente,
         ]);
     }
-
-    
 }

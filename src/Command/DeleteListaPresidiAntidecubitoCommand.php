@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Repository\PresidiAntidecubitoRepository;
-use App\Entity\PresidiAntidecubito;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -36,9 +35,6 @@ class DeleteListaPresidiAntidecubitoCommand extends Command
         $io = new SymfonyStyle($input, $output);
         
         $this->presidiAntidecubitoRepository->deleteAll();
-        
-        
-        
         
         $io->success('Comando completato con successo');
 

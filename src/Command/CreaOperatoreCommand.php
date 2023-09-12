@@ -5,10 +5,8 @@ namespace App\Command;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
-use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -51,10 +49,7 @@ class CreaOperatoreCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $userRepository = $this->entityManager->getRepository(User::class);
         $user = new User();
-        $nome = $input->getArgument('nome');
-        $cognome = $input->getArgument('cognome');
-        $cf = $input->getArgument('codice fiscale');
-        $password = $input->getArgument('password');
+
         if($input->getArgument('role')== "ROLE_SUPERADMIN"){
             $role[0] = $input->getArgument('role');
             $role[1] = "ROLE_ADMIN";
@@ -62,23 +57,21 @@ class CreaOperatoreCommand extends Command
         else{
             $role[0] = $input->getArgument('role');
         }
-        $email = $input->getArgument('email');
-        $username = $input->getArgument('username');
 
         $hashedPassword = $this->userPasswordHasher->hashPassword(
             $user,
-            $password
+            $input->getArgument('password')
         );
 
-        $user->setName($nome);
-        $user->setSurname($cognome);
-        $user->setCf($cf);
+        $user->setName($input->getArgument('nome'));
+        $user->setSurname($input->getArgument('cognome'));
+        $user->setCf($input->getArgument('codice fiscale'));
         $user->setPassword($hashedPassword);
         $user->setRoles($role);
         $user->setStato(true);
-        $user->setEmail($email);
-        if($username != null){
-            $user->setUsername($username);
+        $user->setEmail($input->getArgument('email'));
+        if($input->getArgument('username') != null){
+            $user->setUsername($input->getArgument('username'));
         }
         
         $userRepository->add($user, true);

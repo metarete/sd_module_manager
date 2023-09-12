@@ -10,7 +10,6 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 #[AsCommand(
     name: 'app:inserisci-lista-presidi-antidecubito',
     description: 'comando che inserisce nel sistema la lista dei presidi antidecubito',

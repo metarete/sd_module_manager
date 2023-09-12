@@ -11,8 +11,6 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
-
 #[AsCommand(
     name: 'app:verifica',
     description: 'comando che controlla se i progetti scadono tra 7 giorni e li setta nello stato verifica',
@@ -43,15 +41,12 @@ class VerificaProgettoCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         
-        
         $schedaPais = $schedaPAIRepository->findBy([]);
         for($i =0; $i<count($schedaPais); $i++){
             $this->setterStatoVerificaSchedaPaiService->settaStatoVerifica($schedaPais[$i]);
         }
         
         $this->entityManager->flush();
-
-
 
         $io->success('Comando completato. Tutte le schede che hanno la scadenza fino a 7 giorni  sono in stato verifica.');
 

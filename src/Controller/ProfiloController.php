@@ -11,31 +11,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/profilo')]
 class ProfiloController extends AbstractController
 {
-
     #[Route('/show', name: 'app_profilo_show', methods: ['GET', 'POST'])]
     public function show(): Response
     {
-        $user = $this->getUser();
-
-        if ($user == null) {
+        if ($this->getUser() == null) {
             return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('Profilo/show.html.twig', [
-            'user' => $user,
+            'user' => $this->getUser(),
         ]);
     }
 
     #[Route('/edit/{id}', name: 'app_profilo_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
-
-
         $form = $this->createForm(ProfiloFormType::class, $user);
         $form->handleRequest($request);
 
@@ -54,43 +48,6 @@ class ProfiloController extends AbstractController
     #[Route('/password/{id}', name: 'app_profilo_password', methods: ['GET', 'POST'])]
     public function editPassword(Request $request, UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository): Response
     {
-
-/*
-        if ($passwordNuova == $confermaPassword && $passwordNuova != null && $confermaPassword != null) {
-            
-            if ($passwordVecchia == null) {
-                return new Response('Valore password vecchia mancante');
-            } else {
-                if ( !$passwordHasher->isPasswordValid($user, $passwordVecchia)) {
-                    return new Response('Password vecchia errata');
-                } else {
-                    //tutto corretto
-                }
-            }
-            
-            $hashedPassword = $passwordHasher->hashPassword(
-                $user,
-                $passwordNuova
-            );
-            
-            $user->setPassword($hashedPassword);
-            $userRepository->add($user, true);
-
-            return $this->redirectToRoute('app_profilo_show', [], Response::HTTP_SEE_OTHER);
-        } else if ($passwordNuova != $confermaPassword && $passwordNuova != null && $confermaPassword != null) {
-            return new Response('Le password non coincidono');
-        }
-        
-
-
-        return $this->renderForm('Profilo/editPassword.html.twig', [
-            'user' => $user,
-
-        ]);
-        */
-
-        
-        
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordProfiloFormType::class, $user);
         $form->handleRequest($request);

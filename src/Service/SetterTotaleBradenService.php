@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\EntityPAI\Braden;
 use Doctrine\ORM\EntityManagerInterface;
 
-
 Class SetterTotaleBradenService
 {
     private $entityManager;

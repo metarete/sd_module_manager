@@ -35,9 +35,9 @@ class CheckSchedePai implements EventSubscriberInterface
         if (!$entity instanceof SchedaPAI) {
             return;
         }
+
         $this->setterDatiSchedePaiService->settaDatiAssistito($entity);
         $this->setterDatiSchedePaiService->settaDatiCompilazioneSchede($entity);
-        
         
     }
 
@@ -50,6 +50,7 @@ class CheckSchedePai implements EventSubscriberInterface
         if (!$entity instanceof SchedaPAI) {
             return;
         }
+
         $this->setterDatiSchedePaiService->settaDatiAssistito($entity);
     }
 
@@ -62,6 +63,7 @@ class CheckSchedePai implements EventSubscriberInterface
         if (!$entity instanceof SchedaPAI) {
             return;
         }
+        
         $this->setterDatiSchedePaiService->settaDatiCompilazioneSchede($entity);
     }
 

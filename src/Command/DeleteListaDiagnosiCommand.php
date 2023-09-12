@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Repository\DiagnosiRepository;
-use App\Entity\Diagnosi;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -36,9 +35,6 @@ class DeleteListaDiagnosiCommand extends Command
         $io = new SymfonyStyle($input, $output);
         
         $this->diagnosiRepository->deleteAll();
-        
-        
-        
         
         $io->success('Comando completato con successo');
 

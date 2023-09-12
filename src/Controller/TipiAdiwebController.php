@@ -17,28 +17,26 @@ class TipiAdiwebController extends AbstractController
     #[Route('/{page}', name: 'app_tipi_adiweb_index',requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
     public function index(Request $request, TipiAdiwebRepository $tipiAdiwebRepository, int $page = 1): Response
     {
-        $tipi_adiwebs = null;
         $numeroTipiVisibiliPerPagina = $request->request->get('filtro_numero_tipi');
         if ($numeroTipiVisibiliPerPagina == null)
             $tipiPerPagina = 10;
         else
-        $tipiPerPagina = $numeroTipiVisibiliPerPagina;
+            $tipiPerPagina = $numeroTipiVisibiliPerPagina;
 
         $offset = $tipiPerPagina * $page - $tipiPerPagina;
 
+        $tipi_adiweb = $tipiAdiwebRepository->findBy([], array('id' => 'DESC'), $tipiPerPagina, $offset);
 
-        $tipi_adiwebs = $tipiAdiwebRepository->findBy([], array('id' => 'DESC'), $tipiPerPagina, $offset);
+        //calcolo pagine per paginatore
+        $totaleTipi = $tipiAdiwebRepository->contaTipi();
+        $pagineTotali = ceil($totaleTipi / $tipiPerPagina);
+        
 
-         //calcolo pagine per paginatore
-         $totaleTipi = $tipiAdiwebRepository->contaTipi();
-         $pagineTotali = ceil($totaleTipi / $tipiPerPagina);
-         
- 
-         if ($pagineTotali == 0)
-             $pagineTotali = 1;
+        if ($pagineTotali == 0)
+            $pagineTotali = 1;
 
         return $this->render('tipi_adiweb/index.html.twig', [
-            'tipi_adiwebs' => $tipi_adiwebs,
+            'tipi_adiwebs' => $tipi_adiweb,
             'pagina' => $page,
             'pagine_totali' => $pagineTotali,
             'tipi_per_pagina' => $tipiPerPagina,

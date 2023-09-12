@@ -80,8 +80,6 @@ class VoterPermessiUtente extends Voter
             return false;
         }
 
-
-
         $schedaPai = $subject;
 
         return match ($attribute) {

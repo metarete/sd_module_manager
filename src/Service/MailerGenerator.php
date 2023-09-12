@@ -41,6 +41,7 @@ class MailerGenerator
         }
         return $testo;
     }
+
     private function creaTestoEmailChiuse($testo, $schede): array
     {
         $url = $this->params->get('app.site_url');
@@ -60,6 +61,7 @@ class MailerGenerator
         }
         return $testo;
     }
+
     private function creaTestoEmailChiuseConRinnovo($testo, $schede): array
     {
         $console = $this->params->get('app.ws_sdmanager_console_id');
@@ -80,6 +82,7 @@ class MailerGenerator
         }
         return $testo;
     }
+
     private function creaTestoEmailVerifica($testo, $schede):array
     {
         if ($schede != null) {
@@ -116,12 +119,10 @@ class MailerGenerator
         return $testo;
     }
 
-
     public function EmailAdmin()
     {
         $url = $this->params->get('app.site_url');
         $sender = $this->params->get('app.mailer_notification_sender');
-        
         
         $calendarIcon = $url .'/image/calendar-day-solid.png';
         

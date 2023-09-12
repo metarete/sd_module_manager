@@ -5,7 +5,6 @@ namespace App\Command;
 use App\Entity\EntityPAI\SchedaPAI;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,15 +39,15 @@ class ApprovaSchedaPaiCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $idScheda = $input->getArgument('id_scheda');
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
-        $schedaPai = $schedaPAIRepository->findOneBySomeField($idScheda);
+        $schedaPai = $schedaPAIRepository->findOneBySomeField($input->getArgument('id_scheda'));
+        
         if($schedaPai->getIdOperatorePrincipale()== null)
             $io->error('Operatore principale mancante. Impossibile approvare la scheda pai.');
         else{
             $schedaPai->setCurrentPlace('approvata');
             $this->entityManager->flush();
-            $io->success('Approvata scheda pai ' .$idScheda);
+            $io->success('Approvata scheda pai ' .$input->getArgument('id_scheda'));
         }
 
         return Command::SUCCESS;

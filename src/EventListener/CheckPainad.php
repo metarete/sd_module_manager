@@ -30,28 +30,27 @@ class CheckPainad implements EventSubscriberInterface
     {
         $o = $args->getObject();
         
-
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
         if (!$o instanceof Painad) {
             return;
         }
+
         $this->setterTotaliPainadService->settaTotali($o);
         
     }
+
     public function postPersist(LifecycleEventArgs $args): void
     {
         $o = $args->getObject();
         
-
         // if this subscriber only applies to certain entity types,
         // add some code to check the entity type as early as possible
         if (!$o instanceof Painad) {
             return;
         }
+
         $this->setterTotaliPainadService->settaTotali($o);
     }
     
-    
-   
 }

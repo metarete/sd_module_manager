@@ -23,12 +23,11 @@ class DiagnosiController extends AbstractController
         return $this->redirectToRoute('app_diagnosi_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
     #[Route('/{page}', name: 'app_diagnosi_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
     public function index(Request $request, DiagnosiRepository $diagnosiRepository, int $page = 1): Response
     {
-        $diagnosis = null;
         $numeroDiagnosiVisibiliPerPagina = $request->request->get('filtro_numero_diagnosi');
+
         if ($numeroDiagnosiVisibiliPerPagina == null)
             $diagnosiPerPagina = 10;
         else
@@ -36,18 +35,18 @@ class DiagnosiController extends AbstractController
 
         $offset = $diagnosiPerPagina * $page - $diagnosiPerPagina;
 
+        $diagnosi = $diagnosiRepository->findBy([], array('id' => 'DESC'), $diagnosiPerPagina, $offset);
 
-        $diagnosis = $diagnosiRepository->findBy([], array('id' => 'DESC'), $diagnosiPerPagina, $offset);
-
-         //calcolo pagine per paginatore
-         $totaleDiagnosi = $diagnosiRepository->contaDiagnosi();
-         $pagineTotali = ceil($totaleDiagnosi / $diagnosiPerPagina);
+        //calcolo pagine per paginatore
+        $totaleDiagnosi = $diagnosiRepository->contaDiagnosi();
+        $pagineTotali = ceil($totaleDiagnosi / $diagnosiPerPagina);
          
  
-         if ($pagineTotali == 0)
-             $pagineTotali = 1;
+        if ($pagineTotali == 0)
+            $pagineTotali = 1;
+
         return $this->render('diagnosi/index.html.twig', [
-            'diagnosis' => $diagnosis,
+            'diagnosis' => $diagnosi,
             'pagina' => $page,
             'pagine_totali' => $pagineTotali,
             'diagnosi_per_pagina' => $diagnosiPerPagina,

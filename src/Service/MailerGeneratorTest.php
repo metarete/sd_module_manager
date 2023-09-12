@@ -26,10 +26,7 @@ class MailerGeneratorTest
         ->to($emailTest)
         ->subject('Email di test')
         ->text('Email di prova');
-        
 
-
-
-    $this->mailer->send($email);
+        $this->mailer->send($email);
     }
 }
