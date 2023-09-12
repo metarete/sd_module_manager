@@ -56,6 +56,20 @@
 										<p class="card-title">{{assistito.codiceFiscale}}</p>
 									</td>
 								</tr>
+								<tr>
+									<th>
+										<h5 class="card-text">Email Figura di riferimento</h5>
+									</th>
+								</tr>
+								<tr>
+									<td>
+										{% if assistito.emailFiguraDiRiferimento == null %}
+											<p class="card-title">Nessuna</p>
+										{% else %}
+											<p class="card-title">{{ assistito.emailFiguraDiRiferimento }}</p>
+										{% endif %}
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

@@ -43,6 +43,9 @@ class Paziente
     #[ORM\OneToMany(mappedBy: 'assistito', targetEntity: SchedaPAI::class, cascade:['persist'])]
     private Collection $schedaPAIs;
 
+    #[ORM\Column(length: 180, nullable:true)]
+    private ?string $emailFiguraDiRiferimento;
+
     public function __construct()
     {
         $this->schedaPAIs = new ArrayCollection();
@@ -177,4 +180,16 @@ class Paziente
 
         return $this;
     }   
+
+    public function getEmailFiguraDiRiferimento(): ?string
+    {
+        return $this->emailFiguraDiRiferimento;
+    }
+
+    public function setEmailFiguraDiRiferimento(?string $emailFiguraDiRiferimento): self
+    {
+        $this->emailFiguraDiRiferimento = $emailFiguraDiRiferimento;
+
+        return $this;
+    }
 }

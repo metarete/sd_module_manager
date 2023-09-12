@@ -58,6 +58,20 @@
 							</tr>
 							<tr>
 								<th>
+									<h5 class="card-text">Email Figura di riferimento</h5>
+								</th>
+								<tr>
+								</tr>
+								<td>
+									{% if paziente.emailFiguraDiRiferimento == null %}
+										<p class="card-title">Nessuna</p>
+									{% else %}
+										<p class="card-title">{{ paziente.emailFiguraDiRiferimento }}</p>
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>
 									<h5 class="card-text">Indirizzo</h5>
 								</th>
 								<tr>

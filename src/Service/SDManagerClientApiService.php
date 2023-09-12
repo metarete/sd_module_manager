@@ -291,9 +291,10 @@ class SDManagerClientApiService
                 $assistito->setProvincia($provincia);
                 $assistito->setCap($cap);
                 $assistito->setIdSdManager($assistiti[$i]['id_utente']);
+                $assistito->setEmailFiguraDiRiferimento($assistiti[$i]['email_figura_riferimento']);
                 $assistitiRepository->add($assistito, true);
             } else {
-                $assistitiRepository->updateAssistitiByIdSdManager($assistiti[$i]['id_utente'], $cf, $assistiti[$i]['nome'], $assistiti[$i]['cognome'], $indirizzo, $comune, $provincia, $cap);
+                $assistitiRepository->updateAssistitiByIdSdManager($assistiti[$i]['id_utente'], $cf, $assistiti[$i]['nome'], $assistiti[$i]['cognome'], $indirizzo, $comune, $provincia, $cap, $assistiti[$i]['email_figura_riferimento']);
             }
         }
     }

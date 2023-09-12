@@ -47,7 +47,7 @@ class PazienteRepository extends ServiceEntityRepository
 
     }
     
-    public function updateAssistitiByIdSdManager($idSdManager,$cf, $nome, $cognome, $indirizzo, $comune, $provincia, $cap): void
+    public function updateAssistitiByIdSdManager($idSdManager,$cf, $nome, $cognome, $indirizzo, $comune, $provincia, $cap, $emailFiguraRiferimento): void
     {
         $queryBuilder = $this->createQueryBuilder('u')
         ->update(null, null)
@@ -58,6 +58,7 @@ class PazienteRepository extends ServiceEntityRepository
         ->set('u.provincia', ':provincia')
         ->set('u.cap', ':cap')
         ->set('u.codiceFiscale', ':cf')
+        ->set('u.emailFiguraDiRiferimento', ':emailFiguraDiRiferimento')
         ->where('u.idSdManager = :idSdManager')
         ->setParameter('nome', $nome)
         ->setParameter('cognome', $cognome)
@@ -66,6 +67,7 @@ class PazienteRepository extends ServiceEntityRepository
         ->setParameter('provincia', $provincia)
         ->setParameter('cap', $cap)
         ->setParameter('cf', $cf)
+        ->setParameter('emailFiguraDiRiferimento', $emailFiguraRiferimento)
         ->setParameter('idSdManager', $idSdManager)
         ->getQuery()
         ->execute();
