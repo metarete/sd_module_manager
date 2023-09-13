@@ -123,26 +123,6 @@ class MailerGenerator
     {
         $url = $this->params->get('app.site_url');
         $sender = $this->params->get('app.mailer_notification_sender');
-        
-        $calendarIcon = $url .'/image/calendar-day-solid.png';
-        
-        $separatoreTop = $url . '/image/09461c6c-3517-429e-99a2-64810982a104.png';
-       
-        $frecciaLink = $url . '/image/next_1.png';
-       
-        $separatoreDown = $url . '/image/bottom_rounded_15.png';
-       
-        $immagineNuove = $url . '/image/marker-solid.png';
-        
-        $immagineChiuse = $url . '/image/circle-xmark-solid.png';
-        
-        $immagineChiuseConRinnovo = $url . '/image/registered-solid.png';
-        
-        $immagineVerifica = $url . '/image/hourglass-start-solid-2.png';
-
-        $immagineInAttesaDiChiusuraConRinnovo = $url . '/image/hourglass-start-solid-3.png';
-
-        $immagineInAttesaDiChiusura = $url . '/image/hourglass-start-solid-4.png';
 
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
@@ -205,16 +185,6 @@ class MailerGenerator
                         "schedeInVerifica" => $schedeInVerifica,
                         "schedeInAttesaDiChiusura" => $schedeInAttesaDiChiusura,
                         "schedeInAttesaDiChiusuraConRinnovo" => $schedeInAttesaDiChiusuraConRinnovo,
-                        "calendarIcon" => $calendarIcon,
-                        "separatoreTop" => $separatoreTop,
-                        "frecciaLink" => $frecciaLink,
-                        "separatoreDown" => $separatoreDown,
-                        "immagineNuove" => $immagineNuove,
-                        "immagineChiuse" => $immagineChiuse,
-                        "immagineChiuseConRinnovo" => $immagineChiuseConRinnovo,
-                        "immagineVerifica" => $immagineVerifica,
-                        "immagineInAttesaDiChiusuraConRinnovo" => $immagineInAttesaDiChiusuraConRinnovo,
-                        "immagineInAttesaDiChiusura" => $immagineInAttesaDiChiusura,
                         "url" => $url,
                         "operatore" => $operatore
                     ]);
@@ -230,24 +200,6 @@ class MailerGenerator
     {
         $url = $this->params->get('app.site_url');
         $sender = $this->params->get('app.mailer_notification_sender');
-        
-        $calendarIcon = $url .'/image/calendar-day-solid.png';
-        
-        $separatoreTop = $url . '/image/09461c6c-3517-429e-99a2-64810982a104.png';
-       
-        $frecciaLink = $url . '/image/next_1.png';
-       
-        $separatoreDown = $url . '/image/bottom_rounded_15.png';
-
-        $immagineAttive = $url . '/image/circle-check-solid.png';
-        
-        $immagineScaleRitardi = $url . '/image/stopwatch-solid.png';
-        
-        $immagineValutazioni = $url . '/image/user-doctor-solid.png';
-       
-        $immagineScadute = $url . '/image/hourglass-start-solid.png';
-
-        $immagineVerifica = $url . '/image/hourglass-start-solid-2.png';
         
         $schedaPAIRepository = $this->entityManager->getRepository(SchedaPAI::class);
         $userRepository = $this->entityManager->getRepository(User::class);
@@ -269,18 +221,21 @@ class MailerGenerator
         Le seguenti schede attive hanno delle schede di valutazione professionale mancanti; compilarle al più presto.';
         $testoVerifica = '
         Le seguenti schede scadono tra pochi giorni. Selezionare dalle operazioni se sarà necessario un rinnovo o una chiusura definitiva.';
+        
         for ($i = 0; $i < count($arrayOperatori); $i++) {
             $idOperatore = $arrayOperatori[$i]->getId();
             $flagSchedaApprovata = false;
+            $flagRitardi = false;
+            $flagSchedeDaChiudere = false;
+            $flagValutazioneProfessionale = false;
+            $flagSchedeVerifica = false;
             $descrizioneSchedeApprovate = [];
             $descrizioneRitardi =  [];
             $descrizioneSchedeDaChiudere = [];
             $descrizioneValutazioneProfessionale = [];
             $descrizioneSchedeVerifica = [];
-            $flagRitardi = false;
-            $flagSchedeDaChiudere = false;
-            $flagValutazioneProfessionale = false;
-            $flagSchedeVerifica = false;
+            
+            //costruzione della descrizione per le schede approvate
             for ($j = 0; $j < count($arraySchedeApprovate); $j++) {
                 $idOperatorePrincipale = $arraySchedeApprovate[$j]->getIdOperatorePrincipale()->getId();
                 if ($idOperatore == $idOperatorePrincipale) {
@@ -297,7 +252,10 @@ class MailerGenerator
                     array_push($descrizioneSchedeApprovate, $riga);
                 }
             }
+
+            //considero le schede attive
             for ($t = 0; $t < count($arraySchedeAttive); $t++) {
+                //calcolo degli operatori assegnati ad una scheda attiva
                 $idOperatorePrincipale = $arraySchedeAttive[$t]->getIdOperatorePrincipale()->getId();
                 $idOperatoreSecondarioInf = $arraySchedeAttive[$t]->getIdOperatoreSecondarioInf()->toArray();
                 $idOperatoreSecondarioTdr = $arraySchedeAttive[$t]->getIdOperatoreSecondarioTdr()->toArray();
@@ -322,6 +280,7 @@ class MailerGenerator
                     $idOperatoreSecondarioOss[$p] = $idOperatoreSecondarioOss[$p]->getId();
                 }
                 $idOperatoriTotali = array_merge($idOperatoreSecondarioInf,  $idOperatoreSecondarioTdr,  $idOperatoreSecondarioLog,  $idOperatoreSecondarioAsa,  $idOperatoreSecondarioOss);
+                //calcolo descrizione numero valutazioni professionali
                 if ($idOperatore == $idOperatorePrincipale || in_array($idOperatore, $idOperatoreSecondarioInf) || in_array($idOperatore, $idOperatoreSecondarioTdr) || in_array($idOperatore, $idOperatoreSecondarioLog) || in_array($idOperatore, $idOperatoreSecondarioAsa) || in_array($idOperatore, $idOperatoreSecondarioOss)) {
                     if (count($idOperatoriTotali) > $numeroValutazioneProfessionali) {
                         $flagValutazioneProfessionale = true;
@@ -337,6 +296,7 @@ class MailerGenerator
                         array_push($descrizioneValutazioneProfessionale, $riga);
                     }
 
+                    //calcolo ritarti
                     $riga = [
                         "nome_progetto" => $arraySchedeAttive[$t]->getNomeProgetto(),
                         "data_inizio" => $arraySchedeAttive[$t]->getDataInizio()->format('d/m/Y'),
@@ -413,6 +373,8 @@ class MailerGenerator
                     }
                 }
             }
+
+            //calcolo schede da chiudere
             for ($z = 0; $z < count($arraySchedeInAttesaDiChiusura); $z++) {
                 $idOperatorePrincipale = $arraySchedeInAttesaDiChiusura[$z]->getIdOperatorePrincipale()->getId();
                 if ($idOperatore == $idOperatorePrincipale) {
@@ -429,7 +391,7 @@ class MailerGenerator
                 }
             }
 
-
+            //calcolo schede in verifica
             for ($a = 0; $a < count($arraySchedeVerifica); $a++) {
                 $idOperatorePrincipale = $arraySchedeVerifica[$a]->getIdOperatorePrincipale()->getId();
                 if ($idOperatore == $idOperatorePrincipale) {
@@ -446,7 +408,7 @@ class MailerGenerator
                 }
             }
 
-
+            //calcolo in base ai flag quali tipologie di schede mettere nella mail per ogni operatore
             $testoApprovata1 = $testoApprovata;
             $testoRitardi1 = $testoRitardi;
             $testoChiusura1 = $testoChiusura;
@@ -496,15 +458,6 @@ class MailerGenerator
                         'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
                         'testoVerifica1' => $testoVerifica1,
                         'descrizioneSchedeVerifica' => $descrizioneSchedeVerifica,
-                        "calendarIcon" => $calendarIcon,
-                        "separatoreTop" => $separatoreTop,
-                        "frecciaLink" => $frecciaLink,
-                        "separatoreDown" => $separatoreDown,
-                        "immagineAttive" => $immagineAttive,
-                        "immagineScaleRitardi" => $immagineScaleRitardi,
-                        "immagineValutazioni" => $immagineValutazioni,
-                        "immagineScadute" => $immagineScadute,
-                        "immagineVerifica" => $immagineVerifica,
                         "url" => $url,
                         "operatore" => $operatore
                     ]);
