@@ -217,8 +217,8 @@ class MailerGenerator
         Ci sono delle schede di valutazione in ritardo rispetto alla frequenza stabilita.';
         $testoChiusura = '
         Le seguenti schede necessitano di chiusura poichè scadute o in attesa di chiusura. Compilare le scale mancanti se necessario e la chiusura del servizio.';
-        $testoAttiva = '
-        Le seguenti schede attive hanno delle schede di valutazione professionale mancanti; compilarle al più presto.';
+        //$testoAttiva = '
+        //Le seguenti schede attive hanno delle schede di valutazione professionale mancanti; compilarle al più presto.';
         $testoVerifica = '
         Le seguenti schede scadono tra pochi giorni. Selezionare dalle operazioni se sarà necessario un rinnovo o una chiusura definitiva.';
         
@@ -227,12 +227,12 @@ class MailerGenerator
             $flagSchedaApprovata = false;
             $flagRitardi = false;
             $flagSchedeDaChiudere = false;
-            $flagValutazioneProfessionale = false;
+            //$flagValutazioneProfessionale = false;
             $flagSchedeVerifica = false;
             $descrizioneSchedeApprovate = [];
             $descrizioneRitardi =  [];
             $descrizioneSchedeDaChiudere = [];
-            $descrizioneValutazioneProfessionale = [];
+            //$descrizioneValutazioneProfessionale = [];
             $descrizioneSchedeVerifica = [];
             
             //costruzione della descrizione per le schede approvate
@@ -262,7 +262,7 @@ class MailerGenerator
                 $idOperatoreSecondarioLog = $arraySchedeAttive[$t]->getIdOperatoreSecondarioLog()->toArray();
                 $idOperatoreSecondarioAsa = $arraySchedeAttive[$t]->getIdOperatoreSecondarioAsa()->toArray();
                 $idOperatoreSecondarioOss = $arraySchedeAttive[$t]->getIdOperatoreSecondarioOss()->toArray();
-                $numeroValutazioneProfessionali = count($arraySchedeAttive[$t]->getIdValutazioneFiguraProfessionale()->toArray());
+                //$numeroValutazioneProfessionali = count($arraySchedeAttive[$t]->getIdValutazioneFiguraProfessionale()->toArray());
 
                 for ($p = 0; $p < count($idOperatoreSecondarioInf); $p++) {
                     $idOperatoreSecondarioInf[$p] = $idOperatoreSecondarioInf[$p]->getId();
@@ -279,10 +279,10 @@ class MailerGenerator
                 for ($p = 0; $p < count($idOperatoreSecondarioOss); $p++) {
                     $idOperatoreSecondarioOss[$p] = $idOperatoreSecondarioOss[$p]->getId();
                 }
-                $idOperatoriTotali = array_merge($idOperatoreSecondarioInf,  $idOperatoreSecondarioTdr,  $idOperatoreSecondarioLog,  $idOperatoreSecondarioAsa,  $idOperatoreSecondarioOss);
+                //$idOperatoriTotali = array_merge($idOperatoreSecondarioInf,  $idOperatoreSecondarioTdr,  $idOperatoreSecondarioLog,  $idOperatoreSecondarioAsa,  $idOperatoreSecondarioOss);
                 //calcolo descrizione numero valutazioni professionali
                 if ($idOperatore == $idOperatorePrincipale || in_array($idOperatore, $idOperatoreSecondarioInf) || in_array($idOperatore, $idOperatoreSecondarioTdr) || in_array($idOperatore, $idOperatoreSecondarioLog) || in_array($idOperatore, $idOperatoreSecondarioAsa) || in_array($idOperatore, $idOperatoreSecondarioOss)) {
-                    if (count($idOperatoriTotali) > $numeroValutazioneProfessionali) {
+                    /*if (count($idOperatoriTotali) > $numeroValutazioneProfessionali) {
                         $flagValutazioneProfessionale = true;
                         $valore = count($idOperatoriTotali) - $numeroValutazioneProfessionali;
                         $riga = [
@@ -294,7 +294,7 @@ class MailerGenerator
                             "valore" => $valore,
                         ];
                         array_push($descrizioneValutazioneProfessionale, $riga);
-                    }
+                    }*/
 
                     //calcolo ritarti
                     $riga = [
@@ -412,7 +412,7 @@ class MailerGenerator
             $testoApprovata1 = $testoApprovata;
             $testoRitardi1 = $testoRitardi;
             $testoChiusura1 = $testoChiusura;
-            $testoAttiva1 = $testoAttiva;
+            //$testoAttiva1 = $testoAttiva;
             $testoVerifica1 = $testoVerifica;
             if ($flagSchedaApprovata == false) {
                 $testoApprovata1 = '';
@@ -426,15 +426,16 @@ class MailerGenerator
                 $testoChiusura1 = '';
                 $descrizioneSchedeDaChiudere = [];
             }
-            if ($flagValutazioneProfessionale == false) {
+            /*if ($flagValutazioneProfessionale == false) {
                 $testoAttiva1 = '';
                 $descrizioneValutazioneProfessionale = [];
-            }
+            }*/
             if ($flagSchedeVerifica == false) {
                 $testoVerifica1 = '';
                 $descrizioneSchedeVerifica = [];
             }
-            if ($flagSchedaApprovata == false && $flagRitardi == false && $flagSchedeDaChiudere == false && $flagValutazioneProfessionale == false && $flagSchedeVerifica == false) {
+            //manca il flag $flagValutazioneProfessionale == false
+            if ($flagSchedaApprovata == false && $flagRitardi == false && $flagSchedeDaChiudere == false  && $flagSchedeVerifica == false) {
                 //non invio l'email. l'operatore non ha nulla da fare.
             } else {
                 $operatore = $userRepository->findOneById($idOperatore);
@@ -454,8 +455,8 @@ class MailerGenerator
                         'descrizioneRitardi' => $descrizioneRitardi,
                         'testoChiusura1' => $testoChiusura1,
                         'descrizioneSchedeDaChiudere' => $descrizioneSchedeDaChiudere,
-                        'testoAttiva1' => $testoAttiva1,
-                        'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
+                        //'testoAttiva1' => $testoAttiva1,
+                        //'descrizioneValutazioneProfessionale' => $descrizioneValutazioneProfessionale,
                         'testoVerifica1' => $testoVerifica1,
                         'descrizioneSchedeVerifica' => $descrizioneSchedeVerifica,
                         "url" => $url,

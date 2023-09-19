@@ -27,7 +27,7 @@ class ValutazioneGenerale
 
     #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank]
-    #[Assert\GreaterThan(0)]
+    #[Assert\GreaterThan(-1)]
     private $n_componenti_nucleo_abitativo;
 
     #[ORM\Column(type: 'boolean')]
