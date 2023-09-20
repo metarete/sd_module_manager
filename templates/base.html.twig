@@ -73,12 +73,14 @@
 												<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_show') }}" style="margin:20px;">
 													<i class="bi bi-person-circle"></i>
 													Dati</a>
-												<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}" style="margin:20px;">
-													<i class="bi bi-pencil-square"></i>
-													Modifica Profilo</a>
-												<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}" style="margin:20px;">
-													<i class="bi bi-key"></i>
-													Modifica Password</a>
+												{% if app.user.sdManagerOperatore == false %}
+													<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_edit', {'id': app.user.id}) }}" style="margin:20px;">
+														<i class="bi bi-pencil-square"></i>
+														Modifica Profilo</a>
+													<a class="nav-link active" aria-current="page" href="{{ path('app_profilo_password', {'id': app.user.id}) }}" style="margin:20px;">
+														<i class="bi bi-key"></i>
+														Modifica Password</a>
+												{% endif %}
 												<a class="button nav-link px-1 text-white" id="dark-mode-mobile" type="checkbox" onclick="window.darkMode(this)" style="margin:20px;">
 													<i class="bi bi-moon-fill"></i>
 													Tema</a>
@@ -172,7 +174,7 @@
 			|
 			<a href="{{ path('app_link_footer') }}">About</a>
 			| 
-									Versione 1.0.0RC17
+									Versione 1.0.0RC18
 			<strong>beta</strong>
 		</div>
 		<div class="right">

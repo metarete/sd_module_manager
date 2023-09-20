@@ -22,6 +22,7 @@ class SchedaPAI
     private $id;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'principaleSchedaPai', cascade:['persist'])]
+    #[Assert\NotNull]
     private $idOperatorePrincipale;
 
     #[ORM\ManyToMany(inversedBy: 'infSchedaPai', targetEntity: User::class, cascade:['persist'])]
@@ -159,27 +160,59 @@ class SchedaPAI
     private $numeroCdrCorretto = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaBarthel = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaBraden = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaSpmsq = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaTinetti = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaVas = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaLesioni = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaPainad = 0;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $frequenzaCdr = 0;
 
     #[ORM\Column(type: 'string')]

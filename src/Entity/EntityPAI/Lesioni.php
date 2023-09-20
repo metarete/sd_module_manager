@@ -39,6 +39,10 @@ class Lesioni
 
     #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(
+        value: 0,
+        message: 'Inserire un valore maggiore o uguale a 0'
+    )]
     private $numeroSedeLesione = null;
 
     #[ORM\Column(length: 255)]
@@ -70,18 +74,38 @@ class Lesioni
     private ?string $specificheMedicazione = null;
 
     #[ORM\ManyToMany(targetEntity: CondizioneLesione::class, inversedBy: 'lesioni', cascade:['persist'])]
+    #[Assert\Count(
+        min: 1,
+        minMessage: 'Questo valore non dovrebbe essere vuoto.'
+    )]
     private Collection $condizioneLesione;
 
     #[ORM\ManyToMany(targetEntity: BordiLesione::class, inversedBy: 'lesioni', cascade:['persist'])]
+    #[Assert\Count(
+        min: 1,
+        minMessage: 'Questo valore non dovrebbe essere vuoto.'
+    )]
     private Collection $bordiLesione;
 
     #[ORM\ManyToMany(targetEntity: CutePerilesionale::class, inversedBy: 'lesioni', cascade:['persist'])]
+    #[Assert\Count(
+        min: 1,
+        minMessage: 'Questo valore non dovrebbe essere vuoto.'
+    )]
     private Collection $cutePerilesionale;
 
     #[ORM\ManyToMany(targetEntity: Medicazione::class, inversedBy: 'lesioni', cascade:['persist'])]
+    #[Assert\Count(
+        min: 1,
+        minMessage: 'Questo valore non dovrebbe essere vuoto.'
+    )]
     private Collection $medicazione;
 
     #[ORM\ManyToMany(targetEntity: Copertura::class, inversedBy: 'lesioni', cascade:['persist'])]
+    #[Assert\Count(
+        min: 1,
+        minMessage: 'Questo valore non dovrebbe essere vuoto.'
+    )]
     private Collection $copertura;
 
     public function __construct()

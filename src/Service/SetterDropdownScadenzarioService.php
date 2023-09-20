@@ -15,10 +15,15 @@ class SetterDropdownScadenzarioService
         if (in_array("ROLE_ADMIN", $user->getRoles())) {
             $style = '';
         } else {
-            if ($user->getUsername() == $schedaPai->getIdOperatorePrincipale()->getUsername()) {
-                $style = '';
-            } else {
+            if($schedaPai->getIdOperatorePrincipale() == null){
                 $style = 'display:none';
+            }
+            else{
+                if ($user->getUsername() == $schedaPai->getIdOperatorePrincipale()->getUsername()) {
+                    $style = '';
+                } else {
+                    $style = 'display:none';
+                }
             }
         }
         return $style;
@@ -47,14 +52,19 @@ class SetterDropdownScadenzarioService
             else
                 $style = '';
         }else{
-            if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' )
-                    $style = 'display:none';
-                else
-                    $style = '';
+            if($schedaPAI->getIdOperatorePrincipale() == null){
+                $style = 'display:none';
             }
             else{
-                $style = 'display:none';
+                if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                    if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' )
+                        $style = 'display:none';
+                    else
+                        $style = '';
+                }
+                else{
+                    $style = 'display:none';
+                }
             }
         }
         return $style;  
@@ -70,14 +80,19 @@ class SetterDropdownScadenzarioService
             else
                 $style = '';
         }else{
-            if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura')
-                    $style = 'display:none';
-                else
-                    $style = '';
+            if($schedaPAI->getIdOperatorePrincipale() == null){
+                $style = 'display:none';
             }
             else{
-                $style = 'display:none';
+                if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                    if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura')
+                        $style = 'display:none';
+                    else
+                        $style = '';
+                }
+                else{
+                    $style = 'display:none';
+                }
             }
         }
         return $style;  
@@ -131,14 +146,21 @@ class SetterDropdownScadenzarioService
         $style = null;
 
         if ($schedaPAI->getCurrentPlace() == 'approvata'){
-            if($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                $style = ''; 
-            }
-            elseif(in_array("ROLE_ADMIN", $user->getRoles())){
+            if(in_array("ROLE_ADMIN", $user->getRoles())){
                 $style = '';
             }
             else{
-                $style = 'display:none';  
+                if($schedaPAI->getIdOperatorePrincipale() == null){
+                    $style = 'display:none';
+                }
+                else{
+                    if($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                        $style = ''; 
+                    }
+                    else{
+                        $style = 'display:none';  
+                    }
+                }
             }
         }
         else{
@@ -155,13 +177,11 @@ class SetterDropdownScadenzarioService
         if ($schedaPAI->getCurrentPlace() != 'attiva' && $schedaPAI->getCurrentPlace() != 'verifica' && $schedaPAI->getCurrentPlace() != 'in_attesa_di_chiusura' && $schedaPAI->getCurrentPlace() != 'in_attesa_di_chiusura_con_rinnovo'){
             $style = 'display:none';
         }else{
-            if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                $style = '';
-            }
-            elseif(in_array("ROLE_ADMIN", $user->getRoles())){
+            if(in_array("ROLE_ADMIN", $user->getRoles())){
                 $style = '';
             }
             else{
+                //controllo se sono operatore secondario
                 for($i=0; $i<count($schedaPAI->getidOperatoreSecondarioInf()); $i++){
                     if ($schedaPAI->getidOperatoreSecondarioInf()[$i]->getUsername() == $user->getUsername())
                         return '';
@@ -183,6 +203,19 @@ class SetterDropdownScadenzarioService
                         return '';
                 }
                 $style = 'display:none';
+                //se non sono uscito vuol dire che non sono operatore secondario
+                //controllo il principale
+                if($schedaPAI->getIdOperatorePrincipale() == null){
+                    $style = 'display:none';
+                }
+                else{
+                    if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                        $style = '';
+                    }
+                    else{
+                        $style = 'display:none'; 
+                    }
+                }
             }
         }
         return $style;
@@ -202,11 +235,18 @@ class SetterDropdownScadenzarioService
                 if(in_array("ROLE_ADMIN", $user->getRoles())){
                     $style = '';
                 }
-                elseif($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                    $style = '';
-                }
                 else{
-                    $style = 'display:none';
+                    if($schedaPAI->getIdOperatorePrincipale() == null){
+                        $style = 'display:none';
+                    }
+                    else{
+                        if($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
+                            $style = '';
+                        }
+                        else{
+                            $style = 'display:none';
+                        }
+                    }
                 }
             }
         }
