@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\EntityPAI\SchedaPAI;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Func;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -149,6 +150,39 @@ class SchedaPAIRepository extends ServiceEntityRepository
         }
 
         return $totale;
+    }
+
+    public function contaSchedeInRicerca(?string $input = null): int
+    {
+        $totale = 0;
+
+        if($input != null && $input != ""){
+            $qb = $this->createQueryBuilder('s')
+            ->andWhere('s.nomeProgetto LIKE :input')
+            ->setParameter('input', '%'.$input.'%')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+            $totale = count($qb);
+        }
+        return $totale;
+    }
+
+    public function findByBarraRicerca(?string $input = null): array
+    {
+        if($input != null && $input != ""){
+            $qb = $this->createQueryBuilder('s')
+            ->andWhere('s.nomeProgetto LIKE :input')
+            ->setParameter('input', '%'.$input.'%')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+            return $qb;
+        }
+
+        return null;
     }
 
     private function findUserSchedePai(int $idUser, string $stato = null, int $schedePerPagina = null, int $page = null): array

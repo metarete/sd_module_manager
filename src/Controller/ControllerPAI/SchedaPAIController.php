@@ -33,10 +33,7 @@ use App\Twig\FiltroColoriScadenzario;
 use App\Twig\FiltroDropdownScadenzario;
 use App\Twig\FiltroNomiStatiScadenzario;
 use App\Twig\FiltroSimboloValutazioneScadenzario;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 
 #[Route('/scheda_pai')]
 class SchedaPAIController extends AbstractController
@@ -126,6 +123,12 @@ class SchedaPAIController extends AbstractController
             else {
                 $session->set('filtro_pratica', $request->request->get('filtro_pratica'));
             }
+        }
+        if($request->request->get('filtro_ricerca') != null && $request->request->get('filtro_ricerca') != ""){
+            $session->set('filtro_ricerca', $request->request->get('filtro_ricerca'));
+        }
+        else{
+            $session->set('filtro_ricerca', null);
         }
 
         $listaPratiche = $praticaRepository->findAll();
@@ -217,11 +220,29 @@ class SchedaPAIController extends AbstractController
                 }
             }
         }
-
+    
+        //utilizzo sistema di ricerca
+        if($session->get('filtro_ricerca') != null && $session->get('filtro_ricerca') != ""){
+            $schedaPais1 = $schedaPAIRepository->findByBarraRicerca($session->get('filtro_ricerca'));
+            $schedaPais = [];
+            //costruisco l'elenco schede in base al filtro e alla pagina
+             for($i=(($page - 1) * $schedePerPagina); $i<$schedePerPagina*$page; $i++){
+                if($i<count($schedaPais1))
+                    array_push($schedaPais,$schedaPais1[$i]);     
+            }
+        }
 
         //calcolo pagine per paginatore
-        $totaleSchede = $schedaPAIRepository->contaSchedePai($session->get('filtro_operatore'), $session->get('filtro_stato'), $session->get('filtro_pratica'));
-        $pagineTotali = ceil($totaleSchede / $schedePerPagina);
+        //senza ricerca nella barra
+        if($session->get('filtro_ricerca') == null && $session->get('filtro_ricerca') == ""){
+            $totaleSchede = $schedaPAIRepository->contaSchedePai($session->get('filtro_operatore'), $session->get('filtro_stato'), $session->get('filtro_pratica'));
+            $pagineTotali = ceil($totaleSchede / $schedePerPagina);
+        }
+        //con la ricerca della barra
+        else{
+            $totaleSchede = $schedaPAIRepository->contaSchedeInRicerca($session->get('filtro_ricerca'));
+            $pagineTotali = ceil($totaleSchede / $schedePerPagina);
+        }
 
         if ($pagineTotali == 0)
             $pagineTotali = 1;
@@ -279,6 +300,7 @@ class SchedaPAIController extends AbstractController
             'operatore' => $session->get('filtro_operatore'),
             'stato' => $session->get('filtro_stato'),
             'pratica' => $session->get('filtro_pratica'),
+            'ricerca' => $session->get('filtro_ricerca'),
             'user' => $this->getUser(),
             'assistiti' => $assistitiRepository->findAll(),
             'listaOperatori' => $userRepository->findAll(),
