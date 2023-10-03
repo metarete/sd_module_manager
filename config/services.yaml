@@ -12,6 +12,7 @@ parameters:
     app.ws_sdmanager_api_operatori: '%env(resolve:WS_SDMANAGER_API_OPERATORI)%'
     app.site_url: '%env(resolve:SITE_URL)%'
     app.mailer_notification_sender: '%env(resolve:MAILER_NOTIFICATION_SENDER)%'
+    app.audio_privacy_abilitati: '%env(resolve:AUDIO_PRIVACY_ABILITATI)%'
 
 services:
     # default configuration for services in *this* file

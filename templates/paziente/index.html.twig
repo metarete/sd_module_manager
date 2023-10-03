@@ -51,9 +51,40 @@
 							</a>
 						</td>
 						<td data-title='Operazioni'>
-							<a href="{{ path('app_paziente_show', {'id': paziente.id}) }}" type="button" class="btn btn-primary">
-								<i class="bi bi-clipboard2"></i>
-								Visualizza</a>
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+									Apri
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="{{ path('app_paziente_show', {'id': paziente.id}) }}" type="button" >
+										<i class="bi bi-clipboard2"></i>
+										Visualizza</a>
+									</li>
+									{% if attivazione == "true" %}
+										{% if paziente.audioPrivacy == null %}
+										<li>
+											<a class="dropdown-item" href="{{ path('app_audio_privacy_new', {'id': paziente.id}) }}" type="button" >
+											<i class="bi bi-file-earmark-plus"></i>
+											New Privacy</a>
+										</li>
+										{% endif %}
+										{% if paziente.audioPrivacy != null %}
+										<li>
+											<a class="dropdown-item" href="{{ path('app_audio_privacy_edit', {'id': paziente.id}) }}" type="button" >
+											<i class="bi bi-pencil-square"></i>
+											Edit Privacy</a>
+										</li>
+										{% endif %}
+										{% if paziente.audioPrivacy != null %}
+										<li>
+											<a class="dropdown-item" href="{{ path('app_audio_privacy_delete', {'id': paziente.id, '_token': csrf_token('delete' ~ paziente.audioPrivacy.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
+											<i class="bi bi-trash3"></i>Elimina Privacy</a>
+										</li>
+										{% endif %}
+									{% endif %}
+								</ul>
+							</div>
 						</td>
 					</tr>
 				{% else %}

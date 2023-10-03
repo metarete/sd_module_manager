@@ -46,6 +46,14 @@ class Paziente
     #[ORM\Column(length: 180, nullable:true)]
     private ?string $emailFiguraDiRiferimento;
 
+    #[ORM\OneToOne(mappedBy: 'assistito', cascade: ['persist'])]
+    private ?AudioPrivacy $audioPrivacy = null;
+
+    public function __toString()
+    {
+        return $this->nome . " " . $this->cognome;
+    }
+
     public function __construct()
     {
         $this->schedaPAIs = new ArrayCollection();
@@ -189,6 +197,28 @@ class Paziente
     public function setEmailFiguraDiRiferimento(?string $emailFiguraDiRiferimento): self
     {
         $this->emailFiguraDiRiferimento = $emailFiguraDiRiferimento;
+
+        return $this;
+    }
+
+    public function getAudioPrivacy(): ?AudioPrivacy
+    {
+        return $this->audioPrivacy;
+    }
+
+    public function setAudioPrivacy(?AudioPrivacy $audioPrivacy): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($audioPrivacy === null && $this->audioPrivacy !== null) {
+            $this->audioPrivacy->setAssistito(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($audioPrivacy !== null && $audioPrivacy->getAssistito() !== $this) {
+            $audioPrivacy->setAssistito($this);
+        }
+
+        $this->audioPrivacy = $audioPrivacy;
 
         return $this;
     }

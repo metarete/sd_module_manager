@@ -56,6 +56,7 @@ security:
          - { path: ^/cdr/, roles: [ROLE_ADMIN, ROLE_USER, ROLE_SUPERADMIN]}
          - { path: ^/scheda_pai, roles: [ROLE_ADMIN, ROLE_SUPERADMIN]}
          - { path: ^/scadenzario, roles: [ROLE_ADMIN, ROLE_USER, ROLE_SUPERADMIN]}
+         - { path: ^/audio/privacy/, roles: [ROLE_ADMIN, ROLE_SUPERADMIN]}
     role_hierarchy:
         ROLE_ADMIN: ROLE_ALLOWED_TO_SWITCH
         

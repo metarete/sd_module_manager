@@ -114,6 +114,28 @@
 									</p>
 								</td>
 							</tr>
+							<tr>
+								<th>
+									<h5 class="card-text">Audio Privacy</h5>
+								</th>
+								<tr>
+								</tr>
+								<td>
+									<p class="card-title">
+									{% if paziente.audioPrivacy == null %}
+									Nessuno
+									{% else %}
+										<section class="sound-clips">
+											{% for audio in paziente.audioPrivacy.audio %}
+												<article class="clip">
+													<audio controls="" src="data:audio/mp3;base64,{{audio}}"></audio>
+												</article>
+											{% endfor %}
+										</section>
+									{% endif %}
+									</p>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

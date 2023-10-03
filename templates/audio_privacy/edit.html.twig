@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AudioPrivacy{% endblock %}
+
+{% block body %}
+    <h1>Edit AudioPrivacy</h1>
+
+    <section class="main-controls">
+        <canvas class="visualizer" height="60px" width="1000"></canvas>
+    <div id="buttons">
+          <button class="record" style="">Record</button>
+          <button class="stop" disabled="">Stop</button>
+    </div>
+    </section>
+    <section id ="{{audio_privacy.id}}" class="sound-clips">
+
+
+    </section>
+
+    <br>
+    <section class="sound-clips-audio-gia-presenti">
+        {% for key,audio in audio_privacy.audio %}
+        <article class="clip" >
+            <audio controls="" src="data:audio/mp3;base64,{{audio}}"></audio>
+            
+            <button class="delete"  id="{{key}}" >Delete</button>
+            
+        </article>
+        {% endfor %}
+    </section>
+    
+    <button class="btn btn-primary" id='modifica'>{{ button_label|default('Salva') }}</button>
+
+    <a  type="button" class="btn btn-secondary" onclick="history.back()">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewbox="0 0 16 16">
+			<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+		</svg>
+		Torna indietro</a>
+
+{% endblock %}
