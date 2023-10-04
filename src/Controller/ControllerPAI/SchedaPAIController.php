@@ -363,9 +363,9 @@ class SchedaPAIController extends AbstractController
             $schedaPAIRepository->add($schedaPAI, true);
 
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()], Response::HTTP_SEE_OTHER);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('scheda_pai/edit.html.twig', [
@@ -454,18 +454,18 @@ class SchedaPAIController extends AbstractController
                 $session = $request->getSession();
                 $session->set('alertSincronizzazione', 'chiusuraFallitaPerStato');
                 if ($pathName == 'app_scadenzario_index') {
-                    return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')]);
+                    return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()]);
                 } else
-                    return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')]);
+                    return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()]);
             }
         } else {
             //alert fallimento chiusura
             $session = $request->getSession();
             $session->set('alertSincronizzazione', 'chiusuraFallita');
             if ($pathName == 'app_scadenzario_index') {
-                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page')]);
+                return $this->redirectToRoute('app_scadenzario_index', ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()]);
             } else
-                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')]);
+                return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()]);
         }
 
         if ($pathName == 'app_scadenzario_index') {
@@ -523,7 +523,7 @@ class SchedaPAIController extends AbstractController
             $session->set('alertSincronizzazione', 'approvazioneFallita');
         }
 
-        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/rinnova_scheda_pai/{id}', name: 'app_scheda_pai_rinnova', methods: ['GET'])]
@@ -534,9 +534,9 @@ class SchedaPAIController extends AbstractController
         $this->entityManager->flush();
         
         if($schedaPAI->getIdChiusuraServizio() == null)
-            return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $request->query->get('page'), 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $request->query->get('page'), 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId(), '_fragment' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
         
-        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/non_rinnovare_scheda_pai/{id}', name: 'app_scheda_pai_non_rinnovare', methods: ['GET'])]
@@ -548,9 +548,9 @@ class SchedaPAIController extends AbstractController
         $this->entityManager->flush();
 
         if($schedaPAI->getIdChiusuraServizio() == null)
-            return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $request->query->get('page'), 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_chiusura_servizio_new',['page' => $request->query->get('page'), 'pathName' => $pathName, 'id_pai' => $schedaPAI->getId(), '_fragment' => $schedaPAI->getId()],Response::HTTP_SEE_OTHER);
         
-        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/torna_al_verifica_scheda_pai/{id}', name: 'app_scheda_pai_torna_al_verifica', methods: ['GET'])]
@@ -560,7 +560,7 @@ class SchedaPAIController extends AbstractController
         $schedaPAI->setCurrentPlace("verifica");
         $this->entityManager->flush();
 
-        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{pathName}/invia_pdf_caregiver/{id}', name: 'app_scheda_pai_invia_pdf_caregiver', methods: ['GET'])]
@@ -579,6 +579,6 @@ class SchedaPAIController extends AbstractController
         $filesystem = new Filesystem();
         $filesystem->remove("/tmp/" . $nomePdf);
 
-        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($pathName, ['page' => $request->query->get('page'), '_fragment' => $schedaPAI->getId()], Response::HTTP_SEE_OTHER);
     }
 }

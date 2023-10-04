@@ -64,6 +64,7 @@
 				<thead>
 					<tr>
 						<th>Espandi</th>
+						<th>Id</th>
 						<th>Nome Progetto</th>
 						<th>Data Inizio</th>
 						<th>Data Fine</th>
@@ -82,6 +83,7 @@
 						
 					</tr>
 					<tr>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -109,6 +111,7 @@
                         				<a class="bi bi-caret-right-fill chiuso" href="#"></a> 
 									</div>
 								</td>
+								<td data-title='Id'id='{{ scheda_pai.id }}'>{{ scheda_pai.id }}</td>
 								<td data-title='Nome Progetto' ><a class="breadcrumb-item" href="{{ path('app_scheda_pai_show', {'id': scheda_pai.id, 'pathName': pathName}) }}">{{scheda_pai.nomeProgetto}}</a>
 								</td>								
 								<td data-title='Data Inizio'>{{ scheda_pai.dataInizio|date('d/m/Y') }}
