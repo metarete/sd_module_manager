@@ -48,7 +48,18 @@ class UserController extends AbstractController
     #[Route('/{page}', name: 'app_user_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
     public function index(Request $request, UserRepository $userRepository, ParameterBagInterface $params, int $page = 1): Response
     {
+        //sessione
+        $session = $request->getSession();
+
         $numeroUsersVisibiliPerPagina = $request->request->get('filtro_numero_users');
+
+        if($request->request->get('filtro_ricerca') != null && $request->request->get('filtro_ricerca') != ""){
+            $session->set('filtro_ricerca', $request->request->get('filtro_ricerca'));
+        }
+        else{
+            $session->set('filtro_ricerca', null);
+        }
+
         if ($numeroUsersVisibiliPerPagina == null)
             $usersPerPagina = 10;
         else
@@ -59,9 +70,30 @@ class UserController extends AbstractController
 
         $users = $userRepository->findBy([], array('id' => 'DESC'), $usersPerPagina, $offset);
 
+        //utilizzo sistema di ricerca
+        if($session->get('filtro_ricerca') != null && $session->get('filtro_ricerca') != ""){
+            $userTrovati1 = $userRepository->findByBarraRicerca($session->get('filtro_ricerca'));
+            $users = [];
+            //costruisco l'elenco schede in base al filtro e alla pagina
+             for($i=(($page - 1) * $usersPerPagina); $i<$usersPerPagina*$page; $i++){
+                if($i<count($userTrovati1))
+                    array_push($users,$userTrovati1[$i]);     
+            }
+        }
+
         //calcolo pagine per paginatore
-        $totaleUsers = $userRepository->contaOperatori();
-        $pagineTotali = ceil($totaleUsers / $usersPerPagina);
+        //senza ricerca nella barra
+        if($session->get('filtro_ricerca') == null && $session->get('filtro_ricerca') == ""){
+            $totaleUsers = $userRepository->contaOperatori();
+            $pagineTotali = ceil($totaleUsers / $usersPerPagina);
+        }
+        //con la ricerca della barra
+        else{
+            $totaleUsers = $userRepository->contaOperatoriInRicerca($session->get('filtro_ricerca'));
+            $pagineTotali = ceil($totaleUsers / $usersPerPagina);
+        }
+
+        
          
         //url per impersonificazione
         $url = $params->get('app.site_url');
@@ -73,6 +105,7 @@ class UserController extends AbstractController
         return $this->render('user/index.html.twig', [
             'users' => $users,
             'pagina' => $page,
+            'ricerca' => $session->get('filtro_ricerca'),
             'pagine_totali' => $pagineTotali,
             'users_per_pagina' => $usersPerPagina,
             'url' => $url,

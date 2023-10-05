@@ -65,6 +65,44 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     }
 
+    public function contaOperatoriInRicerca(?string $input = null): int
+    {
+        $totale = 0;
+
+        if($input != null && $input != ""){
+            $qb = $this->createQueryBuilder('s')
+            ->orWhere('s.name LIKE :input')
+            ->orWhere('s.email LIKE :input')
+            ->orWhere('s.surname LIKE :input')
+            ->setParameter('input', '%'.$input.'%')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+            $totale = count($qb);
+        }
+        return $totale;
+    }
+
+    public function findByBarraRicerca(?string $input = null): array
+    {
+        
+        if($input != null && $input != ""){
+            $qb = $this->createQueryBuilder('s')
+            ->orWhere('s.email LIKE :input')
+            ->orWhere('s.name LIKE :input')
+            ->orWhere('s.surname LIKE :input')
+            ->setParameter('input', '%'.$input.'%')
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+            return $qb;
+        }
+
+        return null;
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
