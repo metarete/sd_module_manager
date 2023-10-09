@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Paziente;
 use App\Repository\PazienteRepository;
+use App\Twig\FiltroSimboloPresenzaPrivacy;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class PazienteController extends AbstractController
 {
     private $params;
+    private $filtroSimboloPresenzaPrivacy;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, FiltroSimboloPresenzaPrivacy $filtroSimboloPresenzaPrivacy)
     {
         $this->params = $params;
+        $this->filtroSimboloPresenzaPrivacy = $filtroSimboloPresenzaPrivacy;
     }
 
     #[Route('/{page}', name: 'app_paziente_index', requirements: ['page' => '\d+'], methods: ['GET', 'POST'])]
@@ -28,7 +31,9 @@ class PazienteController extends AbstractController
 
         $attivazione = $this->params->get('app.audio_privacy_abilitati');
 
+        //preparazione filtri
         $numeroPazientiVisibiliPerPagina = $request->request->get('filtro_numero_pazienti');
+        $presenzaPrivacy = $request->request->get('filtro_presenza_privacy');
 
         if($request->request->get('filtro_ricerca') != null && $request->request->get('filtro_ricerca') != ""){
             $session->set('filtro_ricerca', $request->request->get('filtro_ricerca'));
@@ -44,7 +49,43 @@ class PazienteController extends AbstractController
 
         $offset = $pazientiPerPagina * $page - $pazientiPerPagina;
 
-        $pazienti = $pazienteRepository->findBy([], array('id' => 'DESC'), $pazientiPerPagina, $offset);
+        //utilizzo filtri
+
+        if($presenzaPrivacy == null || $presenzaPrivacy == 'Tutti'){
+            $pazienti = $pazienteRepository->findBy([], array('id' => 'DESC'), $pazientiPerPagina, $offset);
+        }
+        else if($presenzaPrivacy == 'Si'){
+            $pazienti = [];
+            $pazienti1 = [];
+            $pazientiTotali = $pazienteRepository->findBy([], array('id' => 'DESC'));
+            foreach($pazientiTotali as $paziente){
+                if($paziente->getAudioPrivacy() != null){
+                    array_push($pazienti1, $paziente);
+                }
+            }
+            usort($pazienti1, fn($a, $b) => $a->getId()-$b->getId());
+            $pazienti1 = array_reverse($pazienti1);
+            for($i=(($page - 1) * $pazientiPerPagina); $i<$pazientiPerPagina*$page; $i++){
+                if($i<count($pazienti1))
+                    array_push($pazienti,$pazienti1[$i]);     
+            }
+        }
+        else{
+            $pazienti = [];
+            $pazienti1 = [];
+            $pazientiTotali = $pazienteRepository->findBy([], array('id' => 'DESC'));
+            foreach($pazientiTotali as $paziente){
+                if($paziente->getAudioPrivacy() == null){
+                    array_push($pazienti1, $paziente);
+                }
+            }
+            usort($pazienti1, fn($a, $b) => $a->getId()-$b->getId());
+            $pazienti1 = array_reverse($pazienti1);
+            for($i=(($page - 1) * $pazientiPerPagina); $i<$pazientiPerPagina*$page; $i++){
+                if($i<count($pazienti1))
+                    array_push($pazienti,$pazienti1[$i]);     
+            }
+        }
 
         //utilizzo sistema di ricerca
         if($session->get('filtro_ricerca') != null && $session->get('filtro_ricerca') != ""){
@@ -79,7 +120,9 @@ class PazienteController extends AbstractController
             'ricerca' => $session->get('filtro_ricerca'),
             'pagine_totali' => $pagineTotali,
             'pazienti_per_pagina' => $pazientiPerPagina,
-            'attivazione' => $attivazione
+            'presenza_privacy' => $presenzaPrivacy,
+            'attivazione' => $attivazione,
+            'filtroSimboloPresenzaPrivacy' => $this->filtroSimboloPresenzaPrivacy,
         ]);
     }
 

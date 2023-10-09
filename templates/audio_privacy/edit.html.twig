@@ -3,13 +3,17 @@
 {% block title %}Edit AudioPrivacy{% endblock %}
 
 {% block body %}
-    <h1>Edit AudioPrivacy</h1>
+    <h1>Modifica Acquisizione Privacy</h1>
+
+    <h4> 
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </h4>
 
     <section class="main-controls">
         <canvas class="visualizer" height="60px" width="1000"></canvas>
     <div id="buttons">
-          <button class="record" style="">Record</button>
-          <button class="stop" disabled="">Stop</button>
+          <button id="record" class="btn btn-primary" style="">Record</button>
+          <button id="stop" class="btn btn-danger" disabled="">Stop</button>
     </div>
     </section>
     <section id ="{{audio_privacy.id}}" class="sound-clips">
@@ -18,17 +22,20 @@
     </section>
 
     <br>
+
     <section class="sound-clips-audio-gia-presenti">
         {% for key,audio in audio_privacy.audio %}
         <article class="clip" >
             <audio controls="" src="data:audio/mp3;base64,{{audio}}"></audio>
             
-            <button class="delete"  id="{{key}}" >Delete</button>
+            <button class="btn btn-danger" name="delete"  id="{{key}}" >Elimina</button>
             
         </article>
         {% endfor %}
     </section>
-    
+
+    <br>
+
     <button class="btn btn-primary" id='modifica'>{{ button_label|default('Salva') }}</button>
 
     <a  type="button" class="btn btn-secondary" onclick="history.back()">
@@ -36,5 +43,6 @@
 			<path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
 		</svg>
 		Torna indietro</a>
+    <div class="pb-2 mb-2"></div>
 
 {% endblock %}

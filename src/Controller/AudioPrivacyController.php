@@ -100,6 +100,7 @@ class AudioPrivacyController extends AbstractController
                 unset($audio[$arrayElementiDaEliminare[$i]]);
             }
 
+            $arrayBlob = array_values(array_filter($arrayBlob));
             $arrayBlobTotali = array_merge($arrayBlob, $audio);
             $audioPrivacy->setAudio($arrayBlobTotali);
             $entityManager->persist($audioPrivacy);

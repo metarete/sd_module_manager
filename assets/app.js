@@ -195,8 +195,8 @@ new Chart("myChart", {
 
 //audio
 
-var record = document.querySelector('.record');
-var stop = document.querySelector('.stop');
+var record = document.querySelector('#record');
+var stop = document.querySelector('#stop');
 var soundClips = document.querySelector('.sound-clips');
 var soundClipsAudioGiaPresenti = document.querySelector('.sound-clips-audio-gia-presenti');
 var canvas = document.querySelector('.visualizer');
@@ -231,7 +231,7 @@ if (navigator.mediaDevices.getUserMedia) {
       mediaRecorder.start();
       console.log(mediaRecorder.state);
       console.log("recorder started");
-      record.style.background = "red";
+      record.style.background = "grey";
 
       stop.disabled = false;
       record.disabled = true;
@@ -305,7 +305,7 @@ if (navigator.mediaDevices.getUserMedia) {
     //evento in attesa di modifiche nella edit
     if(soundClipsAudioGiaPresenti != null ){
       console.log('ascolto edit');
-      const deleteButtons = document.getElementsByClassName('delete');
+      const deleteButtons = document.getElementsByName('delete');
       console.log(deleteButtons);
       
       for (let i = 0; i < deleteButtons.length; i++) {
@@ -330,8 +330,9 @@ if (navigator.mediaDevices.getUserMedia) {
     
       clipContainer.classList.add('clip');
       audio.setAttribute('controls', '');
-      deleteButton.textContent = 'Delete';
-      deleteButton.className = 'delete';
+      deleteButton.textContent = 'Elimina';
+      deleteButton.className = 'btn btn-danger';
+      deleteButton.id = 'delete'
 
       clipContainer.appendChild(audio);
       soundClips.appendChild(clipContainer);

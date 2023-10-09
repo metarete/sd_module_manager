@@ -26,6 +26,14 @@
 						<option {% if pazienti_per_pagina == 50 %} selected {% endif %} value="50">50</option>
 					</select>
 				</div>
+				<div class="col-md-2">
+					<p class="h6">Presenza Privacy</p>
+					<select class=" d-inline form-select" name='filtro_presenza_privacy' onchange="this.form.submit()">
+						<option {% if presenza_privacy == 'Tutti' %} selected {% endif %} value="Tutti">Tutti</option>
+						<option {% if presenza_privacy == 'Si' %} selected {% endif %} value="Si">Si</option>
+						<option {% if presenza_privacy == 'No' %} selected {% endif %} value="No">No</option>
+					</select>
+				</div>
 			</div>
 		</nav>
 	</form>
@@ -40,6 +48,7 @@
 					<th>Cognome</th>
 					<th>Codice Fiscale</th>
 					<th>SD Manager</th>
+					<th>Acquisizione Privacy</th>
 					<th>Operazioni</th>
 				</tr>
 
@@ -56,6 +65,7 @@
 								<i class="bi bi-link-45deg fs-4"></i>
 							</a>
 						</td>
+						<td data-title='Acquisizione Privacy'><i class='{{filtroSimboloPresenzaPrivacy.filtroPrivacy(paziente)}}' style='{{filtroSimboloPresenzaPrivacy.filtroColoreSimboloPrivacy(paziente)}}'></i></td>
 						<td data-title='Operazioni'>
 							<div class="btn-group" role="group">
 								<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,20 +82,20 @@
 										<li>
 											<a class="dropdown-item" href="{{ path('app_audio_privacy_new', {'id': paziente.id}) }}" type="button" >
 											<i class="bi bi-file-earmark-plus"></i>
-											New Privacy</a>
+											Nuova Acquisizione Privacy</a>
 										</li>
 										{% endif %}
 										{% if paziente.audioPrivacy != null %}
 										<li>
 											<a class="dropdown-item" href="{{ path('app_audio_privacy_edit', {'id': paziente.id}) }}" type="button" >
 											<i class="bi bi-pencil-square"></i>
-											Edit Privacy</a>
+											Modifica Acquisizione Privacy</a>
 										</li>
 										{% endif %}
 										{% if paziente.audioPrivacy != null %}
 										<li>
 											<a class="dropdown-item" href="{{ path('app_audio_privacy_delete', {'id': paziente.id, '_token': csrf_token('delete' ~ paziente.audioPrivacy.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
-											<i class="bi bi-trash3"></i>Elimina Privacy</a>
+											<i class="bi bi-trash3"></i>Elimina Acquisizione Privacy</a>
 										</li>
 										{% endif %}
 									{% endif %}
