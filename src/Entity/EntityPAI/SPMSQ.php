@@ -4,7 +4,6 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Repository\SPMSQRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 

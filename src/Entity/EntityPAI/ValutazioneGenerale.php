@@ -4,7 +4,6 @@ namespace App\Entity\EntityPAI;
 
 use App\Entity\User;
 use App\Entity\Diagnosi;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ValutazioneGeneraleRepository;
 use Doctrine\Common\Collections\ArrayCollection;

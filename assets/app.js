@@ -208,6 +208,7 @@ var xhr = new XMLHttpRequest();
 let arrayBlob = [];
 let arrayElementiDaEliminare = [];
 let indiceElementoArray = 0;
+var newURL = window.location.protocol + "//" + window.location.host
 
 
 let audioCtx;
@@ -253,7 +254,7 @@ if (navigator.mediaDevices.getUserMedia) {
     if(save != null){
       save.onclick = function() {
         
-        xhr.open("POST", 'http://localhost:54001/audio/privacy/salva', true);
+        xhr.open("POST", newURL + '/audio/privacy/salva', true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
         xhr.send(
           JSON.stringify({
@@ -264,7 +265,7 @@ if (navigator.mediaDevices.getUserMedia) {
         xhr.onload = function(e) {
           // Check if the request was a success
           if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-            window.location.replace('http://localhost:54001/admin/paziente');
+            window.location.replace(newURL + '/admin/paziente');
           }
           else{
             window.alert("Errore");
@@ -279,7 +280,7 @@ if (navigator.mediaDevices.getUserMedia) {
     if(edit != null){
       edit.onclick = function () {
         
-        xhr.open("POST", 'http://localhost:54001/audio/privacy/modifica', true);
+        xhr.open("POST", newURL + '/audio/privacy/modifica', true);
         xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
         xhr.send(
           JSON.stringify({
@@ -291,7 +292,7 @@ if (navigator.mediaDevices.getUserMedia) {
         xhr.onload = function(e) {
           // Check if the request was a success
           if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-            window.location.replace('http://localhost:54001/admin/paziente');
+            window.location.replace(newURL + '/admin/paziente');
           }
           else{
             window.alert("Errore");
@@ -367,7 +368,7 @@ if (navigator.mediaDevices.getUserMedia) {
 
       //evento al click del tasto delete per ogni audio
       deleteButton.onclick = function(e) {
-        console.log('inizio delete');
+        console.log('inizio delete');newURL
         delete arrayBlob[e.target.id];
         //arrayBlob.splice(e.target.id, 1); 
         console.log(e.target.id);
