@@ -6,6 +6,7 @@ use App\Entity\AudioPrivacy;
 use App\Entity\Paziente;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/audio/privacy')]
 class AudioPrivacyController extends AbstractController
 {
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
+
     #[Route('/new', name: 'app_audio_privacy_new', methods: ['POST', 'GET'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -24,7 +32,10 @@ class AudioPrivacyController extends AbstractController
         $paziente = $pazienteRepository->findOneBy(['id' => $idPaziente]);
 
         return $this->renderForm('audio_privacy/new.html.twig', [
-            'paziente' => $paziente
+            'paziente' => $paziente,
+            'dataOggi' =>  date("d-m-Y"),
+            'user' => $this->getUser(),
+            'estremiCooperativa' => $this->params->get('app.estremi_cooperativa'),
         ]);
     }
 
@@ -73,6 +84,10 @@ class AudioPrivacyController extends AbstractController
 
         return $this->renderForm('audio_privacy/edit.html.twig', [
             'audio_privacy' => $audioPrivacy,
+            'paziente' => $paziente,
+            'dataOggi' =>  date("d-m-Y"),
+            'user' => $this->getUser(),
+            'estremiCooperativa' => $this->params->get('app.estremi_cooperativa'),
         ]);
     }
 

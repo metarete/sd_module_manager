@@ -5,9 +5,50 @@
 {% block body %}
     <h1>Modifica Acquisizione Privacy</h1>
 
-    <h4> 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </h4>
+    <h4><strong>SCHEMA DI REGISTRAZIONE CONSENSO VOCALE <br>
+    CASO DI PAZIENTE (in grado di intendere, volere ed esprimersi in forma orale)</strong><br></h4>
+    <h5><strong>Operatore:</strong> Inizio della registrazione<br>
+        <strong>Operatore:</strong> Oggi il {{dataOggi}}, qui in <strong class="text-danger">(LUOGO)</strong> Io, {{user.name}} {{user.surname}}, in nome e per conto
+        di {{estremiCooperativa}} raccolgo, in forma di registrazione vocale, il consenso al
+        trattamento dei dati come da informativa consegnata in forma cartacea<br>
+        <strong>Operatore:</strong> Lei è il Sig/Sig.ra {{paziente.nome}} {{paziente.cognome}}<br>
+        <strong>Assistito:</strong> Sì<br>
+        <strong>Operatore:</strong> Nato/a il <strong class="text-danger">(DATA DI NASCITA)</strong> a <strong class="text-danger">(LUOGO DI NASCITA)</strong><br>
+        <strong>Assistito:</strong> Sì<br>
+        <strong>Operatore:</strong> Dichiara di aver ricevuto da parte di {{estremiCooperativa}} copia dell’informativa sul
+        trattamento dei dati personali<br>
+        <strong>Assistito:</strong> Sì<br>
+        <strong>Operatore:</strong> Dichiara di aver preso visione dell’informativa sul trattamento dei dati personali<br>
+        <strong>Operatore:</strong> Dichiara di aver preso visione dell’informativa sul trattamento dei dati personali<br>
+        <strong>Assistito:</strong> Sì<br>
+        <strong>Operatore:</strong> Esprime il suo consenso al trattamento dei suoi dati personali inclusi quelli considerati come categorie
+        particolari ex sensibili per le finalità espresse nell’informativa.<br>
+        <strong>Assistito:</strong> Sì<br>
+        <strong>Operatore:</strong> Fine della registrazione<br></h5>
+        <br>
+    <h4><strong>CASO DI PAZIENTE (non in grado di intendere, volere ed esprimersi in forma orale)</strong><br></h4>
+    <h5><strong>Operatore:</strong> Inizio della registrazione<br>
+        <strong>Operatore:</strong> Oggi il {{dataOggi}}, qui in <strong class="text-danger">(LUOGO)</strong> Io, {{user.name}} {{user.surname}}, in nome e
+        per conto di {{estremiCooperativa}} raccolgo, in forma di registrazione vocale,
+        il consenso al trattamento dei dati come da informativa consegnata in forma cartacea<br>
+        <strong>Operatore:</strong> Lei è il Sig/Sig.ra <strong class="text-danger">(NOME E COGNOME DEL TUTORE LEGALE O CAREGIVER)</strong><br>
+        <strong>Tutore o Caregiver:</strong> Sì<br>
+        <strong>Operatore:</strong> Nato/a il <strong class="text-danger">(DATA DI NASCITA)</strong> a <strong class="text-danger">(LUOGO DI NASCITA)</strong><br>
+        <strong>Tutore o Caregiver:</strong> Sì<br>
+        <strong>Operatore:</strong> Dichiara di rappresentare il/la Sig/Sig.ra {{paziente.nome}} {{paziente.cognome}} <strong class="text-danger">(– DATA E LUOGO DI NASCITA DELL’ASSISTITO)</strong> ed a ciò espressamente autorizzato<br>
+        <strong>Tutore o Caregiver:</strong> Sì<br>
+        <strong>Operatore:</strong> Dichiara di aver ricevuto da parte di {{estremiCooperativa}} copia
+        dell’informativa sul trattamento dei dati personali del Sig/Sig.ra {{paziente.nome}} {{paziente.cognome}}<br>
+        <strong>Tutore o Caregiver:</strong> Sì<br>
+        <strong>Operatore:</strong> Dichiara di aver preso visione dell’informativa sul trattamento dei dati personali del Sig/Sig.ra
+        {{paziente.nome}} {{paziente.cognome}}<br>
+        <strong>Tutore o Caregiver:</strong> Sì<br>
+        <strong>Operatore:</strong> Esprime il consenso al trattamento dei dati personali inclusi quelli considerati come categorie
+        particolari ex sensibili per le finalità espresse nell’informativa in nome e per conto del
+        Sig/Sig.ra {{paziente.nome}} {{paziente.cognome}}<br>
+        <strong>Tutore o Caregiver:</strong> Sì<br>
+        <strong>Operatore:</strong> Fine della registrazione<br></h5>
+        <br>
 
     <section class="main-controls">
         <canvas class="visualizer" height="60px" width="1000"></canvas>
