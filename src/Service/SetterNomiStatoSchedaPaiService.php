@@ -14,6 +14,7 @@ class SetterNomiStatoSchedaPaiService
     const BLUE = 'bg-blue';
     const DANGER = 'bg-danger';
     const ORANGE= 'bg-orange';
+    const DARKRED= 'bg-darkred';
     
     public function settaNomeStato(SchedaPAI $schedaPai ) :string
     {
@@ -34,6 +35,8 @@ class SetterNomiStatoSchedaPaiService
             $nomeStato = 'Chiusa';
         elseif ($schedaPai->getCurrentPlace() == 'chiusa_con_rinnovo')
             $nomeStato = 'Chiusa Con rinnovo';
+        elseif ($schedaPai->getCurrentPlace() == 'chiusura_forzata')
+            $nomeStato = 'Chiusura Forzata';
         else
             $nomeStato = 'Nessuno';
 
@@ -60,6 +63,8 @@ class SetterNomiStatoSchedaPaiService
             $coloreBadge = self::DANGER;
         elseif ($schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo') 
             $coloreBadge = self::ORANGE;
+        elseif ($schedaPAI->getCurrentPlace() == 'chiusura_forzata') 
+            $coloreBadge = self::DARKRED;
         else
             $coloreBadge = self::DANGER;
 

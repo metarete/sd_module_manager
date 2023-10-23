@@ -335,6 +335,7 @@ class SchedaPAIController extends AbstractController
             'painads' => $schedaPAI->getIdPainad(),
             'cdrs' => $schedaPAI->getCdrs(),
             'chiusura_servizio' => $schedaPAI->getIdChiusuraServizio(),
+            'chiusura_forzata' => $schedaPAI->getIdChiusuraForzata(),
             'assistito' => $schedaPAI->getAssistito(),
             'assistiti' => $assistitiRepository->findAll(),
             'altra_tipologia_assistenza' => $this->altraTipologiaAssistenzaService->getAltreTipologieAssistenza($schedaPAI->getIdValutazioneGenerale()),

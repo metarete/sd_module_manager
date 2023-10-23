@@ -18,6 +18,7 @@ class FiltroDropdownScadenzario extends AbstractExtension
             new TwigFilter('filtroDelete', [$this, 'filtroDelete']),
             new TwigFilter('filtroChiudi', [$this, 'filtroChiudi']),
             new TwigFilter('filtroChiudiConRinnovo', [$this, 'filtroChiudiConRinnovo']),
+            new TwigFilter('filtroChiusuraForzata', [$this, 'filtroChiusuraForzata']),
             new TwigFilter('filtroRinnova', [$this, 'filtroRinnova']),
             new TwigFilter('filtroTornaAlVerifica', [$this, 'filtroTornaAlVerifica']),
             new TwigFilter('filtroValutazioneGenerale', [$this, 'filtroValutazioneGenerale']),
@@ -67,6 +68,13 @@ class FiltroDropdownScadenzario extends AbstractExtension
     {
         $setterDropdownScadenzarioService = new SetterDropdownScadenzarioService;
         $style = $setterDropdownScadenzarioService->chiudiConRinnovo($schedaPAI, $user);
+        return $style;
+    }
+
+    public function filtroChiusuraForzata(SchedaPAI $schedaPAI, User $user):string
+    {
+        $setterDropdownScadenzarioService = new SetterDropdownScadenzarioService;
+        $style = $setterDropdownScadenzarioService->chiudiForzatamente($schedaPAI, $user);
         return $style;
     }
 

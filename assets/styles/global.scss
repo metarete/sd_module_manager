@@ -6,6 +6,7 @@ $brown: #8B4513;
 $blue: #1E90FF;
 $orange: #fd7e14;
 $grey: #747273;
+$darkred: #8B0000;
 
 
 // the ~ allows you to reference things in node_modules
@@ -318,6 +319,10 @@ body #scheda_pai table tr td {
 
     .badge.bg-blue {
         background-color: $blue;
+    }
+
+    .badge.bg-darkred {
+        background-color: $darkred;
     }
 
     &.text-grey {

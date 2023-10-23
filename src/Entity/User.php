@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\EntityPAI\Barthel;
 use App\Entity\EntityPAI\Braden;
 use App\Entity\EntityPAI\Cdr;
+use App\Entity\EntityPAI\ChiusuraForzata;
 use App\Entity\EntityPAI\ChiusuraServizio;
 use App\Entity\EntityPAI\Lesioni;
 use App\Entity\EntityPAI\Painad;
@@ -91,6 +92,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'autoreChiusuraServizio', targetEntity: ChiusuraServizio::class, cascade:['persist'])]
     private $idChiusuraServizio;
+
+    #[ORM\OneToMany(mappedBy: 'autoreChiusuraForzata', targetEntity: ChiusuraForzata::class, cascade:['persist'])]
+    private $idChiusuraForzata;
 
     #[ORM\OneToMany(mappedBy: 'autoreLesioni', targetEntity: Lesioni::class, cascade:['persist'])]
     private $idLesioni;
@@ -501,6 +505,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->idChiusuraServizio->contains($idChiusuraServizio)) {
             $this->idChiusuraServizio[] = $idChiusuraServizio;
+            
+        }
+
+        return $this;
+    }
+
+      /**
+     * @return Collection<int, ChiusuraForzata>
+     */
+    public function getIdChiusuraForzata(): Collection
+    {
+        return $this->idChiusuraForzata;
+    }
+
+    public function addIdChiusuraForzata(ChiusuraForzata $idChiusuraForzata): self
+    {
+        if (!$this->idChiusuraForzata->contains($idChiusuraForzata)) {
+            $this->idChiusuraForzata[] = $idChiusuraForzata;
             
         }
 

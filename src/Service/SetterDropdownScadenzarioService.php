@@ -47,7 +47,7 @@ class SetterDropdownScadenzarioService
         $style = null;
 
         if (in_array("ROLE_ADMIN", $user->getRoles())) {
-            if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo')
+            if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo'||$schedaPAI->getCurrentPlace() == 'chiusura_forzata')
                 $style = 'display:none';
             else
                 $style = '';
@@ -57,7 +57,7 @@ class SetterDropdownScadenzarioService
             }
             else{
                 if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                    if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo' )
+                    if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura_con_rinnovo'|| $schedaPAI->getCurrentPlace() == 'chiusura_forzata' )
                         $style = 'display:none';
                     else
                         $style = '';
@@ -75,7 +75,7 @@ class SetterDropdownScadenzarioService
         $style = null;
 
         if (in_array("ROLE_ADMIN", $user->getRoles())) {
-            if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura')
+            if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'|| $schedaPAI->getCurrentPlace() == 'chiusura_forzata')
                 $style = 'display:none';
             else
                 $style = '';
@@ -85,7 +85,7 @@ class SetterDropdownScadenzarioService
             }
             else{
                 if ($user->getUsername() == $schedaPAI->getIdOperatorePrincipale()->getUsername()){
-                    if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura')
+                    if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'attiva' || $schedaPAI->getCurrentPlace() == 'verifica' || $schedaPAI->getCurrentPlace() == 'in_attesa_di_chiusura'|| $schedaPAI->getCurrentPlace() == 'chiusura_forzata')
                         $style = 'display:none';
                     else
                         $style = '';
@@ -94,6 +94,21 @@ class SetterDropdownScadenzarioService
                     $style = 'display:none';
                 }
             }
+        }
+        return $style;  
+    }
+
+    public function chiudiForzatamente(SchedaPAI $schedaPAI, User $user):string
+    {
+        $style = null;
+
+        if (in_array("ROLE_ADMIN", $user->getRoles())) {
+            if ($schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'chiusura_forzata')
+                $style = 'display:none';
+            else
+                $style = '';
+        }else{
+            $style = 'display:none';
         }
         return $style;  
     }
@@ -228,7 +243,7 @@ class SetterDropdownScadenzarioService
             $style = 'display:none';
         }
         else{
-            if ($schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' ){
+            if ($schedaPAI->getCurrentPlace() == 'nuova' || $schedaPAI->getCurrentPlace() == 'approvata' || $schedaPAI->getCurrentPlace() == 'chiusa' || $schedaPAI->getCurrentPlace() == 'chiusa_con_rinnovo' || $schedaPAI->getCurrentPlace() == 'chiusura_forzata'){
                 $style = 'display:none';
             }
             else{

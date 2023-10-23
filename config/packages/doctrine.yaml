@@ -13,6 +13,7 @@ doctrine:
             ISS: App\Doctrine\DBAL\Type\ISS
             Autonomia: App\Doctrine\DBAL\Type\Autonomia
             Disturbi: App\Doctrine\DBAL\Type\Disturbi
+            MotivazioneChiusuraForzata: App\Doctrine\DBAL\Type\MotivazioneChiusuraForzata
         connections:
             default:
                 url: '%env(resolve:DATABASE_URL)%'

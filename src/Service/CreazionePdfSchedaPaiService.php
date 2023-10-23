@@ -108,6 +108,7 @@ class CreazionePdfSchedaPaiService extends AbstractController
             'painads' => $schedaPAI->getIdPainad(),
             'cdrs' => $schedaPAI->getCdrs(),
             'chiusura_servizio' => $schedaPAI->getIdChiusuraServizio(),
+            'chiusura_forzata' => $schedaPAI->getIdChiusuraForzata(),
             'assistito' => $schedaPAI->getAssistito(),
             'altra_tipologia_assistenza' => $this->altraTipologiaAssistenzaService->getAltreTipologieAssistenza($schedaPAI->getIdValutazioneGenerale()),
             'bisogni' => $this->bisogniService->getBisogni($schedaPAI->getIdValutazioneGenerale()),

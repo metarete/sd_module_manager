@@ -76,6 +76,10 @@ class SchedaPAI
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private $idChiusuraServizio;
 
+    #[ORM\OneToOne(targetEntity: ChiusuraForzata::class, inversedBy: 'schedaPAI', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private $idChiusuraForzata;
+
     #[ORM\OneToMany(mappedBy: 'schedaPAI', targetEntity: Barthel::class, cascade: ['persist', 'remove'])]
     private $idBarthel;
 
@@ -505,6 +509,18 @@ class SchedaPAI
     public function setIdChiusuraServizio(?ChiusuraServizio $idChiusuraServizio): self
     {
         $this->idChiusuraServizio = $idChiusuraServizio;
+
+        return $this;
+    }
+
+    public function getIdChiusuraForzata(): ?ChiusuraForzata
+    {
+        return $this->idChiusuraForzata;
+    }
+
+    public function setIdChiusuraForzata(?ChiusuraForzata $idChiusuraForzata): self
+    {
+        $this->idChiusuraForzata = $idChiusuraForzata;
 
         return $this;
     }

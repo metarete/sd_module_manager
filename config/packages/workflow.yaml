@@ -20,6 +20,7 @@ framework:
                 in_attesa_di_chiusura_con_rinnovo: ~
                 chiusa: ~
                 chiusa_con_rinnovo: ~
+                chiusura_forzata: ~
             transitions:
                 approva:
                     from: nuova
@@ -60,4 +61,21 @@ framework:
                 attiva_per_cambio_dati3:
                     from: verifica
                     to: attiva
-                
+                chiusura_forzata1:
+                    from: nuova
+                    to: chiusura_forzata
+                chiusura_forzata2:
+                    from: approvata
+                    to: chiusura_forzata
+                chiusura_forzata3:
+                    from: attiva
+                    to: chiusura_forzata
+                chiusura_forzata4:
+                    from: verifica
+                    to: chiusura_forzata
+                chiusura_forzata5:
+                    from: in_attesa_di_chiusura
+                    to: chiusura_forzata
+                chiusura_forzata6:
+                    from: in_attesa_di_chiusura_con_rinnovo
+                    to: chiusura_forzata

@@ -258,6 +258,13 @@
 					{{ include('campi_pdf/campi_chiusura_servizio_pdf.html.twig') }}
 			{% endif %}
 
+			{% if chiusura_forzata is empty %}
+
+				{% else %}
+					<h3>Chiusura Forzata</h3>
+					{{ include('campi_pdf/campi_chiusura_forzata_pdf.html.twig') }}
+			{% endif %}
+
 		{% endblock %}
 	</body>
 </html>
