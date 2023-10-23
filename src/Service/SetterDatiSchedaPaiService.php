@@ -147,6 +147,43 @@ Class SetterDatiSchedaPaiService
                 $schedaPAI->setNumeroCdrCorretto($numeroCdrCorretto);
             }
         }
+
+        // reset valori ritardi in caso di chiusura forzata
+
+        if($schedaPAI->getCurrentPlace() == "chiusura_forzata"){
+            if($schedaPAI->isAbilitaBarthel()== true){
+                $numeroBarthelCorretto = $schedaPAI->getBarthelNumberToday();
+                $schedaPAI->setNumeroBarthelCorretto($numeroBarthelCorretto);
+            }
+            if($schedaPAI->isAbilitaBraden()== true){
+                $numeroBradenCorretto = $schedaPAI->getBradenNumberToday();
+                $schedaPAI->setNumeroBradenCorretto($numeroBradenCorretto);
+            }
+            if($schedaPAI->isAbilitaSpmsq()== true){
+                $numeroSpmsqCorretto = $schedaPAI->getSpmsqNumberToday();
+                $schedaPAI->setNumeroSpmsqCorretto($numeroSpmsqCorretto);
+            }
+            if($schedaPAI->isAbilitaTinetti()== true){
+                $numeroTinettiCorretto = $schedaPAI->getTinettiNumberToday();
+                $schedaPAI->setNumeroTinettiCorretto($numeroTinettiCorretto);
+            }
+            if($schedaPAI->isAbilitaVas()== true){
+                $numeroVasCorretto = $schedaPAI->getVasNumberToday();
+                $schedaPAI->setNumeroVasCorretto($numeroVasCorretto);
+            }
+            if($schedaPAI->isAbilitaLesioni()== true){
+                $numeroLesioniCorretto = $schedaPAI->getLesioniNumberToday();
+                $schedaPAI->setNumeroLesioniCorretto($numeroLesioniCorretto);
+            }
+            if($schedaPAI->isAbilitaPainad()== true){
+                $numeroPainadCorretto = $schedaPAI->getPainadNumberToday();
+                $schedaPAI->setNumeroPainadCorretto($numeroPainadCorretto);
+            }
+            if($schedaPAI->isAbilitaCdr()== true){
+                $numeroCdrCorretto = $schedaPAI->getCdrNumberToday();
+                $schedaPAI->setNumeroCdrCorretto($numeroCdrCorretto);
+            }
+        }
     }
 
 }

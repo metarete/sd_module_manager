@@ -9,6 +9,7 @@ class SetterRitardiSchedaPaiService
     const GREY = 'text-grey';
     const SUCCES = 'text-success';
     const DANGER = 'text-danger';
+    const WARNING = 'text-warning';
 
     public function settaColoriBarthel(SchedaPAI $schedaPAI):string
     {
@@ -16,6 +17,9 @@ class SetterRitardiSchedaPaiService
 
         if($schedaPAI->isAbilitaBarthel() == false){
             $colore = self::GREY;
+        }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
         }
         elseif($schedaPAI->getBarthelNumberToday()< $schedaPAI->getCorrectBarthelNumberToday()){
             $colore = self::DANGER;
@@ -34,6 +38,9 @@ class SetterRitardiSchedaPaiService
         if($schedaPAI->isAbilitaBraden() == false){
             $colore = self::GREY;
         }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
+        }
         elseif($schedaPAI->getBradenNumberToday()< $schedaPAI->getCorrectBradenNumberToday()){
             $colore = self::DANGER;
         }
@@ -50,6 +57,9 @@ class SetterRitardiSchedaPaiService
 
         if($schedaPAI->isAbilitaSpmsq() == false){
             $colore = self::GREY;
+        }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
         }
         elseif($schedaPAI->getSpmsqNumberToday()< $schedaPAI->getCorrectSpmsqNumberToday()){
             $colore = self::DANGER;
@@ -68,6 +78,9 @@ class SetterRitardiSchedaPaiService
         if($schedaPAI->isAbilitaTinetti() == false){
             $colore = self::GREY;
         }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
+        }
         elseif($schedaPAI->getTinettiNumberToday()< $schedaPAI->getCorrectTinettiNumberToday()){
             $colore = self::DANGER;
         }
@@ -84,6 +97,9 @@ class SetterRitardiSchedaPaiService
 
         if($schedaPAI->isAbilitaVas() == false){
             $colore = self::GREY;
+        }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
         }
         elseif($schedaPAI->getVasNumberToday()< $schedaPAI->getCorrectVasNumberToday()){
             $colore = self::DANGER;
@@ -102,6 +118,9 @@ class SetterRitardiSchedaPaiService
         if($schedaPAI->isAbilitaLesioni() == false){
             $colore = self::GREY;
         }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
+        }
         elseif($schedaPAI->getLesioniNumberToday()< $schedaPAI->getCorrectLesioniNumberToday()){
             $colore = self::DANGER;
         }
@@ -119,6 +138,9 @@ class SetterRitardiSchedaPaiService
         if($schedaPAI->isAbilitaPainad() == false){
             $colore = self::GREY;
         }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
+        }
         elseif($schedaPAI->getPainadNumberToday()< $schedaPAI->getCorrectPainadNumberToday()){
             $colore = self::DANGER;
         }
@@ -135,6 +157,9 @@ class SetterRitardiSchedaPaiService
 
         if($schedaPAI->isAbilitaCdr() == false){
             $colore = self::GREY;
+        }
+        elseif($schedaPAI->getCurrentPlace()=="chiusura_forzata"){
+            $colore = self::WARNING;
         }
         elseif($schedaPAI->getCdrNumberToday()< $schedaPAI->getCorrectCdrNumberToday()){
             $colore = self::DANGER;

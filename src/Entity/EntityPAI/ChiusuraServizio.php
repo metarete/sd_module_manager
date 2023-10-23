@@ -25,6 +25,10 @@ class ChiusuraServizio
     #[Assert\Type(\DateTime::class)]
     private $dataValutazione;
 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    private ?string $motivazioneChiusura;
+
     #[ORM\OneToOne(targetEntity: SchedaPAI::class, mappedBy: 'idChiusuraServizio',  cascade: ['persist'])]
     private $schedaPAI;
 
@@ -56,6 +60,18 @@ class ChiusuraServizio
     public function setDataValutazione(\DateTimeInterface $dataValutazione): self
     {
         $this->dataValutazione = $dataValutazione;
+
+        return $this;
+    }
+
+    public function getMotivazioneChiusura(): ?string
+    {
+        return $this->motivazioneChiusura;
+    }
+
+    public function setMotivazioneChiusura(?string $motivazioneChiusura): self
+    {
+        $this->motivazioneChiusura = $motivazioneChiusura;
 
         return $this;
     }
