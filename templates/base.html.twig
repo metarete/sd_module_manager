@@ -101,7 +101,6 @@
 														<a href="{{ path('app_scheda_pai_sincronizza') }}" class="nav-link text-white" style="margin:20px;" id="spinner">Sincronizza</a>
 														<a class="nav-link active" aria-current="page" href="{{ path('app_bacheca') }}" style="margin:20px;">Bacheca</a>
 														<a class="nav-link active" aria-current="page" href="{{ path('app_scheda_pai_index') }}" style="margin:20px;">Schede Pai</a>
-														<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
 														<a class="nav-link active" aria-current="page" href="{{ path('app_user_index') }}" style="margin:20px;">Operatori</a>
 														<a class="nav-link active" aria-current="page" href="{{ path('app_obiettivi_index') }}" style="margin:20px;">Obiettivi</a>
 														<a class="nav-link active" aria-current="page" href="{{ path('app_diagnosi_index') }}" style="margin:20px;">Diagnosi</a>
@@ -122,6 +121,9 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link active" aria-current="page" href="{{ path('app_scadenzario_index') }}" style="margin:20px;">Scadenzario</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="{{ path('app_paziente_index') }}" style="margin:20px;">Pazienti</a>
 								</li>
 								{% if is_granted('IS_IMPERSONATOR') %}
 									<li class="nav-item">

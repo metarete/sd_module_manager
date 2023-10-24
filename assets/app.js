@@ -265,7 +265,7 @@ if (navigator.mediaDevices.getUserMedia) {
         xhr.onload = function(e) {
           // Check if the request was a success
           if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-            window.location.replace(newURL + '/admin/paziente');
+            window.location.replace(newURL + '/paziente');
           }
           else{
             window.alert("Errore");
@@ -292,7 +292,7 @@ if (navigator.mediaDevices.getUserMedia) {
         xhr.onload = function(e) {
           // Check if the request was a success
           if (this.readyState === XMLHttpRequest.DONE && this.status === 201) {
-            window.location.replace(newURL + '/admin/paziente');
+            window.location.replace(newURL + '/paziente');
           }
           else{
             window.alert("Errore");

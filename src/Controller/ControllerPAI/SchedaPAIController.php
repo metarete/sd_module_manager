@@ -499,6 +499,9 @@ class SchedaPAIController extends AbstractController
             return $this->redirectToRoute('app_scheda_pai_index', ['page' => $request->query->get('page')], Response::HTTP_SEE_OTHER);
         }
 
+        //elimino gli assistiti non assegnati ad alcun progetto per la privacy
+        $this->SdManagerClientApiService->rimozioneAssistitiNonAssegnati();
+
         //libera la cache per recuperare dalla findby i nuovi dati
         $this->entityManager->clear();
         //ricalcolo del verifica dopo gli eventuali cambiamenti di data dei progetti

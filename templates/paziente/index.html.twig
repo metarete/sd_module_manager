@@ -85,14 +85,14 @@
 											Nuova Acquisizione Privacy</a>
 										</li>
 										{% endif %}
-										{% if paziente.audioPrivacy != null %}
+										{% if paziente.audioPrivacy != null and "ROLE_ADMIN" in app.user.roles %}
 										<li>
 											<a class="dropdown-item" href="{{ path('app_audio_privacy_edit', {'id': paziente.id}) }}" type="button" >
 											<i class="bi bi-pencil-square"></i>
 											Modifica Acquisizione Privacy</a>
 										</li>
 										{% endif %}
-										{% if paziente.audioPrivacy != null %}
+										{% if paziente.audioPrivacy != null and "ROLE_ADMIN" in app.user.roles %}
 										<li>
 											<a class="dropdown-item" href="{{ path('app_audio_privacy_delete', {'id': paziente.id, '_token': csrf_token('delete' ~ paziente.audioPrivacy.id)}) }}" onclick="return confirm('Sei sicuro di voler cancellare questa scheda?');">
 											<i class="bi bi-trash3"></i>Elimina Acquisizione Privacy</a>

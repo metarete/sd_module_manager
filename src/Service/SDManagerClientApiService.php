@@ -298,4 +298,17 @@ class SDManagerClientApiService
             }
         }
     }
+
+    //elimino gli assistiti non assegnati ad alcun progetto per la privacy
+
+    public function rimozioneAssistitiNonAssegnati()
+    {
+        $assistitiRepository = $this->entityManager->getRepository(Paziente::class);
+        $assistiti = $assistitiRepository->findAll();
+        for($i=0; $i<count($assistiti);$i++){
+            if($assistiti[$i]->getSchedaPAIs()->isEmpty()){
+                $assistitiRepository->remove($assistiti[$i], true);
+            }
+        }
+    }
 }

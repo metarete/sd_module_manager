@@ -103,5 +103,6 @@ Dovranno essere attivati i seguenti comandi a cron:
 * app:scarica-assistiti: invoca le API di SD Manager per scaricare/aggiornare la lista degli Assistiti
 * app:scarica-operatori: invoca le API di SD Manager per scaricare/aggiornare la lista degli Operatori
 * app:scarica-progetti: invoca le API di SD Manager per scaricare/aggiornare la lista dei Progetti (con il flag "Richiese Scheda PAI" attivo)
+* app:rimuovi-assistiti: rimuove gli assistiti scaricati da SD Manager non assegnati ad alcun progetto per motivi di privacy
 * app:email: invia la mail di riepilogo giornaliera con le attività richieste da ciascun tipo di Operatore
 * app:verifica: controlla se i progetti scadono tra 7 giorni e li setta nello stato verifica

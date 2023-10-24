@@ -225,14 +225,17 @@ class SchedaPAIRepository extends ServiceEntityRepository
         $expr = $queryBuilder->expr();
         $chiusa = 'chiusa';
         $chiusaRinnovo = 'chiusa_con_rinnovo';
+        $chiusuraForzata = 'chiusura_forzata';
 
         $query = $queryBuilder
             ->Where('s.idOperatorePrincipale = :id')
             ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
             ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+            ->andWhere($expr->neq('s.currentPlace', ':chiusuraForzata'))
             ->setParameter('id', $idUser)
             ->setParameter('chiusa', $chiusa)
-            ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+            ->setParameter('chiusaRinnovo', $chiusaRinnovo)
+            ->setParameter('chiusuraForzata', $chiusuraForzata);
         return $query->getQuery()
             ->getResult();
     }
@@ -243,15 +246,18 @@ class SchedaPAIRepository extends ServiceEntityRepository
         $expr = $queryBuilder->expr();
         $chiusa = 'chiusa';
         $chiusaRinnovo = 'chiusa_con_rinnovo';
+        $chiusuraForzata = 'chiusura_forzata';
 
         $query = $queryBuilder
             ->innerJoin('s.idOperatoreSecondarioInf', 's1')
             ->Where('s1.id = :id')
             ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
             ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+            ->andWhere($expr->neq('s.currentPlace', ':chiusuraForzata'))
             ->setParameter('id', $idUser)
             ->setParameter('chiusa', $chiusa)
-            ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+            ->setParameter('chiusaRinnovo', $chiusaRinnovo)
+            ->setParameter('chiusuraForzata', $chiusuraForzata);
         return $query->getQuery()
             ->getResult();
     }
@@ -262,15 +268,18 @@ class SchedaPAIRepository extends ServiceEntityRepository
         $expr = $queryBuilder->expr();
         $chiusa = 'chiusa';
         $chiusaRinnovo = 'chiusa_con_rinnovo';
+        $chiusuraForzata = 'chiusura_forzata';
 
         $query = $queryBuilder
             ->innerJoin('s.idOperatoreSecondarioTdr', 's1')
             ->Where('s1.id = :id')
             ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
             ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+            ->andWhere($expr->neq('s.currentPlace', ':chiusuraForzata'))
             ->setParameter('id', $idUser)
             ->setParameter('chiusa', $chiusa)
-            ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+            ->setParameter('chiusaRinnovo', $chiusaRinnovo)
+            ->setParameter('chiusuraForzata', $chiusuraForzata);
         return $query->getQuery()
             ->getResult();
     }
@@ -281,15 +290,18 @@ class SchedaPAIRepository extends ServiceEntityRepository
         $expr = $queryBuilder->expr();
         $chiusa = 'chiusa';
         $chiusaRinnovo = 'chiusa_con_rinnovo';
+        $chiusuraForzata = 'chiusura_forzata';
 
         $query = $queryBuilder
             ->innerJoin('s.idOperatoreSecondarioLog', 's1')
             ->Where('s1.id = :id')
             ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
             ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+            ->andWhere($expr->neq('s.currentPlace', ':chiusuraForzata'))
             ->setParameter('id', $idUser)
             ->setParameter('chiusa', $chiusa)
-            ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+            ->setParameter('chiusaRinnovo', $chiusaRinnovo)
+            ->setParameter('chiusuraForzata', $chiusuraForzata);
         return $query->getQuery()
             ->getResult();
     }
@@ -300,15 +312,18 @@ class SchedaPAIRepository extends ServiceEntityRepository
         $expr = $queryBuilder->expr();
         $chiusa = 'chiusa';
         $chiusaRinnovo = 'chiusa_con_rinnovo';
+        $chiusuraForzata = 'chiusura_forzata';
 
         $query = $queryBuilder
             ->innerJoin('s.idOperatoreSecondarioAsa', 's1')
             ->Where('s1.id = :id')
             ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
             ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+            ->andWhere($expr->neq('s.currentPlace', ':chiusuraForzata'))
             ->setParameter('id', $idUser)
             ->setParameter('chiusa', $chiusa)
-            ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+            ->setParameter('chiusaRinnovo', $chiusaRinnovo)
+            ->setParameter('chiusuraForzata', $chiusuraForzata);
         return $query->getQuery()
             ->getResult();
     }
@@ -319,15 +334,18 @@ class SchedaPAIRepository extends ServiceEntityRepository
         $expr = $queryBuilder->expr();
         $chiusa = 'chiusa';
         $chiusaRinnovo = 'chiusa_con_rinnovo';
+        $chiusuraForzata = 'chiusura_forzata';
 
         $query = $queryBuilder
             ->innerJoin('s.idOperatoreSecondarioOss', 's1')
             ->Where('s1.id = :id')
             ->andWhere($expr->neq('s.currentPlace', ':chiusa'))
             ->andWhere($expr->neq('s.currentPlace', ':chiusaRinnovo'))
+            ->andWhere($expr->neq('s.currentPlace', ':chiusuraForzata'))
             ->setParameter('id', $idUser)
             ->setParameter('chiusa', $chiusa)
-            ->setParameter('chiusaRinnovo', $chiusaRinnovo);
+            ->setParameter('chiusaRinnovo', $chiusaRinnovo)
+            ->setParameter('chiusuraForzata', $chiusuraForzata);
         return $query->getQuery()
             ->getResult();
     }

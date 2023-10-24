@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/paziente')]
+#[Route('/paziente')]
 class PazienteController extends AbstractController
 {
     private $params;
